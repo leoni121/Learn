@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AES加密</title>
+    <style>
+        .wrap {
+            text-align: center;
+        }
+        button {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <label for="password"></label>
+    <input type="password" id="password" name="password" placeholder="请输入密码">
+    <button>加密</button>
+    <input type="text" id="jiamihou">
+</div>
+</body>
+<script>
+    function encryptionRequest () {
+        var self = this;
+        self.onclick = null;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/encryption?data=' + document.querySelector("#password").value, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.status == 200) {
+                if (xhr.readyState === 4) {
+                    self.onclick = encryptionRequest;
+                    console.log(xhr.responseText);
+                    document.querySelector("#jiamihou").value = xhr.responseText;
+                }
+            }else {
+                self.onclick = encryptionRequest;
+            }
+        }
+        xhr.send();
+    }
+
+
+    document.querySelector("button").onclick = encryptionRequest;
+</script>
+</html>

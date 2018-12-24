@@ -1,0 +1,94 @@
+1. Butoon 默认样式清除
+	border: none;
+	background-color: transparent;
+	outline: none;
+	
+2. input placeholder
+	input::-webkit-input-placeholder /* WebKit browsers */ -- chrome safari
+	input:-moz-placeholder 			 /* Mozilla Firefox 4 to 18 */ 
+	input::-moz-placeholder 		 /* Mozilla Firefox 19+ */ 
+	input:-ms-input-placeholder 	 /* Internet Explorer 10+ */  
+	<额外> -o-  Opaera早期浏览器
+	
+3. input 自动填充背景样式改变
+	input:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0 1000px #fbfbf8 inset;
+	}
+
+4. html禁止自动填充input表单
+	1.同域名网站选择了记住账号密码。chrome浏览器会对账号密码进行自动填充功能，虽然这功能给我们提供了很多方便，但是也带来了些困扰。
+	<input type="text" name="password" onfocus="this.type='password'" />
+	2.autocomplete属性规定表单是否应该启用自动完成功能。自动完成允许浏览器预测对字段的输入。当用户在字段开始键入时，浏览器基于之前键入过的值，应该显示出在字段中填写的选项。
+	  autocomplete  off  on
+	
+	3. input标签中autocomplete="off"失效,是因为密码输入框 input type=“password”造成的
+	
+5. Input 默认样式清除
+	outline: none;
+    border:none;
+	background-color : transparent;
+	
+	
+6. serialize  序列化表单的数据 name=nzq&nzq=wx
+
+
+7. input type="file"
+	$file.files[0].name   $file.files[0].lastmodefiDate
+	获取文件对象 e.target.files[0]  该数组只有一个元素
+	e.target.value  ($("dd").val)  是文件路径
+	
+8. select onchange value对应于option的value或者标签中的值 disable  multiple 
+
+9. select value(多选是数组)
+	option 可以常规设置
+	看官网（w3c）
+	默认样式设置（https://blog.csdn.net/nuanxiasuiyuan/article/details/75663521）
+	
+10. checkbox
+	.post-items .post-item input[type="checkbox"] {
+    width: 0;
+    height: 0;
+    display: none;
+	}
+	.post-items .post-item input[type="checkbox"] + label::before {
+		content: "\a0";  /*不换行空格*/
+		display: inline-block;
+		width: 18px;
+		height: 18px;
+		border-radius: .2em;
+		border: 1px solid #b4b4b4;
+		font-size: 30px;
+		line-height: 18px;
+	}
+
+	.post-items .post-item input[type="checkbox"]:checked + label::before {
+		content: "\2713";
+	}
+	
+	
+11. table 固定
+	1 table{table-layout: fixed;word-break: break-all; word-wrap: break-word; //表格固定布局}
+	2 .award-name{-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:100%; //超出部分显示省略号}
+	
+12. type="file"
+	.file-box{
+            position: relative;
+            padding: 3px 5px;
+            overflow: hidden;
+            color:#fff;
+            background-color: #ccc;
+            display: inline-block;
+        }
+        .file-btn{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            outline: none;
+            filter:alpha(opacity=0);
+            -moz-opacity:0;
+            -khtml-opacity: 0;
+            opacity: 0;
+            background-color: red;
+        }

@@ -1,0 +1,6 @@
+JSON.parse() 方法用于将一个 JSON 字符串转换为对象。
+
+eval() 可用于将 JSON 文本转换为 JavaScript 对象。var obj = eval ("(" + txt + ")");
+// 比如像是 内部自己定义的。
+
+浏览器不支持本地的  ajax异步请求 ， 可以更改相应设置

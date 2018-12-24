@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="canvas-wrap"></div>
+<script>
+  var picurl = "http://wx.qlogo.cn/mmopen/OicsrgN57fqDxImI3icnMeSXRfVUQRueHcxRRuWG0O1Ea1bNyBPKKKLeq5FiaXFWOdsltVe1R1PtJ2EtsDHYDjHgQ/0";
+  var img = new Image,
+    canvas = document.createElement("canvas"),
+    ctx = canvas.getContext("2d"),
+    //后台nigix代理 参见问题2
+    src = picurl.replace("//wx.qlogo.cn","//wq.jd.com");
+  //解决 canvas 跨域 toDataURL不能读取问题 参见问题1
+  img.crossOrigin = "Anonymous";
+  //图片资源的预加载
+  img.onload = function() {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage( img, 0, 0 );
+    //将画好的base64图片
+    localStorage.setItem( "savedImageData", canvas.toDataURL("image/png") );
+  }
+  img.src = src;
+  console.log(src);
+  document.querySelector(".canvas-wrap").appendChild(canvas);
+</script>
+</body>
+</html>
+<!--
+$.ajax({
+    type: 'POST',
+    url:  loadJs.addToken('http://wq.jd.com/activetmp/promotepic/promoteaddpic', "j132"),
+    data: {
+        filename: new Date().getTime()+''+Math.floor(Math.random()*10000) + '.jpg',
+        content: base64pic,
+        active: "shotpic20160901"
+    },
+    dataType: 'json',
+    xhrFields: { withCredentials: true },
+    success: function(data) {
+                           if (picdata.id == 1 && picdata.msg) {
+                                    //图片路径 此前缀路径的图片最清晰 参见问题4
+                                    var imgPre = 'http://img10.360buyimg.com/promotepic/';
+                                    //图片地址拼接的完整地址链接
+                                    var photo = imgPre + picdata.msg;
+                                    $("#cardImg")[0].onload = function() {
+                                             //to do 业务逻辑
+                                    };
+                                    $("#cardImg").attr("src",photo);
+                           }
+    },
+    error:function(data){
+    }
+});-->

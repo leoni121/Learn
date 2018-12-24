@@ -1,0 +1,8 @@
+1. 四种模块化规范总结：https://www.imooc.com/article/20057
+CommonJs - 同步加载
+（当要用到该模块了，现加载现用同步加载方式不适合在浏览器环境中使用，同步意味着阻塞加载，浏览器资源是异步加载的不能非阻塞的并行加载多个模块） - 服务端    - node.js
+AMD      - 预先加载 - 浏览器    - require.js
+CMD      - 异步加载 - - 浏览器  - sea.js
+ES6      - 规范
+
+2. 说的比较好的：https://segmentfault.com/a/1190000015991869

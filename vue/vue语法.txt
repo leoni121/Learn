@@ -1,0 +1,2 @@
+data的命名规则 https://cn.vuejs.org/v2/api/#data
+注意props -- 单向数据流 https://cn.vuejs.org/v2/guide/components-props.html?

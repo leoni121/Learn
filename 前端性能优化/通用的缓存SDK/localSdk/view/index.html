@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>本地SDK缓存测试</title>
+</head>
+<body>
+<div id="wrap">
+</div>
+<script src="../script/localSdk.js"></script>
+<script>
+    // 当前定义的全局的 变量菊娥可来自服务器
+    // 当前的资源版本
+    const RESOURCEVERSION = '114534324';
+    // 当前是否启动本地的localStorage存储
+    const LOCALSTORAGESIGN = "on";
+    // 当前管理的资源列表
+    const RESOURCELIST = [
+        {
+            id : "101",
+            url :"../script/getName.js",
+            type : 'js'
+        },
+        {
+            id : "102",
+            url : '../script/sayName.js',
+            type : 'js'
+        },
+        {
+            id : "201",
+            url : '../style/index.css',
+            type : 'css'
+        }
+    ]
+
+    localSdk(RESOURCEVERSION, LOCALSTORAGESIGN, RESOURCELIST);
+</script>
+</body>
+</html>

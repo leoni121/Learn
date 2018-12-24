@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <!-- Include external CSS. -->
+  <link href="./froala_editor/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="./froala_editor/codemirror.min.css">
+
+  <!-- Include Editor style. -->
+  <link href="./froala_editor/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+  <link href="./froala_editor/froala_style.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<!-- Create a tag that we will use as the editable area. -->
+<!-- You can use a div tag as well. -->
+<div id="froala-editor">
+  <p>Start typing and you can preview the content of the WYSIWYG HTML editor as you type below the editing box.</p>
+</div>
+<br/>
+<div id="preview" class="fr-view">
+  <p>Start typing and you can preview the content of the WYSIWYG HTML editor as you type below the editing box.</p>
+</div>
+
+<!-- Include external JS libs. -->
+<script type="text/javascript" src="./froala_editor/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="./froala_editor/codemirror.min.js"></script>
+<script type="text/javascript" src="./froala_editor/xml.min.js"></script>
+
+<!-- Include Editor JS files. -->
+<script type="text/javascript" src="./froala_editor/froala_editor.pkgd.min.js"></script>
+
+<!-- Initialize the editor. -->
+<script>
+    $('div#froala-editor').froalaEditor()
+    .on('froalaEditor.contentChanged', function (e, editor) {
+        $('#preview').html(editor.html.get());
+    })
+</script>
+</body>
+</html>

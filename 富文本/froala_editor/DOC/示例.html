@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)https://www.froala.com/wysiwyg-editor/examples/live-content-preview -->
+<html lang="zh-CN" class="translated-ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- Google Tag Manager -->
+  <script type="text/javascript" async="" src="./示例_files/analytics.js.下载"></script><script async="" src="./示例_files/55d90af1a800d149d85982971.js.下载"></script><script async="" src="./示例_files/gtm.js.下载"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=is8VzCaAhUllhI2R1KnjxA&gtm_preview=env-2&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5GTPHC3');</script>
+  <!-- End Google Tag Manager -->
+
+
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0">
+  
+	<meta name="Author" content="Froala">
+
+  <title>实时内容预览|  WYSIWYG HTML编辑器示例|  Froala</title>
+
+  <meta name="description" content="Live Content Preview demo for the Froala Rich Text Editor. Get to know our WYSIWYG HTML editor through examples.">
+
+  <script type="text/javascript" src="./示例_files/analytics.js.下载" async="1"></script><link rel="image_src" href="https://cdn0.froala.com/assets/editor/social-image-82a0f9878f3e54e5356af7c2016419c7.jpg">
+  <link rel="publisher" href="https://plus.google.com/+Froala">
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+// Website Name
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "Froala",
+  "url": "http://www.froala.com"
+}
+</script>
+
+
+<script type="application/ld+json">
+// Organization
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "http://www.froala.com",
+  "logo": "http://www.froala.com/assets/froala.svg",
+  "sameAs": [
+    "https://www.facebook.com/froala/",
+    "https://twitter.com/froala",
+    "https://www.linkedin.com/company/froala",
+    "https://www.pinterest.com/froala/",
+    "https://plus.google.com/+Froala"
+  ],
+  "founders": [
+    {
+      "@type": "Person",
+      "name": "Stefan Neculai"
+    },
+    {
+      "@type": "Person",
+      "name": "Diana Neculai"
+    }
+  ],
+  "foundingDate": "2013-10-15",
+  "owns": [
+  	{
+      "@type": "Product",
+      "name": "Froala WYSIWYG Editor",
+      "url": "http://www.froala.com/wysiwyg-editor",
+      "description": "The best WYSIWYG HTML editor. An impressive javascript rich text editor, with mobile support, solid documentation, many features, and inline editing."
+    },
+    {
+      "@type": "Product",
+      "name": "Froala Design Framework",
+      "url": "http://www.froala.com/design-framework",
+      "description": "A simple and intuitive design framework that allows you to create responsive beautiful designs with minimal coding."
+    },
+    {
+      "@type": "Product",
+      "name": "Froala Design Blocks",
+      "url": "http://www.froala.com/design-blocks",
+      "description": "Design blocks are the building blocks for creating beautiful websites. Open source and free, the Froala Design blocks consists of over 170 blocks based on Bootstrap 4."
+    },
+    {
+      "@type": "Product",
+      "name": "Froala Pages",
+      "url": "http://www.froala.com/pages",
+      "description": "Froala Pages is a fast and easy way to design website pages, a Javascript tool that enables your users to easily create web pages."
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+// Breadcrumbs
+
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http://www.froala.com/wysiwyg-editor",
+          "name": "Wysiwyg editor",
+          "image": "https://cdn0.froala.com/assets/editor/social-image-82a0f9878f3e54e5356af7c2016419c7.jpg"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "http://www.froala.com/wysiwyg-editor/examples",
+          "name": "Examples",
+          "image": "https://cdn0.froala.com/assets/editor/social-image-82a0f9878f3e54e5356af7c2016419c7.jpg"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http://www.froala.com/wysiwyg-editor/examples/live-content-preview",
+          "name": "Live content preview",
+          "image": "https://cdn0.froala.com/assets/editor/social-image-82a0f9878f3e54e5356af7c2016419c7.jpg"
+        }
+      }
+  ]
+}
+</script>
+
+
+
+  <!-- Facebook meta tags -->
+<meta property="og:title" content="Live Content Preview | WYSIWYG HTML Editor Examples | Froala">
+<meta property="og:description" content="Live Content Preview demo for the Froala Rich Text Editor. Get to know our WYSIWYG HTML editor through examples.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://cdn0.froala.com/assets/editor/social-image-82a0f9878f3e54e5356af7c2016419c7.jpg">
+<meta property="og:url" content="https://www.froala.com/wysiwyg-editor/examples/live-content-preview">
+<!-- End Open Graph meta tags -->
+
+  <!-- Twitter meta tags -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:site" content="@froala">
+<meta property="twitter:title" content="Live Content Preview | WYSIWYG HTML Editor Examples | Froala">
+<meta property="twitter:description" content="Live Content Preview demo for the Froala Rich Text Editor. Get to know our WYSIWYG HTML editor through examples.">
+<meta property="twitter:image" content="https://cdn0.froala.com/assets/editor/social-image-82a0f9878f3e54e5356af7c2016419c7.jpg">
+<!-- End Twitter meta tags -->
+  <!-- Dublin Core -->
+<meta property="dc:language" content="en">
+<meta property="dc:source" content="https://www.froala.com/wysiwyg-editor/examples/live-content-preview">
+<meta property="dc:title" content="Live Content Preview | WYSIWYG HTML Editor Examples | Froala">
+<meta property="dc:description" content="Live Content Preview demo for the Froala Rich Text Editor. Get to know our WYSIWYG HTML editor through examples.">
+<meta property="dc:subject" content="Live Content Preview | WYSIWYG HTML Editor Examples | Froala">
+<meta property="dc:coverage" content="World">
+<!-- End Dublin Core -->
+  <!-- mobile enhancements -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Froala">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- End mobile enhancements -->
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+// Website Name
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "Froala",
+  "url": "http://www.froala.com"
+}
+</script>
+
+
+<script type="application/ld+json">
+// Organization
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "http://www.froala.com",
+  "logo": "http://www.froala.com/assets/froala.svg",
+  "sameAs": [
+    "https://www.facebook.com/froala/",
+    "https://twitter.com/froala",
+    "https://www.linkedin.com/company/froala",
+    "https://www.pinterest.com/froala/",
+    "https://plus.google.com/+Froala"
+  ],
+  "founders": [
+    {
+      "@type": "Person",
+      "name": "Stefan Neculai"
+    },
+    {
+      "@type": "Person",
+      "name": "Diana Neculai"
+    }
+  ],
+  "foundingDate": "2013-10-15",
+  "owns": [
+  	{
+      "@type": "Product",
+      "name": "Froala WYSIWYG Editor",
+      "url": "http://www.froala.com/wysiwyg-editor",
+      "description": "The best WYSIWYG HTML editor. An impressive javascript rich text editor, with mobile support, solid documentation, many features, and inline editing."
+    },
+    {
+      "@type": "Product",
+      "name": "Froala Design Framework",
+      "url": "http://www.froala.com/design-framework",
+      "description": "A simple and intuitive design framework that allows you to create responsive beautiful designs with minimal coding."
+    },
+    {
+      "@type": "Product",
+      "name": "Froala Design Blocks",
+      "url": "http://www.froala.com/design-blocks",
+      "description": "Design blocks are the building blocks for creating beautiful websites. Open source and free, the Froala Design blocks consists of over 170 blocks based on Bootstrap 4."
+    },
+    {
+      "@type": "Product",
+      "name": "Froala Pages",
+      "url": "http://www.froala.com/pages",
+      "description": "Froala Pages is a fast and easy way to design website pages, a Javascript tool that enables your users to easily create web pages."
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+// Breadcrumbs
+
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http://www.froala.com/wysiwyg-editor",
+          "name": "Wysiwyg editor",
+          "image": "https://cdn0.froala.com/assets/editor/social-image-82a0f9878f3e54e5356af7c2016419c7.jpg"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "http://www.froala.com/wysiwyg-editor/examples",
+          "name": "Examples",
+          "image": "https://cdn0.froala.com/assets/editor/social-image-82a0f9878f3e54e5356af7c2016419c7.jpg"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http://www.froala.com/wysiwyg-editor/examples/live-content-preview",
+          "name": "Live content preview",
+          "image": "https://cdn0.froala.com/assets/editor/social-image-82a0f9878f3e54e5356af7c2016419c7.jpg"
+        }
+      }
+  ]
+}
+</script>
+
+
+
+  <!-- Facebook app stats -->
+  <meta property="fb:app_id" content="1430497083898757">
+
+  <!-- Fav icons -->
+<link rel="shortcut icon" type="image/x-icon" href="https://cdn0.froala.com/assets/favicons/favicon-196x196-7f002d7581c98b9e689d2f9134a8b9e2.png" sizes="196x196">
+<link rel="shortcut icon" type="image/x-icon" href="https://cdn0.froala.com/assets/favicons/favicon-160x160-1e80408f97cdf1a5348e50bf77cb234c.png" sizes="160x160">
+<link rel="shortcut icon" type="image/x-icon" href="https://cdn0.froala.com/assets/favicons/favicon-96x96-125fc2240550e709d8e0c7329f6289bc.png" sizes="96x96">
+<link rel="shortcut icon" type="image/x-icon" href="https://cdn0.froala.com/assets/favicons/favicon-16x16-91627f6313b6c22b517076a40f4d38d4.png" sizes="16x16">
+<link rel="shortcut icon" type="image/x-icon" href="https://cdn0.froala.com/assets/favicons/favicon-32x32-873a49dcddd301a238a101672e0a3ed9.png" sizes="32x32">
+<!-- End Fav icons -->
+  <!-- Windows 8 icon -->
+<meta name="msapplication-TileColor" content="#b8312f">
+<meta name="msapplication-TileImage" content="/assets/mstile-144x144.png">
+<!-- End Windows 8 icon -->
+  <!-- Apple icons -->
+<link rel="apple-touch-icon" href="https://www.froala.com/assets/touch-icon-iphone.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://www.froala.com/assets/touch-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://www.froala.com/assets/touch-icon-iphone-retina.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://www.froala.com/assets/touch-icon-ipad-retina.png">
+<!-- End Apple icons -->
+
+
+  <link rel="stylesheet" href="./示例_files/font-awesome.min.css">
+  <link href="./示例_files/css" rel="stylesheet">
+
+  <link rel="stylesheet" media="screen" href="./示例_files/codemirror.min.css">
+  <link rel="stylesheet" media="all" href="./示例_files/application-a9c901e46ba118933b740fbde00c8b05.css">
+  <link rel="stylesheet" media="all" href="./示例_files/application-17b323a85e33a9c491d22eb6b8ddc8e0.css">
+  
+
+  <script src="./示例_files/codemirror.min.js.下载"></script>
+  <script src="./示例_files/xml.min.js.下载"></script>
+  <script src="./示例_files/platform.js.下载"></script>
+  <script src="./示例_files/application-f2492ae5692f3e0bc7bab1d4a35f8484.js.下载"></script>
+  <script src="./示例_files/application-5c3959f0fb2baa90add9bd988afebb75.js.下载"></script>
+
+  
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="eh1Rel72pO5aq/Mbu9vH+N0dq6h3VGEJJw7aTbzqNJpfnXkZTfFFv1zBuibRDtKbwZYnEVTb5dB0Eh43aWrGCA==">
+
+  <!-- Start of froala Zendesk Widget script -->
+  <iframe src="javascript:false" title="" style="display: none;" src="./示例_files/saved_resource.html"></iframe><script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="froala.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
+  /*]]>*/</script>
+  <!-- End of froala Zendesk Widget script -->
+
+  <!-- Mailchimp + Google remarketing -->
+    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/e021010a2fce5361b25ee68dd/55d90af1a800d149d85982971.js");</script>
+<script type="text/javascript" defer="" src="./示例_files/editor.js.下载"></script><link type="text/css" rel="stylesheet" charset="UTF-8" href="./示例_files/translateelement.css"><link rel="stylesheet" type="text/css" href="./示例_files/feather_core_minimum.css"><script type="text/javascript" src="./示例_files/feathercontrols_en.js.下载"></script><style type="text/css"></style></head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5GTPHC3"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+
+    <header class="header-1  header-over header-fixed">
+    <nav class="navbar transparent">
+      <div class="container">
+          <button type="button" class="navbar-toggle">
+              <span class="icon-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">菜单</font></font></span>
+              <span class="icon-wrap">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar icon-last"></span>
+              </span>
+          </button>
+
+            <a class="brand pull-left" href="https://www.froala.com/wysiwyg-editor">
+              <img alt="Froala" src="./示例_files/froala-editor-cd5c64986b75be551b9c8c175e97f7b1.svg">
+</a>
+          <div class="navbar-collapse text-center">
+            <ul class="nav navbar-nav navbar-right pull-left">
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right pull-right">
+                  <li><a class="" title="价钱" href="https://www.froala.com/wysiwyg-editor/pricing"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">价钱</font></font></a></li>
+
+                  <li><a class="" title="演示" href="https://www.froala.com/wysiwyg-editor/examples"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">演示</font></font></a></li>
+
+                  <li><a class="" title="文件" href="https://www.froala.com/wysiwyg-editor/docs"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文件</font></font></a></li>
+
+                  <li><a class="" title="支持" target="_blank" rel="nofollow" href="https://wysiwyg-editor.froala.help/hc/en-us"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">支持</font></font></a></li>
+
+                  <li><a class="" title="登录" href="https://www.froala.com/users/sign_in"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登录</font></font></a></li>
+
+                  <li><a class="btn r-btn highlight shadow-level-1" title="下载" href="https://www.froala.com/wysiwyg-editor/download"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下载</font></font></a></li>
+
+            </ul>
+
+            <button class="dismiss-navbar"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">×</font></font></button>
+          </div>
+      </div>
+    </nav>
+  </header>
+
+  <section class="fdf-block" id="editor-docs">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-3 border-right-column">
+        <div class="simple-left-menu-wrapper">
+          <ul class="simple-left-menu">
+            <li class="bottom-border-item"><a title="演示" href="https://www.froala.com/wysiwyg-editor/examples"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">所有演示</font></font></a></li>
+
+              <li class="menu-group collapsable collapsed" data-title="3rd Party Integration">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第三方整合</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="At.JS集成" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/at-js"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">At.JS集成</font></font></a></li>
+
+                    <li><a title="Aviary整合" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/aviary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Aviary整合</font></font></a></li>
+
+                    <li><a title="代码镜像" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/code-mirror"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">代码镜像</font></font></a></li>
+
+                    <li><a title="嵌入式集成" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/embedly"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">嵌入式集成</font></font></a></li>
+
+                    <li><a title="字体真棒5 JS" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/font-awesome-5-js"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">字体真棒5 JS</font></font></a></li>
+
+                    <li><a title="SCAYT Web SpellChecker" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/web-spell-checker"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">SCAYT Web SpellChecker</font></font></a></li>
+
+                    <li><a title="Wiris数学编辑" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/wiris"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Wiris数学编辑</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable active" data-title="API">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">API</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="Destroy / Init编辑器" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/destroy-init"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Destroy / Init编辑器</font></font></a></li>
+
+                    <li><a title="获取编辑的HTML" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/getHTML"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">获取编辑的HTML</font></font></a></li>
+
+                    <li><a title="插入HTML按钮" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/insert-html"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">插入HTML按钮</font></font></a></li>
+
+                    <li><a title="实时代码预览" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/live-code-preview"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实时代码预览</font></font></a></li>
+
+                    <li class="active"><a title="实时内容预览" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实时内容预览</font></font></a></li>
+
+                    <li><a title="保存/恢复选择" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/selection"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">保存/恢复选择</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Buttons">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">纽扣</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="自定义按钮" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/custom-buttons"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自定义按钮</font></font></a></li>
+
+                    <li><a title="自定义下拉菜单" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/custom-dropdown"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自定义下拉菜单</font></font></a></li>
+
+                    <li><a title="自定义快速插入按钮" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/custom-quick-insert-button"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自定义快速插入按钮</font></font></a></li>
+
+                    <li><a title="外部按钮" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/external-button"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">外部按钮</font></font></a></li>
+
+                    <li><a title="下标和上标" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/subscript-superscript"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下标和上标</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Drag &amp; Drop">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">拖放</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="在块之间拖动" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/drag-inline"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在块之间拖动</font></font></a></li>
+
+                    <li><a title="删除内容" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/drop-content"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">删除内容</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable" data-title="Editor size">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">编辑器大小</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="最小和最大高度" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/adjustable-height"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最小和最大高度</font></font></a></li>
+
+                    <li><a title="预定义的高度" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/predefined-height"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">预定义的高度</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Images">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图片</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="自定义图像按钮" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/custom-image-button"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自定义图像按钮</font></font></a></li>
+
+                    <li><a title="图像样式" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/image-styles"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图像样式</font></font></a></li>
+
+                    <li><a title="初始图像" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/init-on-image"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">初始图像</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable" data-title="Language">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">语言</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="编辑指导" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/editor-direction"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">编辑指导</font></font></a></li>
+
+                    <li><a title="语言" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/language"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">语言</font></font></a></li>
+
+                    <li><a title="RTL LTR方向按钮" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/rtl-ltr-custom-button"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">RTL LTR方向按钮</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable" data-title="Links">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">链接</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="Init On Link" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/init-on-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Init On Link</font></font></a></li>
+
+                    <li><a title="链接样式" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/link-styles"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">链接样式</font></font></a></li>
+
+                    <li><a title="预定义的链接" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/predefined-link-list"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">预定义的链接</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Miscellaneous">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">杂</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="字符计数器" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/character-counter"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">字符计数器</font></font></a></li>
+
+                    <li><a title="全屏" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/fullscreen"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">全屏</font></font></a></li>
+
+                    <li><a title="断路器" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/line-breaker"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">断路器</font></font></a></li>
+
+                    <li><a title="占位符" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/placeholder"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">占位符</font></font></a></li>
+
+                    <li><a title="普通粘贴" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/plain-paste"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">普通粘贴</font></font></a></li>
+
+                    <li><a title="快速插入" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/quick-insert"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">快速插入</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Modes">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">模式</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="在弹出窗口中编辑" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/edit-in-popup"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在弹出窗口中编辑</font></font></a></li>
+
+                    <li><a title="全功能" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/full-featured"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">全功能</font></font></a></li>
+
+                    <li><a title="完整页面" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/full-page"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">完整页面</font></font></a></li>
+
+                    <li><a title="IFRAME" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/iframe"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">IFRAME</font></font></a></li>
+
+                    <li><a title="按钮上的Init" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/init-on-button"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">按钮上的Init</font></font></a></li>
+
+                    <li><a title="Init On Click" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/init-on-click"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Init On Click</font></font></a></li>
+
+                    <li><a title="内联编辑器" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/inline"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">内联编辑器</font></font></a></li>
+
+                    <li><a title="内联编辑器两个实例" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/inline-two-instances"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">内联编辑器两个实例</font></font></a></li>
+
+                    <li><a title="Textarea编辑" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/textarea"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Textarea编辑</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Popups">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">弹出窗口</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="自定义颜色选择器" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/colors"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自定义颜色选择器</font></font></a></li>
+
+                    <li><a title="自定义表情符号" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/custom-emoticons"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自定义表情符号</font></font></a></li>
+
+                    <li><a title="自定义弹出窗口" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/custom-popup"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自定义弹出窗口</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Styling">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">造型</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="色彩主题" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/color-themes"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">色彩主题</font></font></a></li>
+
+                    <li><a title="字体系列" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/font-family"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">字体系列</font></font></a></li>
+
+                    <li><a title="内联样式" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/inline-styles"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">内联样式</font></font></a></li>
+
+                    <li><a title="段落样式" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/paragraph-styles"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">段落样式</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Tables">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">表</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="调整表大小" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/resize-table"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">调整表大小</font></font></a></li>
+
+                    <li><a title="表格单元格样式" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/table-cell-styles"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">表格单元格样式</font></font></a></li>
+
+                    <li><a title="表格样式" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/table-styles"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">表格样式</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Toolbar">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">工具栏</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="带有选择的内联工具栏" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/always-visible"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">带有选择的内联工具栏</font></font></a></li>
+
+                    <li><a title="显示选择细节" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/show-selection-details"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">显示选择细节</font></font></a></li>
+
+                    <li><a title="粘滞工具栏" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/sticky-toolbar"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">粘滞工具栏</font></font></a></li>
+
+                    <li><a title="工具栏底部" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/toolbar-bottom"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">工具栏底部</font></font></a></li>
+
+                    <li><a title="工具栏按钮" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/toolbar-buttons"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">工具栏按钮</font></font></a></li>
+
+                    <li><a title="工具栏偏移" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/toolbar-offset"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">工具栏偏移</font></font></a></li>
+                </ul>
+              </li>
+              <li class="menu-group collapsable collapsed" data-title="Typing">
+                <a href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">打字</font></font></a>
+                <ul class="text-tint">
+
+                    <li><a title="回车键" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/enter"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回车键</font></font></a></li>
+
+                    <li><a title="快捷键" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/shortcuts"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">快捷键</font></font></a></li>
+
+                    <li><a title="TAB键" class="text-tint" href="https://www.froala.com/wysiwyg-editor/examples/tabs"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">TAB键</font></font></a></li>
+                </ul>
+              </li>
+          </ul>
+
+          <div class="github-star"><span></span></div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-9">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1 class="text-large text-light"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">API</font></font></h1>
+          </div>
+        </div>
+
+        <h2 class="title-left-border text-small"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实时内容预览</font></font></h2>
+
+          <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此示例允许您查看</font><font style="vertical-align: inherit;">触发</font></font><a href="https://www.froala.com/wysiwyg-editor/docs/events#contentChanged" title="contentChanged事件" target="_blank"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">contentChanged</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">事件的时间以及富文本编辑器的内容如何显示在可编辑区域之外。</font></font></p>
+
+          <div id="froala-editor" class="clearfix fr-box fr-basic fr-top" role="application"><div class="fr-toolbar fr-desktop fr-top fr-basic fr-sticky-off" style="top: 0px; bottom: auto;"><button id="bold-1" type="button" tabindex="-1" role="button" aria-pressed="false" title="粗体（Ctrl + B）" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="bold"><i class="fa fa-bold" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">胆大</font></font></span></button><button id="italic-1" type="button" tabindex="-1" role="button" aria-pressed="false" title="斜体（Ctrl + I）" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="italic"><i class="fa fa-italic" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">斜体</font></font></span></button><button id="underline-1" type="button" tabindex="-1" role="button" aria-pressed="false" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="underline"><i class="fa fa-underline" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">强调</font></font></span></button><button id="fontSize-1" type="button" tabindex="-1" role="button" aria-controls="dropdown-menu-fontSize-1" aria-expanded="false" aria-haspopup="true" title="字体大小" class="fr-command fr-btn fr-dropdown fr-btn-font_awesome fr-selection" data-cmd="fontSize"><i class="fa fa-text-height" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">字体大小</font></font></span></button><div id="dropdown-menu-fontSize-1" class="fr-dropdown-menu" role="listbox" aria-labelledby="fontSize-1" aria-hidden="true"><div class="fr-dropdown-wrapper" role="presentation"><div class="fr-dropdown-content" role="presentation"><ul class="fr-dropdown-list" role="presentation"><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="8px" title="8"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">8</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="9px" title="9"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">9</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="10px" title="10"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="11px" title="11"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">11</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="12px" title="12"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">12</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="14px" title="14"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">14</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="18px" title="18"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">18</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="24px" title="24"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">24</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="30px" title="三十"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">三十</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="36px" title="36"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">36</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="48px" title="48"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">48</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="60px" title="60"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">60</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="72px" title="72"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">72</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontSize" data-param1="96px" title="96"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">96</font></font></a></li></ul></div></div></div><button id="fontFamily-1" type="button" tabindex="-1" role="button" aria-controls="dropdown-menu-fontFamily-1" aria-expanded="false" aria-haspopup="true" title="字体系列" class="fr-command fr-btn fr-dropdown fr-btn-font_awesome fr-selection" data-cmd="fontFamily"><i class="fa fa-font" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">字体系列</font></font></span></button><div id="dropdown-menu-fontFamily-1" class="fr-dropdown-menu" role="listbox" aria-labelledby="fontFamily-1" aria-hidden="true"><div class="fr-dropdown-wrapper" role="presentation"><div class="fr-dropdown-content" role="presentation"><ul class="fr-dropdown-list" role="presentation"><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontFamily" data-param1="Arial,Helvetica,sans-serif" style="font-family: Arial,Helvetica,sans-serif" title="宋体"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">宋体</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontFamily" data-param1="Georgia,serif" style="font-family: Georgia,serif" title="格鲁吉亚"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">格鲁吉亚</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontFamily" data-param1="Impact,Charcoal,sans-serif" style="font-family: Impact,Charcoal,sans-serif" title="碰撞"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">碰撞</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontFamily" data-param1="Tahoma,Geneva,sans-serif" style="font-family: Tahoma,Geneva,sans-serif" title="宋体"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">宋体</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontFamily" data-param1="Times New Roman,Times,serif,-webkit-standard" style="font-family: Times New Roman,Times,serif,-webkit-standard" title="英语字体格式一种"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">英语字体格式一种</font></font></a></li><li role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="fontFamily" data-param1="Verdana,Geneva,sans-serif" style="font-family: Verdana,Geneva,sans-serif" title="宋体"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">宋体</font></font></a></li></ul></div></div></div><div class="fr-separator fr-vs" role="separator" aria-orientation="vertical"></div><button id="paragraphFormat-1" type="button" tabindex="-1" role="button" aria-controls="dropdown-menu-paragraphFormat-1" aria-expanded="false" aria-haspopup="true" title="段落格式" class="fr-command fr-btn fr-dropdown fr-btn-font_awesome fr-selection" data-cmd="paragraphFormat"><i class="fa fa-paragraph" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">段落格式</font></font></span></button><div id="dropdown-menu-paragraphFormat-1" class="fr-dropdown-menu" role="listbox" aria-labelledby="paragraphFormat-1" aria-hidden="true"><div class="fr-dropdown-wrapper" role="presentation"><div class="fr-dropdown-content" role="presentation"><ul class="fr-dropdown-list" role="presentation"><li role="presentation"><p style="padding: 0 !important; margin: 0 !important;" role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="paragraphFormat" data-param1="N" title="正常"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">正常</font></font></a></p></li><li role="presentation"><h1 style="padding: 0 !important; margin: 0 !important;" role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="paragraphFormat" data-param1="H1" title="标题1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标题1</font></font></a></h1></li><li role="presentation"><h2 style="padding: 0 !important; margin: 0 !important;" role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="paragraphFormat" data-param1="H2" title="标题2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标题2</font></font></a></h2></li><li role="presentation"><h3 style="padding: 0 !important; margin: 0 !important;" role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="paragraphFormat" data-param1="H3" title="标题3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标题3</font></font></a></h3></li><li role="presentation"><h4 style="padding: 0 !important; margin: 0 !important;" role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="paragraphFormat" data-param1="H4" title="标题4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标题4</font></font></a></h4></li><li role="presentation"><pre style="padding: 0 !important; margin: 0 !important;" role="presentation"><a class="fr-command" tabindex="-1" role="option" data-cmd="paragraphFormat" data-param1="PRE" title="码"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">码</font></font></a></pre></li></ul></div></div></div><button id="align-1" type="button" tabindex="-1" role="button" aria-controls="dropdown-menu-align-1" aria-expanded="false" aria-haspopup="true" title="对齐" class="fr-command fr-btn fr-dropdown fr-btn-font_awesome" data-cmd="align"><i class="fa fa-align-left" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对齐</font></font></span></button><div id="dropdown-menu-align-1" class="fr-dropdown-menu" role="listbox" aria-labelledby="align-1" aria-hidden="true"><div class="fr-dropdown-wrapper" role="presentation"><div class="fr-dropdown-content" role="presentation"><ul class="fr-dropdown-list" role="presentation"><li role="presentation"><a class="fr-command fr-title" tabindex="-1" role="option" data-cmd="align" data-param1="left" title="左对齐"><i class="fa fa-align-left" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">左对齐</font></font></span></a></li><li role="presentation"><a class="fr-command fr-title" tabindex="-1" role="option" data-cmd="align" data-param1="center" title="居中对齐"><i class="fa fa-align-center" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">居中对齐</font></font></span></a></li><li role="presentation"><a class="fr-command fr-title" tabindex="-1" role="option" data-cmd="align" data-param1="right" title="对齐"><i class="fa fa-align-right" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对齐</font></font></span></a></li><li role="presentation"><a class="fr-command fr-title" tabindex="-1" role="option" data-cmd="align" data-param1="justify" title="对齐Justify"><i class="fa fa-align-justify" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对齐Justify</font></font></span></a></li></ul></div></div></div><button id="formatOL-1" type="button" tabindex="-1" role="button" title="订购清单" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="formatOL"><i class="fa fa-list-ol" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">订购清单</font></font></span></button><button id="formatUL-1" type="button" tabindex="-1" role="button" title="无序列表" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="formatUL"><i class="fa fa-list-ul" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">无序列表</font></font></span></button><button id="outdent-1" type="button" tabindex="-1" role="button" title="减少缩进（Ctrl + [）" class="fr-command fr-btn fr-btn-font_awesome fr-disabled" data-cmd="outdent" aria-disabled="true"><i class="fa fa-outdent" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">减少缩进</font></font></span></button><button id="indent-1" type="button" tabindex="-1" role="button" title="增加缩进（Ctrl +]）" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="indent" aria-disabled="false"><i class="fa fa-indent" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">增加缩进</font></font></span></button><div class="fr-separator fr-vs" role="separator" aria-orientation="vertical"></div><button id="insertLink-1" type="button" tabindex="-1" role="button" title="插入链接（Ctrl + K）" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="insertLink" data-popup="true"><i class="fa fa-link" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">插入链接</font></font></span></button><button id="insertImage-1" type="button" tabindex="-1" role="button" title="插入图像（Ctrl + P）" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="insertImage" data-popup="true"><i class="fa fa-image" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">插入图片</font></font></span></button><button id="undo-1" type="button" tabindex="-1" role="button" aria-disabled="false" title="撤消（Ctrl + Z）" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="undo"><i class="fa fa-rotate-left" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">解开</font></font></span></button><button id="redo-1" type="button" tabindex="-1" role="button" aria-disabled="true" title="重做（Ctrl + Shift + Z）" class="fr-command fr-btn fr-btn-font_awesome fr-disabled" data-cmd="redo"><i class="fa fa-rotate-right" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">重做</font></font></span></button><button id="help-1" type="button" tabindex="-1" role="button" title="帮助（Ctrl + /）" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="help" data-modal="true"><i class="fa fa-question" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">帮帮我</font></font></span></button><button id="html-1" type="button" tabindex="-1" role="button" aria-pressed="false" title="代码视图" class="fr-command fr-btn fr-btn-font_awesome" data-cmd="html"><i class="fa fa-code" aria-hidden="true"></i><span class="fr-sr-only"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">代码视图</font></font></span></button></div><div class="fr-sticky-dummy" style="height: 43px;"></div><div class="fr-wrapper" dir="auto"><div class="fr-element fr-view" dir="auto" contenteditable="true" aria-disabled="false" spellcheck="true"><p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开始输入，您可以在编辑框法顶下方键入时预览WYSIWYG HTML编辑器的内容。</font></font></p></div></div><span class="fr-counter" style="bottom: 0px; margin-right: 0px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">40</font></font></span></div>
+<br>
+<div id="preview" class="fr-view"><p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开始输入，您可以在编辑框法顶下方键入时预览WYSIWYG HTML编辑器的内容。</font></font></font></font></p></div>
+          <br>
+
+
+          <p>
+          <a title="在JSFiddle中编辑实时内容预览" rel="nofollow" target="_blank" class="btn r-btn highlight shadow-level-1" href="https://jsfiddle.net/froala/1r563s3a/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在JSFiddle中编辑</font></font></a>
+          </p>
+
+          <h4 class="text-light"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">HTML</font></font></h4>
+          <pre class="prettyprint linenums:1 prettyprinted" style=""><ol class="linenums"><li value="1" class="L0"><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;div </font></font></span><font style="vertical-align: inherit;"><span class="atn"><font style="vertical-align: inherit;">id </font></span><span class="pun"><font style="vertical-align: inherit;">= </font></span><span class="atv"><font style="vertical-align: inherit;">“froala-editor” </font></span><span class="tag"><font style="vertical-align: inherit;">&gt;</font></span></font><span class="pln"> </span><span class="atn"><font style="vertical-align: inherit;"></font></span><span class="pun"><font style="vertical-align: inherit;"></font></span><span class="atv"><font style="vertical-align: inherit;"></font></span><span class="tag"><font style="vertical-align: inherit;"></font></span></li><li class="L1"><span class="pln">  </span><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;p&gt; </font></font></span><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开始输入，您可以在编辑框下方键入时预览WYSIWYG HTML编辑器的内容。</font></font></span><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;/ p&gt;</font></font></span></li><li class="L2"><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;/ DIV&gt;</font></font></span></li><li class="L3"><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;BR/&gt;</font></font></span></li><li class="L4"><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;div </font></font></span><font style="vertical-align: inherit;"><span class="atn"><font style="vertical-align: inherit;">id </font></span><span class="pun"><font style="vertical-align: inherit;">= </font></span><span class="atv"><font style="vertical-align: inherit;">“preview” </font></span><span class="atn"><font style="vertical-align: inherit;">class </font></span><span class="pun"><font style="vertical-align: inherit;">= </font></span><span class="atv"><font style="vertical-align: inherit;">“fr-view” </font></span><span class="tag"><font style="vertical-align: inherit;">&gt;</font></span></font><span class="pln"> </span><span class="atn"><font style="vertical-align: inherit;"></font></span><span class="pun"><font style="vertical-align: inherit;"></font></span><span class="atv"><font style="vertical-align: inherit;"></font></span><span class="pln"> </span><span class="atn"><font style="vertical-align: inherit;"></font></span><span class="pun"><font style="vertical-align: inherit;"></font></span><span class="atv"><font style="vertical-align: inherit;"></font></span><span class="tag"><font style="vertical-align: inherit;"></font></span></li><li class="L5"><span class="pln">  </span><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;p&gt; </font></font></span><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开始输入，您可以在编辑框下方键入时预览WYSIWYG HTML编辑器的内容。</font></font></span><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;/ p&gt;</font></font></span></li><li class="L6"><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;/ DIV&gt;</font></font></span></li></ol></pre>
+
+
+          <h4 class="text-light"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">JAVASCRIPT</font></font></h4>
+          <pre class="prettyprint linenums:1 prettyprinted" style=""><ol class="linenums"><li value="1" class="L0"><span class="pln">  </span><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;SCRIPT&gt;</font></font></span></li><li class="L1"><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">  $ </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（</font></font></span><span class="kwd"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">function </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（）</font></font></span><font style="vertical-align: inherit;"><span class="pun"><font style="vertical-align: inherit;">{</font></span></font><span class="pln"> </span><span class="pun"><font style="vertical-align: inherit;"></font></span></li><li class="L2"><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">    $ </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（</font></font></span><span class="str"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'div＃froala-editor' </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">）。</font></font></span><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">froalaEditor </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（）</font></font></span></li><li class="L3"><span class="pln">    </span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></span><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">on </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（</font></font></span><span class="str"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'froalaEditor.contentChanged' </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，</font></font></span><font style="vertical-align: inherit;"><span class="kwd"><font style="vertical-align: inherit;">function </font></span><span class="pun"><font style="vertical-align: inherit;">（</font></span><span class="pln"><font style="vertical-align: inherit;">e </font></span><span class="pun"><font style="vertical-align: inherit;">，</font></span><span class="pln"><font style="vertical-align: inherit;">editor </font></span><span class="pun"><font style="vertical-align: inherit;">）</font></span><span class="pun"><font style="vertical-align: inherit;">{</font></span></font><span class="pln"> </span><span class="kwd"><font style="vertical-align: inherit;"></font></span><span class="pln"> </span><span class="pun"><font style="vertical-align: inherit;"></font></span><span class="pln"><font style="vertical-align: inherit;"></font></span><span class="pun"><font style="vertical-align: inherit;"></font></span><span class="pln"><font style="vertical-align: inherit;"></font></span><span class="pun"><font style="vertical-align: inherit;"></font></span><span class="pln"> </span><span class="pun"><font style="vertical-align: inherit;"></font></span></li><li class="L4"><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">      $ </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（</font></font></span><span class="str"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'＃preview' </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">）。</font></font></span><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">HTML </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（</font></font></span><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">编辑</font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></span><span class="pln"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">HTML </font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></span><span class="kwd"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">获得</font></font></span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（））;</font></font></span></li><li class="L5"><span class="pln">    </span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">}）</font></font></span></li><li class="L6"><span class="pln">  </span><span class="pun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">}）;</font></font></span></li><li class="L7"><span class="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&lt;/ SCRIPT&gt;</font></font></span></li></ol></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async="" defer="" src="./示例_files/buttons.js.下载"></script>
+
+    <script>
+  $(function() {
+    $('div#froala-editor').froalaEditor()
+    .on('froalaEditor.contentChanged', function (e, editor) {
+      $('#preview').html(editor.html.get());
+    })
+  });
+</script>
+
+
+
+  <footer class="footer-6 txt-white">
+  <div class="container">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <h3 class="highlight text-small"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关于我们</font></font></h3>
+          <ul>
+              <li><a class="alt-link text-tint" title="Froala" href="https://www.froala.com/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Froala</font></font></a></li>
+              <li><a class="alt-link text-tint" title="博客" href="https://www.froala.com/blog"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">博客</font></font></a></li>
+              <li><a class="alt-link text-tint" title="条款" href="https://www.froala.com/wysiwyg-editor/terms"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">条款</font></font></a></li>
+              <li><a class="alt-link text-tint" title="隐私" href="https://www.froala.com/privacy"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">隐私</font></font></a></li>
+              <li><a class="alt-link text-tint" title="招聘" href="https://www.froala.com/careers"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">招聘</font></font></a></li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <h3 class="highlight text-small"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">WYSIWYG编辑</font></font></h3>
+          <ul>
+              <li><a class="alt-link text-tint" title="即将推出的功能" target="_blank" rel="nofollow" href="https://wysiwyg-editor-roadmap.froala.com/public"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">即将推出的功能</font></font></a></li>
+              <li><a class="alt-link text-tint" title="帮助中心" target="_blank" rel="nofollow" href="https://wysiwyg-editor.froala.help/hc/en-us"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">帮助中心</font></font></a></li>
+              <li><a class="alt-link text-tint" title="版本1.2" href="https://www.froala.com/wysiwyg-editor/v1.2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">版本1.2</font></font></a></li>
+              <li><a class="alt-link text-tint" title="从V1迁移" href="https://www.froala.com/wysiwyg-editor/docs/migrate-from-v1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">从V1迁移</font></font></a></li>
+              <li><a class="alt-link text-tint" title="联系" href="https://www.froala.com/wysiwyg-editor/contact"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">联系</font></font></a></li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <h3 class="highlight text-small"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">学习</font></font></h3>
+          <ul>
+              <li><a class="alt-link text-tint" title="特征" href="https://www.froala.com/wysiwyg-editor/features"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">特征</font></font></a></li>
+              <li><a class="alt-link text-tint" title="创新" href="https://www.froala.com/wysiwyg-editor/innovations"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">创新</font></font></a></li>
+              <li><a class="alt-link text-tint" title="下载" href="https://www.froala.com/wysiwyg-editor/download"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下载</font></font></a></li>
+              <li><a class="alt-link text-tint" title="文件" href="https://www.froala.com/wysiwyg-editor/docs"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文件</font></font></a></li>
+              <li><a class="alt-link text-tint" title="例子" href="https://www.froala.com/wysiwyg-editor/examples"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">例子</font></font></a></li>
+          </ul>
+        </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <h3 class="highlight text-small"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们是社交</font></font></h3>
+
+        <ul>
+          <li><a href="https://www.facebook.com/froala" class="alt-link text-tint" title="Facebook的" target="_blank"><i class="fa fa-facebook icon-before"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facebook的</font></font></a></li>
+          <li><a href="https://twitter.com/froala" class="alt-link text-tint" title="推特" target="_blank"><i class="fa fa-twitter icon-before"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">推特</font></font></a></li>
+          <li><a href="https://plus.google.com/+Froala" class="alt-link text-tint" title="Google Plus" target="_blank"><i class="fa fa-google-plus icon-before"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Google+的</font></font></a></li>
+          <li><a href="https://www.linkedin.com/company/froala" class="alt-link text-tint" title="LinkedIn" target="_blank"><i class="fa fa-linkedin icon-before"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">LinkedIn</font></font></a></li>
+          <li><a href="https://www.github.com/froala" class="alt-link text-tint" title="GitHub上" target="_blank"><i class="fa fa-github icon-before"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">GitHub上</font></font></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="text-center text-tint"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">美国</font></font><a title="Idera Inc." rel="nofollow" target="blank" href="https://www.ideracorp.com/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Idera Inc.</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Technology Tools公司的</font><font style="vertical-align: inherit;">骄傲成员</font></font></p>
+        <p class="text-center text-small text-tint"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">©2018 Froala</font></font></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script>
+  if ($.FroalaEditor) {
+    $.FroalaEditor.DEFAULTS.imageUploadToS3 =
+      {"bucket":"froala-eu","region":"s3-eu-west-1","keyStart":"temp_files/","params":{"acl":"public-read","AWSAccessKeyId":"AKIAJCJKI5ANQKITJQYQ","signature":"JNL7ATOM7XnjxXg6a/up+quJImU=","policy":"eyJleHBpcmF0aW9uIjoiMjAxOS0wMS0wNlQxMjo1ODoxMVoiLCJjb25kaXRpb25zIjpbWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ0ZW1wX2ZpbGVzLyJdLFsic3RhcnRzLXdpdGgiLCIkeC1yZXF1ZXN0ZWQtd2l0aCIsInhociJdLFsiY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMjA5NzE1MjBdLFsic3RhcnRzLXdpdGgiLCIkY29udGVudC10eXBlIiwiIl0seyJidWNrZXQiOiJmcm9hbGEtZXUifSx7ImFjbCI6InB1YmxpYy1yZWFkIn0seyJzdWNjZXNzX2FjdGlvbl9zdGF0dXMiOiIyMDEifV19"}}
+    $.FroalaEditor.DEFAULTS.videoUploadToS3 =
+      {"bucket":"froala-eu","region":"s3-eu-west-1","keyStart":"temp_files/","params":{"acl":"public-read","AWSAccessKeyId":"AKIAJCJKI5ANQKITJQYQ","signature":"JNL7ATOM7XnjxXg6a/up+quJImU=","policy":"eyJleHBpcmF0aW9uIjoiMjAxOS0wMS0wNlQxMjo1ODoxMVoiLCJjb25kaXRpb25zIjpbWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ0ZW1wX2ZpbGVzLyJdLFsic3RhcnRzLXdpdGgiLCIkeC1yZXF1ZXN0ZWQtd2l0aCIsInhociJdLFsiY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMjA5NzE1MjBdLFsic3RhcnRzLXdpdGgiLCIkY29udGVudC10eXBlIiwiIl0seyJidWNrZXQiOiJmcm9hbGEtZXUifSx7ImFjbCI6InB1YmxpYy1yZWFkIn0seyJzdWNjZXNzX2FjdGlvbl9zdGF0dXMiOiIyMDEifV19"}}
+    $.FroalaEditor.DEFAULTS.fileUploadToS3 =
+      {"bucket":"froala-eu","region":"s3-eu-west-1","keyStart":"temp_files/","params":{"acl":"public-read","AWSAccessKeyId":"AKIAJCJKI5ANQKITJQYQ","signature":"JNL7ATOM7XnjxXg6a/up+quJImU=","policy":"eyJleHBpcmF0aW9uIjoiMjAxOS0wMS0wNlQxMjo1ODoxMVoiLCJjb25kaXRpb25zIjpbWyJzdGFydHMtd2l0aCIsIiRrZXkiLCJ0ZW1wX2ZpbGVzLyJdLFsic3RhcnRzLXdpdGgiLCIkeC1yZXF1ZXN0ZWQtd2l0aCIsInhociJdLFsiY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMjA5NzE1MjBdLFsic3RhcnRzLXdpdGgiLCIkY29udGVudC10eXBlIiwiIl0seyJidWNrZXQiOiJmcm9hbGEtZXUifSx7ImFjbCI6InB1YmxpYy1yZWFkIn0seyJzdWNjZXNzX2FjdGlvbl9zdGF0dXMiOiIyMDEifV19"}}
+  }
+  </script><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./示例_files/translate_24dp.png" width="20" height="20" alt="Google 翻译"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">原文</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">提供更好的翻译建议</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div>
+
+
+<div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div><iframe data-product="web_widget" title="" src="./示例_files/saved_resource(1).html" style="width: 0px; height: 0px; border: 0px; position: absolute; top: -9999px;"></iframe><div><iframe title="打开一个小组件，您可以在其中找到更多信息" id="launcher" tabindex="0" class="zEWidget-launcher zEWidget-launcher--active" style="border: none; background: transparent; z-index: 999998; transform: translateZ(0px); position: fixed; transition: opacity 250ms cubic-bezier(0.645, 0.045, 0.355, 1), top, bottom; opacity: 1; width: 108px; height: 50px; max-height: 551px; min-height: 50px; margin: 10px 20px; right: 0px; bottom: 0px;" src="./示例_files/saved_resource(2).html"></iframe></div><div><iframe title="在这里找到更多信息" id="webWidget" tabindex="-1" class="zEWidget-webWidget " style="border: none; background: transparent; z-index: 999999; transform: translateZ(0px); position: fixed; transition: opacity 250ms cubic-bezier(0.645, 0.045, 0.355, 1), top, bottom; opacity: 0; width: 357px; height: 100%; max-height: 565px; min-height: 150px; margin-left: 8px; margin-right: 8px; top: -9999px;" src="./示例_files/saved_resource(3).html"></iframe></div><div class="fr-tooltip" style="left: -3000px; top: 341px; position: fixed;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下划线（Ctrl + U）</font></font></div><div id="avpw_holder"><div id="avpw_fullscreen_bg" style="display: none;"></div><div style="display:none;" id="avpw_controls" class="avpw avpw_main_mode"><div id="avpw_tool_content_header"><span id="avpw_breadcrumb_header" class="avpw_label">Photo Editor</span><span class="avpw_label" id="avpw_breadcrumb_sep" style="display: none;"> : </span><span class="avpw_label" id="avpw_breadcrumb_toolname"></span><div id="avpw_control_cancel_pane" title="Cancel"><div id="avpw_control_cancel_pane_inner" class="avpw_close_button avpw_main_close"><div class="avpw_close_inner">×</div></div></div></div><div id="avpw_tool_content_wrapper"><div id="avpw_tool_main_container" class="avpw_tool_pager"><a id="avpw_lftArrow" class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div id="avpw_control_main_scroll_panel" class="avpw_clip"><div id="avpw_control_main_scrolling_region" class="avpw_scroll_strip"></div><div id="avpw_tools_pager"><ul></ul></div></div><a id="avpw_rghtArrow" class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a><div class="avpw_mode_action avpw_mode_action_right"><a id="avpw_save_button" href="javascript:void(0)" class="avpw_button avpw_primary_button">Save</a></div></div><div id="avpw_tool_options_container" style="display:none;"><div id="avpw_tool_container"><div id="avpw_controlpanel_vignette" class="avpw_controlpanel avpw_tool_fixed avpw_tool_slider"><div class="avpw_slider_container avpw_isa_slider_container"><div class="avpw_slider_bookend avpw_slider_bookend_left avpw_slider_label">-</div><div class="avpw_slider_outer_bg_outline_circle"></div><div class="avpw_slider_positioned" id="avpw_vignette_slider"><div class="avpw_slider_outer_bg_circle"></div><div class="avpw_slider_inner_bg_outline_circle"></div><div class="avpw_slider_positioned_inner"><div class="avpw_slider_inner_bg_circle"></div><div class="avpw_slider_bounds"><div class="avpw_slider_goo"></div><div class="avpw_slider_divider"></div><a class="avpw_slider_handle"></a></div></div></div><div class="avpw_slider_bookend avpw_slider_bookend_right avpw_slider_label">+</div></div></div><div id="avpw_controlpanel_lighting" class="avpw_controlpanel_adjustments avpw_controlpanel avpw_tool_fixed avpw_tool_slider"><div class="avpw_inset_button_group avpw_inset_group"><div data-mode="brightness" class="avpw_inset_button avpw_inset_button_first"><div class="avpw_label">Brightness</div></div><div data-mode="contrast" class="avpw_inset_button"><div class="avpw_label">Contrast</div></div><div data-mode="highlights" class="avpw_inset_button"><div class="avpw_label">Highlights</div></div><div data-mode="shadows" class="avpw_inset_button avpw_inset_button_last"><div class="avpw_label">Shadows</div></div></div><div class="avpw_slider_container avpw_isa_slider_container"><div class="avpw_slider_bookend avpw_slider_bookend_left avpw_slider_label">-</div><div class="avpw_slider_outer_bg_outline_circle"></div><div class="avpw_slider_positioned" id="avpw_lighting_slider"><div class="avpw_slider_outer_bg_circle"></div><div class="avpw_slider_inner_bg_outline_circle"></div><div class="avpw_slider_positioned_inner"><div class="avpw_slider_inner_bg_circle"></div><div class="avpw_slider_bounds"><div class="avpw_slider_goo"></div><div class="avpw_slider_divider"></div><a class="avpw_slider_handle"></a></div></div></div><div class="avpw_slider_bookend avpw_slider_bookend_right avpw_slider_label">+</div></div></div><div id="avpw_controlpanel_color" class="avpw_controlpanel_adjustments avpw_controlpanel avpw_tool_fixed avpw_tool_slider"><div class="avpw_inset_button_group avpw_inset_group"><div data-mode="saturation" class="avpw_inset_button avpw_inset_button_first"><div class="avpw_label">Saturation</div></div><div data-mode="warmth" class="avpw_inset_button"><div class="avpw_label">Warmth</div></div><div data-mode="tint" class="avpw_inset_button"><div class="avpw_label">Tint</div></div><div data-mode="fade" class="avpw_inset_button avpw_inset_button_last"><div class="avpw_label">Fade</div></div></div><div class="avpw_slider_container avpw_isa_slider_container"><div class="avpw_slider_bookend avpw_slider_bookend_left avpw_slider_label">-</div><div class="avpw_slider_outer_bg_outline_circle"></div><div class="avpw_slider_positioned" id="avpw_color_slider"><div class="avpw_slider_outer_bg_circle"></div><div class="avpw_slider_inner_bg_outline_circle"></div><div class="avpw_slider_positioned_inner"><div class="avpw_slider_inner_bg_circle"></div><div class="avpw_slider_bounds"><div class="avpw_slider_goo"></div><div class="avpw_slider_divider"></div><a class="avpw_slider_handle"></a></div></div></div><div class="avpw_slider_bookend avpw_slider_bookend_right avpw_slider_label">+</div></div></div><div id="avpw_controlpanel_brightness" class="avpw_controlpanel avpw_tool_fixed avpw_tool_slider"><div class="avpw_slider_container avpw_isa_slider_container"><div class="avpw_slider_bookend avpw_slider_bookend_left avpw_slider_label">-</div><div class="avpw_slider_outer_bg_outline_circle"></div><div class="avpw_slider_positioned" id="avpw_brightness_slider"><div class="avpw_slider_outer_bg_circle"></div><div class="avpw_slider_inner_bg_outline_circle"></div><div class="avpw_slider_positioned_inner"><div class="avpw_slider_inner_bg_circle"></div><div class="avpw_slider_bounds"><div class="avpw_slider_goo"></div><div class="avpw_slider_divider"></div><a class="avpw_slider_handle"></a></div></div></div><div class="avpw_slider_bookend avpw_slider_bookend_right avpw_slider_label">+</div></div></div><div id="avpw_controlpanel_contrast" class="avpw_controlpanel avpw_tool_fixed avpw_tool_slider"><div class="avpw_slider_container avpw_isa_slider_container"><div class="avpw_slider_bookend avpw_slider_bookend_left avpw_slider_label">-</div><div class="avpw_slider_outer_bg_outline_circle"></div><div class="avpw_slider_positioned" id="avpw_contrast_slider"><div class="avpw_slider_outer_bg_circle"></div><div class="avpw_slider_inner_bg_outline_circle"></div><div class="avpw_slider_positioned_inner"><div class="avpw_slider_inner_bg_circle"></div><div class="avpw_slider_bounds"><div class="avpw_slider_goo"></div><div class="avpw_slider_divider"></div><a class="avpw_slider_handle"></a></div></div></div><div class="avpw_slider_bookend avpw_slider_bookend_right avpw_slider_label">+</div></div></div><div id="avpw_controlpanel_saturation" class="avpw_controlpanel avpw_tool_fixed avpw_tool_slider"><div class="avpw_slider_container avpw_isa_slider_container"><div class="avpw_slider_bookend avpw_slider_bookend_left avpw_slider_label">-</div><div class="avpw_slider_outer_bg_outline_circle"></div><div class="avpw_slider_positioned" id="avpw_saturation_slider"><div class="avpw_slider_outer_bg_circle"></div><div class="avpw_slider_inner_bg_outline_circle"></div><div class="avpw_slider_positioned_inner"><div class="avpw_slider_inner_bg_circle"></div><div class="avpw_slider_bounds"><div class="avpw_slider_goo"></div><div class="avpw_slider_divider"></div><a class="avpw_slider_handle"></a></div></div></div><div class="avpw_slider_bookend avpw_slider_bookend_right avpw_slider_label">+</div></div></div><div id="avpw_controlpanel_warmth" class="avpw_controlpanel avpw_tool_fixed avpw_tool_slider"><div class="avpw_slider_container avpw_isa_slider_container"><div class="avpw_slider_bookend avpw_slider_bookend_left avpw_slider_label">-</div><div class="avpw_slider_outer_bg_outline_circle"></div><div class="avpw_slider_positioned" id="avpw_warmth_slider"><div class="avpw_slider_outer_bg_circle"></div><div class="avpw_slider_inner_bg_outline_circle"></div><div class="avpw_slider_positioned_inner"><div class="avpw_slider_inner_bg_circle"></div><div class="avpw_slider_bounds"><div class="avpw_slider_goo"></div><div class="avpw_slider_divider"></div><a class="avpw_slider_handle"></a></div></div></div><div class="avpw_slider_bookend avpw_slider_bookend_right avpw_slider_label">+</div></div></div><div id="avpw_controlpanel_sharpness" class="avpw_controlpanel avpw_tool_fixed avpw_tool_slider"><div class="avpw_slider_container avpw_isa_slider_container"><div class="avpw_slider_bookend avpw_slider_bookend_left avpw_slider_label">-</div><div class="avpw_slider_outer_bg_outline_circle"></div><div class="avpw_slider_positioned" id="avpw_sharpness_slider"><div class="avpw_slider_outer_bg_circle"></div><div class="avpw_slider_inner_bg_outline_circle"></div><div class="avpw_slider_positioned_inner"><div class="avpw_slider_inner_bg_circle"></div><div class="avpw_slider_bounds"><div class="avpw_slider_goo"></div><div class="avpw_slider_divider"></div><a class="avpw_slider_handle"></a></div></div></div><div class="avpw_slider_bookend avpw_slider_bookend_right avpw_slider_label">+</div></div></div><div id="avpw_controlpanel_forcecrop" class="avpw_controlpanel avpw_tool_fixed"><div id="avpw_force_crop_sub_text">Crop your photo to:</div><div id="avpw_force_crop_label"></div></div><div id="avpw_controlpanel_orientation" class="avpw_controlpanel"><div class="avpw_tool_cutout_centered_orientation"><div class="avpw_inset_button_group avpw_inset_group"><div id="avpw_rotate_left" class="avpw_inset_button avpw_inset_button_first"><div class="avpw_orientation_button_inner"></div></div><div id="avpw_rotate_right" class="avpw_inset_button avpw_inset_button_last"><div class="avpw_orientation_button_inner"></div></div></div><div class="avpw_inset_group avpw_inset_group_spacer"></div><div class="avpw_inset_button_group avpw_inset_group"><div id="avpw_flip_h" class="avpw_inset_button avpw_inset_button_first"><div class="avpw_orientation_button_inner"></div></div><div id="avpw_flip_v" class="avpw_inset_button avpw_inset_button_last"><div class="avpw_orientation_button_inner"></div></div></div><div class="avpw_inset_button_label avpw_inset_button_label_2 avpw_label avpw_inset_group">Rotate</div><div class="avpw_inset_group avpw_inset_group_spacer"></div><div class="avpw_inset_button_label avpw_inset_button_label_2 avpw_label avpw_inset_group">Mirror</div></div></div><div id="avpw_controlpanel_crop" class="avpw_controlpanel avpw_tool_stretch"><div class="avpw_tool_scroll"><a id="avpw_crop_presets_lftArrow" class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div id="avpw_crop_presets_scroll_window" class="avpw_clip"><div id="avpw_crop_presets_scroll_region" class="avpw_scroll_strip"></div><div class="avpw_shadowbar avpw_shadowbar_n"></div></div><a id="avpw_crop_presets_rghtArrow" class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a></div></div><div id="avpw_controlpanel_resize" class="avpw_controlpanel"><div class="avpw_tool_cutout_centered_resize"><div class="avpw_resize_form_block avpw_resize_width"><input class="avpw_text_input avpw_number_input" id="avpw_resize_width" type="text" value="640" maxlength="5"><div class="avpw_label">Width</div></div><div class="avpw_resize_form_block avpw_resize_constrain"><div class="avpw_inset_group avpw_inset_button_group avpw_checkmark_button"><div id="avpw_constrain_prop" class="avpw_inset_button avpw_inset_button_first avpw_inset_button_last" title="Maintain proportions"><div class="avpw_lock_icon"><div class="avpw_lock_icon_top"><div class="avpw_lock_icon_top_inner"></div></div><div class="avpw_lock_icon_sep"></div><div class="avpw_lock_icon_bottom"></div></div></div></div></div><div class="avpw_resize_form_block avpw_resize_height"><input class="avpw_text_input avpw_number_input" id="avpw_resize_height" type="text" value="480" maxlength="5"><div class="avpw_label">Height</div></div></div></div><div id="avpw_controlpanel_redeye" class="avpw_controlpanel"><div class="avpw_tool_cutout_centered_spot_tool"></div></div><div id="avpw_controlpanel_whiten" class="avpw_controlpanel avpw_tool_stretch"><div class="avpw_tool_cutout_centered_spot_tool"></div></div><div id="avpw_controlpanel_blemish" class="avpw_controlpanel avpw_tool_stretch"><div class="avpw_tool_cutout_centered_spot_tool"></div></div><div id="avpw_controlpanel_effects" class="avpw_controlpanel avpw_tool_stretch"><div id="avpw_effects_effects"><div id="avpw_effects_scroller" class="avpw_content_wrapper"><div class="avpw_content_packs avpw_tool_scroll"><a class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div class="avpw_clip"><div class="avpw_scroll_strip"></div><div class="avpw_shadowbar avpw_shadowbar_n"></div></div><a class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a></div><div class="avpw_content_items avpw_tool_scroll"><div class="avpw_back_to_packs"></div><a class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div class="avpw_clip"><div class="avpw_scroll_strip"></div><div class="avpw_shadowbar avpw_shadowbar_n"></div></div><a class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a></div></div></div><div id="avpw_tool_container" class="avpw_intensity_container"><div class="avpw_slider_container avpw_isa_slider_container"><div class="avpw_slider_bookend avpw_slider_bookend_left avpw_slider_label">-</div><div class="avpw_slider_outer_bg_outline_circle"></div><div class="avpw_slider_positioned" id="avpw_intensity_slider"><div class="avpw_slider_outer_bg_circle"></div><div class="avpw_slider_inner_bg_outline_circle"></div><div class="avpw_slider_positioned_inner"><div class="avpw_slider_inner_bg_circle"></div><div class="avpw_slider_bounds"><div class="avpw_slider_goo"></div><a class="avpw_slider_handle"></a></div></div></div><div class="avpw_slider_bookend avpw_slider_bookend_right avpw_slider_label">+</div></div><a class="avpw_button avpw_intensity_back_button">Back</a></div></div><div id="avpw_controlpanel_enhance" class="avpw_controlpanel"><div class="avpw_tool_cutout_centered_enhance"><div class="avpw_inset_button_group avpw_inset_group"><div class="avpw_inset_button avpw_inset_button_first"><div id="avpw_enhance_icon_hd" class="avpw_enhance_button_inner"></div></div><div class="avpw_inset_button"><div id="avpw_enhance_icon_scenery" class="avpw_enhance_button_inner"></div></div><div class="avpw_inset_button"><div id="avpw_enhance_icon_food" class="avpw_enhance_button_inner"></div></div><div class="avpw_inset_button"><div id="avpw_enhance_icon_portrait" class="avpw_enhance_button_inner"></div></div><div class="avpw_inset_button avpw_inset_button_last"><div id="avpw_enhance_icon_night" class="avpw_enhance_button_inner"></div></div></div><div class="avpw_inset_group"><div class="avpw_inset_button_label avpw_label">Hi-Def</div><div class="avpw_inset_button_label avpw_label">Scenery</div><div class="avpw_inset_button_label avpw_label">Food</div><div class="avpw_inset_button_label avpw_label">Portrait</div><div class="avpw_inset_button_label avpw_label">Night</div></div></div></div><div id="avpw_controlpanel_drawing" class="avpw_controlpanel avpw_tool_stretch"><div class="avpw_tool_cutout_centered_drawing"><div class="avpw_outer-center"><div class="avpw_inner-center"><div class="avpw_inset_color_widget avpw_inset_group avpw_inset_button_group"><div class="avpw_inset_color_picker avpw_inset_button avpw_inset_button_first avpw_isa_color_picker" data-color=""><div class="avpw_preset_icon avpw_icon"><div class="avpw_preset_color_image avpw_custom_color_image avpw_isa_color_feedback"></div><div class="avpw_dropdown_icon"><div class="avpw_dropdown_icon_inner"></div></div></div></div><div id="avpw_drawing_colors" class="avpw_inset_color_choices avpw_inset_button avpw_inset_button_last avpw_inset_button_down"></div></div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div class="avpw_inset_button_group avpw_inset_group"><div class="avpw_inset_button avpw_inset_button_first avpw_inset_button_last avpw_colorsplash_eraser"><div class="avpw_colorsplash_eraser_icon avpw_colorsplash_inner_icon"></div></div></div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div id="avpw_drawing_brushes" class="avpw_inset_button_group avpw_inset_group"><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush avpw_inset_button_first" data-size="8"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_1"></div></div><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush avpw_collapsible" data-size="13"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_2"></div></div><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush" data-size="18"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_3"></div></div><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush avpw_collapsible" data-size="21"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_4"></div></div><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush avpw_inset_button_last" data-size="25"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_5"></div></div></div><div class="avpw_inset_group avpw_clear"><div class="avpw_inset_button_label avpw_inset_color_widget_label avpw_label">Color Picker</div></div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div class="avpw_inset_group avpw_inset_button_label avpw_label">Eraser</div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div class="avpw_inset_group avpw_inset_button_label avpw_inset_button_label_mini_5 avpw_label">Brush Size</div></div></div></div></div><div id="avpw_controlpanel_overlay" class="avpw_controlpanel avpw_tool_stretch"><div id="avpw_overlay_scroller" class="avpw_content_wrapper"><div class="avpw_content_packs avpw_tool_scroll"><a class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div class="avpw_clip"><div class="avpw_scroll_strip"></div><div class="avpw_shadowbar avpw_shadowbar_n"></div></div><a class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a></div><div class="avpw_content_items avpw_tool_scroll"><div class="avpw_back_to_packs"></div><a class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div class="avpw_clip"><div class="avpw_scroll_strip"></div><div class="avpw_shadowbar avpw_shadowbar_n"></div></div><a class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a></div></div></div><div id="avpw_controlpanel_overlays" class="avpw_controlpanel avpw_tool_stretch"><div id="avpw_overlays_scroller" class="avpw_content_wrapper"><div class="avpw_content_packs avpw_tool_scroll"><a class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div class="avpw_clip"><div class="avpw_scroll_strip"></div><div class="avpw_shadowbar avpw_shadowbar_n"></div></div><a class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a></div><div class="avpw_content_items avpw_tool_scroll"><div class="avpw_back_to_packs"></div><a class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div class="avpw_clip"><div class="avpw_scroll_strip"></div><div class="avpw_shadowbar avpw_shadowbar_n"></div></div><a class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a></div></div></div><div id="avpw_controlpanel_frames" class="avpw_controlpanel avpw_tool_stretch"><div id="avpw_frames_scroller" class="avpw_content_wrapper"><div class="avpw_content_packs avpw_tool_scroll"><a class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div class="avpw_clip"><div class="avpw_scroll_strip"></div><div class="avpw_shadowbar avpw_shadowbar_n"></div></div><a class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a></div><div class="avpw_content_items avpw_tool_scroll"><div class="avpw_back_to_packs"></div><a class="avpw_prev avpw_bookend"><span class="avpw_arrow_icon"></span></a><div class="avpw_clip"><div class="avpw_scroll_strip"></div><div class="avpw_shadowbar avpw_shadowbar_n"></div></div><a class="avpw_next avpw_bookend"><span class="avpw_arrow_icon"></span></a></div></div></div><div id="avpw_controlpanel_text" class="avpw_controlpanel avpw_tool_stretch"><div class="avpw_tool_half_height"><div class="avpw_inset_color_widget avpw_inset_group avpw_inset_button_group"><div class="avpw_inset_color_picker avpw_inset_button avpw_inset_button_first avpw_isa_color_picker" data-color=""><div class="avpw_preset_icon avpw_icon"><div class="avpw_preset_color_image avpw_custom_color_image avpw_isa_color_feedback"></div><div class="avpw_dropdown_icon"><div class="avpw_dropdown_icon_inner"></div></div></div></div><div id="avpw_text_colors" class="avpw_inset_color_choices avpw_inset_button avpw_inset_button_last avpw_inset_button_down"></div></div></div><div class="avpw_tool_half_height"><button id="avpw_add_text" class="avpw_button">Add Text</button><input type="text" id="avpw_text_area" name="avpw_text_area" class="avpw_text_input"><input type="hidden" id="avpw_text_font" value="sans-serif"><input type="hidden" id="avpw_text_font_size" value="60"></div></div><div id="avpw_controlpanel_meme" class="avpw_controlpanel avpw_tool_stretch avpw_tool_cutout"><div class="avpw_tool_cutout_inner avpw_inset_background"><div class="avpw_tool_cutout_centered_meme"><input id="avpw_text_area_meme" class="avpw_text_input avpw_meme_input" placeholder="Enter top text"><input id="avpw_text_area_meme2" class="avpw_text_input avpw_meme_input" placeholder="Enter bottom text"></div></div></div><div id="avpw_controlpanel_textwithfont" class="avpw_controlpanel avpw_tool_stretch"><div class="avpw_tool_cutout_fixed"><div class="avpw_outer-center"><div class="avpw_inner-center"><div class="avpw_inset_color_widget avpw_inset_group avpw_inset_button_group"><div class="avpw_inset_color_picker avpw_inset_button avpw_inset_button_first avpw_isa_color_picker" data-color=""><div class="avpw_preset_icon avpw_icon"><div class="avpw_preset_color_image avpw_custom_color_image avpw_isa_color_feedback"></div><div class="avpw_dropdown_icon"><div class="avpw_dropdown_icon_inner"></div></div></div></div><div id="avpw_textwithfont_colors" class="avpw_inset_color_choices avpw_inset_button avpw_inset_button_last avpw_inset_button_down"></div></div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div id="avpw_font_browser" class="avpw_inset_button_group avpw_inset_group"><div class="avpw_inset_button avpw_inset_button_first avpw_inset_button_last"><div class="avpw_dropdown_icon"><div class="avpw_dropdown_icon_inner"></div></div><div id="avpw_font_browser_preview" class="avpw_font_label avpw_label avpw_isa_dropdown_display"></div></div></div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div id="avpw_textwithfont_addtext" class="avpw_inset_button_group avpw_inset_group"><div class="avpw_inset_button_with_plus avpw_inset_button avpw_inset_button_first avpw_inset_button_last"><div class="avpw_plus_icon"></div>Add Text</div></div></div></div></div></div><div id="avpw_controlpanel_colorsplash" class="avpw_controlpanel"><div class="avpw_outer-center"><div class="avpw_inner-center avpw_tool_cutout_centered_colorsplash"><div class="avpw_inset_button_group avpw_inset_group"><div class="avpw_inset_button avpw_inset_button_first avpw_colorsplash_freebrush"><div class="avpw_colorsplash_freebrush_icon avpw_colorsplash_inner_icon">Free Color</div></div><div class="avpw_inset_button avpw_inset_button_last avpw_colorsplash_smartbrush avpw_inset_button_down"><div class="avpw_colorsplash_smartbrush_icon avpw_colorsplash_inner_icon">Smart Color</div></div></div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div class="avpw_inset_button_group avpw_inset_group"><div class="avpw_inset_button avpw_inset_button_first avpw_inset_button_last avpw_colorsplash_eraser"><div class="avpw_colorsplash_eraser_icon avpw_colorsplash_inner_icon">Eraser</div></div></div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div id="avpw_colorsplash_brushes" class="avpw_inset_button_group avpw_inset_group"><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush avpw_inset_button_first" data-size="8"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_1"></div></div><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush avpw_collapsible" data-size="13"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_2"></div></div><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush" data-size="18"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_3"></div></div><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush avpw_collapsible" data-size="21"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_4"></div></div><div class="avpw_inset_button avpw_inset_button_mini avpw_isa_preset_brush avpw_inset_button_last" data-size="25"><div class="avpw_icon_image avpw_brush_size avpw_brush_size_5"></div></div></div><div class="avpw_inset_group avpw_clear"><div class="avpw_inset_button_label avpw_label">Free Color</div><div class="avpw_inset_button_label avpw_label">Smart Color</div></div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div class="avpw_inset_group avpw_inset_button_label avpw_label">Eraser</div><div class="avpw_inset_group avpw_inset_group_mini_spacer"></div><div class="avpw_inset_group avpw_inset_button_label avpw_inset_button_label_mini_5 avpw_label">Brush Size</div></div></div></div><div id="avpw_controlpanel_focus" class="avpw_controlpanel"><div class="avpw_tool_cutout_centered_tiltshift"><div class="avpw_inset_button_group avpw_inset_group"><div class="avpw_inset_button avpw_inset_button_first avpw_tiltshift_circle_button"><div class="avpw_tiltshift_circle_icon avpw_tiltshift_inner_icon"></div></div><div class="avpw_inset_button avpw_inset_button_last avpw_tiltshift_rectangle_button"><div class="avpw_tiltshift_rectangle_icon avpw_tiltshift_inner_icon"></div></div></div><div class="avpw_inset_button_label avpw_inset_button_label_2 avpw_label avpw_inset_group">Shape</div></div></div></div><div class="avpw_mode_action avpw_mode_action_left"><a href="javascript:void(0)" id="avpw_all_effects" class="avpw_button avpw_back_button">Cancel</a><a href="javascript:void(0)" id="avpw_up_one_level" class="avpw_button avpw_back_button">Back</a></div><div class="avpw_mode_action avpw_mode_action_right"><a href="javascript:void(0)" id="avpw_apply_container" class="avpw_button avpw_primary_button">Apply</a></div></div></div><div id="avpw_canvas_embed" class="avpw_canvas_background"></div><div id="avpw_footer"><div id="avpw_history"><div id="avpw_history_undo" class="avpw_button avpw_history_button avpw_history_button_first avpw_history_disabled"><span class="avpw_history_icon">Undo</span></div><div id="avpw_history_redo" class="avpw_button avpw_history_button avpw_history_button_last avpw_history_disabled"><span class="avpw_history_icon">Redo</span></div><div id="avpw_history_undo_blocker" class="avpw_history_blocker avpw_history_blocker_first"></div><div id="avpw_history_redo_blocker" class="avpw_history_blocker avpw_history_blocker_last"></div></div><p class="avpw_footer_text" id="avpw_size_indicator"></p><p id="avpw_powered_branding" class="avpw_footer_text avpw_powered_text"></p></div><div id="avpw_messaging" style="display: none;"><div id="avpw_messaging_inner"></div><div id="avpw_messages" style="display: none;"><div id="avpw_aviary_beensaved" class="avpw_app_popup">
+<p class="avpw_message_text">Your work was saved!</p><div class="avpw_message_buttons">
+<a id="avpw_resume_aftersave" class="avpw_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Resume">Resume</a>
+<a id="avpw_close_aftersave" class="avpw_button avpw_primary_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Close">Close</a></div>
+</div>
+<div id="avpw_resize_invalid" class="avpw_app_popup">
+<p class="avpw_message_text">Width and height must be greater than zero and less than the maximum (<span id="avpw_resize_invalid_max_size"></span>px)</p><div class="avpw_message_buttons">
+<a id="avpw_resize_invalid_confirm" class="avpw_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Confirm">OK</a>
+</div>
+</div>
+<div id="avpw_purchase_pack" class="avpw_app_popup">
+<div id="avpw_purchase_pack_close" title="Cancel"><div id="avpw_purchase_pack_close_inner" class="avpw_close_button "><div class="avpw_close_inner">×</div></div></div><div id="avpw_purchase_pack_contents">
+</div>
+</div>
+<div id="avpw_resize_unlocked" class="avpw_app_popup">
+<p class="avpw_message_text">Are you sure? This can distort your image.</p><div class="avpw_message_buttons">
+<a id="avpw_resize_unlocked_confirm" class="avpw_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Confirm">OK</a>
+<a id="avpw_resize_unlocked_cancel" class="avpw_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Confirm">Cancel</a>
+</div>
+</div>
+<div id="avpw_aviary_quitareyousure" class="avpw_app_popup"><p class="avpw_message_text">Wait! You didn't save your work. Are you certain that you want to close this editor?</p><div class="avpw_message_buttons avpw_center_contents">
+<a id="avpw_resume_editing" class="avpw_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Resume">Resume</a>
+<a id="avpw_close_nosave" class="avpw_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Close">Close</a>
+<a id="avpw_close_save" class="avpw_button avpw_primary_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Save">Save</a></div></div><div id="avpw_aviary_aviaryfeedback" class="avpw_app_popup"><div class="avpw_popup_split_box"><h2 class="avpw_mode_warning">Help / Support</h2><p>Have a suggestion to improve this photo editor? Let us know.</p><a href="http://support.aviary.com/" target="_blank" class="avpw_button avpw_primary_button">Send Feedback</a></div><div class="avpw_vertical_separator"></div><div class="avpw_popup_split_box"><h2 class="avpw_mode_warning">About this editor</h2><p>Aviary is the world's leading photo editing platform. Developers: learn how to add it to your app in minutes.</p><a href="https://creativesdk.adobe.com/" target="_blank" class="avpw_button avpw_primary_button">Visit Aviary.com</a></div><div class="avpw_horizontal_separator"></div><div class="avpw_clear"><div class="avpw_message_buttons avpw_center_contents"><div id="avpw_close_feedbackok" class="avpw_button">Close</div></div></div></div><div id="avpw_aviary_unsupported" class="avpw_app_popup"><p class="avpw_message_text">Please install <a href="http://get.adobe.com/flashplayer/" target="_blank">Adobe Flash Player</a> (version undefined or higher), or use a supported browser: <a href="http://www.google.com/chrome/" target="_blank">Chrome</a>, <a href="http://www.mozilla.org/firefox/" target="_blank">Firefox</a>, <a href="http://www.apple.com/safari/" target="_blank">Safari</a>, <a href="http://www.opera.com/" target="_blank">Opera</a>, or <a href="http://www.beautyoftheweb.com/" target="_blank">Internet Explorer</a> (version 9 or higher).</p><div class="avpw_message_buttons avpw_center_contents">
+<a id="avpw_close_unsupported" class="avpw_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Close">Close</a>
+</div></div><div id="avpw_aviary_crop_invalid_dimensions" class="avpw_app_popup"><p class="avpw_message_text">Your photo is smaller than the required size. Please choose a new one to proceed.</p><div class="avpw_message_buttons avpw_center_contents">
+<a id="avpw_close_forcecrop_close" class="avpw_button" href="https://www.froala.com/wysiwyg-editor/examples/live-content-preview#Close">Close</a>
+</div></div></div></div></div></div></body></html>

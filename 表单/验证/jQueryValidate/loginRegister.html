@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录注册</title>
+    <link rel="stylesheet" href="../css/Basics/base.css">
+    <link rel="stylesheet" href="../css/loginRegister/loginRegister.css">
+
+    <script src="./../js/vue/vue.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+</head>
+<body>
+    <div class="login-register">
+    <div class="wrap">
+        <h1 class="title">学霸圈</h1>
+        <div
+                class="closeLogin"
+                @click="$emit('closeLogin')"
+        >
+            <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path fill="#333333" d="M512 456.310154L94.247385 38.557538a39.542154 39.542154 0 0 0-55.689847 0 39.266462 39.266462 0 0 0 0 55.689847L456.310154 512 38.557538 929.752615a39.542154 39.542154 0 0 0 0 55.689847 39.266462 39.266462 0 0 0 55.689847 0L512 567.689846l417.752615 417.752616c15.163077 15.163077 40.290462 15.36 55.689847 0a39.266462 39.266462 0 0 0 0-55.689847L567.689846 512 985.442462 94.247385a39.542154 39.542154 0 0 0 0-55.689847 39.266462 39.266462 0 0 0-55.689847 0L512 456.310154z" /></svg>
+        </div>
+        <div class="choose-button">
+            <button
+                    class="btn login-btn"
+                    :class ="{active:currTemplate==='login'}"
+                    @click = "currTemplate = 'login'"
+            >登录</button>
+            <button
+                    class="btn register-btn"
+                    :class ="{active:currTemplate==='register'}"
+                    @click = "currTemplate = 'register'"
+            >注册</button>
+        </div>
+        <!-- 登录 -->
+        <!-- 注册 -->
+        <component :is="currTemplate" @drawcanvas="drawcanvas" @check = 'checked'></component>
+    </div>
+</div>
+    <script>
+
+        var login = {
+          template : `
+            <div class="login">
+            <form action="#" id="login">
+                <div class="username">
+                    <label for="username"><span>账号:</span></label>
+                    <input type="text" placeholder="请输入邮箱" id="loginUsername" name="username">
+                </div>
+                <div class="password">
+                    <label for="password"><span>密码:</span></label>
+                    <input type="password" placeholder="请输入8至11位的中、英文字符" id="loginPassword" name="password">
+                </div>
+                <div class="check-code">
+                    <label for="checkCode"><span>验证码:</span></label>
+                    <div class="canvas-wrap">
+                        <canvas class="canvas" title="点击获取" width="100px" height="50px" ref="canvas" @click="$emit('drawcanvas')"></canvas>
+                    </div>
+                    <input type="text" placeholder="请输入验证码" id="loginCheckCode" name="checkCode">
+                </div>
+                <button type="submit">登录</button>
+            </form>
+        </div>
+          `,
+          mounted(){
+            this.$emit('drawcanvas');
+            this.$emit('check','login')
+          }
+        }
+
+        var register = {
+          template : `
+            <div class="register">
+            <form action="#" id="register">
+                <div class="username">
+                    <label for="username"><span>账号:</span></label>
+                    <input type="text" placeholder="请输入邮箱" id="username" name="username">
+                </div>
+                <div class="password">
+                    <label for="password"><span>密码:</span></label>
+                    <input type="password" placeholder="请输入8至11位的中、英文字符" id="password" name="password">
+                </div>
+                <div class="confirm-password">
+                    <label for="confirmPassword"><span>确认密码:</span></label>
+                    <input type="password" placeholder="请确认密码" id="confirmPassword" name="confirmPassword">
+                </div>
+                <div class="check-code">
+                    <label for="checkCode"><span>验证码:</span></label>
+                    <div class="canvas-wrap">
+                        <canvas class="canvas" title="点击获取" width="100px" height="50px" ref="canvas" @click="$emit('drawcanvas')"></canvas>
+                    </div>
+                    <input type="text" placeholder="请输入验证码" id="checkCode" name="checkCode">
+                </div>
+                <button type="submit">注册</button>
+            </form>
+        </div>
+          `,
+          mounted(){
+            this.$emit('drawcanvas');
+            this.$emit('check','register')
+          }
+        }
+      new Vue({
+        el : '.login-register',
+        name: 'loginRegister',
+        props : [
+          "target",
+          "sonTarget"
+        ],
+        data : {
+          currTemplate : "register",
+        },
+        components : {
+          login : login,
+          register : register
+        },
+        methods : {
+          checked : function (currTemplate) {
+            alert(currTemplate);
+            // 提交事件
+            $.validator.setDefaults({
+              submitHandler: function() {
+                alert("提交事件!");
+              }
+            });
+            // 自定义规则
+            $.validator.addMethod("email", function(value, element, param) {//验证规则
+              return /^((\w-*\.*)+@(\w-?)+(\.\w{2,})+)$/.test(value);
+            }, '邮箱号输入错误');
+
+            $.validator.addMethod("password", function(value, element, param) {//验证规则
+              return /^.[0-9A-Za-z]{7,10}$/.test(value);
+            }, '密码格式错误');
+
+            $.validator.addMethod("checkCode", function(value, element, param) {//验证规则
+              return value === param;
+            }, '验证码输入错误');
+
+            // js中的规则
+            $("#" + currTemplate).validate({
+              rules: {
+                username : {
+                  email : '',
+                  required: true
+                },
+                password: {
+                  password: "",
+                  required: true,
+                },
+                confirmPassword : {
+                  equalTo:"#password",
+                  required : true
+                },
+                checkCode : {
+                  checkCode : "nzq",
+                  required : true
+                }
+              },
+              messages : {
+                confirmPassword : "两次密码输入不一致"
+              }
+            });
+          },
+
+          //生成随机数
+          randomNum : function (min,max){
+            return Math.floor(Math.random()*(max-min)+min);
+          },
+          //生成随机颜色RGB分量
+          randomColor : function randomColor(min,max){
+            let _r = this.randomNum(min,max);
+            let _g = this.randomNum(min,max);
+            let _b = this.randomNum(min,max);
+            return "rgb("+_r+","+_g+","+_b+")";
+          },
+          // 画 canvas
+          drawcanvas : function (){
+            //获取到元素canvas
+            let $canvas = document.querySelector(".canvas");
+            let _str = "0123456789";//设置随机数库
+            // 这里是填入的东西  可以输入
+            let _picTxt = "1234";//随机数
+            let _num = 4;//4个随机数字
+            let _width = $canvas.width;
+            let _height = $canvas.height;
+            let ctx = $canvas.getContext("2d");//获取 context 对象
+            ctx.textBaseline = "bottom";//文字上下对齐方式--底部对齐  文字关于高度所在位置
+            ctx.fillStyle = this.randomColor(180,240);//填充画布颜色
+            ctx.fillRect(0,0,_width,_height);//填充矩形--画画
+            //  数字
+            for(let i=0; i<_num; i++){
+              let x = (_width-10)/_num*i+10;
+              let y = this.randomNum(_height/2,_height);
+              let deg = this.randomNum(-45,45);
+              let txt = _str[this.randomNum(0,_str.length)];
+              _picTxt += txt;//获取一个随机数
+              ctx.fillStyle = this.randomColor(10,100);//填充随机颜色
+              ctx.font = this.randomNum(16,40)+"px SimHei";//设置随机数大小，字体为SimHei
+              ctx.translate(x,y);//将当前xy坐标作为原始坐标  translate，移动起始位置
+              ctx.rotate(Math.PI*deg/180);
+              ctx.fillText(txt, 0,0);//绘制填色的文本  相对translate所移动的位置
+              ctx.rotate(-Math.PI*deg/180);
+              ctx.translate(-x,-y);
+            }
+            // 线
+            for(let i=0; i<_num; i++){
+              //定义笔触颜色
+              ctx.strokeStyle = this.randomColor(90,180);
+              ctx.beginPath();
+              //随机划线--4条路径
+              ctx.moveTo(this.randomNum(0,_width), this.randomNum(0,_height));
+              ctx.lineTo(this.randomNum(0,_width), this.randomNum(0,_height));
+              ctx.stroke();
+            }
+            // 圆
+            for(let i=0; i<_num*10; i++){
+              ctx.fillStyle = this.randomColor(0,255);
+              ctx.beginPath();
+              //随机画圆，填充颜色
+              ctx.arc(this.randomNum(0,_width),this.randomNum(0,_height), 1, 0, 2*Math.PI);
+              ctx.fill();
+            }
+            this.getCheckCode = _picTxt;
+            return _picTxt;//返回随机数字符串
+          }
+          },
+        mounted(){
+          /*this.checked(this.currTemplate);*/
+        }}
+      )
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入 bootstrap样式 -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div id="wrap">
+    <div class="jumbotron" id="jumbotron">
+        <h1>待删除的内容：</h1>
+        <p id="delete">我即将被删除</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" id="button">获取</a></p>
+    </div>
+</div>
+
+<!-- 引人入jquery.js -->
+<script src="js/jquery-3.3.1.js"></script>
+<!-- 引入 bootstrap.js -->
+<script src="js/bootstrap.min.js"></script>
+<!-- 这里放入 ajax 代码 -->
+<script>
+  $(document).ready(function () {
+    // 根据获取的数据,在网页中展示
+
+    // 发送请求获得相应的数据
+    function requestAndDelete () {
+      // console.log(jsonData); --- 打开这个地方 ， 可以测试数据正确性
+      $.ajax({
+        // 路径     假设这里用了  id,且id = 18,   18可以用变量代替（如：url:'路径?id='+params,）
+        url:'路径?id='+18,
+        // 请求类型
+        type : 'DELETE',
+        // 是否异步
+        async : true,
+        // 预期的服务器相应的数据类型
+        dataType : 'json',
+        // 设置超时 时长 -- 5s
+        timeout : 5000,
+        // 成功是的处理函数
+        success : function (result) { //result 请求结果
+          // 获取待删除的内容
+          let $delete = $('#delete');
+          // 判断 ， 如果当删除成功时删除  假设 '00'时成功
+          if (result.code === '00') {
+            $delete.remove();
+          }
+        },
+        // 错误时的处理函数
+        error : function (error) { // error 错误对象
+          // 弹出框
+          alert('失败');
+        },
+        // 请求完成 所需处理函数
+        complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+          if(status==='timeout'){//超时,status还有success,error等值的情况
+            alert("超时");
+          }
+        }
+      })
+    }
+
+    // 当按钮被点击时的 处理程序
+    $('#button').click(function (event) {
+      // 阻止默认事件  ，加上
+      event.preventDefault();
+      requestAndDelete()
+    })
+  })
+</script>
+</body>
+</html>
+

@@ -1,0 +1,1 @@
+原生js中slice()方法和splice()区别     http://www.cnblogs.com/yunwei8/p/6510916.html

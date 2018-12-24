@@ -1,0 +1,44 @@
+1. 图片上传
+	一般是用FormData，如果是<input type="file">的话，首先是在change事件处理里用e.target.files[0];拿到文件缓存，然后new个FormData实例出来，再把刚才缓存的file用append方法填充到这个实例里，有其它数据也可以append进去，最后post发到后台即可。
+
+2. FormData 对象的使用：
+	1.用一些键值对来模拟一系列表单控件：即把form中所有表单元素的name与value组装成
+	一个queryString
+	2. 异步上传二进制文件。
+	https://segmentfault.com/a/1190000012327982
+	var formData = new FormData($("#upfile")[0]);
+	//formData.set('file', document.getElementById("upload").files[0]);
+
+	
+	
+3. 上传进度条
+	原生   ：xhr.upload.onprogress = progressFunction;//【上传进度调用方法实现】
+	jQuery : https://www.cnblogs.com/tianyuchen/p/5594641.html
+	
+	
+	
+4. canvas.toDataURL  => 
+	image.src = canvas.toDataURL("image/png");
+	toDataURL()。这个方法能把画布里的图案转变成base64编码格式的png，然后返回 Data URL数据。
+	http://www.webhek.com/post/save-canvas-to-image.html
+	
+	
+5. 
+	
+	
+6. URL.createObjectURL
+	URL.createObjectURL()方法会根据传入的参数创建一个指向该参数对象的URL. 这个URL的生命仅存在于它被创建的这个文档里
+	https://www.cnblogs.com/liulangmao/p/4262565.html
+	URL.revokeObjectURL
+	
+7. Blob 对象
+	https://blog.csdn.net/oscar999/article/details/36373183
+	MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。
+	际上 file 对象只是 blob 对象的一个更具体的版本，blob 存储着大量的二进制数据
+	
+8. DATA URL
+	可直接作为路径，可被解析
+	https://www.cnblogs.com/xuechenlei/p/5940371.html（重要）
+	Base64编码
+	(1).URL.createObjectURL得到的是blob
+	(2).reader.readAsDataURL 得到的是DATA URL base64数据

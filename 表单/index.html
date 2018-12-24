@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+
+  .reBack-login {
+    color: deepskyblue;
+    text-decoration: underline;
+    float: right;
+    cursor: pointer;
+    font: 25px/30px "simhei";
+  }
+
+  .register{
+    width: 350px;
+    height: 500px;
+    border: 2px solid rgba(0,0,0,0.2);
+    position: absolute;
+    top: 15%;
+    right: 150px;
+    /* 透明蒙膜 */
+    background: rgba(0,0,0,0.1);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    color: rgba(255,255,255,0.9);
+    padding: 20px;
+  }
+
+  /* register下各个div共有 */
+  .username,.userPassword,.userEmail{
+    height: 90px;
+    margin-bottom: 20px;
+  }
+  .userEmailInput,.usernameInput,.userPasswordInput{
+    border-bottom: 1px solid rgba(255,255,255,0.9);
+  }
+  /* 标题 */
+  .register .title{
+    font: 40px/60px "simhei","微软雅黑";
+    margin: 20px 0;
+  }
+
+  /* input区间的 span区间 */
+  @font-face {font-family: "iconfont";
+    src: url('../../../static/font/addIcon/iconfont.eot?t=1528530233989'); /* IE9*/
+    src: url('../../../static/font/addIcon/iconfont.eot?t=1528530233989#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('data:application/x-font-woff;charset=utf-8;base64,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') format('woff'),
+    url('../../../static/font/addIcon/iconfont.ttf?t=1528530233989') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('../../../static/font/addIcon/iconfont.svg?t=1528530233989#iconfont') format('svg'); /* iOS 4.1- */
+  }
+
+  .register span.icon{
+    font: 30px/40px iconfont;
+    margin-right: 10px;
+  }
+  .username span.inputIcon:before{
+    content: '\e64c';
+  }
+  .userPassword span.inputIcon:before{
+    content:'\e651'
+  }
+  .userEmail span.inputIcon:before{
+    content: "\e65e";
+  }
+
+  /* input区间 */
+  /* 去除input默认效果 */
+  .register input{
+    background:none;
+    outline:none;
+    border: 0;
+    font-size: 25px;
+    color: white;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow : 0 0 0px 1000px rgba(0,0,0,0.2) inset ;
+    border : 1px solid #CCC !important ;
+  }
+
+  .register input::-webkit-input-placeholder{
+    font: 20px/30px "iconfont";
+    color: rgba(255,255,255,0.5);
+  }
+  .register input:-moz-placeholder{
+    font: 20px/30px "simhei";
+    color: rgba(255,255,255,0.5);
+  }
+  .register input::-moz-placeholder{
+    font: 20px/30px "simhei";
+    color: rgba(255,255,255,0.5);
+  }
+  .register input:-ms-input-placeholder{
+    font: 20px/30px "simhei";
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* prompt区间 */
+  .register .prompt{
+    font: 20px/30px "iconfont";
+    position: relative;
+  }
+
+  .describe{
+    visibility: hidden;
+    height: 60px;
+    width: 200px;
+    border: 1px solid red;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;;
+    background-color: skyblue;
+    left:-55px;
+    top: 115%;
+    padding: 0 10px 0 10px;
+    line-height: 60px;
+  }
+
+  .register .prompt .desIcon:before{
+    content: '\e668';
+    font-size: 30px;
+    color: rgb(255, 51, 19);
+  }
+
+  .describe span.triangle{
+    position: absolute;
+    width: 0;
+    height: 0;
+    /* 没有style无 */
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid red;
+    top: -15px;
+    left:60px ;
+  }
+
+  .describe p{
+    width: 100%;
+    font: italic bold 15px/25px "simhei";
+    vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+   }
+
+
+  .register .prompt .promptWrong {
+    position: absolute;
+    left:35px;
+    top: 0;
+    font:normal bolder 20px/30px "simhei","华文新魏";
+    line-height: 50px;
+    color: yellow;
+    opacity: 0;
+  }
+
+  /* register-button区间 */
+  .register-button{
+    position: absolute;
+    width: 60%;
+    margin-left: calc(20% - 20px);
+    bottom: 30px;
+    height: 40px;
+    border: 1px solid rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.2);
+    font: 20px/40px "simhei";
+    color: rgba(255,255,255,0.9);
+    outline: none;
+    cursor: pointer;
+  }
+
+  .register .register-button:hover{
+    background: rgba(0,0,0,0.4);
+  }
+
+
+  /* title 和 describe */
+
+  .title {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .describe p,.promptWrong {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+<!-- 得到用户输入 -->
+  <div class="register">
+    <div
+      class="reBack-login"
+      v-on:click="$emit('click','loginUi')"
+    >
+      Login in
+    </div>
+    <div class="title">Sign up</div>
+    <div class="username">
+      <div class="usernameInput">
+        <span class="inputIcon icon"></span>
+        <input
+          autocomplete="off"
+          id="username"
+          name="username"
+          type="text"
+          v-model="username"
+          class="input"
+          placeholder="Username"
+        >
+      </div>
+      <!-- prompt 提示 -->
+      <div class="prompt">
+        <span class="icon"></span>
+        <div class="describe">
+          <span class="triangle"></span>
+          <p>请输入3~8个英文字符、数字字符</p>
+        </div>
+        <p
+          class="promptWrong nameWrong"
+        >
+          请输入3~8个英文字符、数字字符
+        </p>
+      </div>
+    </div>
+
+    <div class="userPassword">
+      <div class="userPasswordInput">
+        <span class="inputIcon icon"></span>
+        <input
+          autocomplete="off"
+          id="userPassword"
+          name="userPassword"
+          type="password"
+          v-model="userPassword"
+          class="input"
+          placeholder="Password"
+        >
+      </div>
+      <div class="prompt">
+        <span class="icon"></span>
+        <div class="describe">
+          <span class="triangle"></span>
+          <p>请输入8位以上字母、数字字符</p>
+        </div>
+        <p class="promptWrong"></p>
+        <p
+          class="promptWrong passwordWrong"
+        >
+          请输入8位以上字母、数字字符
+        </p>
+      </div>
+    </div>
+
+    <div class="userEmail">
+      <div class="userEmailInput">
+        <span class="inputIcon icon"></span>
+        <input
+          autocomplete="off"
+          name="email"
+          id="email"
+          type="text"
+          v-model="userEmail"
+          class="input"
+          placeholder="Email"
+        >
+      </div>
+      <div class="prompt">
+        <span class="icon"></span>
+        <div class="describe">
+          <span class="triangle"></span>
+          <p>请输入你所拥有的邮箱</p>
+        </div>
+        <p
+          class="promptWrong emailWrong"
+        >
+          请输入正确的邮箱
+        </p>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="register-button"
+      @click = checkForm
+    >
+      REGISTER
+    </button>
+
+
+  </div>
+</body>
+<script>
+</html>
+
+  import {Validator} from 'vee-validate';
+  Validator.extend('phone', {
+    getMessage: (field, [args]) => `请输入正确的手机号码`,
+    validate: (value, [args]) =>{
+      const reg = /^((13|14|15|17|18)[0-9]\d{8})$/;
+      return reg.test(value)
+    }
+  });
+  export default {
+    props: {
+      toggle: {
+        default: "registerUi",
+        type: String
+      }
+    },
+    data (){
+      return {
+        username : "",
+        userPassword : "",
+        userEmail : ""
+      }
+    },
+    methods : {
+      inputOnBlur: function () {
+        let inputArray = $(".register input");
+        for (let i = 0; i < inputArray.length; i++) {
+          // 提取
+          let getDesIcon = $(inputArray[i]).parent().next().children(".icon");
+          let getDes = getDesIcon.next();
+          $(inputArray[i]).on("focus", function () {
+            // $(".register .input");
+            // ***********这里为什么总是得到数量不一样的  input啊？
+            // addClass
+            // prop("className"));
+            // attr("class"));
+
+            getDesIcon.attr({
+              "class": "icon desIcon"
+            });
+            getDes.css({
+              "visibility": "visible"
+            });
+
+            setTimeout(function () {
+              getDes.css({
+                "visibility" : "hidden"
+              })
+            },3000);
+
+            $(".describe span.desIcon").hover(
+              function () {
+                getDes.css({
+                  "visibility": "visible"
+                });
+              },
+              function () {
+                getDes.css({
+                  "visibility": "hidden"
+                });
+              }
+            );
+          });
+          $(inputArray[i]).on("blur", function () {
+            getDesIcon.removeClass("desIcon");
+            getDes.css({
+              "visibility": "hidden"
+            });
+          })
+        }
+      },
+      limitsByInput: function () {
+        let inputArray = $(".register input");
+        for (let i = 0; i < inputArray.length; i++) {
+          let getDesIcon = $(inputArray[i]).parent().next().children(".icon");
+          let getDes = getDesIcon.next();
+
+          $(inputArray[i]).on("input", function () {
+            getDes.css({
+              "visibility" : "hidden"
+            })
+          });
+
+          getDesIcon.hover(function () {
+            getDes.css({
+              "visibility" : "visible"
+            })
+          })
+        }
+      },
+      checkForm : function () {
+        let nameWrong = $(".nameWrong");
+        let passwordWrong = $(".passwordWrong");
+        let emailWrong = $(".emailWrong");
+        let that = this;
+          // checkName
+        let checkName = /^[a-zA-Z0-9]{3,8}$/.test(that.username);
+        let checkPassword = /^[a-zA-Z0-9]{8,20}$/.test(that.userPassword);
+        let checkEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]+)$/.test(that.userEmail);
+
+        (checkName && nameWrong.css({opacity:0})) || nameWrong.css({opacity:1});
+        (checkPassword && passwordWrong.css({opacity:0})) || passwordWrong.css({opacity:1});
+        (checkEmail && emailWrong.css({opacity:0})) || emailWrong.css({opacity:1});
+
+        if( checkName && checkEmail && checkPassword ) {
+          this.$emit('click','loginUi')
+        }
+      }
+    },
+    mounted (){
+      this.inputOnBlur();
+      this.limitsByInput();
+    }
+  }
+</script>
