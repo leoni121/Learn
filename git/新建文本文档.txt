@@ -19,3 +19,6 @@ https://blog.csdn.net/Shenpibaipao/article/details/78129342
 
 6.Git忽略提交规则 - .gitignore配置运维总结
 https://www.cnblogs.com/kevingrace/p/5690241.html
+
+7.初始化之后上传出现版本冲突
+https://blog.csdn.net/shiren1118/article/details/7761203

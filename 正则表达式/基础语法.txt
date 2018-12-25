@@ -14,7 +14,7 @@
 10. i 大小写不敏感
 11. g 全局，查找所有
 12. m 多行
-https://blog.csdn.net/gqzydh/article/details/78817983
+    https://blog.csdn.net/gqzydh/article/details/78817983
 13. \w \W
 14. \s \S
 15. \d \D
@@ -33,3 +33,4 @@ https://blog.csdn.net/gqzydh/article/details/78817983
 27. "1231333242".replace(/3/, "n") -- "12n1333242"
 28. "1231333242".replace(/3/g, "n") -- "12n1nnn242"
 29. split
+30. "." 查找单个字符，除了换行和行结束符。

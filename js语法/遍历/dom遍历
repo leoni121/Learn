@@ -1,0 +1,17 @@
+1. children 元素节点
+
+2. childNodes  获取所有类型子节点
+    nodeType=3-------------->文本节点
+    nodeType=1------------->元素节点
+    childNodes 属性返回节点的子节点集合，以 NodeList 对象   --- https://www.cnblogs.com/Jersen/p/4908943.html
+
+3. firstChild
+    let one = document.querySelector("#one");
+    let child = one.firstChild;
+    let fragment = document.createDocumentFragment();
+    while (child) {
+      // 将Dom元素移入fragment中
+      fragment.appendChild(child); // 相当于把当前child 移动到 fragment
+      child = one.firstChild
+    }
+    之后one.childNodes.length === 0  true

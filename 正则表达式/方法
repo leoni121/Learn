@@ -1,0 +1,5 @@
+1. replace
+    "<color color_tag='#112233+++#112233'>" ====> "<color color_tag='{{#112233}}+++{{#112233}}'>"
+    str.replace(/(#.{6})/g,function(){
+        return "{{"+arguments[1]+"}}";
+    })
