@@ -1,20 +1,62 @@
-节点类型：
-    1. 深入理解javascript中的动态集合——NodeList、HTMLCollection和NamedNodeMap
-        https://www.cnblogs.com/xiaohuochai/p/5827389.html
+*** 深入理解javascript中的动态集合——NodeList、HTMLCollection、NamedNodeMap
+    https://www.cnblogs.com/xiaohuochai/p/5827389.html
 
 
-节点操作：
-    1. node.textContent ——  属性设置或返回指定节点的文本内容，以及它的所有后代的text。
-        http://www.w3school.com.cn/jsref/prop_node_textcontent.asp
-        <div class="one" id="one">
-            <div>nzq <div>d</div></div>
-            <div>wx <div>d</div></div>
-        </div>
-        ======>
-        <div class="one" id="one">
-            nzq
-            <div>nzq</div>
-            nzq
-            <div>nzq</div>
-            nzq
-        </div>
+*** range
+    https://segmentfault.com/a/1190000009875696
+
+
+*** 了解DocumentFragment 给我们带来的性能优化
+    https://www.cnblogs.com/blueSkys/p/3685740.html
+
+
+*** node.textContent ——  属性设置或返回指定节点的文本内容，以及它的所有后代的text。
+    http://www.w3school.com.cn/jsref/prop_node_textcontent.asp
+    <div class="one" id="one">
+        <div>nzq <div>d</div></div>
+        <div>wx <div>d</div></div>
+    </div>
+    ======>
+    <div class="one" id="one">
+        nzq
+        <div>nzq</div>
+        nzq
+        <div>nzq</div>
+        nzq
+    </div>
+
+
+*** node.attributes  —— NamedNodeMap
+    let attr = document.querySelector("#app").attributes;
+    console.log(attr); 如下浏览器打印结果：
+    NamedNodeMap {0: id, 1: v-try1, id: id, v-try1: v-try1, length: 2}
+    {
+        0: id
+            baseURI: "http://localhost:63342/%E7%AC%94%E8%AE%B0/vue/%E5%8E%9F%E7%90%86%E7%9B%B8%E5%85%B3/vue%E7%9A%84%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/try.html?_ijt=j638bpmf9hht2qj3s7l67guv7"
+            childNodes: NodeList []
+            firstChild: null
+            isConnected: false
+            lastChild: null
+            localName: "id"
+            name: "id"
+            namespaceURI: null
+            nextSibling: null
+            nodeName: "id"
+            nodeType: 2
+            nodeValue: "app"
+            ownerDocument: document
+            ownerElement: div#app
+            parentElement: null
+            parentNode: null
+            prefix: null
+            previousSibling: null
+            specified: true
+            textContent: "app"
+            value: "app"
+            __proto__: Attr
+            1: v-try1
+            length: 2
+            id: id
+            v-try1: v-try1
+            __proto__: NamedNodeMap
+    }

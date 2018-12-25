@@ -3,6 +3,7 @@
  * @author NZQ
  * @data 2018/12/24
  * @Description : 实现数据监听
+ * @Param : val = data[key]
  */
 function defineReactive(data, key, val) {
   let dep = new Dep(); // 每个属性一个消息管理器

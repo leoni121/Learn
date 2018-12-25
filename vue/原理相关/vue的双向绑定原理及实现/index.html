@@ -5,24 +5,29 @@
     <title>Title</title>
 </head>
 <body>
-<h1 id="app">
+<div id="app">
     <h2>{{title}}</h2>
+    name:<input v-model="name">
     <h1>{{name}}</h1>
-</h1>
+    <button v-on:click="clickMe">click me!</button>
+</div>
 <!--javascript 设计模式 -- https://addyosmani.com/resources/essentialjsdesignpatterns/book/-->
 <script src="js/observer.js"></script>
 <script src="js/watcher.js"></script>
 <script src="js/compile.js"></script>
 <script src="js/index.js"></script>
 <script>
+    console.log(document.querySelector("#app").attributes);
     const selfVue = new SelfVue({
       el: "#app",
       data: {
-        title: 'canfoo',
+        title: "nzq try",
+        name: 'nzq',
       },
       methods: {
         clickMe() {
-          this.title = "hello world";
+          console.log(this);
+          this.title = "nzq try suc";
         }
       },
       mounted() {

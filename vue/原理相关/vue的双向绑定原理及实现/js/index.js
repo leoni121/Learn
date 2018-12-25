@@ -10,11 +10,7 @@ class SelfVue {
    * @date 2018/12/25
    * @Param : data: 相关data, methods：相关方法, el: 对应元素
   */
-  constructor(options : {
-                data = {},
-                methods : {},
-                el : "#app"
-  }) {
+  constructor(options, data = options.data, methods = options.methods, el = options.el) {
     let self = this;
     this.data = data;
     this.methods = methods;
@@ -24,7 +20,8 @@ class SelfVue {
     })
 
     observe(this.data);
-    new Compile(el, this);
+   // new Compile(el, this);
+    // 通vue mounted 把mounted 绑定this
     options.mounted.call(this);
     return this;
   }
