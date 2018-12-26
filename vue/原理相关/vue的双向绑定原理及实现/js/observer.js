@@ -26,7 +26,6 @@ function defineReactive(data, key, val) {
       dep.notify(); //Observer => Dep => Watcher
     }
   })
-  console.log(dep);
   observe(val)
 }
 /**

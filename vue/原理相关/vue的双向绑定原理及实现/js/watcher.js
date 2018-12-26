@@ -48,7 +48,6 @@ class Watcher {
     }
   }
   get() {
-    console.log("get")
     Dep.target = this; //缓存自己 -- watcher,
     let value = this.vm.data[this.exp]; // 执行get 通过这一步判断Dep里面有没有当前的
     Dep.target = null;

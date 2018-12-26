@@ -17,7 +17,6 @@
 <script src="js/compile.js"></script>
 <script src="js/index.js"></script>
 <script>
-    console.log(document.querySelector("#app").attributes);
     const selfVue = new SelfVue({
       el: "#app",
       data: {
@@ -26,13 +25,12 @@
       },
       methods: {
         clickMe() {
-          console.log(this);
           this.title = "nzq try suc";
         }
       },
       mounted() {
         setTimeout(() => {
-          selfVue.title = "你好";
+          this.title = "你好";
         }, 3000)
       }
     });

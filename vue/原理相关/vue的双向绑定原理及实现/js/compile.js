@@ -43,7 +43,7 @@ class Compile {
   compileElement(el) {
     let childNodes = el.childNodes
       ,self = this,
-      reg = /^{(.*)}}$/;
+      reg = /^{{(.*)}}$/;
 
     [...childNodes].forEach((node) => {
       let text = node.textContent;
@@ -66,8 +66,7 @@ class Compile {
    */
   compileText(node, exp) {
     let self = this
-      ,initText = this.vm[exp];
-
+      ,initText = this.vm[exp]; // 初始化Observer get
     self.updateText(node, initText); // 讲初始化的数据初始化到视图中
     new Watcher(this.vm, exp, (value) => {
       self.updateText(node, value);

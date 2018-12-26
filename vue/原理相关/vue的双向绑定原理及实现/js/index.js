@@ -20,7 +20,7 @@ class SelfVue {
     })
 
     observe(this.data);
-   // new Compile(el, this);
+    new Compile(el, this);
     // 通vue mounted 把mounted 绑定this
     options.mounted.call(this);
     return this;
