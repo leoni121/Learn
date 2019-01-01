@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+// 返回a*b也能通过。在浏览器上做实验，最大17位的小数位数满足了该题全部的测试用例。
+  function multiply(a, b) {
+    return a*b;
+  }
+  // 这里先得到相应的str（为什么？） , 还有就是
+  function multiply(a, b) {
+    var aStr = a.toString();
+    var bStr = b.toString();
+
+    var len = Math.max(aStr.length - aStr.indexOf(".") - 1, bStr.length - bStr.indexOf(".") - 1);
+
+    return (a * b).toFixed(len);
+  }
+  console.log(multiply(3, 0.0001));
+</script>
+</body>
+</html>

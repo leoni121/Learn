@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    <!-- closures 闭包函数 -->
+    // map
+    function makeClosuresByMySelf(arr, fn) {
+        var result = arr.map(function (value, index, arr) {
+            return function () {
+                return fn(value)
+            }
+        });
+        return result;
+    }
+
+    function makeClosuresByForEach(arr, fn) {
+        var result = [];
+        arr.forEach(function (value, index, arr) {
+            result.push(function () {
+                return fn(value);
+            })
+        });
+        return result;
+    }
+
+    var result = makeClosuresByForEach([1,2,3], function (x) {
+        return x * x;
+    });
+    console.log(result[1]());
+</script>
+</body>
+</html>

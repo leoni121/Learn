@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    var arr = [1, 2, 3, 4, 2],
+        item = 2;
+
+    function removeByFilter(arr, item) {
+        return arr.filter(function (curr, index, arr) {
+            return curr != item;
+        })
+    }
+
+    function removeByPush(arr, item) {
+        var newArr = new Array();
+
+        for (let arrItem of arr){
+            arrItem !== item ?  newArr.push(arrItem) : null;
+        }
+        return newArr;
+    }
+
+    // 1.filter
+    // array.filter 得到新数组,原数组不变
+     console.log(removeByFilter(arr, item));
+
+    // 2.
+    console.log(removeByPush(arr, item));
+
+
+</script>
+</body>
+</html>

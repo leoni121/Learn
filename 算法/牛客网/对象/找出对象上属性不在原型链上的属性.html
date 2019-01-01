@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+  function iterateByHasOwnProperty(obj) {
+    var arr = [];
+    for (var item in obj) {
+      if (obj.hasOwnProperty(item)) {
+        arr.push(item + ": " + obj[item]);
+      }
+    }
+    return arr;
+  }
+
+function iterateByObjectKeys (obj) {
+  var arr = Object.keys(obj);
+  var arrs = [];
+  arr.forEach(function (item) {
+    arrs.push(item + ": " + obj[item])
+  })
+
+  return arrs;
+}
+  var C = function() {this.foo = 'bar'; this.baz = 'bim';};
+  C.prototype.bop = 'bip';
+  console.log(iterateByHasOwnProperty(new C()));
+</script>
+</body>
+</html>

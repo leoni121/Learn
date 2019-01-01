@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [1, 2, 3, 4],item = 10;
+    
+    function prependBySlice(arr, item) {
+        var newArr = arr.slice(0);
+        newArr.unshift(item);
+        return newArr;
+    }
+
+    function prependByMap(arr, item) {
+        var newArr = arr.map(function (value, index, arr) {
+            return value;
+        })
+
+        newArr.unshift(item);
+         return newArr;
+    }
+
+    function prependByJoinAndSplit(arr, item) {
+        /*
+            var str = "Iloveyou";
+            str.split("").reverse().join("");
+            str 变为倒序
+        */
+
+        /*
+        *   1.join 用于数组  不加任何参数 默认加“，”变为字符串
+        *   2.split 返回参数是字符串的数组
+        */
+        var newArr=arr.join().split(',');
+        newArr.unshift(item);//newArr.splice(0,0,item);
+        return newArr;
+    }
+
+    function prependByConcat(arr, item) {
+        return [item].concat(arr);
+    }
+
+
+    console.time("prependByApply");
+    function prependByApply(arr, item) {
+        /*[].push()是Arrary.prototype.push()的另外一种写法
+        其实最根本的东西是Arrary.prototype.push()这个方法*/
+        var newArr = [item];
+        // [].push.apply(newArr, arr);
+
+        // Array.prototype.push.call(newArr, arr);
+        //    1.把newArr, arr做参数形成数组
+
+        Array.prototype.push.apply(newArr, arr);
+        return newArr;
+    }
+    console.log(prependByApply(arr, item));
+    console.timeEnd("prependByApply");
+</script>
+</body>
+</html>

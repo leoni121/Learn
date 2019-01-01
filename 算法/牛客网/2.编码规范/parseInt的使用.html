@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // '12' '12px' '0x12'
+    function parse2IntByParseFloat(num) {
+        return parseInt(parseFloat(num));
+    }
+
+    // 添加进制信息
+    function parse2Int(num)
+    {
+        return parseInt(num,10);
+    }
+
+    console.log(parse2Int("12px"));
+
+</script>
+</body>
+</html>

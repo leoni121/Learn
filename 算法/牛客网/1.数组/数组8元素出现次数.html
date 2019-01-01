@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [1, 2, 4, 4, 3, 4, 3], item =  4;
+    var tryArr = [1,1,1,1,1];
+    var tryItem = 1;
+    function countByMap(arr, item) {
+        var sum = 0;
+        arr.map(function (value, index, arr) {
+            sum = value === item ? sum+1 : sum;
+        });
+        return sum;
+    }
+
+    function countByReduce(arr, item) {
+        var sum = 0;
+        var count = 0;
+        return arr.reduce((prev, curr, idx, arr) => curr === item ? prev + 1 : prev, 0);
+    //    变为从第一个参数开始
+    }
+    /*
+    * 扩展：
+    *   1、filter
+    *   2、map
+    *   3、forEach
+    *   4、for
+    *   5、reduce
+    */
+    console.log(countByMap(tryArr, tryItem));
+</script>
+</body>
+</html>

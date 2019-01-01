@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function Page (opts) {
+        this.curPage = opts.curPage;
+        this.total = opts.total;
+        this.range = opts.range;
+        this.paging()
+    }
+
+    Page.prototype = {
+        paging : function () {
+            var arr = [];
+            for (var i = 1; i <= this.total; i++) {
+                if (i === 2 && this.curPage - (this.range - 1) / 2 > 1) {
+                    arr.push("...");
+                    i = this.curPage - (this.range - 1) / 2 + 2;
+                }else if ( i === this.curPage + (this.range-1) / 2 - 2 && this.curPage + (this.range -1 ) /2 < this.total ) {
+                    arr.push("...");
+                    i = this.total - 1;
+                }else {
+                    arr.push(i);
+                }
+            }
+            console.log(arr);
+        }
+    }
+    new Page({
+        curPage : 9 ,
+        total : 100,
+        range : 9
+    })
+</script>
+</body>
+</html>
+
+
+

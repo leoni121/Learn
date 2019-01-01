@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var arrModel = [ 1, 2, 3, 4 ];
+    var arr = [ 1, 2, 3, 4 ];
+
+    function sumByOrdinary(arr) {
+        let sumNum = 0;
+        while(arr != false){
+            sumNum += arr.pop();
+        }
+        return sumNum;
+    }
+
+    function sumByReduce(arr) {
+        return arr.reduce(function(prev, curr, idx, arr){
+            return prev + curr;
+        });
+    }
+
+    function sumByMap(arr) {
+        let sumNum = 0;
+        arr.map(function (value, index, array) {
+            sumNum += value;
+        });
+        return sumNum;
+    }
+
+    function sumByForEach(arr) {
+        let sumNum = 0;
+        arr.forEach(function (value, index, arr) {
+            sumNum += value;
+        });
+        return sumNum;
+   }
+   function sumByEval(arr) {
+        return eval(arr.join("+"));
+   }
+
+    // 1.
+    // console.log(sumByOrdinary(arr));
+    // arr = arrModel;
+
+    // 2. reduce
+    // 这个函数是从第二个开始
+	// 该函数的返回值是 Number
+    // 而且里面return的东西就相当于prev 如果不return的话 console.log（prve)就为undefined
+     console.log(sumByReduce(arr));
+
+    // 3. map
+    // map 生成新数组
+    // console.log(sumByMap(arr));
+
+    // 4. forEach
+    // forEach 改变原数组 , 无返回值
+    //console.log(sumByForEach(arr));
+
+    // 5. eval
+    // eval() 函数可计算某个字符串，并执行其中的的 JavaScript 代码。
+    // console.log(sumByEval(arr));
+
+
+
+    //  数组为空的相应判断  注意点！！！！！！
+    if (array === undefined || array.length == 0) {
+        // array empty or does not exist
+    }
+</script>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    <!-- 不通过 -->
+  function convertToBinaryBySelf(num) {
+    var str = num.toString(2);
+    var strArray = [];
+    for (let i = 0, len = 8 - str.length; i < len; i++) {
+      strArray[i] = 0;
+    }
+  }
+    function convertToBinaryBySlice(num) {
+      return ('00000000' + num.toString(2)).slice(-8);
+    }
+
+
+    function convertToBinaryByAdd(num) {
+      var str = num.toString(2);
+      while(str.length < 8) {
+        str = "0" + str;
+      }
+
+      return str;
+    }
+
+  console.log(convertToBinaryByAdd(65))
+</script>
+</body>
+</html>

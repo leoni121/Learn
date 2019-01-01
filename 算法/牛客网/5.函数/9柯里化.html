@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 1.
+    function curryItByMyself(fn) {
+        var arg = [].slice.call(arguments, 1);
+        var count = 0;
+        var length = fn.length;
+        var curry = function (a) {
+            // 把传进来的阐述 变成数组 再来 concat  无必要
+            arg = arg.concat([].slice.call(arguments));
+            count ++ ;
+            if (count === length){
+                return fn.apply(this, arg)
+            }
+            return curry;
+        };
+        return curry
+    }
+
+    // 1 改进后得
+    function curryItByUpOne(fn) {
+        var length = fn.length;
+        var args = [];// 装参数
+
+        return function (arg) {
+            args.push(arg);
+            if(args.length < length) {
+                return arguments.callee;
+            }else {
+                return fn.apply(null, args);
+            }
+        }
+    }
+
+    // 2.一层一层调用
+    function curryItByOrdinary(fn) {
+        return function (a) {
+            return function (b) {
+                return function (c) {
+                    return fn.call(null, a, b, c)
+                }
+            }
+        }
+    }
+
+
+    var fn = function (a, b, c) {return a + b + c};
+    console.log(curryItByUpOne(fn)(1)(2)(3))
+</script>
+</body>
+</html>

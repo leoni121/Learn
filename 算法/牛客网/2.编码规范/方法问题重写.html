@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+   /* function functions(flag) {
+        if (flag) {
+            function getValue() { return 'a'; }
+        } else {
+            function getValue() { return 'b'; }
+        }
+
+        return getValue();
+    }*/
+   // else中的语句相当于将if中的function重写，因此无论flag为何值，
+   // 返回的方法始终为重写后的方法。将方法赋值给一个变量，方法就不
+   // 会被重写，因此才能得到正确的结果。
+   function functions(flag) {
+       if (flag) {
+           var getValue = function () { return 'a'; }
+       } else {
+           var getValue = function () { return 'b'; }
+       }
+       return getValue();
+   }
+    console.log(functions(true))
+</script>
+</body>
+</html>

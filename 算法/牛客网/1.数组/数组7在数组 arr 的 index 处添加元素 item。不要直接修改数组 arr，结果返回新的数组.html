@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [1, 2, 3, 4], item = 'z', index = 2;
+
+    function insert(arr, item, index) {
+        var newArr = arr.slice(0);
+        newArr.splice(index, 0, item);
+        return newArr
+    }
+
+    console.log(insert(arr, item, index))
+</script>
+</body>
+</html>

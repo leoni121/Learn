@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function fizzBuzzByMySelf(num) {
+        let str = "fizzbuzz";
+
+        if(num%3===0 && num%5===0){
+            return str
+        }else if(num%3===0){
+            return str.slice(0,4)
+        }else if(num%5===0){
+            return str.substr(0,4)
+        //     return str.substring(start,end)
+        }else if(typeof num != "number" || num == null) {
+            return false
+        }else{
+            return num;
+        }
+    }
+
+    function fizzBuzzByString(num) {
+        if (!num || typeof num!="number"){
+            return false;
+        }
+        var str = "";
+        if(num%3 === 0) {
+            str+="fizz";
+        }
+        if(num % 5 === 0) {
+            str+="buzz"
+        }
+        return str ? str: num
+    }
+
+    // 用于检测参数是否为 非数字类型
+    function fizzBuzzByOther(num) {
+        if(isNaN(num)){
+            return false;
+        }
+        var str = "";
+        if(num % 3 === 0){
+            str += "fizz";
+        }
+        if(num % 5 === 0) {
+            str += "buzz";
+        }
+        return str || num
+    }
+    console.log(fizzBuzzByOther(15));
+</script>
+</body>
+</html>

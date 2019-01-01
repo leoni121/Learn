@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap>* {
+            float: left;
+            user-select: none;
+        }
+        ul,li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            overflow: hidden;
+        }
+        ul>li {
+            float: left;
+        }
+        #wrap>span
+        ,ul>li{
+            margin: 5px;
+            color: black;
+            font-size: 12px;
+            width: 20px;
+            text-align: center;
+        }
+        #wrap>span:hover
+        ,#wrap ul>li:hover {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .curr {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <span>&lt;</span>
+    <ul>
+      <!--  <li>1</li>
+        <li class="omit" data-position="left">...</li>
+        <li>3</li>
+        <li class="curr">4</li>
+        <li>5</li>
+        <li class="omit" data-position="right">...</li>
+        <li>10</li>-->
+    </ul>
+    <span>&gt;</span>
+</div>
+ <script>
+ //https://www.cnblogs.com/linjiqin/p/3848667.html
+
+    // 分页函数             x          100         7
+    function get_hs_page (cur_page, total_page, range) {
+      let result = [];
+      for (let i = 1; i <= total_page; i++) {
+        // why i===2? : 因为 i=1 的情况一直要显示
+        // 当cur_page 超出范围时得到最小的页码 并添加"..."
+        // 某种情况当cur_page=(range-1)/2+1时刚好显示完成
+        if (i ===2 && cur_page - (range-1)/2 > 1) {
+          i = cur_page - (range-1)/2 ;
+          // 此时是左边最边缘的地方， 后经过i++ 此地方不显示
+          result.push('...left');
+        // 当cur_page 超出范围时得到最小的页码 并添加"..."
+        }else if (i === cur_page + (range-1)/2 && cur_page + (range-1)/2 < total_page) {
+        // i === cur_page + (range-1)/2 该判断是当右边最边缘的地方经过 下列操作不显示
+          result.push('...right');
+          i = total_page - 1;
+          // 用于显示最后一页
+        }else  {
+          if ( i === cur_page) {
+            result.push(i+'curr');
+          }else {
+            result.push(i)
+          }
+        }
+      }
+      return result;
+    }
+    // 测试 -- console.log(get_hs_page(4, 10, 5));
+
+    // 当省略号hover时改变
+    function change_omit_hover () {
+      let $omits = document.querySelectorAll('.omit');
+      for (let i = 0; i < $omits.length; i++) {
+        $omits[i].onmouseover = function () {
+          this.innerHTML =  this.dataset.position === 'left'?  '&lt;&lt;':'&gt;&gt;'
+        }
+        $omits[i].onmouseout = function () {
+          this.innerHTML =  '...';
+        }
+      }
+    }
+
+    // 生成相应的节点函数
+    function createLi (page_array) {
+      // 得到ul
+      let $ul = document.querySelector('#wrap>ul');
+      // 遍历并创建
+      for (let i = 0; i < page_array.length; i++) {
+        // 所有li的 模板
+        let $li = document.createElement('li');
+        if (page_array[i] === '...left' || page_array[i] === '...right') {
+          $li.innerHTML = '...';
+          $li.className = 'omit';
+          if (page_array[i] === '...left') {
+            $li.setAttribute('data-position', 'left');
+          }else if(page_array[i] === '...right') {
+            $li.setAttribute('data-position', 'right');
+          }
+        } else if (page_array[i].toString().indexOf('curr')!==-1) {
+          $li.innerHTML = page_array[i].replace('curr','');
+          $li.className = 'curr';
+        } else {
+          $li.innerHTML = page_array[i];
+        }
+        $ul.appendChild($li);
+      }
+    }
+
+    // 当window click时加
+    function by_click () {
+      // 当前页面
+      let cur_page = 1;
+      createLi(get_hs_page(cur_page, 100, 7));
+      change_omit_hover();
+
+      window.onclick = function () {
+        document.querySelector('#wrap>ul').innerHTML = '';
+        cur_page ++;
+        createLi(get_hs_page(cur_page, 100, 7));
+      }
+    }
+
+    by_click();
+  </script>
+</body>
+</html>

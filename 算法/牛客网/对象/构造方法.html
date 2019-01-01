@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  function alterObjects(constructor, greeting) {
+    constructor.prototype.greeting = greeting;
+  }
+
+  var C = function(name) {
+    // this - c
+    this.name = name;
+    return this;
+  };
+
+  var obj1 = new C('Rebecca');
+  alterObjects(C, 'What\'s up');
+
+  console.log(obj1.greeting)
+</script>
+</body>
+</html>

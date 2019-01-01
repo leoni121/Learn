@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function countByMySelf(start, end) {
+        let counter = 0;
+        let Timer = setInterval(function () {
+            console.log(++counter);
+            //先加 再输出
+            //console.log（counter++）先输出再加
+            if(0 < counter && counter >= parseInt((end - start)/100)){
+                clearTimeout(Timer)
+            }
+        },100);
+        return {
+            cancel : function () {
+                clearTimeout(Timer)
+            }
+        }
+    }
+
+    function count(start, end) {
+        var timer = setInterval(function () {
+            if(start<end){
+                console.log(++start)
+            }else{
+                clearInterval(timer)
+            }
+        },100);
+        return {
+            cancel : function () {
+                clearInterval(timer);
+            }
+        }
+    }
+
+    var a = count(0, 10);
+    window.onclick = function () {
+        a.cancel();
+    }
+</script>
+</body>
+</html>

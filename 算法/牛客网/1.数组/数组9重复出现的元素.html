@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.time();
+    /*
+    *   1. 判断是否重复
+    *   2. 判断是否在新建数组
+    *   3.把重复的push到新建数组
+    */
+    var arr = [1, 2, 4, 4, 3, 3, 1, 5, 3];
+
+    // 不通过
+    //3
+    function duplicatesByOrdinary(arr) {
+        var duplicatesArr = [];
+        var counter = 0;
+
+        for (let i = 0 , len = arr.length; i < len ; i++){
+            for (let j = 0 ; j < len ; j++){
+                if (arr[i] === arr[j] && i !== j) {
+                    counter ++ ;
+                }
+            }
+            // 当在duplicates中存在的时候 返回false
+            // 但是此时已经couter ++
+            // 没有做相应的couter重置
+
+            // 1.counter > 0  而且不在里面 此时重置
+            if(counter > 0  && duplicatesArr.indexOf(arr[i]) === -1){
+                duplicatesArr.push(arr[i]);
+            }
+            if(counter > 0 ){
+                counter = 0;
+            }
+            // 2.counter > 0  而且在里面 此时重置 但是不push
+        }
+        duplicatesArr.sort();
+        return duplicatesArr
+    }
+    //3.1
+    function duplicatesBySort(arr) {
+        arr.sort();
+        var newArr = new Array();
+
+        for(var index in arr) {
+            if(arr[index] === arr[index-1] && newArr.indexOf(arr[index]) === -1) {
+                newArr.push(arr[index]);
+            }
+        }
+        return newArr
+    }
+    //3.1
+    function duplicatesByLastIndex(arr) {
+        var newArr = new Array();
+        for (var i = 0, len = arr.length ; i < len ; i++){
+            if (arr.indexOf(arr[i]) !== arr.lastIndexOf(arr[i]) && newArr.indexOf(arr[i]) === -1){
+                newArr.push(arr[i]);
+            }
+        }
+        return newArr.sort();
+    }
+    //3.1
+    function duplicates(arr) {
+        var a = [], b = [];
+        for (var index in arr) {
+            if (!b[arr[index]]) {
+                b[arr[index]] = 1;
+                continue;
+            }
+            b[arr[index]]++;
+        }
+        for(var index in b) {
+            // 注意：： 这里的index是 原arr数组中的值
+            b[index] > 1 ? a.push(index) : null;
+        }
+        return a;
+    }
+
+    console.log(duplicates(arr));
+    console.timeEnd();
+</script>
+</body>
+</html>

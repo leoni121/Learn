@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // eval
+    function useArgumentsByEval() {
+        /*console.log([].slice.apply(arguments).join("+"));*/
+        // console.log([].slice(arguments)); // []
+        return eval(Array.prototype.slice.call(arguments).join("+"));
+    }
+
+    // reduce
+    function useArgumentsByReduce() {
+        /*return Array.prototype.reduce.call(arguments, function (prev, curr, index, arr) {
+            console.log("prev  " + prev);
+            console.log("curr  " + curr);
+            console.log("index  " + index);
+            console.log("arr  " + arr);
+
+            return prev + 1;
+        },0)*/
+
+        return Array.prototype.reduce.call(arguments, function (prev, curr) {
+            return prev + curr;
+        })
+    }
+
+    // ordinary
+    function userArgumentsByOrdinary() {
+        let sum = 0;
+        console.log(arguments);
+        for (let i = 0 ; i < arguments.length ; i++){
+            sum += arguments[i];
+        }
+
+        return sum;
+    }
+
+    console.log(userArgumentsByOrdinary(1, 2, 3, 4));
+</script>
+</body>
+</html>

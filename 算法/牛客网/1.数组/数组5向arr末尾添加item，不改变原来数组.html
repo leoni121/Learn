@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [1, 2, 3, 4], item = 10;
+
+    // 反面例子，会改变
+    /*function append(arr, item) {
+        var newArr = new Array();
+        newArr = arr;
+        newArr.push(item);
+        return newArr;
+    }*/
+
+	
+	// 普通的迭代拷贝
+	// 略。。。。。
+	
+	
+	// return 的是新数组的 value
+    function appendByMap(arr, item) {
+        var newArr = new Array();
+		
+		newArr = arr.map(function(value, index, arr){
+			return value;
+		});
+		
+		newArr.push(item);
+		return newArr;
+    }
+	
+	
+	// arrayObject.concat(arrayX,arrayX,......,arrayX)
+	// arrayX	必需。该参数可以是具体的值，也可以是数组对象。可以是任意多个。
+	// 返回新的数组
+	function appendByConcat(arr, item) {
+		return arr.concat( item );
+	}
+	
+	
+	// typeof arr.slice(0) === Object
+	// console.log(arr.alice(0)) 是数组
+	function appendBySlice(arr, item) {
+		var newArr = arr.slice(0);
+	
+		newArr.push(item);
+		return newArr;
+	}
+	console.log(arr);
+	console.log(appendByMap(arr, item));
+
+</script>
+</body>
+</html>

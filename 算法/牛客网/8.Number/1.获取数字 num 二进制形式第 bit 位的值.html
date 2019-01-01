@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+  function valueAtBitByParseInt(num, bit) {
+    var str = num.toString(2);
+    var chr = str.charAt(str.length-bit);
+    return parseInt(chr,10);
+  }
+
+  function valueAtBitByArray(num, bit) {
+    var str = num.toString(2);
+    return str[str.length - bit];
+  }
+
+    function valueAtBit(num, bit) {
+    console.log(num >> (bit - 1));
+      return (num >> (bit -1)) & 1;
+    }
+
+  console.log(valueAtBit(128, 8))
+</script>
+</body>
+</html>

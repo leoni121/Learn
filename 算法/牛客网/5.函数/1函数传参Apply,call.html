@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function argsAsaArray(fn, arr) {
+        return fn (arr[0], arr[1], arr[3]);
+    }
+
+    function argsAsArray(fn, arr) {
+        return fn.apply(this, arr);
+    }
+
+    console.log(
+        argsAsaArray(
+            function (greeting, name, punctuation) {return greeting + ', ' + name + (punctuation || '!');}, ['Hello', 'Ellie', '!']
+        )
+    )
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 闭包
+    function functionFunctionByClosures (arg1) {
+        return function(arg2){
+            return arg1 + ', ' + arg2;
+        };
+    }
+
+    // 重点--·
+    //
+    //
+    // 非常巧妙
+    function functionFunction(str) {
+        var ret = Array.prototype.slice.call(arguments).join(', ');
+
+        var temp = function(str) {
+            ret = [ret, Array.prototype.slice.call(arguments).join(', ')].join(', ');
+            return temp;
+        };
+        temp.toString = function(){
+            return ret;
+        };
+        return temp;
+    }
+
+    console.log(functionFunction('Hello', "and")('World')('hhe').toString());
+</script>
+</body>
+</html>

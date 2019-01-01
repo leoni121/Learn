@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function matchsPattern (str) {
+      return /^(\d{3})-(\d{3}-(\d{4}))$/.test(str)
+    }
+
+    console.log(matchsPattern('800-555-1212'))
+</script>
+</body>
+</html>

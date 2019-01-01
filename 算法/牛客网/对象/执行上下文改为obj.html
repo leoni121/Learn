@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  function alterContext(fn, obj) {
+    return fn.apply(obj);
+  }
+
+  function alterContextByBind(fn, obj) {
+    return fn.bind(obj)();
+  }
+console.log(alterContext(function() {return this.greeting + ', ' + this.name + '!'; }, {name: 'Rebecca', greeting: 'Yo' }))
+</script>
+</body>
+</html>

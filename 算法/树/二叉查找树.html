@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二叉查找树</title>
+</head>
+<body>
+<!-- https://www.cnblogs.com/lvmylife/p/7208541.html -->
+<!-- https://github.com/JackPu/JavaScript-Algorithm-Learning/blob/master/src/binary-search-tree.js -->
+<script>
+    // 单个节点对象
+    class Node {
+        constructor (data, left, right) {
+            this.data = data;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    // 树
+    class BinarySearchTree {
+        constructor () {
+            this.root = null;
+        }
+
+        // 插入成功返回树
+        insert (data) {
+            let cNode = new Node(data, null, null);
+            // 空树
+            if (!this.root) {
+                this.root = cNode;
+                return ;
+            }
+            // 非空树
+            let currentNode = this.root;
+            let parent = null;
+            // 遍历
+            while(1) {
+                // 得到一个指向  即将改变 或 其子节点将要被改变 的节点的 变量
+                parent = currentNode;
+                // 左子树
+                if (data < currentNode.data) {
+                    // currentNode 指向为空，赋值到currentNode无效
+                   /* currentNode = parent.left;
+                    if (currentNode === null) {
+                        currentNode = n;
+                        break;
+                    }*/
+                    currentNode = currentNode.left;
+                    if (currentNode === null) {
+                        parent.left = cNode;
+                        break
+                    }
+                }
+                // 右子树
+                else if ( data > currentNode.data ) {
+                    // currentNode 指向为空，赋值到currentNode无效
+                    /*currentNode = parent.right;
+                    if (currentNode === null) {
+                        currentNode = n;
+                        break;
+                    }*/
+                    currentNode = currentNode.right;
+                    if (currentNode === null) {
+                        parent.right = cNode;
+                        break;
+                    }
+                }
+                // 相等
+                else {
+                    break;
+                }
+            }
+        }
+
+        // 传入数组，创建树
+        create (arr) {
+            if (!arr.length) {
+                this.root = null;
+            }else {
+                let length = arr.length;
+                for (let i = 0; i < length; i++) {
+                    console.log()
+                    this.insert(arr[i]);
+                }
+            }
+        }
+
+        // 删除
+        remove (data) {
+            this.root = this.removeNodeByData(this.root, data);
+        }
+
+        // 返回删除对应值后的  "node"
+        removeNodeByData (node, data) {
+            if (node === null) {
+                return null;
+            }
+            // 数据等于传入树的根节点数据
+            if (data === node.data) {
+                // 子节点都为空
+                if (node.left === null && node.right === null) {
+                    // 返回为空 树为空
+                    return null;
+                }
+                // 左节点为空
+                if (node.left === null){
+                    // 删除的数据等于根节点的数据，且根节点左节点为空，删除根节点，返回右节点
+                    return node.right
+                }
+                // 右节点为空
+                if (node.right === null){
+                    return node.left;
+                }
+
+                // 思路：子节点都不为空的处理函数,找到删除节点的中序遍历的直接前驱（或直接后驱）结点，用该结点来替换要删除的节点，再删除该节点
+                // 得到直接的后驱节点（节点的右子树最左边的节点，或最右边的节点）
+                let getAftNode = function (node) {
+                    if (node.left === null && node.right === null) {
+                        return node;
+                    }
+                    if (node.left !== null) {
+                        return getAftNode(node.left);
+                    }
+                    if (node.right !== null) {
+                        return node.right;
+                    }
+                }
+                //相等，且左右节点都不为空
+                let tempNode = getAftNode(node.right);
+                // 要删除的节点的值等于 其直接后继的值
+                node.data = tempNode.data;
+                // 删除 要删除的节点 的直接后继
+                node.right = this.removeNodeByData(node.right, tempNode.data);
+
+               /* {
+                    // 得到直接的前驱节点（节点的左子树最右边的节点，或最左边的节点）
+                    let getPreNode = function (node) {
+                        if (node.left === null && node.right === null) {
+                            return node
+                        }
+                        if (node.right !== null) {
+                            return getPreNode(node.right)
+                        }
+                        if (node.left !== null) {
+                            return node.left
+                        }
+                    }
+                    let tempNode = getPreNode(node.left);
+                    node.data = tempNode.data;
+                    node.left = this.removeNodeByData(node.left, tempNode.data);
+                }*/
+
+                return node;
+            }
+            else if (data < node.data) {
+                node.left = this.removeNodeByData(node.left, data);
+                // 当前的节点不变
+                return node;
+            }else {
+                node.right = this.removeNodeByData(node.right, data);
+                // 当前的节点不变
+                return node
+            }
+        }
+
+        // 非递归查找, 返回查找到的节点
+        findByNonRecur(data) {
+            let current = this.root;
+            let tagNode = null;
+            while (current !== null) {
+                console.log(current);
+                if (data === current.data) {
+                    tagNode = current;
+                    break;
+                }else if (data < current.data) {
+                    current = current.left;
+                } else if (data > current.data) {
+                    current = current.right;
+                }
+            }
+            // 查找到返回节点，没查找返回null
+
+            return tagNode
+        }
+
+        // 递归查找，返回节点
+        findByRecur (data) {
+            // let current = node||this.root;  --- 造成无限循环
+            let current = this.root;
+            return (function _selfCall(data, current) {
+                if (current === null) {
+                    return null;
+                }
+                if (current.data === data) {
+                    return current
+                }else if (data < current.data) {
+                    current = current.left;
+                    // 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+                    // return arguments.callee(data, current)
+                    return _selfCall(data, current)
+                } else {
+                    current = current.right;
+                    // 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+                    // return arguments.callee(data, current)
+                    return _selfCall(data, current)
+                }
+            })(data, current)
+        }
+
+        // 获取最大值
+        findMax(){
+            let current = this.root;
+            while(current.right !== null) {
+                current = current.right;
+            }
+            return current.data
+        }
+
+        // 获取最小值
+        findMin(){
+            let current = this.root;
+            while(current.left!==null){
+                current = current.left
+            }
+            return current.data
+        }
+
+        // 先序遍历 -- 根、左、右
+        preTravel(node){
+            let preTravelArr = [];
+            (function _preTravel (node) {
+                if (node !== null) {
+                    preTravelArr.push(node.data);
+                    _preTravel(node.left);
+                    _preTravel(node.right);
+                }
+            })(node)
+            return preTravelArr;
+        }
+        // 中序遍历 -- 左、根、右
+        midTravel(node){
+            let midTravelArr = [];
+            (function _midTravel (node) {
+                if (node !== null) {
+                    _midTravel(node.left);
+                    midTravelArr.push(node.data);
+                    _midTravel(node.right);
+                }
+            })(node)
+            return midTravelArr;
+        }
+        // 后序遍历 -- 左、右、根
+        aftTravel(node){
+            let aftTravelArr = [];
+            (function _aftTravel (node) {
+                if (node !== null) {
+                    _aftTravel(node.left);
+                    _aftTravel(node.right);
+                    aftTravelArr.push(node.data);
+                }
+            })(node)
+            return aftTravelArr;
+        }
+    }
+
+    let BSTree = new BinarySearchTree();
+    BSTree.create([62,58,47,35,29,37,36,51,49,48,50,56,88,73,99,93]);
+
+</script>
+</body>
+</html>

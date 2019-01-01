@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function partial(fn, str1, str2) {
+        return function (other) {
+            return fn(str1, str2, other);
+        }
+    }
+
+
+    var sayIt = function(greeting, name, punctuation) {
+        return greeting + ', ' + name + (punctuation || '!');
+    };
+    console.log(partial(sayIt, 'Hello', 'Ellie')('!!!'))
+</script>
+</body>
+</html>

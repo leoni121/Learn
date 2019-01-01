@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [1, 2, 2, 3, 4, 2, 2],
+        item = 2;
+
+    // splice，正序相应位置改变会影响后面
+    function removeWithoutCopyBySpliceByOrder(arr, item) {
+        for(let index = 0 ; index < arr.length ; index++) {
+            if (arr[ index ] === item ) {
+                arr.splice(index,1);
+                index--;
+            }
+        }
+        return arr;
+    }
+
+    // splice, 反序相应位置改变不会影响前面
+    function removeWithoutCopyBySpliceByReverseOrder(arr, item) {
+        for (let index = arr.length ; index >= 0 ; index--) {
+            if(arr[index] === item) {
+                arr.splice(index, 1);
+            }
+        }
+        return arr;
+    }
+
+    // queue     正序队列
+    // 应该使用 “次数”做循环条件
+    function removeWithoutCopyByQueueByOrder(arr, item){
+        for (let counter = 0, len = arr.length ; counter < len; counter++){
+            if(arr[0] !== item){
+                arr.push(arr[0]);
+            }
+            arr.shift();
+        }
+        return arr;
+    }
+
+    //queue , 倒序队列
+    function removeWithoutCopyByQueueByReverseOrder(arr, item) {
+        for (let counter = 0, len = arr.length - 1, length = arr.length ; counter < length; counter++){
+            if(arr[len] === item) {
+                arr.pop();
+                console.log(len--);
+            }else {
+                arr.unshift(arr[len]);
+                arr.pop();
+            }
+        }
+        return arr;
+    }
+    console.log(removeWithoutCopyByQueueByReverseOrder(arr, item));
+
+
+    // 删除数组中的元素 splice slice
+    /*1. delete
+            这种方式数组长度不变,此时arr[1]变为undefined了
+
+    */
+/*    slice
+    这个函数是返回选取的值， 不会改变原数组
+    str_object	要操作的字符串（对象）
+    start	必需。要截取的开始位置，从 0 开始计算；如果为负数，则从字符串末尾反向开始计算
+    end	可选。要截取的结束位置，如果省略则到字符串结束；如果为负数，则从字符串末尾反向开始计算
+
+    splice
+     str_object	要操作的字符串（对象）
+    start	必需。要截取的开始位置，从 0 开始计算；如果为负数，则从字符串末尾反向开始计算
+    end	可选。要截取的结束位置，如果省略则到字符串结束；如果为负数，则从字符串末尾反向开始计算*/
+
+</script>
+</body>
+</html>

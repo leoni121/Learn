@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function createModule(str1, str2) {
+        return {
+            greeting : str1,
+            name : str2,
+            sayIt : function () {
+                // console.log(this);  即当前对象
+                return this.greeting + "," + this.name
+            }
+        }
+    }
+
+    console.log(createModule("nzq", "wx").sayIt())
+</script>
+</body>
+</html>
