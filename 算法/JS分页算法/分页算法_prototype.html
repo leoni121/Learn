@@ -9,21 +9,21 @@
 </head>
 <body>
 <script>
-    function Page (opts) {
-        this.curPage = opts.curPage;
-        this.total = opts.total;
-        this.range = opts.range;
+    function Page ({curPage, total, range}) {
+        this.curPage = curPage;
+        this.total = total;
+        this.range = range;
         this.paging()
     }
 
     Page.prototype = {
-        paging : function () {
-            var arr = [];
-            for (var i = 1; i <= this.total; i++) {
+        paging() {
+            let arr = [];
+            for (let i = 1; i <= this.total; i++) {
                 if (i === 2 && this.curPage - (this.range - 1) / 2 > 1) {
                     arr.push("...");
-                    i = this.curPage - (this.range - 1) / 2 + 2;
-                }else if ( i === this.curPage + (this.range-1) / 2 - 2 && this.curPage + (this.range -1 ) /2 < this.total ) {
+                    i = this.curPage - (this.range - 1) / 2 + 1;
+                }else if ( i === this.curPage + (this.range-1) / 2 -1 && this.curPage + (this.range -1 ) /2 < this.total ) {
                     arr.push("...");
                     i = this.total - 1;
                 }else {
