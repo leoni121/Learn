@@ -1,9 +1,10 @@
 本地项目上传到github
-https://blog.csdn.net/fox9916/article/details/78253714?locationNum=5&fps=1
-https://www.cnblogs.com/shenchanghui/p/7184101.html
+    https://blog.csdn.net/fox9916/article/details/78253714?locationNum=5&fps=1
+    https://www.cnblogs.com/shenchanghui/p/7184101.html
 
 
 1. 远程创建分之后，本地git pull后会出现相应的分支
+
 2. 关联分支 
 	https://www.cnblogs.com/a-flydog/p/5520999.html
 3. 分支与master的同步
@@ -11,14 +12,16 @@ https://www.cnblogs.com/shenchanghui/p/7184101.html
 	
 	
 4. 文件clone 出错 Clone succeeded, but checkout failed. You can inspect what was checked out with 'git status' and retry the checkout with 'git checkout -f HEAD'
-		路径原因（文件夹多了空格或中文）
+    路径原因（文件夹多了空格或中文）
 		
 5.Window下创建.gitignore以及.gitignore的语法
-git bash -- touch .gitignore
-https://blog.csdn.net/Shenpibaipao/article/details/78129342
+    git bash -- touch .gitignore
+    https://blog.csdn.net/Shenpibaipao/article/details/78129342
 
 6.Git忽略提交规则 - .gitignore配置运维总结
-https://www.cnblogs.com/kevingrace/p/5690241.html
+    https://www.cnblogs.com/kevingrace/p/5690241.html
 
 7.初始化之后上传出现版本冲突
-https://blog.csdn.net/shiren1118/article/details/7761203
+    https://blog.csdn.net/shiren1118/article/details/7761203
+
+8.git通过命令更换远程仓库地址-----和更换地址后对项目进行操作显示无权限问题
