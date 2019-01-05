@@ -1,0 +1,2 @@
+** path.resolve 与 path.join 的区别 ———— https://www.cnblogs.com/philipding/p/7773022.html
+** AMD 与 CMD 的区别 ———— https://www.zhihu.com/question/20351507/answer/14859415
