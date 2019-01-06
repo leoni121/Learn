@@ -1,0 +1,65 @@
+** vue-cli3.0
+    2.x	vue init <template-name> <project-name>
+    3.x	vue create <project-name>
+
+** vue-cli3 创建过程 ———— https://blog.csdn.net/m0_37285193/article/details/82703022
+
+** path.resolve 与 path.join 的区别 ———— https://www.cnblogs.com/philipding/p/7773022.html
+
+** AMD 与 CMD 的区别 ———— https://www.zhihu.com/question/20351507/answer/14859415
+
+** tree sharking ———— https://www.webpackjs.com/guides/tree-shaking/
+
+** webpack Babel 以及相关的配置 ———— https://www.jianshu.com/p/ce28ceddda72
+
+** module.rules 中的 loader 和 use ———— https://www.liangzl.com/get-article-detail-8022.html
+
+** html-webpack-plugin配置 ———— https://www.cnblogs.com/wonyun/p/6030090.html
+
+** vue 中的 .babelrc 理解 ———— https://www.cnblogs.com/ye-hcj/p/7071850.html
+
+** extract-text-webpack-plugin 的使用及安装 ,该插件的主要是为了抽离css样式,防止将样式打包在js中引起页面样式加载错乱的现象; ———— https://www.cnblogs.com/dyx-wx/p/6529447.html
+
+** webpack配置中devtool项加不加#有什么区别？———— https://segmentfault.com/q/1010000011701354
+
+** hash码 和 clean-webpack-plugin ———— https://www.jianshu.com/p/dd67a3b64b62
+
+** vue 里面没有clean-webpack-plugin怎么实现清除相关内容
+	chunkhash根据不同的入口文件(Entry)进行依赖文件解析、构建对应的chunk
+	修改css相应的chunkhash不变，修改js变，此时无clean-webpack-plugin插件的话会导致文件混乱（多个具有同样[name]的文件）
+	
+** webpack 默认 访问 contentBase 下的index.html(如： localhost:8080 => localhost:8080/index.html =>)
+
+** webpack 更改外部引入的css后 提取出来的css的chunkhash没有变？
+
+** 热更新 和 chunkhash不能同时使用 ———— https://segmentfault.com/q/1010000011438869/a-1020000011441168
+
+** webpack devServer 不配置热更新保存的时候也能刷新，但是会刷新整个页面
+
+** 背景图引入
+	background: url(~@/img/1.jpg);
+	
+** output.publicPath 和 devServer.publicPath 等路径问题
+	1.output.path 
+		output 目录对应一个绝对路径
+	2.output.publicPath ———— https://www.webpackjs.com/configuration/output/#output-publicpath
+	https://blog.csdn.net/u012193330/article/details/83310924
+	
+**  1. dev
+		js => name.js
+	2. port
+		js => name.[chunkhash].js
+		
+		
+** 没有一下代码会出现页面刷新
+	function accept(m) {
+		if (m.hot) {
+			m.hot.accept();
+		}
+	}
+	
+**  new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify('*****')
+      }), 作用 ————
+	https://www.cnblogs.com/usebtf/p/9912413.html
+

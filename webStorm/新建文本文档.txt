@@ -1,0 +1,5 @@
+** 缩进相关
+	Code Style => Javascript
+	
+** 忽略文件
+	File Types

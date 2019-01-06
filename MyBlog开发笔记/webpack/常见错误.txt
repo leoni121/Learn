@@ -1,0 +1,21 @@
+**  1.ERROR in Entry module not found: Error: Can't resolve .......\build' ?
+	2.Error: illegal operation on a directory ？
+		let  htmlPlugins = entryJSON.map(page => {return new HtmlWebpackPlugin({...})})
+		console.log(htmlPlugins);
+		==》 得到的结果中只含有BUILD
+	
+	解：粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！粗心大意！！
+	 resolve(__dirname, `../src/page/${page.url}/index.html`) =》 resolve 是自己写的，o(╥﹏╥)o
+		
+
+** Error webpack.optimize.CommonsChunkPlugin has been removed, please use config.optimization.splitChunks instead. ？
+    ———— http://ju.outofmemory.cn/entry/343762
+
+** TypeError: Cannot read property 'compilation' of undefined ？
+	optimize-css-assets-webpack-plugin 插件使用问题
+	
+** Can't resolve 'popper.js' in 'C:\Users\nzq\Desktop\TSCS\TSCS\node_modules\_bootstrap@4.2.1@bootstrap\dist\js' ？
+	webpack打包bootstrap4（    "bootstrap": "^4.2.1",）的时候，需要手动安装popper.js，安装成了 "poper": "^0.1.1",
+	
+** Error: Can't resolve 'react' in 'C:\Users\nzq\Desktop\TSCS\TSCS\node_modules\_layui@0.0.1@layui\dist' ？
+	这个不知道怎么回事！ 所以直接引用的包
