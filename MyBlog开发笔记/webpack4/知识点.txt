@@ -1,0 +1,1 @@
+Webpack4默认支持mode参数用于区分production环境和development环境

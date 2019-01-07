@@ -1,3 +1,10 @@
+** 注意事项
+	1.每次打包webpack运行文件都会变
+	2.runtime 和 manifest 
+		runtime 包含：在模块交互时，连接模块所需的加载和解析逻辑。包括浏览器中的已加载模块的连接，以及懒加载模块的执行逻辑。
+		manifest 
+		当编译器(compiler)开始执行、解析和映射应用程序时，它会保留所有模块的详细要点。这个数据集合称为 "Manifest"，
+
 ** vue-cli3.0
     2.x	vue init <template-name> <project-name>
     3.x	vue create <project-name>
@@ -58,8 +65,24 @@
 		}
 	}
 	
+
 **  new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('*****')
       }), 作用 ————
 	https://www.cnblogs.com/usebtf/p/9912413.html
 
+	
+** webpack 公共部分提取 CommonsChunkPlugin
+	分离对象：基础库文件，公共文件，webpack运行文件
+	———— https://blog.csdn.net/a4_9527/article/details/81192136 （基础）
+	———— https://www.cnblogs.com/joyco773/p/9050913.html （base）
+	———— https://segmentfault.com/a/1190000012828879 （vue疑惑）
+
+** 提取css 可以防止出现无样式的界面
+
+**如果使用style-loader将样式添加到js文件中，在编写样式的时候可以享受热更新的效果，如果使用extract-text-webpack-plugin 将样式提取，此组件并不支持热更新。只会重新打包但是并不会刷新页面。
+官方建议在开发环境中关闭ExtractText组件。
+
+** 热更新 
+	———— https://www.cnblogs.com/liang1100/p/8457701.html#undefined
+	———— https://blog.csdn.net/xum222222/article/details/79889793
