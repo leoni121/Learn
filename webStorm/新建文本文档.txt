@@ -3,3 +3,6 @@
 	
 ** 忽略文件
 	File Types
+	
+** 【webstorm】提示requested without authorization，页面未授权
+	———— Build,Execution,Deployment => Debugger => Allow unsigned request
