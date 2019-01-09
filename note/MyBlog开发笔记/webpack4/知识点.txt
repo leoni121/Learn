@@ -1,1 +1,15 @@
-Webpack4默认支持mode参数用于区分production环境和development环境
+** webpack4 迁移问题
+	———— https://segmentfault.com/a/1190000014247030
+	———— https://baijiahao.baidu.com/s?id=1593463639501622465&wfr=spider&for=pc
+	官网 ———— https://webpack.css88.com/concepts/output.html
+
+** webpack4中提供的mode有两个值：development和production，默认值是 production。mode是我们为减小生产环境构建体积以及节约开发环境的构建时间提供的一种优化方案，提供对应的构建参数项的默认开启或关闭，降低配置成本。
+
+
+** 再见commonchunk，你好optimization
+	从webpack4开始官方移除了commonchunk插件，改用了optimization属性进行更加灵活的配置，这也应该是从V3升级
+	到V4的代码修改过程中最为复杂的一部分
+	
+	
+** webpack4 optimization配置	
+	———— https://segmentfault.com/a/1190000017066322

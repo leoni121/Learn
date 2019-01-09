@@ -5,6 +5,13 @@
 		manifest 
 		当编译器(compiler)开始执行、解析和映射应用程序时，它会保留所有模块的详细要点。这个数据集合称为 "Manifest"，
 
+** nodejs包高效升级插件npm-check-updates
+	———— https://blog.csdn.net/baidu_16051437/article/details/51288141
+
+** npm package.json package-lock.json 
+	———— https://www.cnblogs.com/cangqinglang/p/8336754.html
+		
+		
 ** vue-cli3.0
     2.x	vue init <template-name> <project-name>
     3.x	vue create <project-name>
@@ -15,7 +22,21 @@
 
 ** AMD 与 CMD 的区别 ———— https://www.zhihu.com/question/20351507/answer/14859415
 
-** tree sharking ———— https://www.webpackjs.com/guides/tree-shaking/
+** tree sharking 
+	Tree-shaking 是指在打包中去除那些引入了，但是在代码中
+	没有被用到的那些死代码。在webpack中Tree-shaking 是通过uglifyJSPlugin 来Tree-shaking JS。CSS 需要使用Purify-CSS
+	官网 ———— https://www.webpackjs.com/guides/tree-shaking/
+	other ———— http://www.imooc.com/article/79011
+	进一步优化 webpack-deep-scope-plugin 优化———— https://www.cnblogs.com/tugenhua0707/p/9671618.html
+	
+** webpack-deep-scope-plugin 使用失败
+
+** tree-shaking 注意点
+	1. 要使用 tree-shaking，必须保证引用的插件的模块是ES6模块规范编写的，这也是我为什么引用了的是 		lodash-es,而不是 'lodash'， 如果引用的是lodash的话，是不能去掉的。
+	2. 在 .babelrc 中，babel设置 module: false, 避免babel将模块转换为成 CommonJS规范。引入模块包也必须符合ES6规范的。如下 babelrc代码
+	
+** tree-shaking CSS  （purifycss-webpack purify-css）
+	配置了paths，主要是需找html模板，pruifycss会根据这个配置会遍历你的文件，查找哪些css被使用了。
 
 ** webpack Babel 以及相关的配置 ———— https://www.jianshu.com/p/ce28ceddda72
 
@@ -86,3 +107,15 @@
 ** 热更新 
 	———— https://www.cnblogs.com/liang1100/p/8457701.html#undefined
 	———— https://blog.csdn.net/xum222222/article/details/79889793
+
+** glob 						         				
+	在webpack中对文件的路径处理非常之方便，比如当搭建多页面应用时就可以使用glob对页面需要打包文件
+	的路径进行很好的处理。
+	
+** TSCS 项目因为最开始项目搭建思路的问题导致，相应的页面刷新之后会回到最开始的样子
+	*************
+	*************
+	*************
+	*************
+	
+** webpack 可以开启GZip 但是也需要服务器开启

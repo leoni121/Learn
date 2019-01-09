@@ -1,0 +1,7 @@
+** Cannot find module 'webpack/bin/config-yargs' ？
+	这个就是目前版本的webpack-dev-server不支持webpack4 升级一波
+	———— http://www.cnblogs.com/carrotWu/p/8665720.html
+	
+**  Cannot read property 'context' of undefined ？ 
+	———— https://blog.csdn.net/csdn_huangjiama/article/details/81865567
+	运行项目npm run dev， 此时package.json中"file-loader": "^1.1.4",报错：Module build failed: TypeError: Cannot read property 'context' of undefined，并列出问题的源头是代码中所有加载静态资源的地方
