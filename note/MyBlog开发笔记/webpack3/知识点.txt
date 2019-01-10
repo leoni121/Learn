@@ -119,3 +119,11 @@
 	*************
 	
 ** webpack 可以开启GZip 但是也需要服务器开启
+
+** hash chunkhash contenthash
+	———— https://www.jb51.net/article/132275.htm
+	
+** postcss css后处理
+	autoprefixer-loader（三年前更新） =》 Please use postcss-loader instead of autoprefixer-loader
+	
+** mini-css-extract-plugin 和 extract-text-webpack-plugin 不和style-loader 一起使用

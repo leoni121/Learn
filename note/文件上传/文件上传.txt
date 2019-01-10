@@ -19,3 +19,17 @@
 ** form 上传数据的时候 enctype="multipart/form-data"
 	1.（本机测试）不加这个的话，ie得到完整路径，chrome得到文件名
 	2.（局域网，不同电脑测试）不加这个的话， ie传的是文件名，chrome得到文件名
+	
+** 判断上传文件是否为空
+	files[0](无文件时 FileList {length: 0})
+	
+** multiple="multiple" 多文件上传
+
+** accept 限制上传文件类型
+
+** MIME 参考手册
+	———— http://www.w3school.com.cn/media/media_mimeref.asp
+
+** 获取上传文件 扩展名
+	fileName = **.files[0].name;
+	extName = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();

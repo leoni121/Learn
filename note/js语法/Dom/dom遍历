@@ -1,4 +1,4 @@
-1. children 元素节点
+1. children 所有元素子节点
 
 2. childNodes  获取所有类型子节点
     nodeType=3-------------->文本节点
@@ -15,3 +15,15 @@
       child = one.firstChild
     }
     之后one.childNodes.length === 0  true
+
+** parentElement  获取相应的父元素
+    parentElement = parentNode
+
+** 常用调用
+   var a = document.getElementByIdx_x_x("dom");数
+   var b = a.childNodes;//获取a的全部子节点；
+   var c = a.parentNode;//获取a的父节点；
+   var d = a.nextSibling;//获取a的下一个兄弟节点
+   var e = a.previousSibling;//获取a的上一个兄弟节点
+   var f = a.firstChild;//获取a的第一个子节点
+   var g = a.lastChild;//获取a的最后一个子节点

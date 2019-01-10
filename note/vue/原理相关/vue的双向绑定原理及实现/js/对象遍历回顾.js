@@ -15,6 +15,7 @@ let obj = {
     }
   }
 }
+
 function observer(obj) {
   Object.keys(obj).forEach(function (v, idx, arr) {
     let item = obj[v];

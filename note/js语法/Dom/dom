@@ -60,3 +60,12 @@
             v-try1: v-try1
             __proto__: NamedNodeMap
     }
+
+	
+** document.querySelector("**").children ==》 HTMLCollection [**]
+
+** append 和 appendChild 的区别
+    ParentNode.append()允许追加  DOMString 对象，而 Node.appendChild() 只接受 Node 对象。
+    ParentNode.append() 没有返回值，而 Node.appendChild() 返回追加的 Node 对象。
+    ParentNode.append() 可以追加几个节点和字符串，而 Node.appendChild() 只能追加一个节点。
+    ———— https://developer.mozilla.org/zh-CN/docs/Web/API/ParentNode/append

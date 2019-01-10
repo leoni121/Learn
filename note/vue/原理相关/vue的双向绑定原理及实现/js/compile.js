@@ -11,6 +11,8 @@ class Compile {
       // 将el取出来放在
       this.fragment = this.nodeToFragment(this.el);
       this.compileElement(this.fragment);
+
+      let parent = this.el.parentElement;
       this.el.appendChild(this.fragment);
 
     } else {
@@ -26,11 +28,12 @@ class Compile {
   nodeToFragment(el) {
     let fragment = document.createDocumentFragment()
       ,child = el.firstChild;
-    while(child) {
+   /* while(child) {
       // 将Dom 元素移到fragment中，此后firstChild 是下一个节点
       fragment.appendChild(child);
       child = el.firstChild;
-    }
+    }*/
+   fragment.appendChild(el);
     // 此时el 为空
     return fragment;
   }
