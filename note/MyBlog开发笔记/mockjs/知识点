@@ -1,0 +1,2 @@
+** mockJs(生成随机数据，拦截 Ajax 请求， 模拟前后端交互)原理
+    重写（如 $.ajax），利用beforeSend实现拦截 ———— https://blog.csdn.net/u011500781/article/details/79513946

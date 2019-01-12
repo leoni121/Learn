@@ -46,5 +46,9 @@ TypeError: Cannot read property 'context' of undefined ？
 ** 打包后的页面没有样式 ？
 	
 ** style-loader do not work as pre or post loader ？
+	什么鬼啊？
+	
+** webpack4 TypeError: compilation.mainTemplate.applyPluginsWaterfall is not a function 解决方案 ？
+	———— https://www.skiy.net/201803014976.html
 	
 	
