@@ -51,4 +51,4 @@ TypeError: Cannot read property 'context' of undefined ？
 ** webpack4 TypeError: compilation.mainTemplate.applyPluginsWaterfall is not a function 解决方案 ？
 	———— https://www.skiy.net/201803014976.html
 	
-	
+** 分离js出现错误

@@ -1,0 +1,45 @@
+** css 参考手册
+    ———— https://www.css88.com/book/css/
+
+** @import
+    1.html中
+        <style>
+            @import "";
+            @import url("");
+            @import url();
+         </style>
+    2.css中
+        @import "";
+        @import url("");
+        @import url();
+    3.避免css@import
+      概述
+        在外部样式表中使用css@import可以在加载网页时增加额外的延迟。
+      细节
+          css@import允许样式表导入其他样式表。当从外部样式表中使用css@import时，浏览器无法并行下载样式表，这会给整个页面加载增加额外的往返时间。例如，first.css包含以下内容：
+          @import url（“second.css”）。
+          浏览器必须先下载、分析和执行first.css，然后才能发现它需要下载second.css。
+      建议
+          使用<link>标记而不是css@import
+          不是@import，而是对每个样式表使用<link>标记。这允许浏览器并行下载样式表，从而加快页面加载时间：
+          <link rel=“stylesheet”href=“first.css”>
+          <link rel=“stylesheet”href=“second.css”>
+    4.@import 是CSS2.1 提出的，老的浏览器不支持
+    5.link 引用的CSS会在页面被加载的时候同时加载；@import 引用的CSS会等到页面全部被下载完再被加载。
+    6.javascript 可以控制到 link, 但@import 却无法控制
+
+** @supports
+    ———— https://www.css88.com/book/css/rules/@supports.htm
+
+** @page, @charset
+    ———— https://www.css88.com/book/css/
+
+** url中的引号问题(@import url(''), @import url(), background-image.....)
+    1.安全 => 不加的话容易被xss攻击， ""意味着是字符串,但是不加引号的话,传过来的万一是“);url("http://www.xss.xss")”就有可能把cookie什么的可能泄露出去
+    2.低系列 IE 不兼容带有引号的写法（网友一个说法是：不加引号且路径里面有空格，老IE认不出）
+    3.最好加上，html标签的属性也同理。
+    4.如无必要，省略 url 中的引号（出自《CSS 创作指南（Beta）》）；
+    5.不写引号完全合法，通常在 CSS 压缩工具中也会去掉 url() 函数中的引号。
+    6.不加引号会有一些 edge cases（特殊的 escape 规则等），增加了认知负担，加了引号之后就是常见的字符串规则了；
+    7.根据标准原文，不带引号的写法是 “legacy syntax”，虽然出于兼容性考虑肯定不会去掉，但肯定不算是推荐写法；
+    8.url() 实质上是一个 CSS 函数，它可以接受第二个参数 <url-modifier>，如果用不带引号的写法的话是没办法传第二个参数进去的；
