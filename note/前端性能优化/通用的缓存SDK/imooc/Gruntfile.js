@@ -61,7 +61,7 @@ module.exports = function(grunt) {
           '<%= dirs.dest%>/js/getPasswd2/getPasswd2.js': ['<%= dirs.src%>/js/page/getPasswd2.js',
             '<%= dirs.src%>/js/widget/getPasswd2/*.js'
           ],
-          '<%= dirs.dest%>/js/mine/mine.js': ['<%= dirs.src%>/js/page/mine.js',
+          '<%= dirs.dest%>/js/mine/mine.js': ['<%= dirs.src%>/js/page/mime.js',
             '<%= dirs.src%>/js/widget/mine/*.js'
           ],
           '<%= dirs.dest%>/js/publish/publish.js': ['<%= dirs.src%>/js/page/publish.js',
