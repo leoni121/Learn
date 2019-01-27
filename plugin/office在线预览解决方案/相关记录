@@ -1,0 +1,8 @@
+**
+    1. 自己使用
+        微软的在线预览功能实现 (预览前提：资源必须是公共可访问的) ———— https://view.officeapps.live.com/op/view.aspx?src=SRC （SRC 文件对应的地址）
+    2. 其他记录
+        （1）.openOffice
+            office => pdf => PDF.js 实现网页预览
+            html下直接浏览pdf文档，是一款开源的pdf文档读取解析插件，非常强大，能将PDF文件渲染成Canvas。PDF.js主要包含两个库文件，一个pdf.js和一个pdf.worker.js，一个负责API解析，一个负责核心解析。
+        （2）. ...

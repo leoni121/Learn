@@ -1,8 +1,0 @@
-1.   $.ajax
-	contentType :
-		（1）、默认：application/x-www-form-urlencoded  ————  **=**&**=**  和  不带嵌套的JSON
-			  该数据在默认情况下，内容编码类型满足大多数情况   https://www.cnblogs.com/htoooth/p/7242217.html
-		（2）、application/json ————  复杂的JSON数据
-		（3）、contentType : false (加上processData: false)   https://blog.csdn.net/toubaokewu/article/details/74910799
-		（4）、上传文件  contentType : multipart/form-data
-				

@@ -1,0 +1,1 @@
+** iframe __ document.getElementsByTagName("iframe")[1].contentWindow.document.body.classList.add("content-scroll-beautify")
