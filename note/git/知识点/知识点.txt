@@ -1,6 +1,6 @@
-本地项目上传到github
+** 本地项目上传到github
     ———— https://blog.csdn.net/fox9916/article/details/78253714?locationNum=5&fps=1（一些常见的操作）
-    https://www.cnblogs.com/shenchanghui/p/7184101.html
+    ———— https://www.cnblogs.com/shenchanghui/p/7184101.html
 
 
 1. 远程创建分之后，本地git pull后会出现相应的分支
@@ -28,3 +28,10 @@
     (1).https://blog.csdn.net/m0_37034294/article/details/79986198
     (2).git 出现 fatal: refusing to merge unrelated histories 错误
         https://www.centos.bz/2018/03/git-%E5%87%BA%E7%8E%B0-fatal-refusing-to-merge-unrelated-histories-%E9%94%99%E8%AF%AF/
+
+9. git 与 svn 的区别 ———— https://www.xuebuyuan.com/3233316.html
+    (1). git 分布式(断网下可用)
+    (2). GIT把内容按元数据方式存储，而SVN是按文件
+    (3). 分支在SVN中一点不特别，就是版本库中的另外的一个目录
+    (4). GIT没有一个全局的版本号，而SVN有
+    (5). GIT的内容完整性要优于SVN
