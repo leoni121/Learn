@@ -1,5 +1,5 @@
 本地项目上传到github
-    https://blog.csdn.net/fox9916/article/details/78253714?locationNum=5&fps=1
+    ———— https://blog.csdn.net/fox9916/article/details/78253714?locationNum=5&fps=1（一些常见的操作）
     https://www.cnblogs.com/shenchanghui/p/7184101.html
 
 
@@ -16,7 +16,7 @@
 		
 5.Window下创建.gitignore以及.gitignore的语法
     git bash -- touch .gitignore
-    https://blog.csdn.net/Shenpibaipao/article/details/78129342
+    ———— https://blog.csdn.net/Shenpibaipao/article/details/78129342（语法）
 
 6.Git忽略提交规则 - .gitignore配置运维总结
     https://www.cnblogs.com/kevingrace/p/5690241.html

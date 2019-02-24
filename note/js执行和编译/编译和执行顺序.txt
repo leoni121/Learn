@@ -1,1 +1,1 @@
-https://www.cnblogs.com/ly-china/p/5433702.html
+** js编译和执行 ———— https://www.cnblogs.com/ly-china/p/5433702.html（上一个段发生错误不影响下一个段）

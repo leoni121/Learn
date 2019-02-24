@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>document</title>
+    <title>Document</title>
 </head>
 <body>
 <div class="canvas-wrap"></div>
@@ -32,29 +32,3 @@
 </script>
 </body>
 </html>
-<!--
-$.ajax({
-    type: 'POST',
-    url:  loadJs.addToken('http://wq.jd.com/activetmp/promotepic/promoteaddpic', "j132"),
-    data: {
-        filename: new Date().getTime()+''+Math.floor(Math.random()*10000) + '.jpg',
-        content: base64pic,
-        active: "shotpic20160901"
-    },
-    dataType: 'json',
-    xhrFields: { withCredentials: true },
-    success: function(data) {
-                           if (picdata.id == 1 && picdata.msg) {
-                                    //图片路径 此前缀路径的图片最清晰 参见问题4
-                                    var imgPre = 'http://img10.360buyimg.com/promotepic/';
-                                    //图片地址拼接的完整地址链接
-                                    var photo = imgPre + picdata.msg;
-                                    $("#cardImg")[0].onload = function() {
-                                             //to do 业务逻辑
-                                    };
-                                    $("#cardImg").attr("src",photo);
-                           }
-    },
-    error:function(data){
-    }
-});-->

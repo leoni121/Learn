@@ -40,13 +40,16 @@
     ———— https://www.css88.com/book/css/rules/@supports.htm
 
 
-** @page, @charset
-    ———— https://www.css88.com/book/css/
+** @page
+    ———— 设置页面容器的版式，方向，边空等
+   @charset
+    ———— 字符编码。如：@charset "utf-8";
+        ———— https://www.css88.com/book/css/
 
 
 ** url中的引号问题(@import url(''), @import url(), background-image.....)
 
-    1.安全 => 不加的话容易被xss攻击， ""意味着是字符串,但是不加引号的话,传过来的万一是“);url("http://www.xss.xss")”就有可能把cookie什么的可能泄露出去
+    1.安全 => 不加的话容易被xss攻击， ""意味着是字符串,但是不加引号的话,传过来的万一是' );url("http://www.xss.xss") '就有可能把cookie什么的可能泄露出去
 
     2.低系列 IE 不兼容带有引号的写法（网友一个说法是：不加引号且路径里面有空格，老IE认不出）
 
