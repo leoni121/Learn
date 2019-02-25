@@ -76,3 +76,13 @@
 
 
 ** window.scrollTo(x, y)
+
+
+** document.readySate
+    loading / 加载
+    document 仍在加载。
+    interactive / 互动
+    文档已经完成加载，文档已被解析，但是诸如图像，样式表和框架之类的子资源仍在加载。
+    complete / 完成
+    文档和所有子资源已完成加载。状态表示 load 事件即将被触发。
+    当这个属性的值变化时，document 对象上的readystatechange 事件将被触发。

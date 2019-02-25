@@ -20,3 +20,6 @@
     4.HEAD	类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头
 
 ** HTTP Status code ———— http://www.runoob.com/http/http-status-codes.html
+
+
+** withCredentials ———— https://www.jianshu.com/p/af1fc0fab4c5

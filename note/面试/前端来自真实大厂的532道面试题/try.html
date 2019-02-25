@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>CSS动画之transition</title>
 </head>
 <body>
-$END$
+<div class="hover">第一个过渡动画</div>
+<hr>
+<button>执行动画</button>
+<div id="di1" class="transi1">第二个过渡动画</div>
+<script>
+  let xhr;
+  if (window.XMLHttpRequest) {
+    xhr =  new XMLHttpRequest();
+  }else{
+    xhr =  new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xhr.open("GET", "localhost:3000/users/tryCors", true);
+  xhr.send()
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      alert(xhr.responseText);
+    }
+  }
+
+</script>
 </body>
 </html>
