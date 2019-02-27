@@ -2,28 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CSS动画之transition</title>
+    <title>index</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body {
+            /* 不清楚默认样式 会出现滚动条 */
+            height: 100%;
+        }
+        .container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0,0,0,.5);
+            text-align: center;
+            font-size: 0;
+            white-space: nowrap;
+            overflow: auto;
+        }
+
+        .container:after {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .dialog {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: left;
+            font-size: 14px;
+            white-space: normal;
+        }
+    </style>
 </head>
 <body>
-<div class="hover">第一个过渡动画</div>
-<hr>
-<button>执行动画</button>
-<div id="di1" class="transi1">第二个过渡动画</div>
-<script>
-  let xhr;
-  if (window.XMLHttpRequest) {
-    xhr =  new XMLHttpRequest();
-  }else{
-    xhr =  new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xhr.open("GET", "localhost:3000/users/tryCors", true);
-  xhr.send()
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      alert(xhr.responseText);
-    }
-  }
-
-</script>
+<div class="container">
+    <div class="dialog">
+    </div>
+</div>
 </body>
 </html>

@@ -3,6 +3,7 @@
     （2） GitHub Flow & Git Flow 基于Git 的两种协作开发模式 ———— https://www.cnblogs.com/sloong/p/5868292.html
 
 
+
 531. pt,rem,px,em的区别及用法 ———— https://blog.csdn.net/weixin_42881744/article/details/81544810
     (1).同：pt、px、em、rem都是计量单位，都能表示尺寸
     (2). pt 点（Points），绝对长度单位。 印刷业上常使用的单位，磅的意思，一般用于页面打印排版。
@@ -11,10 +12,13 @@
     (5). rem 相对长度单位。相对于根元素(即html元素)font-size计算值的倍数。是CSS3新增的一个相对单位（root em，根em）,可以做到只修改根元素就成比例地调整所有字体大小，又可以避免字体大小逐层复合的连锁反应
 
 
+
 530. 你怎么样知道我们公司的，为什么来我们公司
 
 
+
 529. 你最荣耀的事情
+
 
 
 528. 给你一颗树，如何找到其公共的父节点
@@ -79,7 +83,6 @@
             return left ? left : right;
         }
 
-
     (3). root未知，但是每个节点都有parent指针
         function getLength(root, node) {
             var length = 0;
@@ -140,9 +143,11 @@
             }
         }
 
+
+
 527. 你怎么样维持用户登录状态的
     (1). 前后端分离 session-cookie ———— https://www.cnblogs.com/boboooo/p/9779355.html
-    (2). token ———— https://ninghao.net/blog/2834（附 Node.js）
+    (2). token 秘钥参考 ———— https://ninghao.net/blog/2834（附 Node.js）
     (3). vue中实现前端保持登陆转态 ———— https://www.jqhtml.com/16130.html  ， https://www.cnblogs.com/web-record/p/9876916.html
     (4). 前端登录认证机制 ———— http://www.ilovecc.ren/?p=1008
     (5). 前端token（阮一峰）———— http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html
@@ -150,13 +155,17 @@
         项目中可能多个地方需要用到用户登录状态，利用vuex的响应式状态存储，通过vuex封装的方法操作localStorage存储的数据时，所有有依赖的地方都会得到更新
 
 
+
 526. 小程序的Onlaunch周期不支持同步获取信息之后再执行到下一个生命周期
+
 
 
 525. 小程序的生命周期
 
 
+
 524. 只能用获取到对象的属性
+
 
 
 523. 情景题：给你一个ul列表，找到点击的li对象，把点击到的对象的字符串翻转，讲出思路并且写出代码
@@ -169,23 +178,26 @@
     }, false)
 
 
+
 522. css的定位属性，怎么样定位的 ———— http://www.cnblogs.com/guolao/p/9048308.html
     (1). position: static
         该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top、right、bottom、left 属性无效。
 
     (2). position: relative
-        该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）        。position:relative 对 table-*-group, table-row, table-column, table-cell, table-caption 元素无效。
+        该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白)。position:relative 对 table-*-group, table-row, table-column, table-cell, table-caption 元素无效。
 
     (3). position: absolute
-        不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margin），        且不会与其他边距合并。
+        不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margin）,且不会与其他边距合并。
 
-    (4). position: fixed 不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改        变。打印时，元素会出现在的每页的固定位置。fixed属性会创建新的层叠上下文。当元素祖先的 transform 属性非 none 时，容器由视口改为该        祖先。
+    (4). position: fixed 不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。fixed属性会创建新的层叠上下文。当元素祖先的 transform 属性非 none 时，容器由视口改为该        祖先。
 
     (5). position: sticky , position: inherit
         不深入
 
 
+
 521. tcp和http的区别及联系 ———— https://www.cnblogs.com/baizhanshi/p/8482612.html
+
 
 
 520. 常见的请求方式
@@ -204,6 +216,7 @@
     DELETE：DELETE
 
 
+
 519. 事件监听 ———— https://www.cnblogs.com/dorra/p/7349747.html
     (1). addEventListener 事件是先捕获再冒泡的，而第三个参数就决定了是先捕获还是先冒泡，如果是true就是捕获，反正则是冒泡
     (2). onkeydown="console.log(event)"
@@ -217,6 +230,7 @@
         文档和所有子资源已完成加载。状态表示 load 事件即将被触发。
 
 
+
 518. symbol
     (1). 数据类型：undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）
     (2). 阮一峰 Symbol 详解 ———— http://es6.ruanyifeng.com/#docs/symbol
@@ -226,6 +240,7 @@
     (1). 运算符"+ - * /"左右两边均要留空格
     (2). calc(100%/4 - 5px)
     (2). calc(5px*4/3)
+
 
 
 516. 表单提交和ajax的区别 ———— https://www.cnblogs.com/camille666/p/http_request_form_ajax_get_post.html
@@ -244,8 +259,10 @@
         d. A在提交、请求、接收时，整个过程都需要使用程序来对其数据进行处理；F提交时，却是根据你的表单结构自动完成，不需要代码干预；
 
 
+
 515. localstorage和cookie的区别，如何设置cookie ———— https://www.cnblogs.com/minigrasshopper/p/8064367.html
     cookie 设置 ———— https://www.cnblogs.com/endv/p/8089506.html
+
 
 
 514. 200和304实现缓存的区别 ———— http://baijiahao.baidu.com/s?id=1598965888378721557&wfr=spider&for=pc
@@ -268,7 +285,7 @@
     (3). 200 OK(form memory cache / form disk cache)  和 304 （Not modified）
         a. 200
             静态文件
-            这种缓存方式已经很普遍，大部分网站的静态文件都采用了，200 OK (from memory cache)或者200 OK (from disk cache)都是直接读取客户            端的缓存，无需再请求服务器。一般是在Apache或者Nginx里设置，比如Nginx配置里会有类似这样的配置：
+            这种缓存方式已经很普遍，大部分网站的静态文件都采用了，200 OK (from memory cache)或者200 OK (from disk cache)都是直接读取客户端的缓存，无需再请求服务器。一般是在Apache或者Nginx里设置，比如Nginx配置里会有类似这样的配置：
         b. 200	form memory cache 不请求网络资源，资源在内存当中，一般脚本、字体、图片会存在内存当中
            200	form disk ceche	 不请求网络资源，在磁盘当中，一般非脚本会存在内存当中，如css等
         c. 304
@@ -278,6 +295,7 @@
             实现304缓存，我们需要在浏览器首次访问时返回过期时间等header
         e. 判断内容更新
             Etag ———— https://blog.csdn.net/liaozhongping/article/details/51114264
+
 
 
 513. 知道哪些http状态码 ———— https://www.cnblogs.com/jly144000/archive/2017/12/07/7998615.html
@@ -304,10 +322,12 @@
         503 服务器正忙，服务器超时
 
 
+
 512. jsonp如何实现，过程
     (1). 同源是指，域名，协议，端口相同
     (2). 实现 ———— https://www.cnblogs.com/think-in-java/p/7285296.html?utm_source=itdadao&utm_medium=referral
     (3). 理解：通过后端配合相当于 一个script标签 请求了一段代码 代码中时 一个函数名 加当前的数据（传入函数的数据）
+
 
 
 511. 实现css动画有哪些 ———— http://www.w3school.com.cn/cssref/pr_transition.asp
@@ -316,5 +336,109 @@
 
     (2). animation ———— http://www.w3school.com.cn/css3/css3_animation.asp
 
+
+
+510. 介绍一下盒子模型 ———— https://www.cnblogs.com/chengzp/p/cssbox.html
+    (1). content,padding,border,margin
+
+    (2). 标准模型
+        width = content
+        box-sizing: content-box;
+
+    (3). IE模型(怪异盒模型)
+        width = content + padding + border
+        box-sizing: border-box
+
+
+509. react和vue的区别 ———— http://caibaojian.com/vue-vs-react.html
+                      ———— https://deliciousbrains.com/vue-vs-react-battle-javascript
+    不同于早期的JavaScript框架“功能齐全”，Reat与Vue只有框架的骨架，其他的功能如路由、状态管理等是框架分离的组件。
+    虚拟DOM（改变真实的DOM状态远比改变一个JavaScript对象的花销要大得多）
+    组件化（建议你将你的应用分拆成一个个功能明确的模块，每个模块之间可以通过合适的方式互相联系）
+    (1). react
+        jsx
+
+        React推荐你所有的模板通用JavaScript的语法扩展——JSX书写
+
+        状态管理，配套框架被设计为管理一个大的state对象，如Redux。此外，state对象在React应用中是不可变的，意味着它不能被直接改变（这也许不一定正确）。在React中你需要使用setState()方法去更新状态。
+
+        React Native能在手机上创建原生应用
+
+    (2). vue
+        模板系统
+
+        Vue鼓励你去使用HTML模板去进行渲染，使用相似于Angular风格的方法去输出动态的内容。因此，通过把原有的模板整合成新的Vue模板
+
+        state对象并不是必须的，数据由data属性在Vue对象中进行管理不需要使用如setState()之类的方法去改变它的状态，在Vue对象中，data参数就是应用中数据的保存者。
+
+
+508. 垂直居中的实现 ———— https://www.cnblogs.com/zhouhuan/p/vertical_center.html
+    (1). 把要垂直居中的元素相对于父元素绝对定位，top和bottom设为相等的值，我这里设成了0，当然你也可    以设为99999px或者-99999px无论什么，只要两者相等就行，这一 步做完之后再将要居中元素的margin设为0 auto
+        top: 0;
+        bottom: 0;
+        margin: 0 auto;
+
+    (2). parent -
+         display: flex;
+         align-items: center; /*定义body的元素垂直居中*/
+         justify-content: center; /*定义body的里的元素水平居中*/
+
+    (3). parent - display: table
+
+         child - display: table-cell; vertical-align: middle;
+
+
+
+507. 如何实现文件上传的功能
+
+
+
+506. 酸酸是如何实现穿墙的
+
+
+
+505. http状态码，307是什么，401和403的区别
+    301：Moved Permanently
+    302：Move temporarily
+    303：See Other
+    307：临时重定向（Temporary Redirect）
+    401(未授权)：请求要求身份验证，对于登录后请求的网页，服务器可能返回此响应，用于认证，而不是授权，用于认证丢失或不正确的情况
+    403(禁止)：服务器拒绝请求，当用户经过认证但未被授权对给定资源执行请求的操作
+
+
+
+504. Socks5代理是如何实现的，读过协议吗
+
+
+
+503. 简单说一下TCP，UDP，HTTP ———— https://www.cnblogs.com/gaopeng527/p/5255827.html
+    1、 TCP/IP是个协议组，可分为三个层次：网络层、传输层和应用层。
+        在网络层有IP协议、ICMP协议、ARP协议、RARP协议和BOOTP协议。
+        在传输层中有TCP协议与UDP协议。
+        在应用层有FTP、HTTP、TELNET、SMTP、DNS等协议。
+        因此，HTTP本身就是一个协议，是从Web服务器传输超文本到本地浏览器的传送协议
+    http:是用于www浏览的一个协议。
+    tcp：是机器之间建立连接用的到的一个协议。
+
+
+
+502. kut如何优化react的diff，有去提pr吗，为什么
+
+
+
+501. 预约系统如何解决高并发的问题
+    (1). 首先需要关注数据库(优化)
+    (2). HTML静态化
+    (3). 图片服务器分离
+    (4). 数据库集群和库表散列,一台数据库将很快无法满足应用，于是我们需要使用数据库集群或者库表散列。
+    (5). 缓存
+    (6). nginx分流
+    (7). 镜像
+    (8). 负载均衡
+
+
+
+500. nodejs的优势，用过nodejs的哪些模块
+    ———— NodeJS适合运用在高并发、I/O密集、少量业务逻辑的场景
 
 

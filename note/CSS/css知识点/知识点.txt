@@ -67,3 +67,22 @@
 
 
 ** 滚动条样式 ———— https://blog.csdn.net/zh_rey/article/details/72473284
+
+
+** 边距重叠 ———— https://www.cnblogs.com/chengzp/p/cssbox.html
+    问题：父元素没有设置margin-top，而子元素设置了margin-top：20px;可以看出，父元素也一起有了边距
+    解决：BFC（块级格式化上下文）
+
+
+**  模态框
+        top: 0;
+       bottom: 0;
+       left: 0;
+       right: 0;
+
+
+** 垂直居中
+    margin: 0 auto;
+    top: 0;
+    bottom: 0;
+    top和bottom设为相等的值
