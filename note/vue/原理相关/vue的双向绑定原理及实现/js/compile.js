@@ -125,6 +125,7 @@ class Compile {
       self.updateModel(node, value);
     })
 
+    // 改变里面的树
     node.addEventListener("input", (e) => {
       let newVal = e.target.value; // 设置的新的值在
       if (newVal !== val) {

@@ -1,0 +1,480 @@
+499. html5有什么新的tag，canvas…
+    Hgroup, audio, canvas, dislog, video, source, aside, article, footter, datalist(放input下), autocomplete, progress
+    cite, small, embed, section
+
+
+
+498. 浏览器如何处理未知的的tab
+
+
+
+497. 如何理解html语义化 ———— https://www.jianshu.com/p/6bc1fc059b51
+
+
+
+496. 跨域方式 (域名， 端口， 协议)
+    (1). js实现 ———— https://www.cnblogs.com/2050/p/3191744.html
+        jsonp, script标签
+        document.domain设置成自身或更高一级的父域，且主域必须相同，使得s完全控制这个iframe
+        postMessage
+
+    (2). CORS原理
+        整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。更加强大支持各种HTTP Method，缺点是兼容性不如JSONP。只需要在服务器端做一些小小的改造即可：
+        缺点：CORS要求浏览器(>IE10)和服务器的同时支持，是跨域的根本解决方法，由浏览器自动完成。
+
+    (3). WebSocket
+
+
+
+495. 知道xss吗，介绍一下，如何避免 ———— https://www.cnblogs.com/unclekeith/p/7750681.html
+    ———— https://blog.csdn.net/Ideality_hunter/article/details/80621138
+    XSS （Cross Site Scripting）：跨站脚本攻击(Cross Site Scripting)，指恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。xss是注入攻击的一种，其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如发布评论，提交含有 JavaScript 的内容文本。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上，其他用户访问这个页面的时候就会运行这些脚本。
+    (1). 反射型XSS，也叫非持久型XSS，是指发生请求时，XSS代码出现在请求URL中，作为参数提交到服务器，服务器解析并响应。响应结果中包含XSS代码，最后浏览器解析并执行。
+    (2). 存储型 XSS
+         存储型XSS，也叫持久型XSS，主要是将XSS代码发送到服务器（不管是数据库、内存还是文件系统等。），然后在下次请求页面的时候就不用带上XSS代码了。最典型的就是留言板XSS。
+    (3) DOM ———— https://www.freebuf.com/articles/web/29177.html
+    (4).需要对数据进行一些处理,对cookie设置httpOnly,对用户输入数据的处理
+
+
+
+494. typescript和es6的区别 ———— https://www.jianshu.com/p/b2f544d7686e
+
+
+
+493. 了解过weex吗
+    Weex官网的解释是 Weex 是一个动态化的高扩展跨平台解决方案。就我的理解就是为了达到写一份代码可以同时在移动端（Android端、iOS端），Web端 同时运行的目的而开发的一系列系统或者提出了解决方案。这个系统方案包含各种native sdk、weex项目、构建工具、调试工具、文档等等。
+    Rax 是一个基于 React 写法的跨容器的 js 框架,
+
+
+
+492. redux和vuex的区别
+    (1). VUEX是吸收了Redux的经验，放弃了一些特性并做了一些优化，代价就是VUEX只能和VUE配合，针对VUE优化的状态管理系统,vuex有自动渲染的功能，所以不需要更新
+    (2). Redux是一个纯粹的状态管理系统，React利用React-Redux将它与React框架结合起来。
+
+
+
+491. react首次渲染过程
+    react和vue的渲染流程对比 ———— https://www.jianshu.com/p/1960f378b5b4
+    react 编译成js => dom
+    vue dom 不变， 通过指令
+
+
+
+490. 简单介绍一下backbone
+
+
+
+489. webkit内核渲染页面过程 ———— https://www.cnblogs.com/slly/p/6640761.html
+    　  (1). 浏览器会将HTML解析成一个DOM树，DOM 树的构建过程是一个深度遍历过程：当前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点。
+    　　(2). 将CSS解析成 CSS Rule Tree 。
+    　　(3). 根据DOM树和CSSOM来构造 Rendering Tree。注意：Rendering Tree 渲染树并不等同于 DOM 树，因为一些像Header或display:none的东西就没必要放在渲染树中了。
+    　　(4). 有了Render Tree，浏览器已经能知道网页中有哪些节点、各个节点的CSS定义以及他们的从属关系。下一步操作称之为layout，顾名思义就是计算出每个节点在屏幕中的位置。
+    　　(5). 再下一步就是绘制，即遍历render树，并使用UI后端层绘制每个节点。
+
+
+
+488. HTTP1 SPDY HTTP2的对比
+
+
+
+499. 给数字加千位分隔符
+    (1). function numFormat(num){
+        num=num.toString().split(".");  // 分隔小数点
+        var arr=num[0].split("").reverse();  // 转换成字符数组并且倒序排列
+        var res=[];
+        for(var i=0,len=arr.length;i<len;i++){
+          if(i%3===0&&i!==0){
+             res.push(",");   // 添加分隔符
+          }
+          res.push(arr[i]);
+        }
+        res.reverse(); // 再次倒序成为正确的顺序
+        if(num[1]){  // 如果有小数的话添加小数部分
+          res=res.join("").concat("."+num[1]);
+        }else{
+          res=res.join("");
+        }
+        return res;
+    }
+
+    (2). var a=1234567894532;
+         var b=673439.4542;
+         console.log(a.toLocaleString());  // "1,234,567,894,532"
+         console.log(b.toLocaleString());  // "673,439.454"  （小数部分四舍五入了）
+
+    (3). function numFormat(num){
+           var res=num.toString().replace(/\d+/, function(n){ // 先提取整数部分
+                return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
+                   return $1+",";
+                 });
+           })
+           return res;
+         }
+
+
+
+486. react是如何实现数据绑定的
+
+
+
+485. 假设一个object A里面的值n为1，怎么样知道n改变了，有事件绑定吗
+    value undefined
+    get undefined
+    set undefined
+    writable false
+    enumerable false
+    configurable false
+
+
+    let A = {};
+    Object.defineProperty(obj, "n", {
+        enumerable: true,
+        configurable: true,
+        get: function() {
+            console.log("get:", this._n);
+            return this._n;
+        },
+        set: function(val) {
+           console.log("set:", this._n);
+           this._n =  val;
+        }
+    })
+
+
+
+484. vue开发模式和jQuery模式有哪些不同，有哪些优缺点
+    vue: 发布/订阅模式
+    JS框架，我认为大体上可以分为两种。一种是类似jQuery/ d3那样的，通过修改html的DOM结构来渲染UI的库。还有一种则是类似于AngularJS/ReactJS 那样的，采用MVC分层的，通过Model来渲染View UI框架。
+    jQuery基本都是浏览器原生操作，实计上h5的很多api都借鉴了jQuery
+    jQuery: 开发效率
+    ———— http://www.php.cn/js-tutorial-412970.html
+    Vue: 通过Vue对象将数据和View完全分离开，通过vue实现绑定，通过对数据的操作就可以完成对页面视图的渲染， 学习成本更高， 而且伴随着vue的是一系列新的语法的学习，兼容不好，Vue.js 专注于 MVVM 模型的 ViewModel 层，vue侧重数据绑定
+
+    jquery: 选择器（$）选取DOM对象，对其进行赋值、取值、事件绑定等操作，其实和原生的HTML的区别只在于可以更方便的选取和操作DOM对象，而数据和界面是在一起的，开发效率更底下，学习成本低，可以看做是对原生js的一个库，封装了很多东西，兼容好，jquery侧重样式操作，动画效果等，则会更加高效率的完成业务需求
+
+
+
+483. 如果一个页面做辛夷花，从哪些方面考察，从哪些地方优化
+
+
+
+482. 箭头函数 ———— http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0
+    （1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+    （2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+    （3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+    （4）不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+
+
+
+481. es6用的多的有哪些
+    let,const 变量解构 字符串扩展 箭头函数Promise Async class
+
+
+
+480. promise的两个方法，具体实现
+
+
+
+
+479. 假设两台电脑之间同步画板如何实现
+
+
+
+478. html5有哪些新的特性 ———— https://www.cnblogs.com/vicky1018/p/7705223.html
+    语义标签，增强型表单，媒体， Canvas绘图，SVG绘图，地理定位，拖放API，Web Worker，Web Storage，WebSocket
+
+
+
+477. storage有哪些存储方法
+    localStorage, sessionStorage
+        <userData, cookie>
+
+
+
+476. 怎么样把一个数组存进localSorage
+    JSON.stringfy
+    JSON.parse
+
+
+
+475. localStorage存储数据格式是什么
+    字符串
+
+
+
+474. cookie的其他解决方案
+    Token
+
+
+
+473. 加入访问http://A.com存进了一个cookie，在另外一个页面用ajax向A的域名发请求会携带cookie吗
+    1.ajax会自动带上同源的cookie，不会带上不同源的cookie
+    2. 可以通过前端设置withCredentials为true， 后端设置Header的方式让ajax自动带上不同源的cookie，但是这个属性对同源请求没有任何影响。会被自动忽略。
+
+
+
+472. cookie有什么特征
+    （1）cookie可以实现跨页面全局变量
+    （2）cookie可以跨越同域名下的多个网页，但不能跨越多个域名使用
+    （3）同一个网站中所有页面共享一套cookie
+    （4）可以设置有效期限
+    （5）存储空间4-10KB左右
+    （6）保存用户登录状态；（2）跟踪用户行为；（3）定制页面；（4）创建购物车
+    cookie的缺点
+    （1）cookie可能被禁用；
+    （2）cookie与浏览器相关，不能互相访问；
+    （3）cookie可能被用户删除；
+    （4）cookie安全性不够高；
+    （5）cookie存储空间很小(只有4–10KB左右)
+
+
+
+471. 阻止冒泡的函数是什么
+    return false;
+    event.stopPropagation();
+
+
+470. 说说事件代理利用的是什么原理
+    事件委托原理：事件冒泡机制。
+
+
+
+469. typeof去判断数据类型返回值有哪些
+    javascript共有7种数据类型：（基本数据类型/简单数据类型 6种）number、string、boolean、null、undefined、symbol ；（引用类型1种） object
+    undefined, string, boolean, number, object, function, symbol
+
+
+
+468. js基本数据类型
+    undefined null string number boolean symbol
+
+
+
+467. 清除浮动的所有方法
+    （1）父级div定义伪类 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+         .clearfloat{zoom:1}
+
+    （2）在结尾处添加空div标签clear: .clearfloat{clear:both}
+
+    （3）父级div定义overflow:hidden
+
+    （4）父级div定义overflow:auto
+
+    （5）父级div定义display:table
+
+    （6），额外：父级div也一起浮动，父级定义 height ，撑高
+
+
+
+466. 浮动元素有没有什么特性 ———— https://www.cnblogs.com/ttcc/p/3905659.html
+    （1）浮动的本质就是用来实现文字环绕
+    （2）浮动元素会脱离正常的文档流，按照其外边距指定的位置相对于它的上一个块级元素（或父元素）显示；不会忽略父元素的padding
+    （3）浮动元素后面的块级元素的内容会向此浮动元素的外边距靠齐，但是边框和背景却忽略浮动元素而向上一个（实例中为父元素）任意非浮动元素靠齐；
+    （4）浮动元素后面的内联元素会向此浮动元素的外边距靠齐。
+
+
+
+465. 盒子模型有没有办法把宽度设置为包含padding
+    content-box
+    border-box
+
+
+
+464. HTML的黑钻模型有哪些构成的，盒子模型有哪些，默认是哪些 ?
+
+
+
+463. 你是如何理解HTML语义化的 ? ———— https://www.jianshu.com/p/6bc1fc059b51
+
+
+
+462. 看过什么书
+
+
+
+461. GitHub的项目
+
+
+
+460. 浏览器如何渲染页面 ———— https://www.cnblogs.com/slly/p/6640761.html
+    DOM Tree =》CSS Tree =》renderTree =》layout =》 绘制
+　  (1). 浏览器会将HTML解析成一个DOM树，DOM 树的构建过程是一个深度遍历过程：当前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点。
+　　(2). 将CSS解析成 CSS Rule Tree 。
+　　(3). 根据DOM树和CSSOM来构造 Rendering Tree。注意：Rendering Tree 渲染树并不等同于 DOM 树，因为一些像Header或display:none的东西就没必要放在渲染树中了。
+　　(4). 有了Render Tree，浏览器已经能知道网页中有哪些节点、各个节点的CSS定义以及他们的从属关系。下一步操作称之为layout，顾名思义就是计算出每个节点在屏幕中的位置。
+　　(5). 再下一步就是绘制，即遍历render树，并使用UI后端层绘制每个节点。
+
+
+
+459. 如何删除一个dom节点 ———— https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001435997163473d309006809fa43abbba322be3eb090a8000
+    // 拿到待删除节点:
+    var self = document.getElementById('to-be-removed');
+    // 拿到父节点:
+    var parent = self.parentElement;
+    // 删除:
+    var removed = parent.removeChild(self);
+    removed === self; // true
+
+    parent.children属性时刻都在变化。
+
+    删除后的节点虽然不在文档树中了，但其实它还在内存中，可以随时再次被添加到别的位置
+
+
+
+458. 怎么样实现一个服务器
+
+
+
+457.说说操作系统的内存管理
+
+
+
+456. 哈希表是怎么样的结构 ———— https://www.cnblogs.com/jijiji/p/4856805.html
+    根据关键码值(Key value)而直接进行访问的数据结构
+    从数学的角度看，哈希函数实际上是关键字到内存单元的映射
+
+
+455. js如何实现一个栈 ———— https://blog.csdn.net/shuidinaozhongyan/article/details/74139044
+    堆栈（C语言）：https://www.cnblogs.com/jiahuafu/p/8575044.html
+    堆栈都是一种数据项按序排列的数据结构，只能在一端(称为栈顶(top))对数据项进行插入和删除。
+    队列,先进先出（FIFO—first in first out）。堆、栈，先进后出 (FILO—First-In/Last-Out)
+
+
+
+454. 数据结构学过什么
+
+
+
+453. HTTP各版本比较 ———— https://baijiahao.baidu.com/s?id=1584463898856321022&wfr=spider&for=pc
+
+
+
+452. TCP的三次握手 ———— https://baijiahao.baidu.com/s?id=1593714120815701015&wfr=spider&for=pc
+    ———— https://blog.csdn.net/peipeiluo/article/details/79780164
+
+
+
+451. TCP/IP体系结构以及每层的主要协议
+    https://blog.csdn.net/xiangyuenacha/article/details/83544035
+
+
+
+450. websocket协议，nodejs中有哪些实现了这个协议
+    socket.io
+    WebSocket是HTML5下一种新的协议。它实现了浏览器与服务器全双工通信，能更好的节省服务器资源和带宽并达到实时通讯的目的。
+    http 长轮询还是短轮询
+    websocket 会有一个HTTP请求发送到服务器以发起连接。取得服务器响应后，建立的连接使用HTTP升级，从HTTP协议交换为WebSocket协议。即，使用标准的HTTP服务器无法实现WebSocket，只有支持这种协议的专门服务器才能正常工作。 ws:// wss://
+
+
+
+449. https怎么样校验证书有效性
+    客户端在对服务器say hello之后，服务器将公开密钥证书发送给客户端，注意这个证书里面包含了公钥+各种信息+签名（私钥对各种信息加密后生成签名），客户端收到公开密钥证书后，相当于收到了一个包裹里面有公钥+各种信息+签名，怎么样使用这三个数据来校验尼，很简单，公钥加密，私钥解，私钥加密公钥也可以解，只要利用公钥对签名进行解密，然后最和各种信息做比较就可以校验出证书的合法性。
+
+
+
+448. 网络安全xss，csfr是什么，怎么样解决安全
+    跨站脚本攻击
+    跨站请求伪造
+    见：495
+
+
+
+447. cdn
+    内容分发网络。CDN的基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户请求。
+
+
+
+446. mvvm，mvc，mvp区别
+    https://blog.csdn.net/victoryzn/article/details/78392128
+
+
+
+445. v-model参数
+
+
+
+444. hybrid
+
+
+
+443. 如何做单侧，单侧和开发占比应该是多少
+
+
+
+442. koa generator能讲一下吗
+
+
+
+441. react的虚拟DOM了解什么，这些类型的框架和传统的jd操作dom的优势
+
+
+
+440. 用户页面打开很慢，有哪些优化方式
+    vue-router懒加载
+    gzip压缩
+    CDN
+    服务器端渲染
+    预渲染
+    加载图标
+
+
+
+439. amd，cmd规范
+   CommonJs - 同步加载（当要用到该模块了，现加载现用同步加载方式不适合在浏览器环境中使用，同步意味着阻塞加载，浏览器资源是异步加载的不能非阻塞的并行加载多个模块） - 服务端    - node.js
+   AMD      - 预先加载 - - 浏览器    - require.js - 异步加载模块，可以并行加载多个模块
+   CMD      - 异步加载 - - 浏览器  - sea.js - 按需加载的方式，而不是必须在模块开始就加载所有的依赖
+   ES6      - 规范
+
+
+
+438. 页面共享数据的方法有哪些
+
+
+
+437. 对JS单线程的理解
+    事件循环机制 ———— http://www.cnblogs.com/yqx0605xi/p/9267827.html
+
+
+
+436. 给定两个文本文件，找出他们中相同的行都有哪些
+    const lines = fs.readFileSync("FILENAME.TXT").toString().split("\n")
+    if (lines.includes("This is a line")) {
+      // Do something.
+    }
+
+
+
+435. 二叉搜索树（二叉查找树）的原理
+    它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。搜索,插入,删除的复杂度等于树高，O(log(n)).
+    二叉链表作为二叉排序树的存储结构
+    构造树的过程即为对无序序列进行排序的过程
+
+
+434. 如何反转链表
+    a -> b -> c
+    var b = a.next;
+    temp.next = b.next；
+    b.parent = a；
+    a.next = null;
+
+    var c = b.next
+    c.next
+
+
+
+433. 哈希的原理 ———— https://www.cnblogs.com/GotoJava/p/7571405.html
+
+
+
+432. HTTP/2有什么新特性
+
+
+
+431. ES6 generator async/await了解吗
+
+
+
+
+
+
+

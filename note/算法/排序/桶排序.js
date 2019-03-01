@@ -25,7 +25,7 @@ function bucketSort (arr, len = arr.length) {
     ,bucketCount
     ,bucketArr = [];
 
-  for (let i = 1; i < arr.length; i++) {
+  for (let i = 1; i < len; i++) {
     if (arr[i] < min) {
       min = arr[i];                // 输入数据的最小值
     } else if (arr[i] > max) {
