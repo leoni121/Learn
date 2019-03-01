@@ -14,4 +14,4 @@
 ** reduce
     array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
 
-** for(let i of func(）) {} 把func() 看做是一个具体的可以遍历的数据
+** for(let i of func()) {} 把func() 看做是一个具体的可以遍历的数据
