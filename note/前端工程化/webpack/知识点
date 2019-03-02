@@ -1,0 +1,5 @@
+** webpack4 见 note 文件夹下的MyBlog文件夹下
+
+
+** 描述一下index.html 中的运行
+    common 得到全局的 webpackJson 该函数相当于把请他模块的 函数给放入 modules这个变量中，所有的模块的函数共有一个modules， 其他的流程和单入口文件一样

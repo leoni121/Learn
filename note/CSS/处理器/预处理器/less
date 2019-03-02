@@ -1,1 +1,59 @@
+** https://less.bootcss.com/#
+    (1) @width: 10px;
+
+    (2) .bordered {
+          border-top: dotted 1px black;
+          border-bottom: solid 2px black;
+        }
+        .bordered()
+
+    (3) 嵌套（Nesting）
+
+    (4) 逃离, 转义允许您使用任意字符串作为属性或变量值
+        @min768: (min-width: 768px);
+        .element {
+          @media @min768 {
+            font-size: 1.2rem;
+          }
+        }
+        =>
+        @media (min-width: 768px) {
+          .element {
+            font-size: 1.2rem;
+          }
+        }
+
+    (5) 导入（Importing）
+        @import "library"; // library.less
+        @import "typo.css";
+
+    (6) 注释（Comments）
+        /* 一个块注释
+         * style comment! */
+        @var: red;
+        // 这一行被注释掉了！
+        @var: white;
+        @var: red;
+
+    (7) 作用域（Scope）
+        #page {
+          #header {
+            color: @var; // white
+          }
+          @var: white;
+        }
+
+    (8) Maps
+        #colors() {
+          primary: blue;
+          secondary: green;
+        }
+
+        .button {
+          color: #colors[primary];
+          border: 1px solid #colors[secondary];
+        }
+
+    （9）运算（Operations）
+
 ** calc(~"100% - 20px")

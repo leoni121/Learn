@@ -1,0 +1,6 @@
+** chrome 中的Chrome控制台console的各种用法（方便调试）http://www.cnblogs.com/qubernet/p/5794812.html
+
+
+
+** 如果想手动打印,可以在mounted里 window.vue = this
+   浏览器 控制台 console.log(vue.content)

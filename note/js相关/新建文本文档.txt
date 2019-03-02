@@ -1,1 +1,5 @@
-原生js中slice()方法和splice()区别     http://www.cnblogs.com/yunwei8/p/6510916.html
+** 原生js中slice(不改变数组)方法和splice(改变数组)区别 ———— http://www.cnblogs.com/yunwei8/p/6510916.html
+    slice()方法和splice()方法都是原生js中对数组操作的方法。
+    string.slice(start, end)
+    arrayObj.slice(start, end)
+    arrayObj.splice(index, howLong, item1, item2...);

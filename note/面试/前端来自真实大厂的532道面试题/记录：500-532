@@ -8,7 +8,7 @@
     (1).同：pt、px、em、rem都是计量单位，都能表示尺寸
     (2). pt 点（Points），绝对长度单位。 印刷业上常使用的单位，磅的意思，一般用于页面打印排版。
     (3). px 相对长度单位。像素（Pixels）。像素px是相对于显示器屏幕分辨率而言的。IE无法调整那些使用px作为单位的字体大小
-    (4). em表示相对于父元素的字体大小，em是相对单位，没有一个固定的度量值，而是由其它元素尺寸来决定的相对值,em会继承父级元素的字体大小
+    (4). em 表示相对于父元素的字体大小，em是相对单位，没有一个固定的度量值，而是由其它元素尺寸来决定的相对值,em会继承父级元素的字体大小
     (5). rem 相对长度单位。相对于根元素(即html元素)font-size计算值的倍数。是CSS3新增的一个相对单位（root em，根em）,可以做到只修改根元素就成比例地调整所有字体大小，又可以避免字体大小逐层复合的连锁反应
     (6). dp 虚拟像素
 
@@ -24,6 +24,7 @@
 
 528. 给你一颗树，如何找到其公共的父节点
     (1). 二叉树是个二叉查找树，且root和两个节点的值(a, b)已知
+	满足 root > left && root < right && root is max!
         // 解一
         function findCommonParentNode(root, node1, node2) {
             let minN,maxN;
@@ -233,7 +234,7 @@
 
 
 518. symbol
-    (1). 数据类型：undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）
+    (1). 数据类型：undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、symbol、对象（Object）
     (2). 阮一峰 Symbol 详解 ———— http://es6.ruanyifeng.com/#docs/symbol
 
 
@@ -263,6 +264,10 @@
 
 515. localstorage和cookie的区别，如何设置cookie ———— https://www.cnblogs.com/minigrasshopper/p/8064367.html
     cookie 设置 ———— https://www.cnblogs.com/endv/p/8089506.html
+		var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+		if(arr=document.cookie.match(reg))
+		return unescape(arr[2]);
+		document.cookie="name="+username;
 
 
 
@@ -282,6 +287,8 @@
         c. last-modified WEB 服务器认为对象的最后修改时间，比如文件的最后修改时间，动态页面的最后产生时间
         d. ETag 对象（比如URL）的标志值，就一个对象而言，文件被修改，Etag也会修改
         e. Cache-Control 简单理解，强缓存
+		
+		Referrer，用以指定该请求是从哪个页面跳转页来的，常被用于分析用户来源等信息。但是也有成为用户的一个不安全因素，比如有些网站直接将 sessionid 或是 token 放在地址栏里传递的，会原样不动地当作 Referrer 报头的内容传递给第三方网站。所以就有了 Referrer Policy，用于过滤 Referrer 报头内容，目前是一个候选标准，不过已经有部分浏览器支持该标准。具体的可查看这里。
 
     (3). 200 OK(form memory cache / form disk cache)  和 304 （Not modified）
         a. 200
@@ -296,6 +303,7 @@
             实现304缓存，我们需要在浏览器首次访问时返回过期时间等header
         e. 判断内容更新
             Etag ———— https://blog.csdn.net/liaozhongping/article/details/51114264
+			    是唯一标识了一个组件的一个特定版本的字符串，是web服务器用于确认缓存组件的有效性的一种机制，通常可以使用组件的某些属性来构造它
 
 
 
@@ -310,6 +318,7 @@
         301 永久性重定向，请求的URL已移走
         302 临时重定向
         304 表示未修改，客户的缓存资源是最新的，要客户端使用缓存
+		307(临时重定向)服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来响应以后的请求。此代码与响应 GET 和 HEAD 请求的301 代码类似，会自动将请求者转到不同的位置，但您不应使用此代码来告诉 Googlebot 某个页面或网站已经移动，因为 Googlebot 会继续抓取原有位置并编制索引。
 
     4**	客户端错误，请求包含语法错误或无法完成请求
         400 请求报文语法有误，服务器无法识别
@@ -442,5 +451,6 @@
 
 500. nodejs的优势，用过nodejs的哪些模块
     ———— NodeJS适合运用在高并发、I/O密集、少量业务逻辑的场景
+		比如相应请求返回静态页面
 
 
