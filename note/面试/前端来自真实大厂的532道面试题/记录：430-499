@@ -73,7 +73,27 @@
 
 
 
-488. HTTP1 SPDY HTTP2的对比
+488. HTTP1 SPDY HTTP2的对比 ———— https://www.jianshu.com/p/be29d679cbff
+    （1）HTTP1.0 与 HTTP1.1
+        a. ** 缓存处理**，在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。
+        b. 带宽优化及网络连接的使用，HTTP1.0中，存在一些浪费带宽的现象，例如客户端只是需要某个对象的一部分，而服务器却将整个对象送过来了，并且不支持断点续传功能，HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206（Partial Content），这样就方便了开发者自由的选择以便于充分利用带宽和连接。
+        c. 错误通知的管理，在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。
+        d. Host头处理，在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。
+        f. 长连接，HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。
+
+    （2）SPDY
+        a. 降低延迟
+        b. 请求优先级
+        c. header 压缩
+        d. 基于HTTPS的加密协议传输
+        f. 服务器推送
+        e. HTTP => SPDY => SSL => TCP
+
+    （3）HTTP2.0可以说是SPDY的升级版（其实原本也是基于SPDY设计的），但是，HTTP2.0 跟 SPDY 仍有不同的地方
+        a. HTTP2.0 支持明文 HTTP 传输，而 SPDY 强制使用 HTTPS
+        c. HTTP2.0 消息头的压缩算法采用 HPACK，而非 SPDY 采用的 DEFLATE
+        d. 服务端推送能把客户端所需要的资源伴随着index.html一起发送到客户端，省去了客户端重复请求的步骤。正因为没有发起请求，建立连接等操作，所以静态资源通过服务端推送的方式可以极大地提升速度
+
 
 
 
@@ -367,9 +387,12 @@
 
 
 
-449. https怎么样校验证书有效性
-    客户端在对服务器say hello之后，服务器将公开密钥证书发送给客户端，注意这个证书里面包含了公钥+各种信息+签名（私钥对各种信息加密后生成签名），客户端收到公开密钥证书后，相当于收到了一个包裹里面有公钥+各种信息+签名，怎么样使用这三个数据来校验尼，很简单，公钥加密，私钥解，私钥加密公钥也可以解，只要利用公钥对签名进行解密，然后最和各种信息做比较就可以校验出证书的合法性。
-
+449. https怎么样校验证书有效性 ———— https://blog.csdn.net/iispring/article/details/51615631
+    要想让客户端信赖公钥，公钥也要找一个担保人，证书认证中心（Certificate Authority），简称CA
+    CA本身也有一对公钥和私钥，CA会用CA自己的私钥对要进行认证的公钥进行非对称加密，此处待认证的公钥就相当于是明文，加密完之后，得到的密文再加上证书的过期时间、颁发给、颁发者等信息，就组成了数字证书。操作系统中都会内置100多个全球公认的CA，
+    (1) 首先客户端会用设备中内置的CA的公钥尝试解密数字证书，如果所有内置的CA的公钥都无法解密该数字证书，说明该数字证书不是由一个全球知名的CA签发的，这样客户端就无法信任该服务器的数字证书。
+    (2) 如果有一个CA的公钥能够成功解密该数字证书，说明该数字证书就是由该CA的私钥签发的，因为被私钥加密的密文只能被与其成对的公钥解密。
+    (3) 此之外，还需要检查客户端当前访问的服务器的域名是与数字证书中提供的“颁发给”这一项吻合，还要检查数字证书是否过期等。
 
 
 448. 网络安全xss，csfr是什么，怎么样解决安全
@@ -478,8 +501,63 @@
 
 
 
-431. 前端防连击throttle和debounce ———— http://www.webfront-js.com/articaldetail/99.html
+431. 前端防连击throttle（防抖动）和debounce（节流阀） ———— http://www.webfront-js.com/articaldetail/99.html
     防抖动（debounce （如：登录按钮）） 和 节流阀（throttle（ 如：onmousemove））
+    （1）
+        function debounce(fn, delay) {
+            var delay = delay || 200;
+            var timer;
+            return function() {
+                var that = this;
+                var args = arguments;
+                if(timer){
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(function() {
+                    timer = null;
+                    console.log(that);
+                    fn.apply(that, args)
+                }, delay)
+            }
+        }
+
+    （2）
+        function throttle(fn, delay) {
+            var last;
+            var now;
+            var timer;
+            var delay = delay || 200;
+
+            return function() {
+                var that = this;
+                var args = arguments;
+                now = +new Date();
+                if(last && now - last < delay) {
+                    clearTimeout(timer);
+                    timer = setTimeout(function(){
+                        last = now;
+                        fn.apply(that, args)
+                    }, delay);
+                }else {
+                    last = now;
+                    console.log(that);
+                    fn.apply(that, args);
+                }
+            }
+        }
+
+
+
+409. 数组去重方法
+    arr = [...new Set(arr)]
+
+
+
+408. 如果给a,b,c,d四个时间，执行时间分别为1，2，3，4，怎么样做才能在abc都在执行完后再执行d，除了使用promise还能使用什么方法
+
+
+
+407. promise是如何解析异步操作的?
 
 
 

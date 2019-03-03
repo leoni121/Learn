@@ -3,3 +3,38 @@
     string.slice(start, end)
     arrayObj.slice(start, end)
     arrayObj.splice(index, howLong, item1, item2...);
+
+
+
+** getPrototypeOf 获取指定对象的原型
+
+
+
+** _proto_ 和 prototype
+    实例对象的 _proto_ 就是 其构造函数的 prototype, 如下：
+        var protoObj = {
+        	name: "nzq"
+        }
+        function Person() {
+        }
+        Person.prototype = protoObj
+        var nzq = new Person()
+        nzq.__proto__ === Person.prototype
+
+
+
+** 函数Person的prototype对象的另一个属性是constructor这个属性就指向了函数Person本身
+
+
+
+** 数组 和 对象的深拷贝
+    (1) 对象
+        Object.assign 只是浅层拷贝
+    (1) 数组
+        function deepCopy(arr) {
+
+        }
+
+
+
+** 位操作符：“与，或，非，异或，左移，右移” ———— https://blog.csdn.net/foreverling_ling/article/details/61417649

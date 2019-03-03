@@ -94,3 +94,49 @@
     window.getComputedStyle(dom).width
     dom.getBoundingClientRect().width
     dom.offsetWidth
+
+
+
+**  document.querySelector("a[target=_blank]")
+
+
+
+** radio
+    document.querySelector("input[name=nzq]:nth-child(1)").checked = true;
+
+    var radios = document.querySelectorAll("input[name=nzq]");
+      for (var i = 0, len = radios.length; i < len; i++) {
+        if (radios[i].checked === true) {
+          console.log(radios[i].value);break;
+        }
+      }
+
+
+
+** checkbox
+    var s = document.querySelectorAll("input[name=chkStudent]");
+    var s2 = "";
+    for( var i = 0; i < s.length; i++ )
+    {
+        if ( s[i].checked ){
+            s2 += s[i].value+',';
+        }
+    }
+
+
+
+** select
+    onchange
+    document.querySelector("select option:nth-child(1)").selected = true
+     function clasp(){
+        window.itemTitle = [];
+        var items = document.querySelectorAll("#ventilationParameters option");
+        console.log(items);
+        //此处取到了每个item，items[i].text则取到的是option中的文字，下面取到的是value属性
+        for(var i = 0;i<items.length;i++){
+          if (items[i].selected === true) {
+            console.log(items[i].value)
+            itemTitle[i] = items[i].value;
+          }
+        }
+      }

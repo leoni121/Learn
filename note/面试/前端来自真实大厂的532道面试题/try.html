@@ -1,42 +1,39 @@
-<!DOCTYPE HTML >
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'/>
-    <title>浮动元素的性质</title>
-    <style type="text/css">
-        *{
-            margin:0;
-            padding:0;
-        }
-        .box{
-            width: 400px;
-            height: 200px;
-            padding: 50px;
-            margin: 50px;
-            background: #ccf;
-        }
-        .inner{
-            width: 100px;
-            height: 100px;
-            background: #fcc;
-            float: left;
-        }
-        .notfloat{
-            background: #cfc;
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,html {
+            width: 100%;
+            height: 100%;
+            background-color: lightgreen;
         }
     </style>
 </head>
+<html>
+<head>
+</head>
 <body>
-<div class='box'>
-    <div class='inner'>浮动元素</div>
-    <span class='notfloat'>
-            浮动元素后面的内联元素会向此浮动元素的外边距靠齐
-        </span>
-</div>
-<script>
-    window.vue = {
-      name: 'nzqq'
-    }
+<div id="father">father</div>
+<button onclick="modiframe()">改值</button>
+<iframe id="iframe1" src="./try1.html"></iframe>
+<script type="text/javascript">
+  var father = "father";
+  var ifr_doc = document.getElementById("iframe1").contentDocument;
+  var ifr_win = document.getElementById("iframe1").contentWindow;
+   console.log(ifr_win.son)
+  function modiframe()
+  {
+    ifr_doc.getElementById("label1").innerHTML = "改变了";
+  }
+  function sayHello(who) {
+    alert("hello world");
+    alert(ifr_doc.son + "to" + who)
+  }
 </script>
 </body>
 </html>

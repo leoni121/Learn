@@ -1,0 +1,364 @@
+429. 关于iframe内部和外部变量的读取是如何的
+    （1）原来chrome不支持跨frame的变量的获取！于是乎，在iframe页面里调用window.parent.**在chrome里也是不允许的！
+
+    （2）document.getElementById("iframe1").contentWindow -- 最新的chrome 和 fireFox不行
+        获取不到子窗口的变量
+
+    （3）document.getElementById("iframe1").contentDocument -- 最新的chrome 和 fireFox 可行
+        获取不到子窗口的变量
+        window.parent.document.getElementById("father")
+        window.parent.变量名
+        window.parent.方法
+
+
+
+428. 一个数组，有很多数字存在2次，只有一个数字存在一次，怎么样找出这个数字
+    (1).异或/HashMap
+    function getSingle(arr) {
+        var num = 0;
+        for(var i = 0, len = arr.length ; i < len ; i++) {
+            num ^= arr[i];
+        }
+        return num;
+    }
+
+    (2).异或/HashMap
+    一个数组，有很多数字存在2次，只有两个数字存在一次，怎么样找出这个数字
+    function getTwoSingle(arr) {
+        var num = 0;
+        var j = 1; // 用于查找第一位不为0的数
+        for(var i = 0, len = arr.length ; i < len ; i++) {
+            num ^= arr[i];
+        }
+
+        // 遍历找出一位不为0的数
+        // 就从小到大 *2
+        while(true) {
+            if((j & num) === j) { // 找到
+                return divArray(arr, j);
+            }
+            // 未找到
+            j *= 2;
+        }
+        return num;
+    }
+
+    function divArray(arr, j) {
+        var arr0 = [];
+        var arr1 = [];
+        var x = 0;
+        var temArr = [];
+
+        for(var i = 0, len = arr.length ; i < len ; i++) {
+            if((arr[i] & j) === 0) {
+                arr0.push(arr[i]);
+            } else {
+                arr1.push(arr[i]);
+            }
+        }
+
+        for(var i = 0, len = arr0.length ; i < len ; i++) {
+            x ^= arr0[i];
+        }
+        temArr.push(x);
+        x = 0
+
+        for(var i = 0, len = arr1.length ; i < len ; i++) {
+            x ^= arr1[i];
+        }
+        temArr.push(x);
+
+        return temArr
+    }
+
+    (3).异或/HashMap
+        一个数组，有很多数字存在2次，只有三个数字存在一次，怎么样找出这个数字
+        异或：先所有异或得到 “三个” 的异或结果，再找该结果中第一位不为0的为，通过该位将arr数组分为两个数组，数组length为偶的含有“两个”，奇数的含有“一个”。再把奇数数组异或得 “一个”，偶数数组参照重复上述步骤
+
+
+
+
+427. vue的事件绑定和原生有什么区别吗？
+    .native 绑定原生事件
+
+
+
+426. https ———— https://blog.csdn.net/iispring/article/details/51615631
+    HTTPS协议 = HTTP协议 + SSL/TLS协议
+    一个HTTPS请求实际上包含了两次HTTP传输，可以细分为8步。
+    (1).客户端向服务器发起HTTPS请求，连接到服务器的443端口
+
+    (2).服务器端有一个密钥对，即公钥和私钥，是用来进行非对称加密使用的，服务器端保存着私钥，不能将其泄露，公钥可以发送给任何人。
+
+    (3).服务器将自己的公钥发送给客户端。
+
+    (4).客户端收到服务器端的公钥之后，会对公钥进行检查，验证其合法性，如果发现发现公钥有问题，那么HTTPS传输就无法继续。严格的说，这里应该是验证服务器发送的数字证书的合法性，关于客户端如何验证数字证书的合法性，下文会进行说明。如果公钥合格，那么客户端会生成一个随机值，这个随机值就是用于进行对称加密的密钥，我们将该密钥称之为client key，即客户端密钥，这样在概念上和服务器端的密钥容易进行区分。然后用服务器的公钥对客户端密钥进行非对称加密，这样客户端密钥就变成密文了，至此，HTTPS中的第一次HTTP请求结束。
+
+    (5).客户端会发起HTTPS中的第二个HTTP请求，将加密之后的客户端密钥发送给服务器。
+
+    (6).服务器接收到客户端发来的密文之后，会用自己的私钥对其进行非对称解密，解密之后的明文就是客户端密钥，然后用客户端密钥对数据进行对称加密，这样数据就变成了密文。
+
+    (7).然后服务器将加密后的密文发送给客户端。
+
+    (8).客户端收到服务器发送来的密文，用客户端密钥对其进行对称解密，得到服务器发送的数据。这样HTTPS中的第二个HTTP请求结束，整个HTTPS传输完成。
+
+    怎么确保服务器发送的数字证书的合法性？
+    见 题449
+
+
+
+425. HTTP缓存 ———— http://www.cnblogs.com/chenqf/p/6386163.html
+    ———— https://www.cnblogs.com/wonyun/p/5524617.html（另一种说法 强缓存和协商缓存）
+    （1）强制缓存(size: from disk cache)、对比缓存(status: 304)。强制缓存优先级高于对比缓存，也就是说，当执行强制缓存的规则时，如果缓存生效，直接使用缓存，不再执行对比缓存规则。
+
+    （2）缓存规则信息包含在响应header
+
+    （3）对于强制缓存来说，响应header中会有两个字段来标明失效规则（Expires、Cache-Control）
+        a.Expires的值为服务端返回的到期时间，即下一次请求时，请求时间小于服务端返回的到期时间，直接使用缓存数据。不过Expires 是HTTP 1.0的东西，现在默认浏览器均默认使用HTTP 1.1，所以它的作用基本忽略。另一个问题是，到期时间是由服务端生成的，但是客户端时间可能跟服务端时间有误差，这就会导致缓存命中的误差。所以HTTP 1.1 的版本，使用Cache-Control替代。
+        b.Cache-Control 是最重要的规则。常见的取值有private、public、no-cache、max-age，no-store，默认为private。
+          private:             客户端可以缓存
+          public:              客户端和代理服务器都可缓存（前端的同学，可以认为public和private是一样的）
+          max-age=xxx:   缓存的内容将在 xxx 秒后失效
+          no-cache:          需要使用对比缓存来验证缓存数据（后面介绍）
+          no-store:           所有内容都不会缓存，强制缓存，对比缓存都不会触发（对于前端开发来说，缓存越多越好，so...基本上和它说886）
+
+    (4)对比缓存，顾名思义，需要进行比较判断是否可以使用缓存。浏览器第一次请求数据时，服务器会将缓存标识与数据一起返回给客户端，客户端将二者备份至缓存数据库中。再次请求数据时，客户端将备份的缓存标识发送给服务器，服务器根据缓存标识进行判断，判断成功后，返回304状态码，通知客户端比较成功，可以使用缓存数据。缓存标识的传递是我们着重需要理解的，它在请求header和响应header间进行传递，一共分为两种标识传递，接下来，我们分开介绍。
+        a.Last-Modified(response header) / If-Modified-Since(request header用来发送last-modified)
+        b.Etag(服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）) / If-None-Match(发送Etag)。（优先级高于Last-Modified  /  If-Modified-Since）
+
+
+
+424. preventDefault和stopPropagation的区别
+
+
+
+423. js事件模型，捕获和冒泡，阻止冒泡
+
+
+
+422. 一个数组只有0、1和2，排序
+    function sort(arr) {
+      var len = arr.length;
+      if (len <= 3) {
+        return arr.sort();
+      }
+
+      var i = 0 // 记录0 的位置
+        ,j = 0 // 记录1的位置
+        ,k = len-1; // 记录2的位置
+
+      while (i <= j && i <= k && j <= k) {
+        while (arr[i] === 0) {
+          i++;
+        }
+        while (arr[j] === 1) {
+          j++;
+        }
+        while (arr[k] === 2) {
+          k--;
+        }
+
+        if (i <= k && arr[i] === 2 && arr[k] === 0) {
+          [arr[i], arr[k]] = [arr[k], arr[i]];
+          i++;j--;
+        } else if (j <= k && arr[j] === 2 && arr[k] === 1) {
+          [arr[j], arr[k]] = [arr[k], arr[j]];
+          j++;
+          k--;
+        } else if (i <= j && arr[i] === 1 && arr[j] === 0) {
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+          i++;
+          j++;
+        } else if (i < j && j < k) {
+          arr[i] = 0;
+          arr[j] = 1;
+          arr[k] = 2;
+          i++;j++;j--;
+        }
+
+        if (i > j) {
+          j = i;
+        }
+      }
+
+      return arr
+    }
+
+
+
+421. 给你一个DOM元素，用CSS的方式让他呈现两个的想过，只有一个DOM元素
+
+
+
+420. 给你一个DOM元素，用CSS的方式让他呈现两个的想过，只有一个DOM元素
+
+
+
+419. react中props和state的区别
+
+
+
+418. hashmap原理？
+
+
+
+417. 栈和队列有什么区别，具体的应用场景
+    （1）栈是后进先出
+    （2）队列是先进先出。
+
+
+
+416. 排序的几种方法知道吗，是如何实现的
+    见 算法 =》 排序
+
+
+
+415. HTTP1.1中Etg和if-None-Match哪个权重比较大?
+    见 题425
+
+
+
+414. 为什么HTTP1.1中使用Cache-Control代替Expires？（见 题425）
+    （1）现在默认浏览器均默认使用HTTP 1.1，所以它的作用基本忽略
+
+    （2）到期时间是由服务端生成的，但是客户端时间可能跟服务端时间有误差，这就会导致缓存命中的误差。
+       所以HTTP 1.1 的版本，使用Cache-Control替代
+
+    （3）解决：建议Expires结合Cache-Control一起使用。
+
+
+
+413. 强缓存和协商缓存知道吗？（见 题425）
+    ———— https://www.cnblogs.com/wonyun/p/5524617.html
+
+
+
+412. HTTP1.0和HTTP1.1相关 （见 题488）
+
+
+
+411. TCP和UDP的区别 ———— https://www.cnblogs.com/gaopeng527/p/5255827.html
+
+
+
+410. 函数节流（throttle）和函数防抖（debounce）知道吗，区别是什么 （见 题431） ———— http://www.webfront-js.com/articaldetail/99.html
+
+
+
+407. promise是如何解析异步操作的? (题480 有疑问)
+
+
+
+406. 什么是异步？
+    ———— https://www.cnblogs.com/ly-china/p/5433702.html（异步）
+
+
+
+405. 线程和进程的区别
+    ———— https://www.zhihu.com/question/25532384?sort=created （知乎自古都大神）
+    进程是资源分配的最小单位，线程是CPU调度的最小单位
+
+
+
+404. transition生命周期
+
+
+
+403. vue-router不能解决情况和边界情况？
+    ———— https://cn.vuejs.org/v2/guide/components-edge-cases.html
+
+
+
+402. PWA ———— https://segmentfault.com/a/1190000012353473?utm_source=tag-newest
+    （1）.对于 PWA 来说，用户体验才是核心。PWA 不是一项具体的技术，他是应用了一系列技术进行使用体验优化后的Web APP，具有与Native App 一致的用户体验，能够添加主屏图标、离线可用、接收离线通知等。具体详情查看 Demo 演示。
+
+    （2）可靠  一方面是指 PWA 的安全性，PWA 只能运行在 HTTPS 上；另一方面是指在网络不稳定或者没网情况下，PWA 依然可以访问。
+
+    （3）快速  快速响应用户的交互行为，并且具有平滑流畅的动画、加载速度、渲染速度和渲染性能等。
+
+    （4）用户粘性  通过添加到桌面以及离线消息推送，能带来用户的第二次访问，并且依靠良好的用户体验吸引用户再次访问。
+
+
+
+401. vue的生命周期
+    见 题170
+
+
+
+400. vue diff算法 ———— https://segmentfault.com/a/1190000008782928
+
+
+
+399. tcp ip分成（见 题451） ———— https://blog.csdn.net/xiangyuenacha/article/details/83544035
+    （1）网络接口层，TCP/IP模型的最底层是网络接口层，它包括了能使用TCP/IP与物理网络进行通信的协议，对应OSI模型的物理层和数据链路层。）
+
+    （2）网际层又称网络层，负责相邻计算机之间的通信。网络要完成源路主到目的主机传输路径的选择。
+        IP（Internet Protocol）
+        ICMP（Internet Control Message Protocol）
+        IGMP（Internet Group Management Protocol）
+        ARP（Address Resolution Protocol）/RARP
+
+    （3）TCP/IP的传输层与OSI的传输层类似，它的根本任务是提供端到端的通信，传输层对信息流具有调节作用，提供可靠传输，确保数据能够正确到达。
+        TCP（Transmission Control Protocol）
+        UDP（User Datagram Protocol）
+
+    （4）在TCP/IP模型中，应用层是最高层，它对应OSI参考模型中的会话层、表示层和应用层。它使用户的程序访问网络，并获得各种网络服务，如WEB浏览、电子邮件等。
+        TELET（远程终端协议）
+        FTP（文件传输协议）
+        SMTP（简单邮件传输协议）
+        DNS（域名系统）
+        DHCP（动态主机配置协议）
+        RIP（路由信息协议）
+        HTTP（超文本传输协议）
+        SNMP（简单网络管理协议）
+
+    （5）常见端口号
+        HTTP： 80
+        DNS： 53
+
+
+
+398. settimeout异步
+
+
+
+397. Ajax返回204算是成功吗
+   （1）HTTP RFC 2616中关于204的描述如下:
+        If the client is a user agent, it SHOULD NOT change its document view from that which caused the request to be sent. This response is primarily intended to allow input for actions to take place without causing a change to the user agent’s active document view, although any new or updated metainformation SHOULD be applied to the document currently in the user agent’s active view.
+        意思等同于请求执行成功，但是没有数据，浏览器不用刷新页面.也不用导向新的页面。如何理解这段话呢。还是通过例子来说明吧，假设页面上有个form，提交的url为http-204.htm，提交form，正常情况下，页面会跳转到http-204.htm，但是如果http-204.htm的相应的状态码是204，此时页面就不会发生转跳，还是停留在当前页面。另外对于a标签，如果链接的页面响应码为204，页面也不会发生跳转。
+
+    （2）无body、content-length=0
+
+
+
+396. Ajax如何实现的
+     （1）从代码我们看出：首先我们创建一个 XMLHttpRequest 对象（由于浏览器不同需要 相应判断处理），设置相应的请求信息（通过open来做，例如请求地址等 设置 ）；然后我们绑定 onreadystatechange 事件，在这个事件中我们根 据服务器返回状态的不同来做出不同处理，这其中主要是请求成功后接收相应的返回值来通过 javascript 对客户端做出相应操作（我 们只是使显示有关信息）；最后我们发送这个请 求（通过send方法）。
+    （2）通过上面说 明和代码实现我们发现事实上整个 Ajax 的无刷新功能就是利用 XMLHttpRequest 的异步请求来完成的。关键 就是我们了解XMLHttpRequest的相关成员信息。当然，我们上面说实际开发中如果在手动写这些代码就太不划算了，我们可以选择合适的框架来进行 Ajax开发。OK，就到这里吧！
+
+
+
+395. 有哪些状态码（见 题513） ———— https://www.cnblogs.com/jly144000/archive/2017/12/07/7998615.html
+
+
+
+394. TCP和UDP（见 题411）———— https://www.cnblogs.com/gaopeng527/p/5255827.html
+
+
+
+393. 应用层协议有哪些 （见 题399）
+     TELET（远程终端协议）
+     FTP（文件传输协议）
+     SMTP（简单邮件传输协议）
+     DNS（域名系统）
+     DHCP（动态主机配置协议）
+     RIP（路由信息协议）
+     HTTP（超文本传输协议）
+     SNMP（简单网络管理协议）
+
+
+
+392. reflow和repaint ———— https://segmentfault.com/a/1190000002629708
+
+
+
+

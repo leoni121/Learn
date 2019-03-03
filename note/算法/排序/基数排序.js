@@ -1,3 +1,4 @@
+// 循环最大数得位数遍，从各位开始排， 拍完一次返回在排
 function radixSort(arr, maxDigit) {
   let mod = 10
     ,dev = 1
