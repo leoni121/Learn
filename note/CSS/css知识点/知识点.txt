@@ -3,8 +3,8 @@
 
 
 
-** 元素选择器
-
+** 元素选择器优先级
+    !important > 行内样式 > ID选择器 > 类选择器 > 元素 > 通配符 > 继承 > 浏览器默认属性
 
 
 
@@ -92,3 +92,10 @@
     top: 0;
     bottom: 0;
     top和bottom设为相等的值
+
+
+
+** normalize.css ———— https://github.com/necolas/normalize.css
+    css rest（什么是） ———— https://cssreset.com/what-is-a-css-reset
+    使用CSS重置，CSS作者可以强制每个浏览器将其所有样式重置为null，从而尽可能避免跨浏览器的差异。
+    normalize 和 reset 区别 ———— https://www.cnblogs.com/webpush/p/4974063.html

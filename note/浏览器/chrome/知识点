@@ -4,3 +4,7 @@
 
 ** 如果想手动打印,可以在mounted里 window.vue = this
    浏览器 控制台 console.log(vue.content)
+
+
+
+** chrome://net-internals/#dns 打开DNS缓存页面
