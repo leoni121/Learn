@@ -1,0 +1,38 @@
+** 简书，入门 --- https://www.jianshu.com/p/fe5f173276bd
+
+** 如果 Promise 状态已经变成resolved，再抛出错误是无效的，并且不会执行后面的代码
+    const promise = new Promise(function(resolve, reject) {
+      resolve('ok');
+      throw new Error('test');
+      console.log("1");
+    });
+    promise
+      .then(function(value) { console.log(value) })
+      .catch(function(error) { console.log(error) });
+    // ok
+
+** Promise 指定在下一轮“事件循环”再抛出错误。到了那个时候，Promise 的运行已经结束了，所以这个错误是在 Promise 函数体外抛出的，会冒泡到最外层，成了未捕获的错误。和上面的不一样可比较
+    const promise = new Promise(function (resolve, reject) {
+      resolve('ok');
+      setTimeout(function () { throw new Error('test') }, 0)
+    });
+    promise.then(function (value) { console.log(value) });
+    // ok
+    // Uncaught Error: test
+
+** 由于字符串Hello不属于异步操作（判断方法是字符串对象不具有 then 方法），返回 Promise 实例的状态从一生成就是resolved，所以回调函数会立即执行。Promise.resolve方法的参数，会同时传给回调函数。
+
+** Promise.resolve()在本轮“事件循环”结束时执行，
+    setTimeout(function () {
+      console.log('three');
+    }, 0);
+
+    Promise.resolve().then(function () {
+      console.log('two');
+    });
+
+    console.log('one');
+
+    // one
+    // two
+    // three

@@ -1,0 +1,146 @@
+** 严格模式 ———— http://es6.ruanyifeng.com/#docs/function#%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F
+    （1）ES2016 做了一点修改，规定只要函数参数使用了默认值、解构赋值、或者扩展运算符，那么函数内部就不能显式设定为严格模式，否则会报错。
+
+    （2）函数内部的严格模式，同时适用于函数体和函数参数。但是，函数执行的时候，先执行函数参数，然后再执行函数体。
+
+
+
+** 尾调用 ———— http://es6.ruanyifeng.com/#docs/function#%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96
+    （1）概念：尾调用（Tail Call）是函数式编程的一个重要概念，本身非常简单，一句话就能说清楚，就是指某个函数的最后一步是调用另一个函数。
+          function f(x){
+            return g(x);
+          }
+
+   （2）“调用帧”与“调用栈”： 函数调用会在内存形成一个“调用记录”，又称“调用帧”（call frame），保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么在A的调用帧上方，还会形成一个B的调用帧。等到B运行结束，将结果返回到A，B的调用帧才会消失。如果函数B内部还调用函数C，那就还有一个C的调用帧，以此类推。所有的调用帧，就形成一个“调用栈”（call stack）。
+
+   （3）尾递归：函数调用自身，称为递归。如果尾调用自身，就称为尾递归。
+
+   （4）注意：
+        ES6 的尾调用优化只在严格模式下开启，正常模式是无效的。
+        这是因为在正常模式下，函数内部有两个变量，可以跟踪函数的调用栈。
+            func.arguments：返回调用时函数的参数。
+            func.caller：返回调用当前函数的那个函数。
+        尾调用优化发生时，函数的调用栈会改写，因此上面两个变量就会失真。严格模式禁用这两个变量，所以尾调用模式仅在严格模式下生效。
+
+    （5）MD，浏览器不行
+
+
+
+** 柯里化（函数式编程）———— https://blog.csdn.net/shunfa888/article/details/80013170
+    （1）概念：将多参数的函数转换成单参数的形式
+
+    （2）实现：
+       const curry1 = function(fn, context, ...arg1) {
+         let args = arg1;
+         return function(...arg2) {
+           args.push(...arg2);
+           fn.apply(context, args);
+         }
+       }
+
+
+       // arg 会更新为 _args;
+       const curry2 = (fn, ...arg) => {
+         let all = arg || [],
+           length = fn.length;
+         return (...rest) => {
+           let _args = all.slice(0); //拷贝新的all，避免改动公有的all属性，导致多次调用_args.length出错
+           _args.push(...rest);
+           if (_args.length < length) {
+             return curry.call(this, fn, ..._args);
+           } else {
+             return fn.apply(this, _args);
+           }
+         }
+       }
+
+       // 同上面  all 也会不断被_args 代替
+       const curry3 = (fn, ...arg) => {
+         let all = arg || [];
+         return (...rest) => {
+           let _args = all;
+           _args.push(...rest);
+           if (rest.length === 0) {
+             // 防止 连续两个 "无参调用"因为缓存出现一样的结果
+             all=[];
+             return fn.apply(this, _args);
+           } else {
+             return curry.call(this, fn, ..._args);
+           }
+         }
+       }
+
+       let test = curry3(function(...rest) {
+         console.log(rest)
+       })
+
+
+
+** 偏函数
+       function part(fn, ...arg) {
+         let all = arg || [];
+         return (...rest) => {
+           let args = all.slice(0);
+           args.push(...rest);
+           return fn.apply(this, args)
+         }
+       }
+       function add(...rest) {
+         return rest.reduce(function (count, val, idx, arr) {
+           return count + val;
+         })
+       }
+
+
+
+** 尾递归优化的实现 ———— http://es6.ruanyifeng.com/#docs/function#%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96
+    (1)蹦床函数（并不是真正的尾递归优化，转化为函数实现）
+        function trampoline(f) {
+            while(f && f instanceof Function) {
+                f = f();
+            }
+            return f;
+        }
+
+        function sum(x, y) {
+          if (y > 0) {
+            // 返回之后等待蹦床函数帮组执行
+            return sum.bind(null, x + 1, y - 1);
+          } else {
+            return x;
+          }
+        }
+
+        trampoline(sum(1, 100000)) // 100001
+
+    （2） 真正的优化
+        其实一直在while 里面循环
+        value = f.apply(this, accumulated.shift()); // 这句话得到的值永远为undefined， 同时又能重新设置accumulated（accumulated.push(arguments)）
+        function tco(f) {
+          var value;
+          var active = false;
+          var accumulated = [];
+
+          return function accumulator() {
+            accumulated.push(arguments);
+            if (!active) {
+              active = true;
+              while (accumulated.length) {
+                value = f.apply(this, accumulated.shift());
+              }
+              active = false;
+              return value;
+            }
+          };
+        }
+
+        var sum = tco(function(x, y) {
+          if (y > 0) {
+            return sum(x + 1, y - 1)
+          }
+          else {
+            return x
+          }
+        });
+
+        sum(1, 100000)

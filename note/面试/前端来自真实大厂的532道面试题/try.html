@@ -22,18 +22,10 @@
 <button onclick="modiframe()">改值</button>
 <iframe id="iframe1" src="./try1.html"></iframe>
 <script type="text/javascript">
-  var father = "father";
-  var ifr_doc = document.getElementById("iframe1").contentDocument;
-  var ifr_win = document.getElementById("iframe1").contentWindow;
-   console.log(ifr_win.son)
-  function modiframe()
-  {
-    ifr_doc.getElementById("label1").innerHTML = "改变了";
-  }
-  function sayHello(who) {
-    alert("hello world");
-    alert(ifr_doc.son + "to" + who)
-  }
+
+
+
+  console.log(Fibonacci(100))
 </script>
 </body>
 </html>
