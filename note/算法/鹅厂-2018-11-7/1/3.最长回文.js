@@ -5,33 +5,39 @@
  */
 
 // 暴力 O(n*(n/2)*(n/2)) ^= O(n*n*n)
-let longestPalindrome1 = function(s) {
-    let len = s.length
-        ,subStr = ""
-        ,longestStr = "";
-    for (let i = 0; i < len; i++) {
-        for (let j = len; j >= 1; j--) {
-            subStr = s.substr(i, j - i);
-            if (checkPalindrome(s.substr(i, j - i)) && longestStr.length < j - i) {
-                longestStr = subStr;
-                break;
-            }
-        }
-    }
 
+function longestPalindrome1 (str) {
+    if (str.length <= 1) {
+        return str;
+    }
+    let len = str.length;
+    let maxLen = 0;
+    let subStr = "";
+    let longestStr = "";
+    for (let i = 0 ; i < len ; i++) {
+      for (let j = i + 1; j < len; j++) {
+          subStr = str.substr(i, j - i + 1);
+          if (checkPalindrome(subStr) &&  maxLen < j - i + 1) {
+              maxLen = j - i +  1;
+              longestStr = subStr;
+          }
+      }
+    }
     return longestStr;
+}
 
-    function checkPalindrome (s) {
-        let len = s.length
-            ,halfLen =  len%2===0 ? len/2 - 1 : (len - 1)/2;
-        for (let i = 0; i <= halfLen; i++) {
-            if (s[i] !== s[len-1 - i]) {
-                return false
-            }
+function checkPalindrome (str) {
+    let start = 0;
+    let end = str.length - 1;
+    while (start <= end) {
+        if (str[start] !== str[end]) {
+            return false
         }
-        return true;
+        start++; end--;
     }
-};
+
+    return true
+}
 
 // 遍历一次 以每个当前的做中心  O(*) < O(n*(n/2))
 let longestPalindrome2 = function(s) {
@@ -70,40 +76,5 @@ let longestPalindrome2 = function(s) {
     return subStr;
 };
 
-let longestPalindrome = function (s) {
-    let mx = 0 //mx记在i之前的回文串中，延伸至最右端的位置。（不属于回文串）
-        ,po = 0 //同时用po这个变量记下取得这个最优mx时的回文中点位置
-        ,lenA = [1] // 用来记录每个 str 字符对应的（字符串长度+1）/ 2
-        ,str = "" // 加入字符后的字符串, 长度是原来的 2倍加1
-        ,len = 0
-        ,subStrIdx=1; // 记录最长的回文串的中点在 str 中的位置
 
-    str = "$#" + s.split("").join("#") + "#";
-    len = str.length;
-
-    for (let i = 1; i < len; i++) {
-        if (i < mx) {
-            lenA[i] = Math.min(lenA[2*po-i], mx-i);
-        } else {
-            lenA[i] = 1;
-        }
-        // *
-        while(str[lenA[i]+i] === str[i-lenA[i]]){
-            lenA[i]++;
-        }
-        if (lenA[i] + i > mx) {
-            // *
-            mx = lenA[i] + i;
-            po = i;
-        }
-        if (lenA[i] > lenA[subStrIdx]) {
-            subStrIdx = i;
-        }
-    }
-    console.log(subStrIdx, lenA)
-    console.log(str);
-    // *
-     return str.substring(subStrIdx - lenA[subStrIdx] + 1, subStrIdx + lenA[subStrIdx]).split("#").join("");
-}
-
-console.log(longestPalindrome("aaab"))
+console.log(longestPalindrome2("asqqss"))
