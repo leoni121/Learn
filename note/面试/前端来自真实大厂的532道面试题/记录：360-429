@@ -634,10 +634,29 @@
 
 
 
-364. 异步加载JS ———— https://www.cnblogs.com/hq233/p/7102549.html（只算是相对较好的）
+364. 异步加载JS（异步加载又叫非阻塞） ———— https://www.cnblogs.com/hq233/p/7102549.html（只算是相对较好的）
     ———— https://blog.csdn.net/zhouziyu2011/article/details/60149590
     （1）同步模式，又称阻塞模式，会阻止浏览器的后续处理，停止了后续的解析，因此停止了后续的文件加载（如图像）、渲染、代码执行。
         js 之所以要同步执行，是因为 js 中可能有输出 document 内容、修改dom、重定向等行为，所以默认同步执行才是安全的。
+
+    （2）阿里校招题
+        var script = document.createElement(“script”);
+        var head = document.getElementsByTagName(“head”)[0];
+        script.type = “text/javascript”;
+        script.src = “//i.alicdn.com/resource.js”;
+        // 绑定资源加载成功事件
+        script.onreadystatechange= function( ){
+            // 判断资源加载状态是否为加载成功或加载完成
+            if(/^(loaded|complete)$/. test (script.readyState )  ) {
+                script.onreadystatechange = null;
+                . . . .
+            }
+        };
+            // 绑定资源加载失败事件
+        script.onerror = function( ) {
+            . . . .
+        };
+        head.insertBefore (script , head.firstChild)
 
 
 
