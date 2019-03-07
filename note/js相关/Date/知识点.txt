@@ -15,7 +15,7 @@
         if(/(y+)/.test(fmt)) {
                 // 将得到的4位的年的数组装换为对应位数 再替换
                 // 字符串才能substr
-                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
         }
          for(var k in o) {
             if(new RegExp("("+ k +")").test(fmt)){

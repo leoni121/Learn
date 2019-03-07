@@ -1,0 +1,57 @@
+** 浏览器内核
+    谷歌：Webkit–>blink(现在是blink啦)
+    FireFox：Gecko
+    safari：webkit
+    opera: presto -> blink
+    IE:Trident
+
+
+** <ul> <li> </li> </ul>
+   <ol> <li> </li> </ol>
+   <dl><dt></dt><dd></dd></dl>
+   <table> <tr> <td></td> </tr> </table>
+
+
+** 哪一个不是浏览器默认的天生inline-block标签（拥有内在尺寸，可设置高宽，不会自动换行）
+    label
+    常见的行块级元素(拥有内在尺寸，可设置高宽，不会自动换行 )有：(button,input，textarea,select), img等
+    label元素不会是浏览器默认的行块级元素，实践出真知.手动设置label的display属性为inline-block，才能实现可设置高宽，不会自动换行的效果
+
+
+** 数据库事务的4个特征是：原子性、一致性、持续性、隔离性。
+
+
+** 在 HTML5 中，哪个方法用于获得用户的当前位置？
+    getCurrentPosition
+
+
+** 在前端数据访问过程中，由于同源策略的限制，往往会遇到一些跨域的问题，以下哪些手段可以解决跨域的问题
+    利用HTML5 postMessage
+    利用document.domain+iframe的设置
+    通过服务端niginx配置跨域
+    利用iframe+location.hash
+    windows,name实现跨域数据传输
+
+
+** html5的新的表单元素
+    datalist
+    keygen
+    output
+
+
+** setTimeout
+    不是JS提供的，是浏览器（宿主环境）,window.setTimeout
+
+
+** 浏览器 Browser 对象
+    history  Location   navigator   screen
+
+
+** undefined和null与任何有意义的值比较返回的都是false，但是null与undefined之间互相比较返回的是true。
+    console.log(null == false); false
+    console.log(null == true); false
+    console.log(undefined == false); false
+    console.log(undefined == true); false
+    console.log(undefined == null); true
+    console.log(undefined == undefined); true
+    console.log(null == null); true

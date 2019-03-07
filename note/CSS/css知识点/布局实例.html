@@ -1,0 +1,150 @@
+
+<!--
+    https://www.jianshu.com/p/3046eb050664
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title></title>
+
+    <style>
+        .container1 {
+            display: flex;
+        }
+        .left1{
+            width: 200px;
+            background: red;
+            order: 1;
+            flex-shrink: 0;
+        }
+        .center1 {
+            width: 100%;
+            order: 2;
+            background-color: yellow;
+        }
+        .right1 {
+            flex-shrink: 0;
+            width: 200px;
+            background: red;
+            order: 3;
+        }
+        /*////////////////////////////////////////*/
+        .container2 div {
+            height: 100px;
+        }
+        .left2{
+            width:200px;
+            background:pink;
+            float: left;
+        }
+        .center2{
+            background:lightyellow;
+            overflow:hidden;
+            width: auto;
+        }
+        .right2{
+            width:200px;
+            background: lightblue;
+            float:right; /* float:left =》 最右边自适应 */
+        }
+
+        /*//////////////////////////////////////*/
+        .container {
+            overflow: hidden;
+            position: relative;
+        }
+        .container3 > div {
+            display: table-cell;
+            height: 100%;
+        }
+        .center3 {
+            margin: 0 200px;
+            width: 100%;
+            background: red;
+        }
+        .left3 {
+            width: 200px;
+            min-width: 200px;
+            background-color: green;
+        }
+        .right3 {
+            width: 200px;
+            min-width: 200px;
+            background-color: blue;
+        }
+
+        /* ////////////////////////////// */
+        .container4 {
+            display: grid;
+            width: 100%;
+            grid-template-rows: 100px;
+            grid-template-columns: 200px auto 200px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+<div class="container1">
+    <!-- 优先渲染 -->
+    <div class="center1">
+        center
+    </div>
+    <div class="left1">
+        left
+    </div>
+    <div class="right1">
+        right
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class="container2">
+    <div class="left2">
+    </div>
+    <div class="right2">
+    </div>
+    <div class="center2">
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<div class="container3">
+    <div class="left3">
+        left
+    </div>
+    <!-- 这时的center要放在中间 -->
+    <div class="center3">
+        center
+    </div>
+    <div class="right3">
+        right
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class="container4">
+    <div class="left" style="background-color: #edc9c9;">
+        left
+    </div>
+    <!-- 这时的center要放在中间 -->
+    <div class="center4" style="background: blue">
+        center
+    </div>
+    <div class="right4" style="background-color: pink;">
+        right
+    </div>
+</div>
+
+</body>
+</html>
