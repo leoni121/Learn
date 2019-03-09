@@ -13,84 +13,162 @@
     <title></title>
 
     <style>
+        /* flex布局开始 */
+        /* center优选加载 */
+        /* 中左右 */
         .container1 {
             display: flex;
         }
-        .left1{
+        .container1>div {
+            min-height: 100px;
             width: 200px;
+        }
+        .left1{
             background: red;
             order: 1;
             flex-shrink: 0;
         }
-        .center1 {
+        .container1 .center1 {
             width: 100%;
             order: 2;
             background-color: yellow;
         }
         .right1 {
             flex-shrink: 0;
-            width: 200px;
             background: red;
             order: 3;
         }
-        /*////////////////////////////////////////*/
-        .container2 div {
+        /* flex布局结束 */
+
+
+        /* BFC布局开始 */
+        /* 左右中 */
+        .container2>div {
+            width:200px;
             height: 100px;
         }
         .left2{
-            width:200px;
             background:pink;
             float: left;
         }
-        .center2{
+        .container2>.center2{
             background:lightyellow;
             overflow:hidden;
             width: auto;
         }
         .right2{
-            width:200px;
             background: lightblue;
             float:right; /* float:left =》 最右边自适应 */
         }
+        /* BFC布局结束 */
 
-        /*//////////////////////////////////////*/
-        .container {
-            overflow: hidden;
-            position: relative;
+        /* table-cell布局开始 */
+        /* 左中右 */
+        .container3 {
+      /*      overflow: hidden;
+            position: relative;*/
         }
         .container3 > div {
             display: table-cell;
-            height: 100%;
+            height: 100px;
         }
         .center3 {
-            margin: 0 200px;
+        /*       margin: 0 200px;*/
             width: 100%;
             background: red;
         }
         .left3 {
             width: 200px;
-            min-width: 200px;
+            min-width: 200px; /* 设置min-width: 200px确保不会被挤压。 */
             background-color: green;
         }
         .right3 {
             width: 200px;
-            min-width: 200px;
+            min-width: 200px; /* 设置min-width: 200px确保不会被挤压。 */
             background-color: blue;
         }
+        /* table-cell布局结束 */
 
-        /* ////////////////////////////// */
+
+        /* 网格布局开始 */
+        /* 左中右 */
         .container4 {
             display: grid;
             width: 100%;
             grid-template-rows: 100px;
             grid-template-columns: 200px auto 200px;
         }
+        /* 网格布局结束 */
+
+
+        /* 圣杯布局开始 */
+        /* center优选加载 */
+        /* 中左右 */
+        .container5 {
+            overflow: hidden;
+            padding: 0 200px;
+        }
+        .container5 > div {
+            position: relative;
+            float: left;
+            min-height: 130px;
+            width: 200px;
+        }
+        .container5>.center5 {
+            width: 100%;
+            background-color: red;
+        }
+        .left5 {
+            /* 负的margin-left会让元素沿文档流向左移动，如果负的数值比较大就会一直移动到上一行。关于负的margin的应用也是博大精深， */
+            margin-left: -100%;
+            background-color: green;
+            left: -200px;
+            /* 接下来只要把left和right分别移动到这两个留白就可以了。可以使用相对定位移动 left和right部分。 */
+        }
+        .right5 {
+            margin-left: -200px;
+            background-color: blue;
+            right: -200px;
+        }
+        /* 圣杯布局结束 */
+
+
+        /* 双飞翼局开始 */
+        /* center优选加载 */
+        /* 中左右 */
+        .container6 {
+            overflow: hidden;
+        }
+        .left6, .center6, .right6 {
+            float: left;
+            min-height: 130px;
+            width: 200px;
+        }
+        .left6 {
+            margin-left: -100%;
+            background: green;
+        }
+
+        .right6 {
+            margin-left: -200px;
+            background-color: red;
+        }
+        .center6 {
+            background-color: blue;
+            width: 100%;
+        }
+        .content6{
+            margin: 0 200px;
+        }
+        /* 双飞翼局结束 */
     </style>
 
 
 </head>
 
 <body>
+<!-- flex布局开始 -->
+<!-- center优选加载 -->
 <div class="container1">
     <!-- 优先渲染 -->
     <div class="center1">
@@ -103,21 +181,24 @@
         right
     </div>
 </div>
+<!-- flex布局开始 -->
 <br>
-<br>
-<br>
+<!-- BFC布局开始 -->
 <div class="container2">
     <div class="left2">
+        left
     </div>
     <div class="right2">
+        right
     </div>
     <div class="center2">
+        center
     </div>
 </div>
+<!-- BFC布局结束 -->
+<br>
 
-<br>
-<br>
-<br>
+<!-- table-cell布局开始 -->
 <div class="container3">
     <div class="left3">
         left
@@ -130,9 +211,10 @@
         right
     </div>
 </div>
+<!-- table-cell布局结束 -->
 <br>
-<br>
-<br>
+
+<!-- 网格布局开始 -->
 <div class="container4">
     <div class="left" style="background-color: #edc9c9;">
         left
@@ -145,6 +227,41 @@
         right
     </div>
 </div>
+<!-- 网格布局结束 -->
+<br>
 
+<!-- 圣杯布局开始 -->
+<!--
+    三列布局，中间宽度自适应，两边定宽；
+    中间栏要在浏览器中优先展示渲染；
+    允许任意列的高度最高；
+    圣杯布局是一种相对布局;
+    宽度缩小到一定程度时布局会乱；
+-->
+<!-- center优选加载 -->
+<div class="container5">
+    <!-- 优先渲染 -->
+    <div class="center5">
+        center
+    </div>
+    <div class="left5">
+        left
+    </div>
+    <div class="right5">
+        right
+    </div>
+</div>
+<!-- 圣杯布局开始 -->
+
+<!-- 双飞翼布局开始 -->
+<!-- center优选加载 -->
+<div class="container6">
+　　<div class="center6">
+        　　<div class="content6">main</div>
+    </div>
+　　<div class="left6">left</div>
+　　<div class="right6">right</div>
+</div>
+<!-- 双飞翼布局结束 -->
 </body>
 </html>

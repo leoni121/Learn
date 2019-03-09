@@ -5,7 +5,7 @@
 
 
 531. pt,rem,px,em的区别及用法 ———— https://blog.csdn.net/weixin_42881744/article/details/81544810
-    (1).同：pt、px、em、rem都是计量单位，都能表示尺寸
+    (1). 同：pt、px、em、rem都是计量单位，都能表示尺寸
     (2). pt 点（Points），绝对长度单位。 印刷业上常使用的单位，磅的意思，一般用于页面打印排版。
     (3). px 相对长度单位。像素（Pixels）。像素px是相对于显示器屏幕分辨率而言的。IE无法调整那些使用px作为单位的字体大小
     (4). em 表示相对于父元素的字体大小，em是相对单位，没有一个固定的度量值，而是由其它元素尺寸来决定的相对值,em会继承父级元素的字体大小
@@ -148,6 +148,7 @@
 
 
 527. 你怎么样维持用户登录状态的
+    跨域认证解决方案 服务器认证以后，生成一个 JSON 对象，发回给用户，
     (1). 前后端分离 session-cookie ———— https://www.cnblogs.com/boboooo/p/9779355.html
     (2). token 秘钥参考 ———— https://ninghao.net/blog/2834（附 Node.js）
     (3). vue中实现前端保持登陆转态 ———— https://www.jqhtml.com/16130.html  ， https://www.cnblogs.com/web-record/p/9876916.html
@@ -171,6 +172,7 @@
 
 
 523. 情景题：给你一个ul列表，找到点击的li对象，把点击到的对象的字符串翻转，讲出思路并且写出代码
+    只有父元素与DOM存在交互，其他的操作都是在JS虚拟内存中完成的，这样就大大提高了性能
     let ul = document.querySelector("#ul");
     ul.addEventListener('click', function (event) {
       let target = event.target;
@@ -441,7 +443,7 @@
 
 
 503. 简单说一下TCP，UDP，HTTP ———— https://www.cnblogs.com/gaopeng527/p/5255827.html
-    1、 TCP/IP是个协议组，可分为三个层次：网络层、传输层和应用层。
+    1、 TCP/IP是个协议组，可分为三个层次：网络接口层、网络层、传输层和应用层。
         在网络层有IP协议、ICMP协议、ARP协议、RARP协议和BOOTP协议。
         在传输层中有TCP协议与UDP协议。
         在应用层有FTP、HTTP、TELNET、SMTP、DNS等协议。

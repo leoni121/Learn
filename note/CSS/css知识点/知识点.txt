@@ -4,7 +4,7 @@
 
 
 ** 元素选择器优先级
-    !important > 行内样式 > ID选择器 > 类选择器 > 元素 > 通配符 > 继承 > 浏览器默认属性
+    !important > 行内样式 > ID选择器 > 类选择器 > 元素 = 伪类选择器 > 通配符 > 继承 > 浏览器默认属性
 
 
 
@@ -30,8 +30,7 @@
           @import url（“second.css”）。
           浏览器必须先下载、分析和执行first.css，然后才能发现它需要下载second.css。
       建议
-          使用<link>标记而不是css@import
-          不是@import，而是对每个样式表使用<link>标记。这允许浏览器并行下载样式表，从而加快页面加载时间：
+          使用<link>标记而不是css@import。这允许浏览器并行下载样式表，从而加快页面加载时间：
           <link rel=“stylesheet”href=“first.css”>
           <link rel=“stylesheet”href=“second.css”>
 
@@ -81,7 +80,7 @@
 
 
 **  模态框
-        top: 0;
+       top: 0;
        bottom: 0;
        left: 0;
        right: 0;

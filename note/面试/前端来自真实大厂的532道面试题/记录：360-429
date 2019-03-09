@@ -213,7 +213,7 @@
 
 417. 栈和队列有什么区别，具体的应用场景 ———— https://blog.csdn.net/donahue_ldz/article/details/12751787
     （1）栈是后进先出
-        a.进制装换
+        a.进制转换
         b.判断回文
         c.语法检测，那么具体处理的方法就是:凡是遇到括号的前半部分，即把这个元素入栈，凡是遇到括号的后半部分就比对栈顶元素是否该元素相匹配，如果匹配，则前半部分出栈，否则就是匹配出错
         d.逆序输出
@@ -355,6 +355,8 @@
 
     （2）无body、content-length=0
 
+    （3）no-content
+
 
 
 396. Ajax如何实现的
@@ -412,7 +414,7 @@
 
         c. 尽可能的修改层级比较低的 DOM节点。当然，改变层级比较底的 DOM节点有可能会造成大面积的 reflow，但是也可能影响范围很小。
 
-        d. 为动画的 HTML 元件使用 fixed 或 absoult 的 position，那么修改他们的 CSS 是会大大减小 reflow 。
+        d. 为动画的 HTML 元件使用 fixed 或 absolute 的 position，那么修改他们的 CSS 是会大大减小 reflow 。
 
         e. 千万不要使用 table 布局。因为可能很小的一个小改动会造成整个 table 的重新布局。
 

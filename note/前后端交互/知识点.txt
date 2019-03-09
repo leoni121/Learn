@@ -11,8 +11,8 @@
 	(3).安全性疑问
 		token在前台可被人获取并不是不安全，因为token都是配合后台的session使用的。
 		A拿了B的token去请求，在服务器那又是另外一个session -> 另外的token，验证不会通过。
-		
-		
+
+
 2. 跨域请求，cookie携带
 	在跨域请求中在前端最重要的一点在于withCredentials:true，这一语句结合后台设置的"Access-Control-Allow-Credentials", "true"就可以在跨域的ajax请求中携带cookie了。
 
@@ -20,58 +20,99 @@
 前端进行数据请求有：普通的ajax(json)请求，jsop跨域请求，cors跨域请求，fetch请求...PC端这些请求方式中，普通的ajax(json)请求和jsop跨域请求是默认携带cookie的，而cors跨域请求和fetch请求默认是不携带cookie的
 
 4. 前后端分离
-	表单提交  
-	(1).form => onsubmit="return false" action="##"  
+	表单提交
+	(1).form => onsubmit="return false" action="##"
 	(2).ajax =>  data: $('#form1').serialize(),
 	(3).在常用方式中，点击的登录按钮的type为"submit"类型；
 			在常用方式中，form的action不为空；
 			ajax方式中需要注意的是$.ajax方法中的参数：dataType和data。
-			
-			
+
+
 5. ajax中传递token的几种方法
 	(1).headers: {
 			Accept: "application/json; charset=utf-8",
 			userToken: "" + userToken
 		},
-	(2).beforeSend: function(request) {                
+	(2).beforeSend: function(request) {
             request.setRequestHeader("Authorization", token);
 		},
 	(3).服务端要支持CORS(跨来源资源共享)策略，一般我们在服务端这么做就可以了Access-Control-Allow-Origin:*
-	
+
 6. 浅谈session,cookie,sessionStorage,localStorage的区别及应用场景
 	(1).https://www.cnblogs.com/cencenyue/p/7604651.html
 	(2).https://www.cnblogs.com/st-leslie/p/5617130.html
 		localStorage的使用也是遵循同源策略的，所以不同的网站直接是不能共用相同的localStorage
 	(3).localStorage.pagecount
-	
-	
+
+
 7. 验证码
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+8. 知识再补充
+    function getXMLHttpRequest(){
+      var xmlhttp;
+      if (window.XMLHttpRequest)
+      {
+      //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp=new XMLHttpRequest();
+      } else {
+      // IE6, IE5 浏览器执行代码
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      return xmlhttp;
+    }
+
+    window.onload=function()
+    {
+      var xmlhttp=getXMLHttpRequest();
+      var data={
+        "username":"汤姆",
+        "password":"123"
+      }
+      var stringData=JSON.stringify(data);
+
+      xmlhttp.onreadystatechange=function()
+      {
+        if (xmlhttp.readyState===4 && xmlhttp.status===200)
+        {
+          document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+        }
+      }
+      xmlhttp.open("POST","${pageContext.request.contextPath}/AjaxDemo1",true);
+      //xmlhttp.setRequestHeader("text/plain;charset=UTF-8");//默认方式（可以发送json格式字符串）
+      //xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded;charset=UTF-8");
+      xmlhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");//可以发送json格式字符串
+
+      //xmlhttp.send(data);//后台无法接收
+      //发送json数据，首先POST方式，再需要先格式化为json格式的字符串发送过去,后台才能接收到，
+      //并且需要后台通过request.getInputStream获取数据，无法通过getInparamter方法获取
+      xmlhttp.send(data);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
