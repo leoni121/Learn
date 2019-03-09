@@ -2,20 +2,21 @@
 
 
 
-358. 清除浮动
-    （1）父级div定义伪类
-         .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
-         .clearfloat{zoom:1}
+358. 清除浮动（见 题467）
+     （1）父级div定义伪类 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+                          .clearfloat{zoom:1}
 
-    （2）在结尾处添加空div标签clear: .clearfloat{clear:both}
+     （2）在结尾处添加空div标签clear: .clearfloat{clear:both}
 
-    （3）父级div定义overflow:hidden
+     （3）父级div定义overflow:hidden
 
-    （4）父级div定义overflow:auto
+     （4）父级div定义overflow:auto
 
-    （5）父级div定义display:table
+     （5）父级div定义display:table
 
-    （6），额外：父级div也一起浮动，父级定义 height ，撑高
+     （6）额外：父级div也一起浮动，父级定义 height ，撑高
+
+     （7）紧跟在其后的元素 clear
 
 
 
@@ -23,7 +24,7 @@
 
 
 
-356. html语义化，好处 ———— https://www.jianshu.com/p/6bc1fc059b51
+356. html语义化，好处 （开发和使用） ———— https://www.jianshu.com/p/6bc1fc059b51
     （1）首先，语义化，顾名思义，就是你写的HTML结构，是用相对应的有一定语义的英文字母（标签）表示的，标记的，因为HTML本身就是标记语言。不仅对自己来说，容易阅读，书写。别人看你的代码和结构也容易理解，甚至对一些不是做网页开发的人来说，也容易阅读。那么，我们以后再开发的过程中，一定要注意了，尽量使用官方的有语义的标签，不要再使用一堆无意义的标签去堆你的结构。
 
     （2）why
@@ -64,3 +65,117 @@
 
 
 354. float和position的区别 ———— https://www.zhihu.com/question/19588854
+    (1) float 属性定义元素在哪个方向浮动。以往这个属性总应用于图像，使文本围绕在图像周围，不过在 CSS 中，任何元素都可以浮动。浮动元素会生成一个块级框，而不论它本身是何种元素。元素添加 float之后，此浮动元素会在其碰到父级元素边框或者另一个浮动元素边框，紧邻其后显示
+        浮动元素不会占据块的空间，所以框三就是100%的父容器宽度 500px，但是浮动元素会占据另外的空间，也就是行框空间，通俗的讲就是文本所占的空间。这也是图片float之后，文本会自动环绕图片的原因。浮动元素不占据块级空间，但会影响块级元素之内的文字以及内联元素。
+        a 浮动的本质就是用来实现文字环绕
+        b 浮动元素会脱离正常的文档流，按照其外边距指定的位置相对于它的上一个块级元素（或父元素）显示；不会忽略父元素的padding,和自己的margin
+        c 浮动元素后面的块级元素的内容会向此浮动元素的外边距靠齐，但是边框和背景却忽略浮动元素而向上一个（实例中为父元素）任意非浮动元素靠齐；
+        d 浮动元素后面的内联元素会向此浮动元素的外边距靠齐。
+
+    (2) 相对于float而言，position:absolute是完全脱离文档流的，它不会占据普通流的空i间，普通流的布局完全不受绝对定位的影响。
+
+
+
+353. html5的新特性 ———— https://www.cnblogs.com/vicky1018/p/7705223.html
+    （1）语义化标签，语义化标签使得页面的内容结构化
+        header, footer, article, nav, detailes, summary, dialog, aside, section
+
+    （2）增强型表单，HTML5 拥有多个新的表单 Input 输入类型。这些新特性提供了更好的输入控制和验证。
+        color, date, datetime(选择一个日期（UTC 时间）), datetime-local选择一个日期和时间 (无时区)，email，month, number, range, search, tel, time, url, week
+
+    （3）视屏、音频
+        audio, video、source
+
+    （4）Canvas绘图，标签只是图形容器，必须使用脚本来绘制图形
+
+    （5）SVG绘图
+        SVG 是一种使用 XML 描述 2D 图形的语言。
+        Canvas 通过 JavaScript 来绘制 2D 图形。
+        SVG 基于 XML，这意味着 SVG DOM 中的每个元素都是可用的。您可以为某个元素附加 JavaScript 事件处理器。
+        在 SVG 中，每个被绘制的图形均被视为对象。如果 SVG 对象的属性发生变化，那么浏览器能够自动重现图形。
+        Canvas 是逐像素进行渲染的。在 canvas 中，一旦图形被绘制完成，它就不会继续得到浏览器的关注。如果其位置发生变化，那么整个场景也需要重新绘制，包括任何或许已被图形覆盖的对象。
+
+    （6）地理定位
+
+    （7）拖放API
+
+    （8）Web Worker
+        if(typeof(w)=="undefined")
+          {
+            w=new Worker("demo_workers.js");
+          }else{
+            // //抱歉! Web Worker 不支持
+          }
+        w.onmessage = function (event) {
+            document.getElementById("result").innerHTML=event.data;
+          };
+        w.terminate();
+        postMessage(i);
+
+    （9） Storage
+       if(typeof(Storage)!=="undefined")
+       {
+           // 是的! 支持 localStorage  sessionStorage 对象!
+           // 一些代码.....
+       } else
+       {
+         // 抱歉! 不支持 web 存储。
+       }
+    （10）WebSocket
+
+
+
+352. 对前端的了解和个人规划
+
+
+
+351. 流式布局 ———— http://www.cnblogs.com/yanayana/p/7066948.html
+
+
+
+350. JS基础有几种
+    string, number, boolean, null, undefined, symbol
+
+
+
+349. Linux命令
+
+
+
+348. git命令
+
+
+
+347. 给了一个settimeout代码输出的顺序
+
+
+
+346. 用过webpack吗，谈一下webpack打包
+
+
+
+345. jQuery原理，平时用jQuery都做过什么
+
+
+
+344. 深拷贝的实现
+    （0）Object.assign
+        {...{}}
+
+    （1） JSON
+        限制
+            var as = {
+            	a: function() {
+
+            	},
+            	[Symbol()]:Symbol("nzq"),
+            	c: "",
+            	d: undefined
+
+            }
+            =》
+            JSON.stringify(as)
+            =》
+           "{"c":""}"
+
+    （2）
