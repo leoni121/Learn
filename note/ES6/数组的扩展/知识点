@@ -23,3 +23,6 @@
     )();
 
 
+** javascript中的数组实质上是一个散列数组，因此我们可以将字符直接作为键进行索引
+    arr = [empty, 1, nzq: "nzq"]
+    arr.length = 2

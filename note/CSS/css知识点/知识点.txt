@@ -86,7 +86,7 @@
        right: 0;
 
 
-** 垂直居中
+** 垂直居中（MDN） ———— https://css-tricks.com/centering-css-complete-guide/
     margin: 0 auto;
     top: 0;
     bottom: 0;
@@ -112,5 +112,5 @@
 
 
 
-**
+** 盒模型（MDN） ———— https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model
 

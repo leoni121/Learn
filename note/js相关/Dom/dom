@@ -140,3 +140,11 @@
           }
         }
       }
+
+
+**
+    1.通过获取dom方式直接获取子节点
+        var a = document.getElementById("test").getElementsByTagName("div");
+    2.通过childNodes获取子节点
+        var b =document.getElementById("test").childNodes;
+    3. firstChild、firstElementChild、lastChild、lastElementChild、parentNode、parentElement、offsetParent、children[1]、previousElementSibling、previousSibling、nextElementSibling、nextSibling

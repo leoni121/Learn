@@ -212,6 +212,7 @@
 
 
 417. 栈和队列有什么区别，具体的应用场景 ———— https://blog.csdn.net/donahue_ldz/article/details/12751787
+    （0）阮一峰老师，stack ———— http://www.ruanyifeng.com/blog/2013/11/stack.html
     （1）栈是后进先出
         a.进制转换
         b.判断回文
@@ -456,10 +457,11 @@
 
 
 388. 盒子模型（见 题510） ———— https://www.cnblogs.com/chengzp/p/cssbox.html
+    （MDN） ———— https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model
 
 
 
-387. 垂直居中，水平居中
+387. 垂直居中，水平居中（MDN） ———— https://css-tricks.com/centering-css-complete-guide/
     （1）垂直参考题 508
         a. 把要垂直居中的元素相对于父元素绝对定位，top和bottom设为相等的值，我这里设成了0，当然你也可以设为99999px或者-99999px无论什么，只要两者相等就行，这一 步做完之后再将要居中元素的margin设为0 auto
             position: absolute;
@@ -720,6 +722,7 @@
 
 360. border-box和content-box
     盒子模型（见 题510、题388） ———— https://www.cnblogs.com/chengzp/p/cssbox.html
+    （MDN） ———— https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model
 
 
 

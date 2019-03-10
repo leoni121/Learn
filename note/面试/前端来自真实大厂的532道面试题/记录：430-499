@@ -302,12 +302,14 @@
 
 
 465. 盒子模型有没有办法把宽度设置为包含padding
+    （MDN） ———— https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model
     content-box
     border-box
 
 
 
 464. HTML的黑钻模型有哪些构成的，盒子模型有哪些，默认是哪些 ?
+    （MDN） ———— https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model
 
 
 

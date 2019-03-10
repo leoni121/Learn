@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .menu-hidden {
+            display: none;
+        }
+        .menu-display {
+            display: block !important;
+        }
+    </style>
 </head>
 <body>
 <div id="wrap"></div>
@@ -32,7 +40,7 @@
         menuStr += `
         <li>
             <a data-id="${item.id}">${item.name}</a>
-            <ul>
+            <ul class="menu-hidden">
                  ${createDomMenuTree(item.id)}
             </ul>
         </li>
@@ -41,16 +49,13 @@
     }
     return menuStr;
   }
-  wrap.innerHTML = `<li>${createDomMenuTree()}</li>`;
-  let uls = wrap.querySelectorAll("ul");
-  console.log(uls)
-  for (let i =0 ,len = uls.length; i<len;i++) {
-    uls[i].style.display = "none";
-  }
+  wrap.innerHTML = createDomMenuTree();
 
   wrap.onclick = function (event) {
     if (event.target.tagName.toUpperCase() === 'A') {
-      event.target..style.display = "block";
+      let tag = event.target.nextElementSibling;
+      console.log(tag.classList);
+      tag.classList.toggle("menu-display");
     }
   }
 </script>

@@ -32,6 +32,7 @@
             width: 100%;
             order: 2;
             background-color: yellow;
+            /*flex-shrink: 0; 错误*/
         }
         .right1 {
             flex-shrink: 0;
@@ -62,11 +63,12 @@
         }
         /* BFC布局结束 */
 
+
         /* table-cell布局开始 */
         /* 左中右 */
         .container3 {
-      /*      overflow: hidden;
-            position: relative;*/
+            overflow: hidden;
+            position: relative;
         }
         .container3 > div {
             display: table-cell;
@@ -103,6 +105,7 @@
 
         /* 圣杯布局开始 */
         /* center优选加载 */
+        /* 不加 relative, left, right 的话left和right会靠近 */
         /* 中左右 */
         .container5 {
             overflow: hidden;
@@ -127,8 +130,8 @@
         }
         .right5 {
             margin-left: -200px;
-            background-color: blue;
             right: -200px;
+            background-color: blue;
         }
         /* 圣杯布局结束 */
 
@@ -184,6 +187,7 @@
 <!-- flex布局开始 -->
 <br>
 <!-- BFC布局开始 -->
+<!-- 宽度缩小到一定程度时布局会乱； -->
 <div class="container2">
     <div class="left2">
         left

@@ -5,13 +5,13 @@
 ** Cannot find module 'webpack/bin/config-yargs' ？
 	这个就是目前版本的webpack-dev-server不支持webpack4 升级一波
 	———— http://www.cnblogs.com/carrotWu/p/8665720.html
-	
-**  Cannot read property 'context' of undefined ？ 
+
+**  Cannot read property 'context' of undefined ？
 	———— https://blog.csdn.net/csdn_huangjiama/article/details/81865567
 	运行项目npm run dev， 此时package.json中"file-loader": "^1.1.4",报错：Module build failed: TypeError: Cannot read property 'context' of undefined，并列出问题的源头是代码中所有加载静态资源的地方
-	
-	
-**  Module build failed (from ./node_modules/_autoprefixer-loader@3.2.0@autoprefixer-loader/index.js):
+
+
+**  Module build failed (from ./node_modules/_autoprefixer-loader@3.2.0@autoprefixer-loader/server.js):
 TypeError: Cannot read property 'context' of undefined ？
 
 
@@ -25,30 +25,30 @@ TypeError: Cannot read property 'context' of undefined ？
 
 ** if(typeof content == "string") content = [[module.id, content, '']] ?
 	loader 引入顺序的问题
-	
+
 ** postcss-loader不支持行内注释，写行内注注注释会报unknown word错误 ？
 	解决办法加上postcss-strip-inline-comments这个parser。
 	———— https://blog.csdn.net/shidaping/article/details/78124015
-	
-	
+
+
 ** 	********************************************
 	********************************************
 	出那么多问题就没想到是  MiniCssExtractPlugin!
 	********************************************
 	********************************************
 	MiniCssExtractPlugin 打包成功大事难事
-	
+
 ** MiniCssExtractPlugin 配置
 	———— https://www.npmjs.com/package/mini-css-extract-plugin
-	
+
 ** WARNING in entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
-	
+
 ** 打包后的页面没有样式 ？
-	
+
 ** style-loader do not work as pre or post loader ？
 	什么鬼啊？
-	
+
 ** webpack4 TypeError: compilation.mainTemplate.applyPluginsWaterfall is not a function 解决方案 ？
 	———— https://www.skiy.net/201803014976.html
-	
+
 ** 分离js出现错误

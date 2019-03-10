@@ -11,7 +11,7 @@ class MyPromise {
     }
     // 添加状态
     this._status = PENDING
-    // 添加状态
+    // 异步回调得结果
     this._value = undefined
     // 添加成功回调函数队列
     this._fulfilledQueues = []
@@ -27,11 +27,12 @@ class MyPromise {
 
   // 添加resovle时执行的函数, 这里传入的值可能是Promise
   _resolve (val) {
-    const run = () => {
+    // 为了支持同步的Promise（就是传入同步函数得时候， 保证这一步再then执行之后在执行），这里采用异步调用
+    setTimeout(() => {
       // 这里为什么会 !== PENDING ? 放外面（setTimeout）还是里面？
       if (this._status !== PENDING) return;
-      this._status = FULFILLED; // 草l
 
+      this._status = FULFILLED; // 草l
       // 依次执行成功队列中的函数，并清空队列
       const runFulfilled = (value) => {
         let cb;
@@ -65,16 +66,15 @@ class MyPromise {
         this._value = val;
         runFulfilled(val);
       }
-    };
-    // 为了支持同步的Promise，这里采用异步调用
-    setTimeout(run , 0)
+    } , 0)
   }
 
   // 添加reject时执行的函数, 这里传入的值可能是Promise
   _reject (err) {
-    // 为了支持同步的Promise，这里采用异步调用
-    // 依次执行失败队列中的函数，并清空队列
+    // 依次执行失败队列中的函数，并清空队列，发生错误了的话支持同步得Promise了
     if (this._status !== PENDING) return;
+
+    // 为了支持同步的Promise，这里采用异步调用
     setTimeout(() => {
       // 这里为什么会 !== PENDING ? 放外面（setTimeout）还是里面？
       // 如果出现 先状态改变再抛出错误  就抛出无效
@@ -213,6 +213,7 @@ class MyPromise {
     })
   }
 
+  /* finally方法的回调函数不接受任何参数，这意味着没有办法知道，前面的 Promise 状态到底是fulfilled还是rejected。 */
   finally (cb) {
     return this.then(
       value  => MyPromise.resolve(cb()).then(() => value),
