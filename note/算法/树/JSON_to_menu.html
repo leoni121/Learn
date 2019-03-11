@@ -15,8 +15,14 @@
 <body>
 <div id="wrap"></div>
 <script>
+    // 一级菜单的pid 为0， 其余各级菜单项的pid都是父菜单的id
   const ATREE = [
     {"id": "1", "name": "动物", "pid": "0"},
+    {"id": "10", "name": "爸爸", "pid": "0"},
+    {"id": "11", "name": "儿子", "pid": "10"},
+    {"id": "13", "name": "孙子", "pid": "11"},
+    {"id": "14", "name": "孙女", "pid": "11"},
+    {"id": "12", "name": "女儿", "pid": "10"},
     {"id": "2", "name": "鸟类", "pid": "5"},
     {"id": "3", "name": "无脊椎动物", "pid": "1"},
     {"id": "4", "name": "哺乳动物", "pid": "5"},
@@ -28,15 +34,9 @@
   let wrap = document.querySelector("#wrap");
 
   function createDomMenuTree(id = "0") {
-    let temArr = [];
     let menuStr = "";
     for (let item of ATREE) {
       if (item.pid === id) {
-        temArr.push(item);
-      }
-    }
-    if (temArr.length) {
-      for (let item of temArr) {
         menuStr += `
         <li>
             <a data-id="${item.id}">${item.name}</a>
@@ -49,8 +49,8 @@
     }
     return menuStr;
   }
-  wrap.innerHTML = createDomMenuTree();
 
+  wrap.innerHTML = createDomMenuTree();
   wrap.onclick = function (event) {
     if (event.target.tagName.toUpperCase() === 'A') {
       let tag = event.target.nextElementSibling;

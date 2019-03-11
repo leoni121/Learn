@@ -220,7 +220,7 @@
         c. GUI渲染线程 、 JS引擎线程 、 事件触发线程 、 定时器触发线程 、 http请求线程
 
     （2）JavaScript 运行机制详解：再谈Event Loop（阮一峰老师）http://www.ruanyifeng.com/blog/2014/10/event-loop.html
-        Event Loop —— http://www.ruanyifeng.com/blog/2013/10/event_loop.html
+        http://javascript.ruanyifeng.com/advanced/single-thread.html
 
 
 

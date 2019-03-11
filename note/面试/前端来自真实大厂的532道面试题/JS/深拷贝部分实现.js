@@ -45,7 +45,7 @@ function deepClone(obj) {
 
     for(let key in obj){
       let index = visitedQueue.indexOf(obj[key]);
-      if (index >= 0) {
+      if (index >= 0) { // 检查是否已经遍历
         resObj[key] = obj[key];
       } else {
         visitedQueue.push(obj[key]);

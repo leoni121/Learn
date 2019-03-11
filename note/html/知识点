@@ -10,7 +10,11 @@
 	\				不产生请求										    产生请求
 img标签				把图片地址设置为不存在的属性，如data-src="..."	   设置了src属性（无论display:none;还是visibility:hidden;）
 图片背景			display:none;或visibility:hidden					可见
-js的new Image()		
+js的new Image()
 																		var el = document.createElement('div');
 													el.innerHTML = '<img src="http://www.maxmeng.top/images/avatar.jpg" />'; // 产生请求
 												new Image().src = 'http://www.maxmeng.top/images/avatar.jpg'; // 也产生请求
+
+
+** textarea
+    text

@@ -4,9 +4,8 @@
 'use strict';
 
 function fibonacci(n) {
-  var num1 = 1;
-  var num2 = 1;
-  var count = 0;
+  let num1 = 1;
+  let num2 = 1;
 
   if (n < 3) {
     return 1;
@@ -38,4 +37,4 @@ function fibonacci2(n, num1 = 1, num2 = 1) {
 }
 
 
-console.log(fibonacci2(100000));
+console.log(fibonacci(100000));

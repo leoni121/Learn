@@ -88,6 +88,7 @@ class HuffmanCode {
       if (set[str[i]]) {
         set[str[i]].weight++
       } else {
+        // 所有叶节点都有相应对应的char
         set[str[i]] = new HuffmanTreeNode({
           weight: 1,
           char: str[i],
@@ -103,6 +104,7 @@ class HuffmanCode {
     while (heap.size() > 1) {
       let min1 = heap.pop();
       let min2 = heap.pop();
+      // 生成的非叶节点都是没有，char的
       let parent = new HuffmanTreeNode({
         weight: min1.weight + min2.weight,
         left: min1,
@@ -112,23 +114,25 @@ class HuffmanCode {
       heap.push(parent);
     }
 
+    // 这里pop的是最后push进去的parent
     this.huffmanTree = heap.pop();
   }
 
   /**
    * @author Nzq
    * @date 2019/3/10
-   * @Description: 递归哈夫曼树，生成编码表
+   * @Description: 递归哈夫曼树，生成对应字符串的编码表
    * @Param: HuffmanTreeNode：当前要递归的结点， 左0 右1
    * @Param: codeTable：编码表
    * @Param: code：编码字符串
    */
-  traverseTree (HuffmanTreeNode, codeTable, code) {
+  traverseTree (HuffmanTreeNode, codeTable = this.codeTable, code) {
+    // huffman树一定是有两个子节点的
     if (HuffmanTreeNode.left !== null && HuffmanTreeNode.right != null) {
       this.traverseTree(HuffmanTreeNode.left, codeTable, code+'0')
       this.traverseTree(HuffmanTreeNode.right, codeTable, code+'1')
     }
-    // 避免根节点 没有char的产生编码
+    // 避免根节点，没有char的产生编码， 只有叶子节点上面才有char
     if (HuffmanTreeNode.char !== '') {
       codeTable[HuffmanTreeNode.char] = code
     }
@@ -142,12 +146,11 @@ class HuffmanCode {
    */
   encode (str) {
     let res = [];
-    this.createHuffmanTree(str);
-    console.log(this.huffmanTree)
-    this.traverseTree(this.huffmanTree, this.codeTable, '')
-    console.log(this.codeTable);
+    this.createHuffmanTree(str); // 创建
+    this.traverseTree(this.huffmanTree, '') // code，编码字符串没有
+
+    // 遍历把数组（str）中对应字符串（索引）的编码(在编码表中)加入res
     for (let i = str.length - 1; i >=0; i--) {
-      // 遍历把数组中 对应字符串（索引）的编码加入res
       res.push(this.codeTable[str[i]])
     }
     return res.join('_')
@@ -168,13 +171,14 @@ class HuffmanCode {
     let res = []
 
     for (let len = str.length, i=0; i < len; i++) {
+      // 根据传入的编码方式来遍历
       if (str[i] === '0') {
         node = node.left
       } else {
         node = node.right
       }
 
-      if (node.left === null && node.right === null) {
+      if (node.left === null && node.right === null) { // 此时标识一个字符编码完成
         res.push(node.char)
         node = this.huffmanTree // 遍历完一个字母
       }
