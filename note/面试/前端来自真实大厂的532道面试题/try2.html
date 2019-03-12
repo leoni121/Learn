@@ -1,35 +1,44 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>实现三栏水平布局之双飞翼布局</title>
-    <style>
-        .boxBg {
-            padding: 20px;
-        }
-        .box1{
-            width:100px;
-            height:100px;
-            background-color:red;
-            float: left;
-            margin: 0 20px;
-        }
-        .box2{
-            width:100px;
-            height:50px;
-            background-color:blue;
-            clear: left;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 <body>
-<div class="boxBg">
-    <div class="box1">
-        框框1
-    </div>
-    <div class="box2">
-        框框2
-    </div>
-</div>
+<script>
+  function getSomeNode (tree) {
+    let nodeBuffer = [];
+
+    function _get (tree) {
+      while (Object.prototype.toString.call(tree.next) === '[object Object]') {
+        tree = tree.next;
+      }
+      if (!tree.next) {
+        return ;
+      }
+      let length = tree.next.length;
+      let tempNext = [];
+
+      if (length >= 2) {
+        nodeBuffer.push(tree.node);
+      }
+      if (length) {
+        tempNext = tree.next;
+        for (let i = 0; i < length; i++) {
+          _get(tempNext[i]);
+        }
+      }
+    }
+
+    _get(tree);
+
+    return nodeBuffer;
+  }
+
+  console.log(getSomeNode({ node: 'root', next: [ { node: 'second_root' }, { node: 'second_child', next: [{ node: 'second_child_1', next: { node: 'second_child_1_1' } }, { node: 'second_child_2' }] }, { node: 'third_root', next: { node: 'third_child' , next: [{ node: 'third_child_1', next: { node: 'third_child_1_1' } }, { node: 'third_child_2' }] } } ] }))
+</script>
 </body>
 </html>
