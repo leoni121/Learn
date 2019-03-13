@@ -6,39 +6,26 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .parent{
+            background-color: red;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            line-height: 200px;
+        }
+        .child{
+            display: inline-block;
+            vertical-align: middle;
+            height: 100px;
+            width: 100px;
+            background-color: yellow;
+        }
+    </style>
 </head>
 <body>
-<script>
-  function getSomeNode (tree) {
-    let nodeBuffer = [];
-
-    function _get (tree) {
-      while (Object.prototype.toString.call(tree.next) === '[object Object]') {
-        tree = tree.next;
-      }
-      if (!tree.next) {
-        return ;
-      }
-      let length = tree.next.length;
-      let tempNext = [];
-
-      if (length >= 2) {
-        nodeBuffer.push(tree.node);
-      }
-      if (length) {
-        tempNext = tree.next;
-        for (let i = 0; i < length; i++) {
-          _get(tempNext[i]);
-        }
-      }
-    }
-
-    _get(tree);
-
-    return nodeBuffer;
-  }
-
-  console.log(getSomeNode({ node: 'root', next: [ { node: 'second_root' }, { node: 'second_child', next: [{ node: 'second_child_1', next: { node: 'second_child_1_1' } }, { node: 'second_child_2' }] }, { node: 'third_root', next: { node: 'third_child' , next: [{ node: 'third_child_1', next: { node: 'third_child_1_1' } }, { node: 'third_child_2' }] } } ] }))
-</script>
+<div class="parent">
+    <div class="child">dsadas</div>
+</div>
 </body>
 </html>

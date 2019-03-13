@@ -148,3 +148,6 @@
     2.通过childNodes获取子节点
         var b =document.getElementById("test").childNodes;
     3. firstChild、firstElementChild、lastChild、lastElementChild、parentNode、parentElement、offsetParent、children[1]、previousElementSibling、previousSibling、nextElementSibling、nextSibling
+
+
+** 为什么log事件对象的时候currentTarget是null？ ———— https://segmentfault.com/a/1190000010734680
