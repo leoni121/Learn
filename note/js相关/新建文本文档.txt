@@ -46,3 +46,15 @@
    如果没有符合条件的元素返回 undefined
    注意: find() 对于空数组，函数是不会执行的。
    注意: find() 并没有改变数组的原始值。
+
+
+**
+    var F = function(){};
+    Object.prototype.a = function(){};
+    Function.prototype.b = function(){};
+    var f = new F();
+    console.log(f.a); //funcion(){}
+    console.log(f.b); //undefined
+    console.log(F.a); //funcion(){}
+    console.log(F.b); //funcion(){}
+    F为函数，可以来源于Function、Object可以访问Function和Obejct的原型 ；f是变量，祖先为Object，所以只能访问Object的原型。
