@@ -21,27 +21,20 @@ function sort (arr) {
   return arr
 }*/
 
-function sort (arr) {
-  let len = arr.length
-    ,gap = 1
-    ,temp = 0
-    ,j = 0;
-  while (gap < len / 3) {
-    gap = gap * 3 + 1
-  }
-
-  for (gap; gap > 0; gap = Math.floor(gap / 3)) {
+function sort(arr) {
+  let len = arr.length;
+  for (let gap = Math.floor(len / 2); gap > 0; gap = Math.floor(gap / 2)) {
     for (let i = gap; i < len; i++) {
-      temp = arr[i];
-      // 不加 j >= 0 也行 arr[-*] > temp => false
-      for (j = i - gap; arr[j] > temp; j -= gap) {
-        arr[j + gap] = arr[j];
+      let cur = arr[i];
+      let idx = i - gap;
+      while (cur<arr[idx] && idx >=0) {
+        arr[idx+gap] = arr[idx];
+        idx -= gap;
       }
-      arr[j + gap] = temp
+      arr[idx + gap] = cur;
     }
   }
-
-  return arr
+  return arr;
 }
 
 function getRandomArr(sum,start, end) {

@@ -1,3 +1,10 @@
+/**
+ * @author Nzq
+ * @date 2019/3/14
+ * @Description:  https://blog.csdn.net/shunfa888/article/details/80013170
+ * @Param:
+*/
+
 const curry1 = function(fn, context, ...arg1) {
   let args = arg1;
   return function(...arg2) {
@@ -24,28 +31,8 @@ const curry2 = (fn, ...arg) => {
   }
 }
 
-// 同上面  all 也会不断被_args 代替，
-/*const curry3 = (fn, ...arg) => {
-  let all = arg || [];
-  return (...rest) => {
-    let _args = all;
-    _args.push(...rest);
-    if (rest.length === 0) {
-      all=[]; // 防止 连续两个 "无参调用"因为缓存出现一样的结果
-      return fn.apply(this, _args);
-    } else {
-      return curry3.call(this, fn, ..._args);
-    }
-  }
-}*/
-//  test(2)(2)(2)(3)(4)(5)(6)();
-// test() 出错 =》 [2]
-// test(2, 3, 4, 5, 6, 7)();
 
-
-// test(2)(2)(2)(3)(4)(5)(6)();
-// test(2, 3, 4, 5, 6, 7)(); => [2,2,3,4,5,6,7] 没有清楚上一步的缓存
-// 链式调用， 没有公用一个all
+// (2) test(2)(2)(2)() => [20, 20, 20] ; test(2)(2)(2)() => [20, 20, 20]
 const curry3 = (fn, ...arg) => {
   let all = arg || [];
   return (...rest) => {
@@ -59,11 +46,13 @@ const curry3 = (fn, ...arg) => {
   }
 }
 
-// test(1) test(2) test(3) test() 这种形式调用(公用一个空间，能all = [] 清楚)
+
+// (1) test(1) test(2) test(3) test() 这种形式调用(公用一个空间，能all = [] 清楚)
+// (2) test(2)(2)(2)() => [20, 20, 20] ; test(2)(2)(2)() => [20, 20, 20, 20]
 const curry4 = (fn, ...arg) => {
   let all = arg || [];
   return (...rest) => {
-    let _args = [...all];
+    let _args = all;
     _args.push(...rest);
     if (rest.length === 0) {
       all=[];

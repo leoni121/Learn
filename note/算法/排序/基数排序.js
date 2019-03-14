@@ -1,4 +1,9 @@
-// 循环最大数得位数遍，从各位开始排， 拍完一次返回在排
+/**
+ * @author Nzq
+ * @date 2019/3/14
+ * @Description: 循环最大数得位数遍，从各位开始排， 拍完一次返回在排
+ * @Param: maxDigit 最大的位数
+*/
 function radixSort(arr, maxDigit) {
   let mod = 10
     ,dev = 1

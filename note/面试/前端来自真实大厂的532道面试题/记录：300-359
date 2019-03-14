@@ -614,6 +614,8 @@
 
 312. 怎么样让页面加载更快 ———— https://www.cnblogs.com/MarcoHan/p/5295398.html（整体优化思路）
     ———— https://www.cnblogs.com/MarcoHan/p/5297798.html（页面加载优化）
+    Skeleton Screen（占位图） — 骨架屏 ———— https://blog.csdn.net/w178191520/article/details/79134110
+    滚动加载图片（懒加载）实现原理
 
 
 

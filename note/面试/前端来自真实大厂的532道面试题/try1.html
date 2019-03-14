@@ -24,7 +24,14 @@
 </div>
 <script>
 
-
+  function format(num) {
+    return num.toString().replace(/\d+/, value => {
+      return value.replace(/(\d)(?=(\d{3})+$)/g, value1 => {
+        return value1 + ".";
+      })
+    })
+  }
+  console.log(format(1232321))
 </script>
 </body>
 </html>

@@ -2,7 +2,7 @@ function quickSort (arr, left = 0, right = arr.length-1) {
   let splitIndex;
   if (left < right) {
     // splitIndex = partition(arr, left, right);
-    splitIndex = partition1(arr, left, right);
+    splitIndex = partition(arr, left, right);
     quickSort(arr, left, splitIndex - 1);
     quickSort(arr, splitIndex+1, right);
   }
@@ -14,6 +14,7 @@ function quickSort (arr, left = 0, right = arr.length-1) {
 function partition (arr, left, right) {
   let pivot = left; // 设置的基准值
   while(1) {
+    // 先左后右可能导致 pivot 将大于他本身的交换了
     while(left<right && arr[right]>=arr[pivot]) {
       right--;
     }

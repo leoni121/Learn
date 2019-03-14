@@ -151,3 +151,12 @@
 
 
 ** 为什么log事件对象的时候currentTarget是null？ ———— https://segmentfault.com/a/1190000010734680
+
+
+** 视窗距离 ———— https://www.cnblogs.com/Songyc/p/4458570.html
+    rectObject = object.getBoundingClientRect();
+    返回值类型：TextRectangle对象，每个矩形具有四个整数性质（ 上， 右 ， 下，和左 ）表示的坐标的矩形，以像素为单位。
+    　rectObject.top：元素上边到视窗上边的距离;
+    　rectObject.right：元素右边到视窗左边的距离;
+    　rectObject.bottom：元素下边到视窗上边的距离;
+    　rectObject.left：元素左边到视窗左边的距离;

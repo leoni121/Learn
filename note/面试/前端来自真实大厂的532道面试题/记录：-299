@@ -27,4 +27,279 @@
         writable: false 不能修改，修改不报错，不成功
         由于ES5环境没有block的概念，所以是无法百分百实现const，只能是挂载到某个对象下，要么是全局的window，要么就是自定义一个object来当容器
 
-    （2）
+
+
+
+296. css选择器有哪些 ———— http://www.w3school.com.cn/cssref/css_selectors.asp
+
+
+
+
+295. position有哪些，特性 ———— http://www.cnblogs.com/guolao/p/9048308.html
+    (1). position: static
+        该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top、right、bottom、left 属性无效。
+
+    (2). position: relative
+        该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白)。position:relative 对 table-*-group, table-row, table-column, table-cell, table-caption 元素无效。
+
+    (3). position: absolute
+        不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margin）,且不会与其他边距合并。没有top，left等的时候不会，父元素的padding,和自身的margin
+
+    (4). position: fixed 不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。fixed属性会创建新的层叠上下文。当元素祖先的 transform 属性非 none 时，容器由视口改为该祖先。没有top，left等的时候不会，父元素的padding,和自身的margin
+
+    (5). position: sticky , position: inherit
+        不深入
+
+   （6）sticky，设置了sticky的元素，在屏幕范围（viewport）时该元素的位置并不受到定位影响（设置是top、left等属性无效），当该元素的位置将要移出偏移范围时，定位又会变成fixed，根据设置的left、top等属性成固定位置的效果。
+
+
+
+
+294. block元素和inline元素的区别
+    块级元素的特点：
+       （1）总是从新行开始
+       （2）高度，行高、外边距以及内边距都可以控制
+       （3）宽度默认是容器的100%
+       （4）可以容纳内联元素和其他块元素。
+    行内元素的特点：
+       （1）和相邻行内元素在一行上。
+       （2）高、宽无效，但水平方向的padding和margin可以设置，垂直方向的无效。
+       （3）默认宽度就是它本身内容的宽度。
+       （4）行内元素只能容纳文本或则其他行内元素。
+    行内块元素的特点：
+       （1）和相邻行内元素（行内块）在一行上,但是之间会有空白缝隙。
+       （2）默认宽度就是它本身内容的宽度。
+       （3）高度，行高、外边距以及内边距都可以控制。
+
+
+
+
+293. 别人对你的项目认可度，项目做的怎么样
+
+
+
+
+292. 是独生子女吗
+
+
+
+
+291. 职业规范是怎么样的
+
+
+
+
+290. 项目里最难的事情，如何克服
+
+
+
+
+289. 如何看待竞争
+
+
+
+
+288. 学习生涯最失败的事情是什么，怎么样走出来的
+
+
+
+
+287. 多长时间开始独立做前端，这段时间是如何学习的
+
+
+
+
+286. 如果现在重新做这个项目，有什么想优化的
+
+
+
+
+285. cookie和session的却别
+    ———— https://www.cnblogs.com/xdp-gacl/p/3803033.html（cookie传入浏览器）
+    ———— https://www.cnblogs.com/endlessdream/p/4699273.html
+
+
+
+
+284. 设计模式
+
+
+
+
+283. 页面优化方法
+
+
+
+
+282. 树数据多少非常多怎么样办（懒加载） ———— https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/
+    （1）内联图像延迟加载
+        平台在加载页面时会先加载轻量级的占位符图像，并在其滚动到视口时，将之替换为延迟加载的图像。
+        scroll 或 resize 等事件处理程序来完成任务。 虽然这种方法在各浏览器之间的兼容性最好，但是现代浏览器支持通过 Intersection Observer API 来检查元素的可见性，这种方式的性能和效率更好。
+        document.addEventListener("DOMContentLoaded", function() {
+          var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+          if ("IntersectionObserver" in window) {
+            let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+              entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                  let lazyImage = entry.target;
+                  lazyImage.src = lazyImage.dataset.src;
+                  lazyImage.srcset = lazyImage.dataset.srcset;
+                  lazyImage.classList.remove("lazy");
+                  lazyImageObserver.unobserve(lazyImage);
+                }
+              });
+            });
+
+            lazyImages.forEach(function(lazyImage) {
+              lazyImageObserver.observe(lazyImage);
+            });
+          } else {
+            // Possibly fall back to a more compatible method here
+          }
+        });
+
+    （2）CSS 中的图像
+        推测性行为可用来延迟 CSS 中图像的加载，方法是使用 JavaScript 来确定元素在视口内，然后将一个类应用于该元素，以应用调用背景图像的样式。 如此即可在需要时而非初始加载时下载图像。 例如，假定一个元素中包含大型主角背景图片：
+
+    （3）优化
+        a. 注意首屏
+            您可能也不想严格限定首屏线作为触发延迟加载的阈值。 对您来说，更理想的做法是在首屏线以下的某个位置建立缓冲区，以便在用户将图像滚动到视口之前，即开始加载图像。 例如，Intersection Observer API 允许您在创建新的 IntersectionObserver 实例时，在 options 对象中指定 rootMargin 属性。 如此即可为元素提供缓冲区，以便在元素进入视口之前触发延迟加载行为
+            let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+              // Lazy loading image code goes here
+            }, {
+              rootMargin:"0px 0px 256px 0px"
+            });
+
+        b. 布局移位与占位符
+            若不使用占位符，延迟加载媒体可能会导致布局移位。 这种变化不仅会让用户产生疑惑，还会触发成本高昂的 DOM 布局操作，进而耗用系统资源，造成卡顿。 您至少应考虑使用纯色占位符来占用尺寸与目标图像相同的空间，或者采用 LQIP 或 SQIP 等方法，在媒体项目加载前提供有关其内容的提示。
+            对于 <img> 标记，src 最初应指向一个占位符，直到该属性更新为最终图像的网址为止。 请使用 <video> 元素中的 poster 属性来指向占位符图像。 此外，请在 <img> 和 <video> 标记上使用 width 和 height 属性。 如此可以确保从占位符转换为最终图像时，不会在媒体加载期间改变该元素的渲染大小。
+
+        c. 图像解码延迟
+
+
+
+
+281. 项目经验
+
+
+
+
+280. 数据结构有哪些，红黑树和二叉树的区别，二叉搜索树与二叉平衡树 ———— https://blog.csdn.net/wyqwilliam/article/details/82935922
+    （1）二叉树：二叉树是每个结点最多有两个子树的树结构
+
+    （2）二叉查找/搜索/排序树  BST  (binary search/sort tree)
+        或者是一棵空树；
+        或者是具有下列性质的二叉树：
+            a.若它的左子树不空，则左子树上所有结点的值均小于它的根节点的值；
+            b.若它的右子树上所有结点的值均大于它的根节点的值；
+            c.它的左、右子树也分别为二叉排序树。
+        注意：对二叉查找树进行中序遍历，得到有序集合。
+
+    （3）平衡二叉树（Self-balancing binary search tree）  自平衡二叉查找树  又被称为AVL树（有别于AVL算法）
+           它是一 棵空树
+           或它的左右两个子树的高度差(平衡因子)的绝对值不超过1，
+           并且左右两个子树都是一棵平衡二叉树，
+           同时，平衡二叉树必定是二叉搜索树，反之则不一定
+          平衡因子（平衡度）：结点的平衡因子是结点的左子树的高度减去右子树的高度。（或反之定义）
+          平衡二叉树：每个结点的平衡因子都为 1、－1、0 的二叉排序树。或者说每个结点的左右子树的高度最多差1的二叉排序树。
+           平衡二叉树的目的是为了减少二叉查找树层次，提高查找速度
+           平衡二叉树的常用实现方法有AVL、红黑树、替罪羊树、Treap、伸展树等
+
+
+    （4）红黑树（平衡二叉树）,R-B Tree，全称是Red-Black Tree，又称为“红黑树”，它一种平衡二叉树。红黑树的每个节点上都有存储位表示节点的颜色，可以是红(Red)或黑(Black)。
+        ———— http://www.360doc.com/content/18/0904/19/25944647_783893127.shtml
+       红黑树的特性:
+           a.每个节点或者是黑色，或者是红色。
+           b.根节点是黑色。
+           c.每个叶子节点（NIL）是黑色。 [注意：这里叶子节点，是指为空(NIL或NULL)的叶子节点！]
+           d.如果一个节点是红色的，则它的子节点必须是黑色的。
+           e.从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。
+       注意：
+           a.特性(3)中的叶子节点，是只为空(NIL或null)的节点。
+           b.特性(5)，确保没有一条路径会比其他路径长出俩倍。因而，红黑树是相对是接近平衡的二叉树
+       红黑树的应用比较广泛，主要是用它来存储有序的数据，它的时间复杂度是O(logN)，效率非常之高。
+       在O(log n)时间内做查找，插入和删除，这里的n 是树中元素的数目。例如，Java集合中的TreeSet和TreeMap，C++ STL中的set、map，以及Linux虚拟内存的管理，都是通过红黑树去实现的。
+
+
+
+
+279. 排序算法有哪些，时间复杂度，选择排序怎么样搞 （参考 文件夹 算法）
+
+
+
+
+278. tcp三次握手，四次挥手 ———— https://blog.csdn.net/qzcsu/article/details/72861891
+
+
+
+
+277. 七层网络协议，每层干嘛的 ———— https://blog.csdn.net/taotongning/article/details/81352985
+    OSI： 应用层，表示层，会话层，传输层，网络层，数据链路层，物理层
+    TCP/IP：应用层，传输层，网络层，网络接口层
+    五层体系结构：应用层，传输层，网络层，数据链路层，物理层
+
+
+
+
+276. JS事件流
+    JS事件流最早要从IE和网景公司的浏览器大战说起，IE提出的是冒泡流，而网景提出的是捕获流，后来在W3C组织的统一之下，JS支持了冒泡流和捕获流，但是目前低版本的IE浏览器还是只能支持冒泡流(IE6,IE7,IE8均只支持冒泡流)，所以为了能够兼容更多的浏览器，建议大家使用冒泡流。
+
+
+
+
+275. es6的变量定义和es5的区别
+    let,const
+
+
+
+
+274. 函数式编程-柯里化（参考 文件夹 ES6中得 函数扩展文件夹）
+
+
+
+
+273. js设计模式知道哪些，单例详细说
+
+
+
+
+272. 正则如何将一个数千分化表示
+    function format(num) {
+        return num.toString().replace(/\d+/, value => {
+          return value.replace(/(\d)(?=(\d{3})+$)/g, value1 => {
+            return value1 + ".";
+          })
+        })
+      }
+
+
+
+
+271. 遇到问题如何解决
+
+
+
+
+
+270. 怎么样学前端
+
+
+
+
+269. css会吗
+
+
+
+
+268. 移动端开发经验
+
+
+
+
+267. jQuery的源码看过没
+
+
+
+
+266. 原型链与作用域链
