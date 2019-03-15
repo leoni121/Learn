@@ -19,7 +19,7 @@ nums2 = [3, 4]
 中位数是 (2 + 3)/2 = 2.5
 * */
 
-// 归并 O(m * n)
+//O(m * n)
 let findMedianSortedArrays = function(nums1, nums2) {
     if (nums1.length || nums2.length) {
         let newArr = nums1.concat(nums2).sort(function (pre, cur) {
@@ -39,8 +39,8 @@ function findMedianSortedArrays1(nums1, nums2) {
     let m = nums1.length;
     let n = nums2.length;
     if (m > n) { // to ensure m<=n
-        let temp = nums1; nums1 = nums2; nums2 = temp;
-        let tmp = m; m = n; n = tmp;
+        [nums1, nums2] = [nums1, nums2];
+        [m, n] = [n, m];
     }
     let iMin = 0, iMax = m, halfLen = Math.floor((m + n + 1) / 2);
     while (iMin <= iMax) {
@@ -104,4 +104,4 @@ function findMedianSortedArrays2(arr1, arr2) {
 }
 
 
-console.log(findMedianSortedArrays1([3, 4], [1, 2]))
+console.log(findMedianSortedArrays1([1,3,5,7,9], [0,2,4,6,8,10]))

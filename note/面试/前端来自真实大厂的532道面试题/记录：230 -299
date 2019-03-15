@@ -1,0 +1,819 @@
+299. 作用域链
+    （1）ES5 只有全局作用域和函数作用域，没有块级作用域
+
+    （2）变量对象：定义了变量或函数有权访问的其他数据。每个执行环境都有一个表示变量的对象，变量对象，这个对象里储存着在当前环境中所有的变量和函数。
+
+    （3）活动对象：没有执行当前环境之前，变量对象中的属性都不能访问！但是进入执行阶段之后，变量对象转变为了活动对象，里面的属性都能被访问了，然后开始进行执行阶段的操作。所以活动对象实际就是变量对象在真正执行时的另一种形式。
+
+    （4）作用域：一段程序代码中所用到的名字并不总是有效/可用的，而限定这个名字的可用性的代码范围就是这个名字的作用域，就是变量和函数的可访问范围，控制着变量和函数的可见性与生命周期，作用域是针对变量的，比如我们创建了一个函数，函数里面又包含了一个函数，那么现在就有三个作用域，作用域的特点就是，先在自己的变量范围中查找，如果找不到，就会沿着作用域往上找。
+
+    （5）执行环境(或者说运行期上下文)：执行环境（execution context）定义了变量或函数有权访问的其它数据，决定了它们的各自行为
+
+    （6）作用域链：其实就是引用了当前执行环境的变量对象的指针列表，它只是引用，但不是包含。
+
+
+
+
+298. string, number, boolean, null, undefined, symbol
+
+
+
+297. es5和es6：let，const打包后如何变-块级作用域
+    	            configurable	enumerable	value	writable	get 	set
+    数据描述符	    Yes     	    Yes 	    Yes     	Yes	     No  	No
+    存取描述符	    Yes     	    Yes	        No  	    No	    Yes	    Yes
+
+    （1）实现const ———— https://blog.csdn.net/Allan_L/article/details/85295959
+        writable: false 不能修改，修改不报错，不成功
+        由于ES5环境没有block的概念，所以是无法百分百实现const，只能是挂载到某个对象下，要么是全局的window，要么就是自定义一个object来当容器
+
+
+
+
+296. css选择器有哪些 ———— http://www.w3school.com.cn/cssref/css_selectors.asp
+
+
+
+
+295. position有哪些，特性 ———— http://www.cnblogs.com/guolao/p/9048308.html
+    (1). position: static
+        该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top、right、bottom、left 属性无效。
+
+    (2). position: relative
+        该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白)。position:relative 对 table-*-group, table-row, table-column, table-cell, table-caption 元素无效。
+
+    (3). position: absolute
+        不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margin）,且不会与其他边距合并。没有top，left等的时候不会，父元素的padding,和自身的margin
+
+    (4). position: fixed 不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。fixed属性会创建新的层叠上下文。当元素祖先的 transform 属性非 none 时，容器由视口改为该祖先。没有top，left等的时候不会，父元素的padding,和自身的margin
+
+    (5). position: sticky , position: inherit
+        不深入
+
+   （6）sticky，设置了sticky的元素，在屏幕范围（viewport）时该元素的位置并不受到定位影响（设置是top、left等属性无效），当该元素的位置将要移出偏移范围时，定位又会变成fixed，根据设置的left、top等属性成固定位置的效果。
+
+
+
+
+294. block元素和inline元素的区别
+    块级元素的特点：
+       （1）总是从新行开始
+       （2）高度，行高、外边距以及内边距都可以控制
+       （3）宽度默认是容器的100%
+       （4）可以容纳内联元素和其他块元素。
+    行内元素的特点：
+       （1）和相邻行内元素在一行上。
+       （2）高、宽无效，但水平方向的padding和margin可以设置，垂直方向的无效。
+       （3）默认宽度就是它本身内容的宽度。
+       （4）行内元素只能容纳文本或则其他行内元素。
+    行内块元素的特点：
+       （1）和相邻行内元素（行内块）在一行上,但是之间会有空白缝隙。
+       （2）默认宽度就是它本身内容的宽度。
+       （3）高度，行高、外边距以及内边距都可以控制。
+
+
+
+
+293. 别人对你的项目认可度，项目做的怎么样
+
+
+
+
+292. 是独生子女吗
+
+
+
+
+291. 职业规范是怎么样的
+
+
+
+
+290. 项目里最难的事情，如何克服
+
+
+
+
+289. 如何看待竞争
+
+
+
+
+288. 学习生涯最失败的事情是什么，怎么样走出来的
+
+
+
+
+287. 多长时间开始独立做前端，这段时间是如何学习的
+
+
+
+
+286. 如果现在重新做这个项目，有什么想优化的
+
+
+
+
+285. cookie和session的却别
+    ———— https://www.cnblogs.com/xdp-gacl/p/3803033.html（cookie传入浏览器）
+    ———— https://www.cnblogs.com/endlessdream/p/4699273.html
+
+
+
+
+284. 设计模式
+
+
+
+
+283. 页面优化方法
+
+
+
+
+282. 树数据多少非常多怎么样办（懒加载） ———— https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/
+    （1）内联图像延迟加载
+        平台在加载页面时会先加载轻量级的占位符图像，并在其滚动到视口时，将之替换为延迟加载的图像。
+        scroll 或 resize 等事件处理程序来完成任务。 虽然这种方法在各浏览器之间的兼容性最好，但是现代浏览器支持通过 Intersection Observer API 来检查元素的可见性，这种方式的性能和效率更好。
+        document.addEventListener("DOMContentLoaded", function() {
+          var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+          if ("IntersectionObserver" in window) {
+            let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+              entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                  let lazyImage = entry.target;
+                  lazyImage.src = lazyImage.dataset.src;
+                  lazyImage.srcset = lazyImage.dataset.srcset;
+                  lazyImage.classList.remove("lazy");
+                  lazyImageObserver.unobserve(lazyImage);
+                }
+              });
+            });
+
+            lazyImages.forEach(function(lazyImage) {
+              lazyImageObserver.observe(lazyImage);
+            });
+          } else {
+            // Possibly fall back to a more compatible method here
+          }
+        });
+
+    （2）CSS 中的图像
+        推测性行为可用来延迟 CSS 中图像的加载，方法是使用 JavaScript 来确定元素在视口内，然后将一个类应用于该元素，以应用调用背景图像的样式。 如此即可在需要时而非初始加载时下载图像。 例如，假定一个元素中包含大型主角背景图片：
+
+    （3）优化
+        a. 注意首屏
+            您可能也不想严格限定首屏线作为触发延迟加载的阈值。 对您来说，更理想的做法是在首屏线以下的某个位置建立缓冲区，以便在用户将图像滚动到视口之前，即开始加载图像。 例如，Intersection Observer API 允许您在创建新的 IntersectionObserver 实例时，在 options 对象中指定 rootMargin 属性。 如此即可为元素提供缓冲区，以便在元素进入视口之前触发延迟加载行为
+            let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+              // Lazy loading image code goes here
+            }, {
+              rootMargin:"0px 0px 256px 0px"
+            });
+
+        b. 布局移位与占位符
+            若不使用占位符，延迟加载媒体可能会导致布局移位。 这种变化不仅会让用户产生疑惑，还会触发成本高昂的 DOM 布局操作，进而耗用系统资源，造成卡顿。 您至少应考虑使用纯色占位符来占用尺寸与目标图像相同的空间，或者采用 LQIP 或 SQIP 等方法，在媒体项目加载前提供有关其内容的提示。
+            对于 <img> 标记，src 最初应指向一个占位符，直到该属性更新为最终图像的网址为止。 请使用 <video> 元素中的 poster 属性来指向占位符图像。 此外，请在 <img> 和 <video> 标记上使用 width 和 height 属性。 如此可以确保从占位符转换为最终图像时，不会在媒体加载期间改变该元素的渲染大小。
+
+        c. 图像解码延迟
+
+
+
+
+281. 项目经验
+
+
+
+
+280. 数据结构有哪些，红黑树和二叉树的区别，二叉搜索树与二叉平衡树 ———— https://blog.csdn.net/wyqwilliam/article/details/82935922
+    （1）二叉树：二叉树是每个结点最多有两个子树的树结构
+
+    （2）二叉查找/搜索/排序树  BST  (binary search/sort tree)
+        或者是一棵空树；
+        或者是具有下列性质的二叉树：
+            a.若它的左子树不空，则左子树上所有结点的值均小于它的根节点的值；
+            b.若它的右子树上所有结点的值均大于它的根节点的值；
+            c.它的左、右子树也分别为二叉排序树。
+        注意：对二叉查找树进行中序遍历，得到有序集合。
+
+    （3）平衡二叉树（Self-balancing binary search tree）  自平衡二叉查找树  又被称为AVL树（有别于AVL算法）
+           它是一 棵空树
+           或它的左右两个子树的高度差(平衡因子)的绝对值不超过1，
+           并且左右两个子树都是一棵平衡二叉树，
+           同时，平衡二叉树必定是二叉搜索树，反之则不一定
+          平衡因子（平衡度）：结点的平衡因子是结点的左子树的高度减去右子树的高度。（或反之定义）
+          平衡二叉树：每个结点的平衡因子都为 1、－1、0 的二叉排序树。或者说每个结点的左右子树的高度最多差1的二叉排序树。
+           平衡二叉树的目的是为了减少二叉查找树层次，提高查找速度
+           平衡二叉树的常用实现方法有AVL、红黑树、替罪羊树、Treap、伸展树等
+
+
+    （4）红黑树（平衡二叉树）,R-B Tree，全称是Red-Black Tree，又称为“红黑树”，它一种平衡二叉树。红黑树的每个节点上都有存储位表示节点的颜色，可以是红(Red)或黑(Black)。
+        ———— http://www.360doc.com/content/18/0904/19/25944647_783893127.shtml
+       红黑树的特性:
+           a.每个节点或者是黑色，或者是红色。
+           b.根节点是黑色。
+           c.每个叶子节点（NIL）是黑色。 [注意：这里叶子节点，是指为空(NIL或NULL)的叶子节点！]
+           d.如果一个节点是红色的，则它的子节点必须是黑色的。
+           e.从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。
+       注意：
+           a.特性(3)中的叶子节点，是只为空(NIL或null)的节点。
+           b.特性(5)，确保没有一条路径会比其他路径长出俩倍。因而，红黑树是相对是接近平衡的二叉树
+       红黑树的应用比较广泛，主要是用它来存储有序的数据，它的时间复杂度是O(logN)，效率非常之高。
+       在O(log n)时间内做查找，插入和删除，这里的n 是树中元素的数目。例如，Java集合中的TreeSet和TreeMap，C++ STL中的set、map，以及Linux虚拟内存的管理，都是通过红黑树去实现的。
+
+
+
+
+279. 排序算法有哪些，时间复杂度，选择排序怎么样搞 （参考 文件夹 算法）
+
+
+
+
+278. tcp三次握手，四次挥手 ———— https://blog.csdn.net/qzcsu/article/details/72861891
+
+
+
+
+277. 七层网络协议，每层干嘛的 ———— https://blog.csdn.net/taotongning/article/details/81352985
+    OSI： 应用层，表示层，会话层，传输层，网络层，数据链路层，物理层
+    TCP/IP：应用层，传输层，网络层，网络接口层
+    五层体系结构：应用层，传输层，网络层，数据链路层，物理层
+
+
+
+
+276. JS事件流
+    JS事件流最早要从IE和网景公司的浏览器大战说起，IE提出的是冒泡流，而网景提出的是捕获流，后来在W3C组织的统一之下，JS支持了冒泡流和捕获流，但是目前低版本的IE浏览器还是只能支持冒泡流(IE6,IE7,IE8均只支持冒泡流)，所以为了能够兼容更多的浏览器，建议大家使用冒泡流。
+
+
+
+
+275. es6的变量定义和es5的区别
+    let,const
+
+
+
+
+274. 函数式编程-柯里化（参考 文件夹 ES6中得 函数扩展文件夹）
+
+
+
+
+273. js设计模式知道哪些，单例详细说
+
+
+
+
+272. 正则如何将一个数千分化表示
+    function format(num) {
+        return num.toString().replace(/\d+/, value => {
+          return value.replace(/(\d)(?=(\d{3})+$)/g, value1 => {
+            return value1 + ".";
+          })
+        })
+      }
+
+
+
+
+271. 遇到问题如何解决
+
+
+
+
+
+270. 怎么样学前端
+
+
+
+
+269. css会吗
+
+
+
+
+268. 移动端开发经验
+
+
+
+
+267. jQuery的源码看过没
+
+
+
+
+266. 原型链与作用域链
+    （1）js中原型链和作用域链根本不存在这样的链结构，而是通过查找引用，递归遍历，形式上是“链”结构。
+
+    （2）原型链的概念：
+   　　原型是与构造函数相关的一个概念。在定义构造函数时，会产生一个prototype属性指向一个原型对象，原型对象中的属性即为该构造函数中定义的所有公共属性。实例对象则会包含一个指向其构造函数原型对象的指针，由此来共享公共属性。
+   　　而js中所有对象都指向一个原始对象Object，这里使用到了继承的概念，也就是所有自定义对象都是继承自Object对象，可以直接使用Object对象的属性和方法。而继承就是通过原型链来实现的。
+   　　假如让构造函数A的实例对象指向另一个构造函数B的原型对象，则通过A的实例对象就可以访问到B中定义的公共属性和方法，也就是A继承了B。以此类推，可以通过作用域链的依次访问实现多层继承，而他们最终都会指向Object。
+
+    （3）作用域链的概念：
+   　　要理解ES中作用域链，首先要从理解执行环境开始。ES中代码执行都是在一个具体的执行环境中进行的，每个执行环境有一个与之关联的变量对象，该变量中包含着在这个执行环境中可以访问的变量和函数。这里所说的执行环境就相当于作用域。最外围的执行环境是全局环境，在web浏览器中也就是window对象。某个执行环境中的代码执行完毕之后，该环境会被销毁，包含在其中的所有变量和函数也会被销毁，而全局环境会在关闭网页或浏览器时才会被销毁。
+   　　每个函数都有一个自己的执行环境，在执行时弹入环境栈，执行完毕之后弹出。因此当代码在某个环境中执行时会创建一个变量对象的作用域链。这个作用域链从当前环境的变量对象开始，指向其包含环境的变量对象，依次向前，直到全局对象window结束。在代码执行进行数据访问时，会沿着这条作用域链依次寻找标识符。因此全局环境只能访问全局变量和函数，而不可以访问函数中定义的数据，函数中的数据只可以在该函数的执行环境或者其从属环境中访问得到。
+
+
+
+
+
+265. BFC
+    （1）概念：块级格式化上下文 (Block Fromatting Context)是按照块级盒子布局的
+
+    （2）创建：浮动元素（float不为none）和绝对定位元素（position不为absolute和fixed），非块级盒子的块级容器（行内块元素，表格单元格，表格标题，匿名表格单元格元素）（例如 inline-blocks, table-cells, 和 table-captions），以及overflow值不为“visiable”的块级盒子，弹性元素，网格元素，根元素或包含根元素的元素,都会为他们的内容创建新的BFC（块级格式上下文）。
+
+    （3）特点：内部的Box会在垂直方向上一个接一个的放置
+          垂直方向上的距离由margin决定。（完整的说法是：属于同一个BFC的两个相邻Box的margin会发生重叠，与方向无关。）
+          每个元素的左外边距与包含块的左边界相接触（从左向右），即使浮动元素也是如此。（这说明BFC中子元素不会超出他的包含块，而position为absolute的元素可以超出他的包含块边界）
+          BFC的区域不会与float的元素区域重叠
+          计算BFC的高度时，浮动子元素也参与计算
+          BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素，反之亦然
+
+    （4）应用：防止margin重叠、包含浮动（撑起高度），多列布局，避免文字环绕（文字盒子=》bfc）
+
+
+
+
+264. 原型基础
+
+
+
+
+263.了解webpack如何打败（见 题346）
+
+
+
+
+262. es5如何转为es5-babel
+
+
+
+
+261. webpack的plugin和loader的区别 ———— https://www.webpackjs.com/concepts/#loader
+    （1）loader:
+        loader 让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。loader 可以将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。本质上，webpack loader 将所有类型的文件，转换为应用程序的依赖图（和最终的 bundle）可以直接引用的模块。
+        test 属性，用于标识出应该被对应的 loader 进行转换的某个或某些文件。
+        use 属性，表示进行转换时，应该使用哪个 loader。
+
+    （2）plugin：
+        它直接作用于 webpack，扩展了它的功能。当然loader也是变相的扩展了 webpack ，但是它只专注于转化文件（transform）这一个领域。而plugin的功能更加的丰富，而不仅局限于资源的加载。插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。插件接口功能极其强大，可以用来处理各种各样的任务
+
+
+
+
+
+260. css性能优化，就动画效果，如何从js，cs角度减少回流？
+    （1）回流（见题 392）———— https://segmentfault.com/a/1190000002629708
+
+    （2）css优化（见 题390） ———— https://www.jb51.net/article/147736.htm
+
+    （3）前端性能优化（CSS动画篇） ———— https://segmentfault.com/a/1190000000490328
+
+    （4）现代浏览器在使用CSS3动画时，以下四种情形绘制的效率较高（现代浏览器如Chrome，Firefox，Safari和Opera都对变换和透明度采用硬件加速，但IE10+不是很确定是否硬件加速），分别是：
+        a. 改变位置
+        b. 改变大小
+        c. 旋转
+        d. 改变透明度
+
+    （5）translate，这个不会触发重布局
+
+    （6）js动画 ———— https://www.cnblogs.com/visugar/p/7327171.html
+
+
+
+259. 页面性能优化
+
+
+
+
+258. 页面缓存
+
+
+
+
+257. flex弹性布局裂解，移动端适配方案有哪些
+
+
+
+
+256. HTTP2.0的优势
+    （1）见 题488. HTTP1 SPDY HTTP2的对比 ———— https://www.jianshu.com/p/be29d679cbff
+
+
+
+
+255. Nodejs加载原生的包与自己定义的包路径如何查找
+    （1）从文件模块缓存中加载 =》从原生模块加载 =》从文件加载
+        a. 从文件模块缓存中加载
+           尽管原生模块与文件模块的优先级不同，但是都会优先从文件模块的缓存中加载已经存在的模块。
+        b. 从原生模块加载
+           原生模块的优先级仅次于文件模块缓存的优先级。require 方法在解析文件名之后，优先检查模块是否在原生模块列表中。以http模块为例，尽管在目录下存在一个 http/http.js/http.node/http.json 文件，require("http") 都不会从这些文件中加载，而是从原生模块中加载。
+           原生模块也有一个缓存区，同样也是优先从缓存区加载。如果缓存区没有被加载过，则调用原生模块的加载方式进行加载和执行。
+        c. 当文件模块缓存中不存在，而且不是原生模块的时候，Node.js 会解析 require 方法传入的参数，并从文件系统中加载实际的文件，加载过程中的包装和编译细节在前一节中已经介绍过，这里我们将详细描述查找文件模块的过程，其中，也有一些细节值得知晓。
+           require方法接受以下几种参数的传递：
+               http、fs、path等，原生模块。
+               ./mod或../mod，相对路径的文件模块。
+               /pathtomodule/mod，绝对路径的文件模块。
+               mod，非原生模块的文件模块。
+
+    （2）如果参数字符串以“/”开头，则表示加载的是一个位于绝对路径的模块文件。比如，require('/home/marco/foo.js')将加载/home/marco/foo.js。
+
+    （3）如果参数字符串以“./”开头，则表示加载的是一个位于相对路径（跟当前执行脚本的位置相比）的模块文件。比如，require('./circle')将加载当前脚本同一目录的circle.js。
+
+    （4）如果参数字符串不以“./“或”/“开头，则表示加载的是一个默认提供的核心模块（位于Node的系统安装目录中），或者一个位于各级node_modules目录的已安装模块（全局安装或局部安装）。
+    举例来说，脚本/home/user/projects/foo.js执行了require('bar.js')命令，Node会依次搜索以下文件。
+        /usr/local/lib/node/bar.js
+        /home/user/projects/node_modules/bar.js
+        /home/user/node_modules/bar.js
+        /home/node_modules/bar.js
+
+
+
+
+254. es6和es5的区别 ————http://www.cnblogs.com/lovesong/p/4908871.html
+
+
+
+
+253. nodejs如何require一个包
+    ———— https://www.cnblogs.com/jasonxuli/p/4381747.html
+    ———— http://javascript.ruanyifeng.com/nodejs/module.html#toc4 （阮一峰老师）
+
+    （1）require:
+        require命令是CommonJS规范之中，用来加载其他模块的命令。它其实不是一个全局命令，而是指向当前模块的module.require命令，而后者又调用Node的内部命令Module._load。
+
+    （2）Module._load：
+        Module._load = function(request, parent, isMain) {
+          // 1. 检查 Module._cache，是否缓存之中有指定模块
+          // 2. 如果缓存之中没有，就创建一个新的Module实例
+          // 3. 将它保存到缓存
+          // 4. 使用 module.load() 加载指定的模块文件，
+          //    读取文件内容之后，使用 module.compile() 执行文件代码
+          // 5. 如果加载/解析过程报错，就从缓存删除该模块
+          // 6. 返回该模块的 module.exports
+        };
+
+    （3）module.compile：
+        Module.prototype._compile = function(content, filename) {
+          // 1. 生成一个require函数，指向module.require
+          // 2. 加载其他辅助方法到require
+          // 3. 将文件内容放到一个函数之中，该函数可调用 require
+          // 4. 执行该函数（个人理解：相当于把导出的对象的应用添加到当前新创建的require上面）
+        };
+
+    （4）在（3）中辅助方法：
+        require(): 加载外部模块
+        require.resolve()：将模块名解析到一个绝对路径
+        require.main：指向主模块
+        require.cache：指向所有缓存的模块
+        require.extensions：根据文件的后缀名，调用不同的执行函数
+
+    （5）require函数准备完毕：
+        整个所要加载的脚本内容被放到一个新的函数之中，这样可以避免污染全局环境。该函数的参数包括require、module、exports，以及其他一些参数。
+       (function (exports, require, module, __filename, __dirname) {
+         // YOUR CODE INJECTED HERE!
+       });
+
+    （6）注意：Module._compile方法是同步执行的，所以Module._load要等它执行完成，才会向用户返回module.exports的值。
+
+    （7）主要代码：
+        // Loads a module at the given file path. Returns that module's
+        // `exports` property.
+        Module.prototype.require = function(path) {
+            assert(path, 'missing path');
+            assert(util.isString(path), 'path must be a string');
+            return Module._load(path, this);
+        };
+
+        // Check the cache for the requested file.
+        // 1. If a module already exists in the cache: return its exports object.
+        // 2. If the module is native: call `NativeModule.require()` with the
+        //    filename and return the result.
+        // 3. Otherwise, create a new module for the file and save it to the cache.
+        //    Then have it load  the file contents before returning its exports
+        //    object.
+        Module._load(filename, this){
+            If(fileName in Module._cache)
+                Return Module._cache[filename];
+
+        　　var module = new Module(filename, parent);
+        　　Module._cache[filename] = module;
+        　　Module.load(filename);
+        　　// 先把模块放到缓存然后再去加载内容，可以解决循环依赖的问题。
+        　　// 参见https://nodejs.org/api/modules.html的Cycles部分。
+
+        　　return module.exports;
+        }
+
+        Module.prototype.load(filename){
+            var extension = path.extname(filename) || ‘.js’;
+
+            Module._extensions[extension](this, filename){
+                var content = fs.readFileSync(filename, ‘utf-8’);
+                module._compile(content, filename);
+        　　}
+        }
+
+        // Run the file contents in the correct scope or sandbox. Expose
+        // the correct helper variables (require, module, exports) to
+        // the file.
+        // Returns exception, if any.
+        Module.prototype._compile = function(content, filename) {
+            function require(path) {
+                return self.require(path);
+        　　}
+
+        　　require.main = process.mainModule;
+
+        　　// Enable support to add extra extension types
+        　　require.extensions = Module._extensions;
+        　　require.cache = Module._cache;
+
+        　　// TODO: 每个模块加载到自己的context中会有什么不同？
+        　　// Set the environ variable NODE_MODULE_CONTEXTS=1 to make node load all modules in their own context.
+        　　// Module._contextLoad = (+process.env['NODE_MODULE_CONTEXTS'] > 0);
+        　　// if (Module._contextLoad) { .... }
+
+        　　// create wrapper function
+        　　var wrapper = NativeModule.wrap(content);
+        　　// wrapper = '(function (exports, require, module, __filename, __dirname) { ' + content + '\n});'
+
+        　　// runInThisContext()可以认为是在某个上下文环境中执行的eval()。
+        　　// compiledWrapper相当于eval(‘(function(){....})’)的结果，也就是真正的Function。
+        　　var compiledWrapper = runInThisContext(wrapper, { filename: filename });
+
+        　　// module.exports 和 exports 的区别：
+        　　// 这里只传递了exports的引用；而上面Module._load()返回的是module.exports，因此给module.exports赋值后，
+        　　// exports仍然指向之前的module.exports。
+        　　var args = [self.exports, require, self, filename, dirname];
+
+        　　// 真正执行compiledWrapper这个function，也就是执行了filename.js的内容。
+        　　return compiledWrapper.apply(self.exports, args);
+        }
+
+
+
+
+252. react父子通信
+
+
+
+
+251. React虚拟DOM，生命周期
+
+
+
+
+250. 算法：两个排序好的数组，怎么样找他的中位数
+    （1）归并排序 O(m + n)
+
+    （2）// 二分查找 O(log(m + n))
+       function findMedianSortedArrays1(nums1, nums2) {
+           let m = nums1.length;
+           let n = nums2.length;
+           if (m > n) { // to ensure m<=n
+               let temp = nums1; nums1 = nums2; nums2 = temp;
+               let tmp = m; m = n; n = tmp;
+           }
+           let iMin = 0, iMax = m, halfLen = Math.floor((m + n + 1) / 2);
+           while (iMin <= iMax) {
+               let i = Math.floor((iMin + iMax) / 2);
+               let j = halfLen - i;
+               if (i < iMax && nums2[j-1] > nums1[i]){
+                   iMin = i + 1; // i is too small
+               }
+               else if (i > iMin && nums1[i-1] > nums2[j]) {
+                   iMax = i - 1; // i is too big
+               }
+               else { // i is perfect
+                   let maxLeft = 0;
+                   if (i === 0) { maxLeft = nums2[j-1]; }
+                   else if (j === 0) { maxLeft = nums1[i-1]; }
+                   else { maxLeft = Math.max(nums1[i-1], nums2[j-1]); }
+                   if ( (m + n) % 2 === 1 ) { return maxLeft; }
+
+                   let minRight = 0;
+                   if (i === m) { minRight = nums2[j]; }
+                   else if (j === n) { minRight = nums1[i]; }
+                   else { minRight = Math.min(nums2[j], nums1[i]); }
+
+                   return (maxLeft + minRight) / 2.0;
+               }
+           }
+           return 0.0;
+       }
+
+
+
+
+249. 对大前端的理解，前端会发展怎么样
+
+
+
+
+248. vue react jquery比较，有测试过性能吗
+    （1）eact和vue的区别 ———— http://caibaojian.com/vue-vs-react.html
+                         ———— https://deliciousbrains.com/vue-vs-react-battle-javascript
+       不同于早期的JavaScript框架“功能齐全”，Reat与Vue只有框架的骨架，其他的功能如路由、状态管理等是框架分离的组件。
+       虚拟DOM（改变真实的DOM状态远比改变一个JavaScript对象的花销要大得多）
+       组件化（建议你将你的应用分拆成一个个功能明确的模块，每个模块之间可以通过合适的方式互相联系）
+       a. react
+           jsx
+           React推荐你所有的模板通用JavaScript的语法扩展——JSX书写
+           状态管理，配套框架被设计为管理一个大的state对象，如Redux。此外，state对象在React应用中是不可变的，意味着它不能被直接改变（这也许不一定正确）。在React中你需要使用setState()方法去更新状态。
+           React Native能在手机上创建原生应用
+       b. vue
+           模板系统
+           Vue鼓励你去使用HTML模板去进行渲染，使用相似于Angular风格的方法去输出动态的内容。因此，通过把原有的模板整合成新的Vue模板
+           state对象并不是必须的，数据由data属性在Vue对象中进行管理不需要使用如setState()之类的方法去改变它的状态，在Vue对象中，data参数就是应用中数据的保存者。
+
+   （2）vue: 发布/订阅模式
+          JS框架，我认为大体上可以分为两种。一种是类似jQuery/d3那样的，通过修改html的DOM结构来渲染UI的库。还有一种则是类似于AngularJS/ReactJS 那样的，采用MVC分层的，通过Model来渲染View UI框架。
+          jQuery基本都是浏览器原生操作，实计上h5的很多api都借鉴了jQuery
+          jQuery: 开发效率
+          ———— http://www.php.cn/js-tutorial-412970.html
+          Vue: 通过Vue对象将数据和View完全分离开，通过vue实现绑定，通过对数据的操作就可以完成对页面视图的渲染， 学习成本更高， 而且伴随着vue的是一系列新的语法的学习，兼容不好，Vue.js 专注于 MVVM 模型的 ViewModel 层，vue侧重数据绑定
+          jquery: 选择器（$）选取DOM对象，对其进行赋值、取值、事件绑定等操作，其实和原生的HTML的区别只在于可以更方便的选取和操作DOM对象，而数据和界面是在一起的，开发效率更底下，学习成本低，可以看做是对原生js的一个库，封装了很多东西，兼容好，jquery侧重样式操作，动画效果等，则会更加高效率的完成业务需求
+
+
+
+
+247. 同一个网站，在上海打开慢，在北京打开快，怎么样分析原因，（DNS解析和CDN）
+
+
+
+
+246. 如果有这样的场景：一个模块A作为输出，BCD等扩展模块可以在A做更改后展示A的原来内容或者驾驶CSS后的内容，想想思路
+
+
+
+
+245. 如何有一个很多的列表，像头条的新闻列表，用户看得多了，列表越来越大，怎么样处理，思考一下
+
+
+
+
+244. 实现一个ajax，兼容
+    function create() {
+        return window.XMLHttpRequest ? new XMLHttpRequest(): new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+
+
+
+243. 前端优化
+
+
+
+
+242. IO多路复用
+
+
+
+
+241. nodejs的特性，适合处理什么场景
+    （1）优点：
+    　　a. 高并发（最重要的优点）
+    　　b. 适合I/O密集型应用
+
+    （2）缺点：
+    　　a. 不适合CPU密集型应用；CPU密集型应用给Node带来的挑战主要是：由于JavaScript单线程的原因，如果有长时间运行的计算（比如大循环），将会导致CPU时间片不能释放，使得后续I/O无法发起；解决方案：分解大型运算任务为多个小任务，使得运算能够适时释放，不阻塞I/O调用的发起；
+    　　b. 只支持单核CPU，不能充分利用CPU
+    　　c. 可靠性低，一旦代码某个环节崩溃，整个系统都崩溃
+    　　　　原因：单进程，单线程
+    　　　　解决方案：（1）Nnigx反向代理，负载均衡，开多个进程，绑定多个端口；
+    　　　　　　　　　（2）开多个进程监听同一个端口，使用cluster模块；
+    　　d. 开源组件库质量参差不齐，更新快，向下不兼容
+    　　e. Debug不方便，错误没有stack trace
+
+    （3）适合NodeJS的场景
+        NodeJS适合运用在高并发、I/O密集、少量业务逻辑的场景
+   　　a. RESTful API
+   　　   这是NodeJS最理想的应用场景，可以处理数万条连接，本身没有太多的逻辑，只需要请求API，组织数据进行返回即可。它本质上只是从某个数据库中查找一些值并将它们组成一个响应。由于响应是少量文本，入站请求也是少量的文本，因此流量不高，一台机器甚至也可以处理最繁忙的公司的API需求。
+
+
+
+
+
+240. nodejs的时间方法讲讲看
+
+
+
+
+239. React的特性
+
+
+
+238. JS实现跨域
+  （0） 跨域是指从一个域名的网页去请求另一个域名的资源。比如从www.baidu.com 页面去请求 www.google.com 的资源。但是一般情况下不能这么做，它是由浏览器的同源策略造成的，是浏览器对JavaScript施加的安全限制。跨域的严格一点的定义是：只要 协议，域名，端口有任何一个的不同，就被当作是跨域
+   (1). js实现 ———— https://www.cnblogs.com/2050/p/3191744.html
+       jsonp, script标签
+       document.domain设置成自身或更高一级的父域，且主域必须相同，使得s完全控制这个iframe
+       postMessage
+
+   (2) nginx
+
+   (3). CORS原理
+       CORS是W3c工作草案，它定义了在跨域访问资源时浏览器和服务器之间如何通信。CORS背后的基本思想是使用自定义的HTTP头部允许浏览器和服务器相互了解对方，从而决定请求或响应成功与否。W3C CORS 工作草案
+       整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。更加强大支持各种HTTP Method，缺点是兼容性不如JSONP。只需要在服务器端做一些小小的改造即可：
+       缺点：CORS要求浏览器(>IE10)和服务器的同时支持，是跨域的根本解决方法，由浏览器自动完成。
+
+   (4). WebSocket
+
+
+
+
+237. JS的如何实现倒计时，为什么不准，校正方式
+    （1）背景：写倒计时大家可能都都比较熟悉，使用 setTimeout 或 setInterval 就可以搞定。几秒钟或者几分钟的倒计时这样写没有问题，但是如果是长时间的倒计时，这样写就会不准确。如果用户修改了他的设备时间，这样的倒计时就没有意义了。
+
+
+
+
+236. 你说到typeof，能不能加一个限制条件typeof只能判断是object，可以判断一下是否拥有数组的方法
+
+
+
+
+235. 如何判断一个数组
+    Object.prototype.toString.call([]) === '[object Array]'
+
+
+
+
+234. 强缓存，协商缓存什么时候用哪个 ———— http://www.cnblogs.com/chenqf/p/6386163.html
+        ———— https://www.cnblogs.com/wonyun/p/5524617.html（另一种说法 强缓存和协商缓存）
+    （1）强制缓存(size: from disk cache)、对比缓存(status: 304)。强制缓存优先级高于对比缓存，也就是说，当执行强制缓存的规则时，如果缓存生效，直接使用缓存，不再执行对比缓存规则。
+
+    （2）缓存规则信息包含在响应header
+
+    （3）对于强制缓存来说，响应header中会有两个字段来标明失效规则（Expires、Cache-Control）
+        a.Expires的值为服务端返回的到期时间，即下一次请求时，请求时间小于服务端返回的到期时间，直接使用缓存数据。不过Expires 是HTTP 1.0的东西，现在默认浏览器均默认使用HTTP 1.1，所以它的作用基本忽略。另一个问题是，到期时间是由服务端生成的，但是客户端时间可能跟服务端时间有误差，这就会导致缓存命中的误差。所以HTTP 1.1 的版本，使用Cache-Control替代。
+        b.Cache-Control 是最重要的规则。常见的取值有private、public、no-cache、max-age，no-store，默认为private。
+          private:             客户端可以缓存
+          public:              客户端和代理服务器都可缓存（前端的同学，可以认为public和private是一样的）
+          max-age=xxx:   缓存的内容将在 xxx 秒后失效
+          no-cache:          需要使用对比缓存来验证缓存数据（后面介绍）
+          no-store:           所有内容都不会缓存，强制缓存，对比缓存都不会触发（对于前端开发来说，缓存越多越好，so...基本上和它说886）
+
+    (4)对比缓存，顾名思义，需要进行比较判断是否可以使用缓存。浏览器第一次请求数据时，服务器会将缓存标识与数据一起返回给客户端，客户端将二者备份至缓存数据库中。再次请求数据时，客户端将备份的缓存标识发送给服务器，服务器根据缓存标识进行判断，判断成功后，返回304状态码，通知客户端比较成功，可以使用缓存数据。缓存标识的传递是我们着重需要理解的，它在请求header和响应header间进行传递，一共分为两种标识传递，接下来，我们分开介绍。
+        a.Last-Modified(response header) / If-Modified-Since(request header用来发送last-modified)
+        b.Etag(服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）) / If-None-Match(发送Etag)。（优先级高于Last-Modified  /  If-Modified-Since）
+
+    （4）用户操作
+       用户操作 	          Expires/Cache Control                   	Last-Modified/Etag
+       地址栏回车	           有效	                                      有效
+       页面链接跳转	           有效	                                      有效
+       新开窗口	                有效	                                   有效
+       前进/后退	          有效                                       有效
+       F5/按钮刷新	          无效，浏览器重置max-age=0	                   有效
+       Ctrl+F5	              无效重置cache-control: no-cache	             无效，请求头丢弃该选项
+
+
+
+
+233. 浏览器缓存机制
+
+
+
+
+232. 讲讲304
+    Not Modified 客户端有缓冲的文档并发出了一个条件性的请求（一般是提供If-Modified-Since头表示客户只想比指定日期更新的文档）。服务器告诉客户，原来缓冲的文档还可以继续使用。
+
+
+
+
+231. HTTP状态码 ———— https://www.cnblogs.com/jly144000/archive/2017/12/07/7998615.html
+  1**	信息，服务器收到请求，需要请求者继续执行操作
+
+  2**	成功，操作被成功接收并处理
+     200 OK 服务器成功处理了请求
+     204 请求被受理但没有资源可以返回
+
+  3**	重定向，需要进一步的操作以完成请求
+     301 永久性重定向，请求的URL已移走
+     302 临时重定向
+     304 表示未修改，客户的缓存资源是最新的，要客户端使用缓存
+     307(临时重定向)服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来响应以后的请求。此代码与响应 GET 和 HEAD 请求的301 代码类似，会自动将请求者转到不同的位置，但您不应使用此代码来告诉 Googlebot 某个页面或网站已经移动，因为 Googlebot 会继续抓取原有位置并编制索引。
+
+  4**	客户端错误，请求包含语法错误或无法完成请求
+      400 请求报文语法有误，服务器无法识别
+      401(未授权)请求要求身份验证。对于登录后请求的网页，服务器可能返回此响应
+      403 禁止，请求被服务器拒绝了
+      404 未找到资源
+      405	 客户端请求中的方法被禁止
+
+  5**	服务器错误，服务器在处理请求的过程中发生了错误
+      500 内部服务器错误，服务器遇到一个错误，使其无法为请求提供服务
+      503 服务器正忙，服务器超时
+
+
+
+
+230. 重排和重绘 ———— https://www.cnblogs.com/zichi/p/4720000.html
+   （1）渲染树中的节点被称为“帧”或“盒",符合CSS模型的定义，理解页面元素为一个具有填充，边距，边框和位置的盒子。一旦DOM和渲染树构建完成，浏览器就开始显示（绘制）页面元素。
+   （2）重排，当DOM的变化影响了元素的几何属性（宽或高），浏览器需要重新计算元素的几何属性，同样其他元素的几何属性和位置也会因此受到影响。浏览器会使渲染树中受到影响的部分失效，并重新构造渲染树。
+   （3）重绘， 完成重排后，浏览器会重新绘制受影响的部分到屏幕，该过程称为重绘
+
+   （4）注意：由于浏览器的流布局，对渲染树的计算通常只需要遍历一次就可以完成。但table及其内部元素除外，它可能需要多次计算才能确定好其在渲染树中节点的属性，通常要花3倍于同等元素的时间。这也是为什么我们要避免使用table做布局的一个原因。
+       让元素脱离动画流， fragment元素的应用, 最小化重排和重绘（防止js 一条一条改变元素）

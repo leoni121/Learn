@@ -114,3 +114,11 @@
 
 ** 盒模型（MDN） ———— https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model
 
+
+** 文字平滑
+    body {
+    	-webkit-font-smoothing: antialiased;
+    	-moz-osx-font-smoothing: grayscale;
+
+    }
+

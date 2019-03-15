@@ -25,3 +25,9 @@
          }
         return fmt;
     }
+
+
+** 得到当前凌晨的事件
+    new Date().toLocaleString() // 具体时间
+    new Date(new Date().toLocaleDateString()).getTime()
+    new Date(new Date().setHours(0, 0, 0, 0)).getTime()
