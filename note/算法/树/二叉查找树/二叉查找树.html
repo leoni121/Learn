@@ -33,38 +33,23 @@
             }
             // 非空树
             let currentNode = this.root;
-            let parent = null;
             // 遍历
             while(1) {
-                // 得到一个指向  即将改变 或 其子节点将要被改变 的节点的 变量
-                parent = currentNode;
                 // 左子树
                 if (data < currentNode.data) {
-                    // currentNode 指向为空，赋值到currentNode无效
-                   /* currentNode = parent.left;
-                    if (currentNode === null) {
-                        currentNode = n;
-                        break;
-                    }*/
-                    currentNode = currentNode.left;
-                    if (currentNode === null) {
-                        parent.left = cNode;
+                    if (currentNode.left === null) {
+                        currentNode.left = cNode;
                         break
                     }
+                    currentNode = currentNode.left;
                 }
                 // 右子树
                 else if ( data > currentNode.data ) {
-                    // currentNode 指向为空，赋值到currentNode无效
-                    /*currentNode = parent.right;
-                    if (currentNode === null) {
-                        currentNode = n;
-                        break;
-                    }*/
-                    currentNode = currentNode.right;
-                    if (currentNode === null) {
-                        parent.right = cNode;
+                    if (currentNode.right === null) {
+                        currentNode.right = cNode;
                         break;
                     }
+                  currentNode = currentNode.right;
                 }
                 // 相等
                 else {

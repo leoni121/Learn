@@ -1,0 +1,59 @@
+229. 如何让一个元素消失
+
+
+
+
+228. 清除浮动的方法（见 题467）
+  （1）父级div定义伪类 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+                       .clearfloat{zoom:1}
+
+  （2）在结尾处添加空div标签clear: .clearfloat{clear:both}
+
+  （3）父级div定义overflow:hidden
+
+  （4）父级div定义overflow:auto
+
+  （5）父级div定义display:table
+
+  （6）额外：父级div也一起浮动，父级定义 height ，撑高
+
+  （7）紧跟在其后的元素 clear
+
+
+
+
+227. 实现一个两列等高布局，思路（见 文件夹CSS 中的 布局）
+
+
+
+
+226. mongoDB有哪些特点
+    MongoDB 是一个基于分布式文件存储的数据库。由 C++ 语言编写。旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。
+
+
+
+
+225. B+树了解过吗
+    B+ 树 ———— https://blog.csdn.net/qq_26222859/article/details/80631121
+
+
+
+
+224. MySQL里面的索引用过吗
+
+
+
+
+223. 你用过什么数据库
+
+
+
+
+222. 项目用到JAVA，反射来讲
+
+
+
+
+221. 最近在学啥
+
+

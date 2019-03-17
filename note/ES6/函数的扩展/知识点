@@ -157,3 +157,50 @@
         });
 
         sum(1, 100000)
+
+
+
+** 防抖 debounce
+    用于频繁触发得事情（resize,scroll,keydown,keyup,keypress,mousemove），直到delay时间内没有触发事件时才会真正执行事件的回调
+    function debounce(fn,delay){
+
+           var delay=delay||200;
+           var timer;
+           return function(){
+               var th=this;
+               var args=arguments;
+               if (timer) {
+                   clearTimeout(timer);
+               }
+               timer=setTimeout(function () {
+                       timer=null;
+                       fn.apply(th,args);
+               }, delay);
+           };
+       }
+
+
+
+
+** 节流 throttle
+    在触发时超过间隔时间interval ms则执行。否则不执行。
+    function throttle(fn,interval){
+        var last;
+        var timer;
+        var interval=interval||200;
+        return function(){
+            var th=this;
+            var args=arguments;
+            var now=+new Date();
+            if(last&&now-last<interval){
+                clearTimeout(timer);
+                timer=setTimeout(function(){
+                    last=now;
+                    fn.apply(th,args);
+                },interval);
+            }else{
+                last=now;
+                fn.apply(th,args);
+            }
+        }
+    }

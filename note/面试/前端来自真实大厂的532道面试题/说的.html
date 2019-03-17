@@ -1,37 +1,14 @@
-<!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>两列等高布局，利用padding-bottom的正值与margin-bottom的负值相互抵消即可</title>
+    <style>
+
+
+
+    </style>
 </head>
-<script type="text/javascript">
-  var i = 0;//定义从0开始计数
-  var x;//定义用来保存定时器
-  function startcount(){//计数的方法
-    document.getElementById("start").disabled = "disabled";
-    document.getElementById("time").value = i;
-    document.getElementById("stop").disabled = "";
-    i++;
-    x = setTimeout(startcount,1000);//不能加var
-  }
-  function stopcount(){
-    document.getElementById("start").disabled = "";
-    document.getElementById("stop").disabled = "disabled";
-    isstart = 1;//当用户点击了停止之后，用户又可以继续点击开始
-    clearTimeout(x);
-  }
-</script>
-<style type="text/css">
-    input {
-        font-size: 20px;
-        background-color: pink;
-    }
-</style>
 <body>
-<form action="#" method="post" name="myform">
-    <input type="text" name="time" id="time" value="" size="40" /><br />
-    <input type="button" name="start" id="start" value="开始" onclick="startcount()"/>
-    <input type="button" name="stop" id="stop" value="停止" onclick="stopcount()"/>
-</form>
+
 </body>
 </html>
