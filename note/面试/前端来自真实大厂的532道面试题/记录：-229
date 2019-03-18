@@ -57,3 +57,161 @@
 221. 最近在学啥
 
 
+
+220. 讲讲JS的语言特性吗 ———— https://blog.csdn.net/lsj960922/article/details/82493986
+    JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型
+    （1）脚本语言
+        JavaScript是一种解释型的脚本语言,C、C++等语言先编译后执行,而JavaScript是在程序的运行过程中逐行进行解释。
+
+    （2）基于对象
+        JavaScript是一种基于对象的脚本语言,它不仅可以创建对象,也能使用现有的对象。
+
+    （3）简单
+        JavaScript语言中采用的是弱类型的变量类型,对使用的数据类型未做出严格的要求,是基于Java基本语句和控制的脚本语言,其设计简单紧凑。
+
+    （4）动态性
+        JavaScript是一种采用事件驱动的脚本语言,它不需要经过Web服务器就可以对用户的输入做出响应。在访问一个网页时,鼠标在网页中进行鼠标点击或上下移、窗口移动等操作JavaScript都可直接对这些事件给出相应的响应。
+
+    （5）跨平台性
+        JavaScript脚本语言不依赖于操作系统,仅需要浏览器的支持。因此一个JavaScript脚本在编写后可以带到任意机器上使用,前提上机器上的浏览器支 持JavaScript脚本语言,目前JavaScript已被大多数的浏览器所支持。不同于服务器端脚本语言，例如PHP与ASP，JavaScript主要被作为客户端脚本语言在用户的浏览器上运行，不需要服务器的支持。所以在早期程序员比较青睐于JavaScript以减少对服务器的负担，而与此同时也带来另一个问题：安全性。而随着服务器的强壮，虽然程序员更喜欢运行于服务端的脚本以保证安全，但JavaScript仍然以其跨平台、容易上手等优势大行其道。同时，有些特殊功能（如AJAX）必须依赖Javascript在客户端进行支持。随着引擎如V8和框架如Node.js的发展，及其事件驱动及异步IO等特性，JavaScript逐渐被用来编写服务器端程序。
+
+
+
+
+
+** express和koa2的区别
+    ———— https://www.jianshu.com/p/e48b9f3fd31f
+    （1）koa采用ctx一个参数来调用中间件，而不是express的req, res。
+
+    （2）koa相比express主要就是引入了generator，来避免回调"地狱"问题.
+
+    （3）koa的编程模型是一种 栈 模型 ，而express的设计是串联的
+
+    （4）express 的社区比较早，生态比koa要成熟。
+
+    ———— https://segmentfault.com/a/1190000012960608
+    （5）express 线性：m1 => req, res => m2 => req, res => m3 => 响应
+        伪代码：
+            http.createServer(function (req, res) {
+              console.log('m1')
+              m1 (req, res) {
+                console.log('m2')
+                m2 (req, res) {
+                  m3 (req, res) {
+                    console.log('m3')
+                    res.end('hello')
+                  }
+                }
+                console.log('m2 end')
+              }
+              console.log('m1 end')
+            })
+
+            middlewareA before next()
+            middlewareB before next()
+            middlewareC before next()
+            middlewareC after next()
+            middlewareB after next()
+            middlewareA after next()
+            nzq
+
+    （6）koa2
+        middlewareA before next()
+        middlewareB before next()
+        middlewareC before next()
+        nzq
+        middlewareC after next()
+        middlewareB after next()
+        middlewareA after next()
+
+    （7）koa 是由 Express 原班人马打造的，致力于成为一个更小、更富有表现力、更健壮的 Web 框架。使用 koa 编写 web 应用，通过组合不同的 generator，可以免除重复繁琐的回调函数嵌套，并极大地提升错误处理的效率。koa 不在内核方法中绑定任何中间件，它仅仅提供了一个轻量优雅的函数库，使得编写 Web 应用变得得心应手。
+        koa 是一个比 express 更精简，使用 node 新特性的中间件框架，相比之前 express 就是一个庞大的框架,但是 express 社区强大，该遇到的问题都遇到了，比较好解决。应用丰富，不用自己写。koa 比较灵巧，需要的中间件可以自己写，也不困难，源码易懂。
+
+    （8）启动方式不同，koa采用了new Koa()的方式，而express采用传统的函数形式
+
+
+
+
+218. 你有用到express吗
+
+
+
+
+217. 讲讲JS的闭包 ———— http://caibaojian.com/js-closures-indeep.html
+     （1）涉及概念
+         a. 每个函数都有一个与之对应的执行环境。
+            当函数执行时，会把当前函数的环境押入环境栈中，把当前函数执行完毕，则摧毁这个环境。
+            window 全局对象时栈中对外层的(相对于图片来说，就是最下面的)。
+         b. 每个执行环境有一个与之对应的变量对象。
+            环境中定义的所有变量和函数都保存在这个对象里。
+            对于函数，执行前的初始化阶段叫变量对象，执行中就变成了活动对象。
+         c. 活动对象实际就是变量对象在真正执行时的另一种形式。
+           例子：function fun (a){var n = 12;function toStr(a){return String(a);}}
+           在 fun 函数的环境中，有一个变量对象(压入环境栈之前)，三个变量，首先是arguments，变量n 与 函数 toStr ，压入环境栈之后(在执行阶段)，他们都属于fun的活动对象。 活动对象在最开始时，只包含一个变量，即argumens对象。
+
+         d. 数据格式表达作用域链的结构如下。
+            [{当前环境的变量对象}，{外层变量对象}，{外层的外层的变量对象}, {window全局变量对象}] 每个数组单元就是作用域链的一块，这个块就是我们的变量对象。
+
+     （2）闭包是指有权访问另一个函数作用域中的变量的函数；闭包是依据词法作用域产生的必然结果。通过变相引用函数的活动对象导致其不能被回收，然而形成了依然可以用引用访问其作用域链的结果。
+     （3）根据调用环境产生的环境栈来形成了一个由变量对象组成的作用域链，当一个环境没有被js正常垃圾回收时，我们依然可以通过引用来访问它原始的作用域链。
+
+
+
+
+216. promise的状态有哪些
+    pending（进行中）、fulfilled（已成功）和rejected（已失败）
+
+
+
+
+
+215. ES6中用过什么
+
+
+
+
+214. CSS选择器有哪些，优先级呢？
+    !important > 行内 > id > class > 标签 = 伪类选择器 > * > 继承 > 浏览器
+
+
+
+
+213. CSS中对溢出的处理
+    （1）溢出：设置了固定宽度和高度的盒子，其内容的尺寸，超过了盒子本身的尺寸。由于并没有设置 overflow属性，表示使用其默认值 visible，让溢出的内容可见。此时，溢出的内容就会渲染到盒子的外面。
+
+    （2）解决：
+
+    （3）相关：
+        a. overflow属性的可选值有 visible | hidden | scroll | auto，除了body 和 textarea 的默认值为auto外，其它元素的默认值为visible。
+            可见 - 内容可以在框外呈现。
+            隐藏 - 内容被剪切并且不显示滚动条。
+            滚动 - 内容被剪辑并显示必要的滚动条。
+            自动 - 浏览器决定如何处理内容，它可以因浏览器而异，但通常滚动条会根据需要显示
+        b. overflow属性是overflow-x和overflow-y的缩写。overflow-x属性指定处理水平方向的溢出，而overflow-y指定处理垂直方向的溢出。
+        c. overflow属性仅适用于块，inline-block和table元素。
+
+
+
+
+212. 如何画一个三角形
+   （1） .triangle {
+            width: 0;
+            height: 0;
+            border-width: 50px 50px 0 50px;
+            border-color: red transparent;
+            border-style: solid;
+        }
+
+    （2）气泡框的三角形
+        <div class="test_triangle_border">
+            <a href="#">三角形</a>
+            <div class="popup">
+                <span><em></em></span>纯CSS写带边框的三角形
+            </div>
+        </div>
+        利用span做背景颜色和popup边框颜色一样得三角形，em的背景和popup的背景一样，利用span,em的绝对定位的偏移形成“边框”
+
+
+
+
+211. kill指令了解过吗
