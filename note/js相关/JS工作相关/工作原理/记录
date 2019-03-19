@@ -58,3 +58,11 @@
         新的执行流程是建立在 Ignition（ V8 的解释器）和 TurboFan（ V8 的最新优化编译器）之上的。
         自从 V8 5.9 版本问世以来，由于 V8 团队一直努力跟上新的 JavaScript 语言特性以及这些特性所需要的优化，V8 团队已经不再使用 full-codegen 和 Crankshaft（自 2010 年以来为 V8 技术所服务）。
         这意味着 V8 整体上将有更简单和更易维护的架构。这些改进只是一个开始。 新的Ignition和TurboFan管道为进一步优化铺平了道路，这些优化将在未来几年内提升JavaScript性能并缩小V8在Chrome和Node.js中的占用空间。
+
+
+
+
+** JavaScript如何工作:内存管理+如何处理4个常见的内存泄漏 ———— https://segmentfault.com/a/1190000017392370
+    （1）GC：Garbage Collection
+
+    （2）var a = document.querySelector("#articleId").parentElement.removeChild(document.querySelector("#articleId"))
