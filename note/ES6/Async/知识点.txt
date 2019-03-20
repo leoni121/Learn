@@ -19,6 +19,7 @@
             await db.post(doc);
           });
         }
+
         async function dbFuc(db) {
           let docs = [{}, {}, {}];
           let promises = docs.map((doc) => db.post(doc));
@@ -27,7 +28,7 @@
           console.log(results);
         }
 
-        // 或者使用下面的写法
+        // 或者使用下面的写法（同上一种）
         async function dbFuc(db) {
           let docs = [{}, {}, {}];
           let promises = docs.map((doc) => db.post(doc));
@@ -38,6 +39,16 @@
           }
           console.log(results);
         }
+
+
+        let [foo, bar] = await Promise.all([getFoo(), getBar()]);
+
+
+        let fooPromise = getFoo();
+        let barPromise = getBar();
+        let foo = await fooPromise;
+        let bar = await barPromise;
+
     2.异步
         async function dbFuc(db) {
           let docs = [{}, {}, {}];
@@ -45,6 +56,7 @@
             await db.post(doc);
           }
         }
+
     3.同步， 顺序
         async function logInOrder(urls) {
           // 并发读取远程URL

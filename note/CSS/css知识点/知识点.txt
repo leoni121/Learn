@@ -24,7 +24,7 @@
 
     3.避免css@import
       概述
-        在外部样式表中使用css@import可以在加载网页时增加额外的延迟。
+        在外部样式表中使用css@import会在加载网页时增加额外的延迟。
       细节
           css@import允许样式表导入其他样式表。当从外部样式表中使用css@import时，浏览器无法并行下载样式表，这会给整个页面加载增加额外的往返时间。例如，first.css包含以下内容：
           @import url（“second.css”）。
@@ -41,7 +41,7 @@
     6.javascript 可以控制到 link, 但@import 却无法控制
 
 
-** @supports
+** @supports 检测是否支持某CSS特性
     ———— https://www.css88.com/book/css/rules/@supports.htm
 
 

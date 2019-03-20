@@ -16,6 +16,7 @@
     ctx = canvas.getContext("2d"),
     //后台nigix代理 参见问题2
     src = picurl.replace("//wx.qlogo.cn","//wq.jd.com");
+
   //解决 canvas 跨域 toDataURL不能读取问题 参见问题1
   img.crossOrigin = "Anonymous";
   //图片资源的预加载

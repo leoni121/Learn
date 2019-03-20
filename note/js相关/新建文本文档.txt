@@ -59,6 +59,21 @@
     console.log(F.b); //funcion(){}
     F为函数，可以来源于Function、Object可以访问Function和Obejct的原型 ；f是变量，祖先为Object，所以只能访问Object的原型。
 
-	
+
 ** window.location.href 传递参数encodeURIComponent，编码后，在ie中 使用ajax请求（decodeURIComponent）发生乱码
 	解决：encodeURI(decodeURIComponent
+
+
+** js字符与ASCII码互转的方法
+    将字母转为ascii嘛的方法：
+
+    var str = "A";
+    str.charCodeAt();  // 65
+    var str1 = 'a';
+    str1.charCodeAt();  // 97
+
+    将ascii码转为对应字母的方法：
+    var num = 97;
+    var num1 = 100;
+    String.fromCharCode(num1);  // 'd'
+

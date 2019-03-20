@@ -1,43 +1,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Full Permutation(Recursive Swap) - Mengliao Software</title>
+    <title>Full Permutation(Recursive Link) - Mengliao Software</title>
 </head>
 <body>
-<p>Full Permutation(Recursive Swap)<br />
+<p>Full Permutation(Recursive Link)<br />
     Mengliao Software Studio - Bosun Network Co., Ltd.<br />
-    2011.05.24</p>
+    2012.03.29</p>
 <script type="text/javascript">
   /*
-  全排列（递归交换）算法
-  1、将第一个位置分别放置各个不同的元素；
-  2、对剩余的位置进行全排列（递归）；
-  3、递归出口为只对一个元素进行全排列。
+  全排列（递归链接）算法
+  1、设定源数组为输入数组，结果数组存放排列结果（初始化为空数组）；
+  2、逐一将源数组的每个元素链接到结果数组中（生成新数组对象）；
+  3、从原数组中删除被链接的元素（生成新数组对象）；
+  4、将新的源数组和结果数组作为参数递归调用步骤2、3，直到源数组为空，则输出一个排列。
   */
-  function swap(arr,i,j) {
-    if(i!=j) {
-      var temp=arr[i];
-      arr[i]=arr[j];
-      arr[j]=temp;
-    }
-  }
-  var count=0;
+  let count=0;
   function show(arr) {
     document.write("P<sub>"+ ++count+"</sub>: "+arr+"<br />");
   }
   function perm(arr) {
-    (function fn(n) { //为第n个位置选择元素
-      for(var i=n;i<arr.length;i++) {
-        swap(arr,i,n);
-        if(n+1<arr.length-1) //判断数组中剩余的待全排列的元素是否大于1个
-          fn(n+1); //从第n+1个下标进行全排列
-        else
-          show(arr); //显示一组结果
-        swap(arr,i,n);
+    (function fn(source, result) {
+      if (source.length === 0) {
+        show(result);
       }
-    })(0);
+      else {
+        for (let i = 0; i < source.length; i++) {
+          // 这里都不会改变source, 和 result只是传入的变化
+          fn(source.slice(0, i).concat(source.slice(i + 1)), result.concat(source[i]));
+        }
+      }
+    })(arr, []);
   }
-  perm(["e1","e2","e3","e4"]);
+  /* ["e2", "e3", "e4"]  ["e1"]*/
+  /* ["e3", "e4"]  ["e1", "e2"]*/
+  /* ["e4"]  ["e1", "e2", "e3"]*/
+  /* []  ["e1", "e2", "e3", "e4"]*/
+  perm(["e1", "e2", "e3", "e4"]);
 </script>
 </body>
 </html>

@@ -71,7 +71,7 @@ class MyPromise {
 
   // 添加reject时执行的函数, 这里传入的值可能是Promise
   _reject (err) {
-    // 依次执行失败队列中的函数，并清空队列，发生错误了的话支持同步得Promise了
+    // 状态改变之后 的 错误不能被catch捕获
     if (this._status !== PENDING) return;
 
     // 为了支持同步的Promise，这里采用异步调用
@@ -105,6 +105,7 @@ class MyPromise {
               // res.then(value => {
               //   resolveNext(value);
               // })
+              // resolveNext 获取到的值 会返回给当前Promise的then
               res.then(resolveNext, rejectNext)
             } else {
               // //否则会将返回结果直接作为参数，传入下一个then的回调函数，并立即执行下一个then的回调函数
