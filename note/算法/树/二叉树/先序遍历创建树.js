@@ -13,7 +13,7 @@ class Tree
     this.root = {};
 
     function _create(arr, tree) {
-      temp = arr.pop();
+      temp = arr.shift();
       if (arr.length && temp !== 0) {
         tree.data = temp;
         tree.left = {};
@@ -58,5 +58,5 @@ class Tree
 }
 
 let tree1 = new Tree();
-tree1.create1(['A', 'B', 'D', 'H', 0, 'K', 0, 0, 0, 'E', 0, 0, 'C', 'F', 'I', 0, 0, 0, 'G', 0, 'J', 0, 0])
+tree1.create(['A', 'B', 'D', 'H', 0, 'K', 0, 0, 0, 'E', 0, 0, 'C', 'F', 'I', 0, 0, 0, 'G', 0, 'J', 0, 0])
 console.log(JSON.stringify(tree1.root, null, 4))

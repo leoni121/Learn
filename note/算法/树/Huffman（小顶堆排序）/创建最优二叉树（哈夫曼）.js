@@ -48,12 +48,14 @@ class heapMin {
 
   push (node) {
     this.set.push(node);
+    // Math.floor(this.set.length / 2) 是新push的节点的父节点
     for (let i = Math.floor(this.set.length / 2); i >= 0; i--) {
       this.adjust(i)
     }
   }
 
   pop () {
+    // 移出顶点
     let node = this.set.shift();
     this.adjust(0);
     return node;
@@ -78,7 +80,7 @@ class HuffmanCode {
   /**
    * @author Nzq
    * @date 2019/3/10
-   * @Description: 返回值 返回一个字符串出现频次的最小堆,统计字符出现的频次，生成字符频次最小堆
+   * @Description: 返回值 返回一个字符串出现频次的最小堆,统计字符出现的频次，生成字符频次小顶堆
    * @Param: str 要进行编码的字符串
    */
   calcHeap (str) {
@@ -126,7 +128,7 @@ class HuffmanCode {
    * @Param: codeTable：编码表
    * @Param: code：编码字符串
    */
-  traverseTree (HuffmanTreeNode, codeTable = this.codeTable, code) {
+  traverseTree (HuffmanTreeNode = this.huffmanTree, codeTable = this.codeTable, code = '') {
     // huffman树一定是有两个子节点的
     if (HuffmanTreeNode.left !== null && HuffmanTreeNode.right != null) {
       this.traverseTree(HuffmanTreeNode.left, codeTable, code+'0')
@@ -147,7 +149,7 @@ class HuffmanCode {
   encode (str) {
     let res = [];
     this.createHuffmanTree(str); // 创建
-    this.traverseTree(this.huffmanTree, '') // code，编码字符串没有
+    this.traverseTree() // code，编码字符串没有
 
     // 遍历把数组（str）中对应字符串（索引）的编码(在编码表中)加入res
     for (let i = str.length - 1; i >=0; i--) {

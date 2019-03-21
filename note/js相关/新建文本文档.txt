@@ -77,3 +77,6 @@
     var num1 = 100;
     String.fromCharCode(num1);  // 'd'
 
+
+
+** str.replace 不会改变原来的字符串

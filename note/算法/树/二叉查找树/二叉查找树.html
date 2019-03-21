@@ -87,11 +87,13 @@
                     // 返回为空 树为空
                     return null;
                 }
+
                 // 左节点为空
                 if (node.left === null){
                     // 删除的数据等于根节点的数据，且根节点左节点为空，删除根节点，返回右节点
                     return node.right
                 }
+
                 // 右节点为空
                 if (node.right === null){
                     return node.left;
@@ -99,41 +101,46 @@
 
                 // 思路：子节点都不为空的处理函数,找到删除节点的中序遍历的直接前驱（或直接后驱）结点，用该结点来替换要删除的节点，再删除该节点
                 // 得到直接的后驱节点（节点的右子树最左边的节点，或最右边的节点）
-                let getAftNode = function (node) {
-                    if (node.left === null && node.right === null) {
+                /*let getAftNode = function (node) {
+                    /!*if (node.left === null && node.right === null) {
                         return node;
-                    }
+                    }*!/
                     if (node.left !== null) {
                         return getAftNode(node.left);
+                    } else {
+                      return node
                     }
-                    if (node.right !== null) {
-                        return node.right;
-                    }
+
+                    // if (node.right !== null) {
+                    //     return node;
+                    // }
                 }
                 //相等，且左右节点都不为空
                 let tempNode = getAftNode(node.right);
                 // 要删除的节点的值等于 其直接后继的值
                 node.data = tempNode.data;
                 // 删除 要删除的节点 的直接后继
-                node.right = this.removeNodeByData(node.right, tempNode.data);
+                node.right = this.removeNodeByData(node.right, tempNode.data);*/
 
-               /* {
+                {
                     // 得到直接的前驱节点（节点的左子树最右边的节点，或最左边的节点）
                     let getPreNode = function (node) {
-                        if (node.left === null && node.right === null) {
+                        /*if (node.left === null && node.right === null) {
                             return node
-                        }
+                        }*/
                         if (node.right !== null) {
                             return getPreNode(node.right)
+                        }else {
+                          return node
                         }
-                        if (node.left !== null) {
+                      /*  if (node.left !== null) {
                             return node.left
-                        }
+                        }*/
                     }
                     let tempNode = getPreNode(node.left);
                     node.data = tempNode.data;
                     node.left = this.removeNodeByData(node.left, tempNode.data);
-                }*/
+                }
 
                 return node;
             }
@@ -222,6 +229,7 @@
             })(node)
             return preTravelArr;
         }
+
         // 中序遍历 -- 左、根、右
         midTravel(node){
             let midTravelArr = [];
@@ -234,6 +242,7 @@
             })(node)
             return midTravelArr;
         }
+
         // 后序遍历 -- 左、右、根
         aftTravel(node){
             let aftTravelArr = [];
@@ -249,8 +258,14 @@
     }
 
     let BSTree = new BinarySearchTree();
-    BSTree.create([20,58,47,35,29,37,36,51,49,48,50,56,88,73,99,93]);
+    BSTree.create([13, 11, 10,9, 14, 15, 13.6, 13.2, 13.8, 13.3]);
 
+/*               13
+            11              14
+        10           13.6           15
+    9           13.2        13.8
+                   13.3*/
+    window.tree = BSTree;
     console.log(BSTree.root);
 </script>
 </body>

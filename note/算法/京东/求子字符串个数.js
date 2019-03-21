@@ -20,7 +20,14 @@ function getNumOfSubStr(str) {
   return {count, temobj}
 
 }
-
+// 从 0 一直累加到 total
+/*(function count (total = 10,num2 = total) {
+  if(total===0) {
+    return num2;
+  }
+  --total
+  return count(total, num2 + total)
+})(10)*/
 
 // console.log(getNumOfSubStr("UP! UP! JD"))
 console.log(getNumOfSubStr("UP！UP！JD"))

@@ -40,40 +40,38 @@
 </head>
 <body>
 <div id="wrap">
-    <span>&lt;</span>
+    <span class="left">&lt;<</span>
     <ul>
       <!--  <li>1</li>
-        <li class="omit" data-position="left">...</li>
+        <li class="omit omit-left">...</li>
         <li>3</li>
         <li class="curr">4</li>
         <li>5</li>
-        <li class="omit" data-position="right">...</li>
+        <li class="omit omit-right">...</li>
         <li>10</li>-->
     </ul>
-    <span>&gt;</span>
+    <span class="right">&gt;></span>
 </div>
  <script>
  //https://www.cnblogs.com/linjiqin/p/3848667.html
 
     // 分页函数             x          100         7
-    function get_hs_page (cur_page, total_page, range) {
+    function getHsPage (curPage, total_page, range) {
+      // 传入的curPage 不是数字会出错
       let result = [];
       for (let i = 1; i <= total_page; i++) {
-        // why i===2? : 因为 i=1 的情况一直要显示
-        // 当cur_page 超出范围时得到最小的页码 并添加"..."
-        // 某种情况当cur_page=(range-1)/2+1时刚好显示完成
-        if (i ===2 && cur_page - (range-1)/2 > 1) {
-          i = cur_page - (range-1)/2 ;
+        if (i ===2 && curPage - (range-1)/2 > 1) {
+          i = curPage - (range-1)/2 ;
           // 此时是左边最边缘的地方， 后经过i++ 此地方不显示
           result.push('...left');
-        // 当cur_page 超出范围时得到最小的页码 并添加"..."
-        }else if (i === cur_page + (range-1)/2 && cur_page + (range-1)/2 < total_page) {
-        // i === cur_page + (range-1)/2 该判断是当右边最边缘的地方经过 下列操作不显示
+        // 当curPage 超出范围时得到最小的页码 并添加"..."
+        }else if (i === curPage + (range-1)/2 && curPage + (range-1)/2 < total_page) {
+        // i === curPage + (range-1)/2 该判断是当右边最边缘的地方经过 下列操作不显示
           result.push('...right');
           i = total_page - 1;
           // 用于显示最后一页
         }else  {
-          if ( i === cur_page) {
+          if ( i === curPage) {
             result.push(i+'curr');
           }else {
             result.push(i)
@@ -82,62 +80,88 @@
       }
       return result;
     }
-    // 测试 -- console.log(get_hs_page(4, 10, 5));
-
-    // 当省略号hover时改变
-    function change_omit_hover () {
-      let $omits = document.querySelectorAll('.omit');
-      for (let i = 0; i < $omits.length; i++) {
-        $omits[i].onmouseover = function () {
-          this.innerHTML =  this.dataset.position === 'left'?  '&lt;&lt;':'&gt;&gt;'
-        }
-        $omits[i].onmouseout = function () {
-          this.innerHTML =  '...';
-        }
-      }
-    }
 
     // 生成相应的节点函数
     function createLi (page_array) {
       // 得到ul
-      let $ul = document.querySelector('#wrap>ul');
+      let $ul = document.querySelector('#wrap>ul')
+        ,htmlStr = ''
+      $ul.innerHTML = '';
       // 遍历并创建
       for (let i = 0; i < page_array.length; i++) {
-        // 所有li的 模板
-        let $li = document.createElement('li');
-        if (page_array[i] === '...left' || page_array[i] === '...right') {
-          $li.innerHTML = '...';
-          $li.className = 'omit';
-          if (page_array[i] === '...left') {
-            $li.setAttribute('data-position', 'left');
-          }else if(page_array[i] === '...right') {
-            $li.setAttribute('data-position', 'right');
-          }
+        if (page_array[i] === '...left') {
+          htmlStr += `<li class="omit omit-left">...</li>`
+        }else if(page_array[i] === '...right') {
+          htmlStr += `<li class="omit omit-right">...</li>`
         } else if (page_array[i].toString().indexOf('curr')!==-1) {
-          $li.innerHTML = page_array[i].replace('curr','');
-          $li.className = 'curr';
+          htmlStr += `<li class="curr">${page_array[i].replace('curr','')}</li>`
         } else {
-          $li.innerHTML = page_array[i];
+          htmlStr += `<li data-curpage="${page_array[i]}">${page_array[i]}</li>`
         }
-        $ul.appendChild($li);
       }
+      $ul.innerHTML = htmlStr;
     }
 
     // 当window click时加
-    function by_click () {
+    function create () {
       // 当前页面
-      let cur_page = 1;
-      createLi(get_hs_page(cur_page, 100, 7));
-      change_omit_hover();
+      const range = 7;
+      const total = 100;
 
-      window.onclick = function () {
-        document.querySelector('#wrap>ul').innerHTML = '';
-        cur_page ++;
-        createLi(get_hs_page(cur_page, 100, 7));
+      let curPage = 1
+        , $wrap = document.querySelector("#wrap");
+
+      createLi(getHsPage(curPage, total, range));
+
+      $wrap.addEventListener("click", clickHandle);
+      $wrap.addEventListener("mouseover", mouseoverHandle);
+      $wrap.addEventListener("mouseout", mouseoutHandle);
+
+      function clickHandle (event) {
+        let target = event.target
+          , tagName = target.tagName
+          , classList = target.classList;
+
+        if (tagName.toUpperCase() === 'SPAN') {
+          if (classList.contains('right')) {
+            curPage = total;
+            createLi(getHsPage(curPage, total, range));
+          } else {
+            curPage = 1;
+            createLi(getHsPage(curPage, total, range));
+          }
+
+        } else if (tagName.toUpperCase() === "LI") {
+          if (classList.contains("omit-left")) {
+            createLi(getHsPage((curPage>0 ? --curPage:0), total, range));
+          } else if (classList.contains("omit-right")) {
+            createLi(getHsPage((curPage<total?++curPage:total), total, range));
+          } else if (!classList.contains('curr')) {
+            curPage = target.dataset.curpage
+            createLi(getHsPage(+curPage, total, range));
+          }
+        }
+      }
+
+      function mouseoutHandle (event) {
+        let target = event.target
+          , classList = target.classList;
+        if (target.tagName.toUpperCase() === "LI" && classList.contains('omit')) {
+          target.innerHTML = "..."
+        }
+      }
+
+      function mouseoverHandle (event) {
+        let target = event.target
+          , classList = target.classList;
+        if (target.tagName.toUpperCase() === "LI" && classList.contains('omit')) {
+          target.innerHTML = classList.contains('omit-left') ? '&lt;&lt;' : '&gt;&gt;'
+        }
       }
     }
 
-    by_click();
+    create();
+
   </script>
 </body>
 </html>
