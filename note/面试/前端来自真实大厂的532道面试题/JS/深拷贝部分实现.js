@@ -31,32 +31,32 @@ function getType(obj) {
 function deepClone(obj) {
   let visitedQueue = [];
 
-  function _deepClone(obj) {
-    let resObj;
-    let type = getType(obj);
+  return (
+    function _deepClone(obj) {
+      let resObj;
+      let type = getType(obj);
 
-    if (type === 'object') {
-      resObj = {};
-    } else if (type === 'array') {
-      resObj = [];
-    } else {
-      return obj
-    }
-
-    for(let key in obj){
-      let index = visitedQueue.indexOf(obj[key]);
-      if (index >= 0) { // 检查是否已经遍历
-        resObj[key] = obj[key];
+      if (type === 'object') {
+        resObj = {};
+      } else if (type === 'array') {
+        resObj = [];
       } else {
-        visitedQueue.push(obj[key]);
-        resObj[key] = _deepClone(obj[key]);
+        return obj
       }
+
+      for(let key in obj){
+        let index = visitedQueue.indexOf(obj[key]);
+        if (index >= 0) { // 检查是否已经遍历
+          resObj[key] = obj[key];
+        } else {
+          visitedQueue.push(obj[key]);
+          resObj[key] = _deepClone(obj[key]);
+        }
+      }
+
+      return resObj;
     }
-
-    return resObj;
-  }
-
-  return _deepClone(obj)
+  )(obj)
 }
 
 /**
@@ -71,14 +71,14 @@ function deepClone1 (nzq) {
   let copyOriginQueue = [resObj]; // 这个和上一个保持同步（不然会copy出错）
 
   //以下两个队列用来保存复制过程中访问过的对象，以此来避免对象环的问题（对象的某个属性值是对象本身）
-  let visitQueue = []; // 记录已经遍历了的对象
+  let visitedQueue = []; // 记录已经遍历了的对象
 
   while (originQueue.length) {
     // _obj 和 _resObj 是同步的，相对应
     let _obj = originQueue.shift();
     let _resObj = copyOriginQueue.shift();
 
-    visitQueue.push(_obj); // 记录
+    visitedQueue.push(_obj); // 记录
 
     for (let key in _obj) {
       let _value = _obj[key];
@@ -87,10 +87,10 @@ function deepClone1 (nzq) {
         _resObj[key] = _value;
       } else { // 当前是Object
 
-        let index = visitQueue.indexOf(_value); // 查看是否已经访问过
+        let index = visitedQueue.indexOf(_value); // 查看是否已经访问过
         if (index >= 0) { // 记录中有
 
-          _resObj[key] = visitQueue[index];
+          _resObj[key] = visitedQueue[index];
         } else { // 记录中没有
 
           // 当前_value 是对象将其放入originQueue 中

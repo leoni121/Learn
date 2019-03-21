@@ -33,8 +33,10 @@ class Watcher {
     this.callback = callback;
     this.vm = vm;
     this.exp = exp;
-    this.value = this.get(); // 初始化时执行get，赋予初始值
+    this.value = this.get(); // 初始化时执行get，赋予初始值，缓存可以和新的比较
   }
+
+  // 这个方法由订阅器触发（当数据改变的时候，会触发dep.notify，dep.notify又会触发（触发已经订阅的watcher）该方法）
   update() {
     this.run()
   }

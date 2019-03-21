@@ -397,8 +397,181 @@
 
 
 
-198. 平衡二叉树
+198. 平衡二叉树（见 文件夹 算法）
 
+
+
+
+197. csrf攻击原理以及防御手段
+    CSRF/XSRF （Cross-site request forgery）：跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，通俗说：XSS有脚本的参与，黑客构造好各种各样功能的脚本让你来触发从而利用你的信息。而CSRF则通过伪装成受信任用户的请求即借你的手触发某些操作。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。通过 XSS 来实现 CSRF 易如反掌，黑客可以通过 XSS 或链接欺骗等途径，让用户在登陆过的浏览器端发起用户所不知道的请求。对于设计不佳的网站，一条正常的链接都能造成 CSRF。
+        攻击步骤：
+            要完成一次CSRF攻击，受害者必须依次完成两个步骤：
+                1.登录受信任网站A，并在本地生成Cookie。
+                2.在不登出A的情况下，访问危险网站B。
+        注意：
+            CSRF被伪造的请求可以是任何来源，而非一定是站内。伪造用户的正常操作，最好的方法是通过 XSS 或链接欺骗等途径，让用户在本机（即拥有身份 cookie 的浏览器端）发起用户所不知道的请求。
+
+        解决：———— https://blog.csdn.net/xiaoxinshuaiga/article/details/80766369
+            （1）.改良站内 API 的设计
+            （2）.添加 token 并验证
+            （3）.防止XSS注入
+            （4）.iframe、ajax（这个不能跨域，得先 XSS）、Flash 内部发起请求（总是个大隐患）
+            （5）.在 HTTP 头中自定义属性并验证
+            （6）. HTTP Referer,在 HTTP 头中有一个字段叫 Referer，它记录了该 HTTP 请求的来源地址。在通常情况下，访问一个安全受限页面的请求来自于同一个网站
+
+
+
+
+
+196. 前端性能优化问题 （见 文件夹前端性能优化）
+
+
+
+
+195. 跨域如何解决
+（0） 跨域是指从一个域名的网页去请求另一个域名的资源。比如从www.baidu.com 页面去请求 www.google.com 的资源。但是一般情况下不能这么做，它是由浏览器的同源策略造成的，是浏览器对JavaScript施加的安全限制。跨域的严格一点的定义是：只要 协议，域名，端口有任何一个的不同，就被当作是跨域
+(1). js实现 ———— https://www.cnblogs.com/2050/p/3191744.html
+   jsonp, script标签
+   document.domain设置成自身或更高一级的父域，且主域必须相同，使得s完全控制这个iframe
+   postMessage
+
+(2) nginx
+
+(3). CORS原理
+   CORS是W3c工作草案，它定义了在跨域访问资源时浏览器和服务器之间如何通信。CORS背后的基本思想是使用自定义的HTTP头部允许浏览器和服务器相互了解对方，从而决定请求或响应成功与否。W3C CORS 工作草案
+   整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。更加强大支持各种HTTP Method，缺点是兼容性不如JSONP。只需要在服务器端做一些小小的改造即可：
+   缺点：CORS要求浏览器(>IE10)和服务器的同时支持，是跨域的根本解决方法，由浏览器自动完成。
+
+(4). WebSocket
+
+
+
+
+194. 如何在浏览器端和原生端的代码复用，讲到weex又简单讲了它的原理
+
+
+
+
+193. vuex的状态管理的原理是什么（见 文件夹 vue 中的 原理部分）
+
+
+
+
+192. vue的生命周期
+    beforeCreate   组件实例刚被创建，组件属性计算之前（如，data属性）
+    created        组件实例创建完成，属性已绑定，但DOM还未生成，$el属性还不存在，在这结束loading，还做一些初始化，实现函数自执行，在这发起后端请求，拿回数据，配合路由钩子做一些事情
+    beforeMount    模板编译/挂载之前，完成了 el 和 data 初始化
+    mounted        模板编译/挂载之后
+    beforeUpdate   组件更新（如，data里的值被修改）之前
+    updated        组件更新之后
+    activated      组件被激活时调用，keep-alive组件激活时调用
+    deactivated    组件被移除时调用
+    beforeDestory  组件销毁前调用，提示是否destory
+    destoryed      组件销毁后调用，提示
+
+
+
+
+
+191. 一个升序数组，求两个元素的和为一个指定数 （求出所有的 “两个数”）
+    function GetNumbersWithSumInArray (arr, count) {
+      if (!arr.length) {
+        return false;
+      }
+
+      let len = arr.length
+        ,minIdx = 0
+        ,maxIdx = len - 1
+        ,sum = 0
+        ,result = [];
+
+      while (minIdx < maxIdx) {
+        sum = arr[minIdx] + arr[maxIdx];
+        if (sum < count) {
+          minIdx++;
+        } else if(sum > count) {
+          maxIdx--;
+        } else {
+          result.push({
+            [minIdx]: arr[minIdx],
+            [maxIdx]: arr[maxIdx],
+          });
+
+          if (arr[minIdx] === arr[minIdx + 1]) {
+            minIdx++;
+            result.push({
+              [minIdx]: arr[minIdx],
+              [maxIdx]: arr[maxIdx],
+            });
+            minIdx++;
+          } else if (arr[maxIdx] === arr[maxIdx + 1]) {
+            maxIdx--;
+            result.push({
+              [minIdx]: arr[minIdx],
+              [maxIdx]: arr[maxIdx],
+            });
+            maxIdx--;
+          } else {
+            minIdx++;
+            maxIdx--;
+          }
+
+        }
+      }
+      return result
+    }
+
+
+
+
+
+190. 计算50个人至少有2个生日相同的概率
+    function getRate(n) {
+      if (n > 365) {
+        return 1
+      }
+
+      let rate = 1;
+      for (let i = 0; i < n; i++) {
+        rate *= (365 - i)/365
+      }
+      return 1 - rate
+    }
+
+
+
+
+
+189. 如果弹出的菜单位置过于贴近边框，如何调整这个元素的位置
+
+
+
+
+188. 深拷贝（参考 当前文件下的 JS 文件下的“深拷贝部分实现.js”）
+（0）Object.assign
+    {...{}}
+
+（1） JSON
+    限制
+        var as = {
+            a: function() {
+
+            },
+            [Symbol()]:Symbol("nzq"),
+            c: "",
+            d: undefined
+
+        }
+        =》
+        JSON.stringify(as)
+        =》
+       "{"c":""}"
+
+
+
+
+
+187. webpack项目太大了怎么办
 
 
 

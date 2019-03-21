@@ -1,0 +1,91 @@
+** https://www.jianshu.com/p/a64735eb0e2b
+** 张云龙 ———— https://www.zhihu.com/question/20790576/answer/32602154
+
+1. 去除不必要的插件
+
+
+2. 提取第三方库——CommonsChunkPlugin（如下）
+    {
+      entry: {
+        bundle: 'app'
+        vendor: ['react']
+      }
+
+      plugins: {
+        new webpack.optimize.CommonsChunkPlugin('vendor',  'vendor.js')
+      }
+    }
+    webpack 每次打包实际还是需要去处理这些第三方库，只是打包完之后，能把第三方库和我们自己的代码分开。
+
+
+3. 提取第三方库——DLLPlugin（参考 https://www.jianshu.com/p/a5b3c2284bb6）
+    （1）DLLPlugin 是把第三方代码完全分离开，即每次只打包项目自身的代码。
+
+    （2）额外新建一个配置文件，webpack.dll.config.js（如下）
+        const webpack = require('webpack')
+        const library = '[name]_lib'
+        const path = require('path')
+        module.exports = {
+          entry: {
+            vendors: ['react', 'lodash']
+          },
+          output: {
+            filename: '[name].dll.js',
+            path: 'dist/',
+            library
+          },
+
+          plugins: [
+            new webpack.DllPlugin({
+              path: path.join(__dirname, 'dist/[name]-manifest.json'),
+              // This must match the output.library option above
+              name: library
+            }),
+          ],
+        }
+
+    （3）webpack.config.js
+        plugins: [
+            new webpack.DllReferencePlugin({
+              context: __dirname,
+              // manifest: require('./dist/vendors-manifest.json') 这里的路径要和 webpack.dll.config.js 里面的对应。
+              manifest: require('./dist/vendors-manifest.json')
+            })
+          ]
+
+    （4）
+        然后运行
+        $ webpack --config webpack.dll.config.js
+        $ webpack --config webpack.config.js
+
+        然后你的 html 文件像下面这样引用
+        <script src="/dist/vendors.dll.js"></script>
+        <script src="/dist/app.bundle.js"></script>
+
+
+4. 引用外部文件的方式引入第三方库（如下）（externals参考 https://segmentfault.com/a/1190000012113011）
+    {
+      externals: {
+         'react': 'React'
+      }
+    }
+    externals 对象的 key 是给 require 时用的，比如 require('react')，对象的 value 表示的是如何在 global 中访问到该对象，这里是 window.React
+
+
+5. 代码压缩
+     UglifyJsPlugin(编译的速度会明显变慢，所以一般只在生产环境启用), gzip
+
+
+6. 代码分割
+
+
+7. 设置缓存
+    开始这个小节之前，可以先看下大神的一篇文章：大公司里怎样开发和部署前端代码（https://github.com/fouber/blog/issues/6）。
+    对于静态文件，第一次获取之后，文件内容没改变的话，浏览器直接读取缓存文件即可。那如果缓存设置过长，文件要更新怎么办呢？嗯，以文件内容的 MD5 作为文件名就是一个不错的解决方案。来看下用 webpack 应该怎样实现
+    output: {
+        path: xxx,
+        publicPath: yyy,
+        filename: '[name]-[chunkhash:6].js'
+    }
+
+

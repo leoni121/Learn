@@ -15,14 +15,18 @@ class SelfVue {
     this.data = data;
     this.methods = methods;
 
+    // 给相应的data数据设置代理
     Object.keys(this.data).forEach((key) => {
       self.proxyKeys(key);
     })
 
     observe(this.data);
+
     new Compile(el, this);
+
     // 通vue mounted 把mounted 绑定this
     options.mounted.call(this);
+
     return this;
   }
 

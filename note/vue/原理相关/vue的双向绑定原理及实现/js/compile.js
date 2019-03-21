@@ -12,7 +12,6 @@ class Compile {
       this.fragment = this.nodeToFragment(this.el);
       this.compileElement(this.fragment);
 
-      let parent = this.el.parentElement;
       this.el.appendChild(this.fragment);
 
     } else {
@@ -23,25 +22,7 @@ class Compile {
   /**
    * @author NZQ
    * @date 2018/12/24
-   * @Description : 建一个fragment片段，将需要解析的dom节点存入fragment片段
-   */
-  nodeToFragment(el) {
-    let fragment = document.createDocumentFragment()
-      ,child = el.firstChild;
-   /* while(child) {
-      // 将Dom 元素移到fragment中，此后firstChild 是下一个节点
-      fragment.appendChild(child);
-      child = el.firstChild;
-    }*/
-   fragment.appendChild(el);
-    // 此时el 为空
-    return fragment;
-  }
-
-  /**
-   * @author NZQ
-   * @date 2018/12/24
-   * @Description : 遍历el,并编译里面相应的指令
+   * @Description : 遍历el,并编译里面相应的指令，主要函数
    */
   compileElement(el) {
     let childNodes = el.childNodes
@@ -65,13 +46,31 @@ class Compile {
   /**
    * @author NZQ
    * @date 2018/12/24
+   * @Description : 建一个fragment片段，将需要解析的dom节点存入fragment片段
+   */
+  nodeToFragment(el) {
+    let fragment = document.createDocumentFragment()
+      ,child = el.firstChild;
+    while(child) {
+      // 将Dom 元素移到fragment中，此后firstChild 是下一个节点
+      fragment.appendChild(child);
+      child = el.firstChild;
+    }
+/*   fragment.appendChild(el);*/
+    // 此时el 为空
+    return fragment;
+  }
+
+  /**
+   * @author NZQ
+   * @date 2018/12/24
    * @Description : 对“{{}}”，做相应的操作
    */
   compileText(node, exp) {
     let self = this
-      ,initText = this.vm[exp]; // 初始化Observer get
+      ,initText = this.vm[exp]; // 初始化Observer get，但是此时订阅者的Dep.target 是空。不会添加订阅者进去
     self.updateText(node, initText); // 讲初始化的数据初始化到视图中
-    new Watcher(this.vm, exp, (value) => {
+    new Watcher(this.vm, exp, (value) => { // 初始化的时候会设置一个Dep.target,并且触发Observer get
       self.updateText(node, value);
     })
   }

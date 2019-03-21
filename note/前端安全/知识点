@@ -12,6 +12,7 @@
         CSRF被伪造的请求可以是任何来源，而非一定是站内。伪造用户的正常操作，最好的方法是通过 XSS 或链接欺骗等途径，让用户在本机（即拥有身份 cookie 的浏览器端）发起用户所不知道的请求。
 
     解决：———— https://blog.csdn.net/xiaoxinshuaiga/article/details/80766369
+        ———— （最全）https://www.cnblogs.com/lovesong/p/5233195.html
         （1）.改良站内 API 的设计
         （2）.添加 token 并验证
         （3）.防止XSS注入
