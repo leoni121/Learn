@@ -1,0 +1,24 @@
+**
+    （1）一个页面所需要访问的域名数量为n，那么就需要n次DNS查找，而DNS查找通常是blocking call，就是说在得到结果之后才能继续，所以越多的DNS查找，反应速度就越慢；
+
+
+    （2）浏览器并发请求数 ———— https://www.jianshu.com/p/8a86f414a69e
+        同一时间针对同一域名下的请求有一定数量限制。超过限制数目的请求会被阻止。浏览器的并发数目一般限制在10以内,HTTP1.1 比 HTTP1.0 并发链接量高
+
+
+    （3）网页效率之DNS查找和并行下载 ———— https://blog.csdn.net/21aspnet/article/details/6570449
+        English：Reducing the number of unique hostnames has the potential to reduce the amount of parallel downloading that takes place in the page. Avoiding DNS lookups cuts response times, but reducing parallel downloads may increase response times. My guideline is to split these components across at least two but no more than four hostnames. This results in a good compromise between reducing DNS lookups and allowing a high degree of parallel downloads.
+        中文：减少唯一主机名的数量有可能减少页面中并行下载的数量。避免DNS查找会缩短响应时间，但减少并行下载可能会增加响应时间。我的指导方针是将这些组件拆分为至少两个但不超过四个主机名。这在减少DNS查找和允许高度并行下载之间产生了很好的折衷。
+
+    （4）并行下载：
+            连接数 = 不同域名的主机数（最好至少两个但不超过四个主机名） * 服务器允许的最大连接数（或浏览器单个域名的最大请求数） < 浏览器允许的最大连接数（不同域）
+            下载数 = 连接数 * 每个连接内部的流水线请求数（前提是服务器支持persistent connection（比如在Apache设置KeepAlive为On））
+
+        a. 并行下载(parallel downloading)由两个因素决定：
+            到服务器的连接数量，以及每个连接内部的流水线请求数量。
+        b. 服务器的连接数量由两个因素决定：
+            页面所需访问的域名数量，和浏览器单个域名允许的最多连接数——同一时间针对同一域名下的请求有一定数量限制。超过限制数目的请求会被阻止，一般不超过10,，参考上面第（2）条
+        c. 浏览器所允许的最多连接数:
+            还由浏览器所允许最多连接数(network.http.max-connections，缺省为24)，和每个服务器所允许的最大连接数(network.http.max-connections-per-server，缺省为8)决定。如果max-connection-per-server是m，那么一个需要访问n个不同域名的主机的页面，最多可以有n*m个连接 － 前提是n*m小于max-connections的值；
+        d. 每个连接内部的流水线请求(pipelined requests)的数量也是浏览器的参数(Firefox上由network.http.pipelining来设置，缺省为4)，前提是服务器支持persistent connection（比如在Apache设置KeepAlive为On）。之前的例子就不需要那么多的连接了（对服务器和浏览器来说，一个连接里多个流水线请求能够比多个并行连接更好些），假设pipelining的值为p，那么就可以只使用n*m/p个连接了。
+
