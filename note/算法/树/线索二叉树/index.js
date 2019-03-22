@@ -6,9 +6,13 @@
  * @Param:  rTag  rtag为0时，指向右孩子，为1时指向后继
  * @Return:
  */
+
+
+const THREAD = 1;
+const LINK = 0;
   // 单个节点对象
 class Node {
-  constructor (data, lChild = null, rChild = null, lTag = 0, rTag = 0) {
+  constructor (data, lChild = null, rChild = null, lTag = LINK, rTag = LINK) {
     this.data = data;
     this.lChild = lChild;
     this.rChild = rChild;
@@ -72,9 +76,8 @@ class BinarySearchTree {
 
   // 中序遍历建立线索二叉树
   cenThreading() {
-    const THREAD = 1;
     let pre = null;
-
+    let
     (function _cenThreading(tree) {
       if (tree) {
         _cenThreading(tree.lChild);
@@ -83,14 +86,37 @@ class BinarySearchTree {
           tree.lChild = pre;
         }
         // pre 是先前的，此时tree是pre的后继
-        if(pre && !pre.rchild){ // 前驱结点的右孩子为空时，指向当前节点（相对于pre是，指向后继节点）
+        if(pre && !pre.rChild){ // 前驱结点的右孩子为空时，指向当前节点（相对于pre是，指向后继节点）
           pre.rTag = THREAD;
-          pre.rchild = tree;
+          pre.rChild = tree;
         }
         pre = tree;
         _cenThreading(tree.rChild);//右子树线索化
       }
-    })(this.root)
+    })(this.root);
+  }
+
+  // 这个没有添加头结点
+  //T指向头结点，头结点的lchild链域指针指向二叉树的根结点
+  //中序遍历打印二叉线索树T（非递归算法）
+  // 一直访问右节点7
+  inOrderTraversePrint(tree){
+    let p = tree.lChild;//p指向根结点
+
+    while(p !== tree){//空树或遍历结束时，p == T
+      while (p.lTag === LINK) {
+        p = p.lChild;
+      }
+      //此时p指向中序遍历序列的第一个结点（最左下的结点）
+      console.log(p.data); //打印（访问）其左子树为空的结点
+
+      while (p.rTag === THREAD && p.rChild !== tree) {
+        p = p.rChild;
+        console.log(p.data)//访问后继结点
+      }
+      //当p所指结点的rchild指向的是孩子结点而不是线索时，p的后继应该是其右子树的最左下的结点，即遍历其右子树时访问的第一个节点
+      p = p.rChild;
+    }
   }
 
 }

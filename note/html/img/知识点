@@ -8,7 +8,7 @@
                 sizes="(max-width: 320px) 300w, 1200w"/>
        上面的例子表示浏览器视口为 320px 时图片宽度为 300px，其他情况为 1200px。
 
-   （3）css image-set()
+    （3）css image-set()
         body {
             background-image: -webkit-image-set( url(../images/pic-1.jpg) 1x, url(../images/pic-2.jpg) 2x, url(../images/pic-3.jpg) 600dpi);
             background-image:         image-set( url(../images/pic-1.jpg) 1x, url(../images/pic-2.jpg) 2x, url(../images/pic-3.jpg) 600dpi);
