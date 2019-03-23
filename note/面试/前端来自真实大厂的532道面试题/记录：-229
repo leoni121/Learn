@@ -581,7 +581,57 @@
 
 
 
-185. express中间件如何实现
+185. express中间件如何实现（参考文件夹 NODE系列 下的 EXPRESS）
+
+
+
+
+184. pm2除了监控还能干什么，如何实现
+
+
+
+
+183. 前端监控，pm2，如果我服务器挂了，如何快速发现并且定位错误
+
+
+
+
+182. 画布濡染有了解吗 ———— https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
+
+
+
+
+181. 前端路由会不会发请求（参考 文件夹 VUE下的Router）
+    不会刷新，但是按F5就会
+
+
+
+
+180. 编程题：给出一个字符串(“obj.a”)，返回对象属性obj.a，类似eval的效果（参考文件夹 JS 下的 实现eval）
+
+
+
+
+179. webpack的插件大致流程 （参考 文件夹 前段工程化 下的webpack流程图）
+
+
+
+
+178. vue双向绑定原理，vue-loader做了什么
+    （1）vue-loader : 是一个 webpack 的 loader，它允许你以一种名为单文件组件 (SFCs)的格式撰写 Vue 组件，它会解析和转换 .vue 文件，提取出其中的逻辑代码 script、样式代码 style、以及 HTML 模版 template，再分别把它们交给对应的 Loader 去处理。
+    Vue Loader 还提供了很多酷炫的特性：———— https://vue-loader.vuejs.org/zh/#vue-loader
+        允许为 Vue 组件的每个部分使用其它的 webpack loader，例如在 <style> 的部分使用 Sass 和在 <template> 的部分使用 Pug；
+        允许在一个 .vue 文件中使用自定义块，并对其运用自定义的 loader 链；
+        使用 webpack loader 将 <style> 和 <template> 中引用的资源当作模块依赖来处理；
+        为每个组件模拟出 scoped CSS；
+        在开发过程中使用热重载来保持状态。
+
+
+    （2）（吐槽）https://segmentfault.com/a/1190000004944322
+    先vue-loader要做的是loader一个.vue文件，这个文件中会包含html，js，css三个部分，最终的处理结果应该是css处理通过style-loader抛出去的方式，html处理成字符串，js处理成一个vue-component并require之前的html当做自己的模板，所以最终一个.vue文件最终会变成三个module
+
+
+
 
 
 

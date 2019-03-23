@@ -127,3 +127,37 @@
 
 
 
+** nodejs 实现输入
+    （1）process.stdin.on('data', element => {
+          console.log(element.toString());
+        })
+
+    （2）scanf 模块
+
+
+** process.nextTick(callback)的功能是为事件循环设置一项任务，Node.js 会在下次事件循环调响应时调用 callback不要使用 setTimeout(fn,0)代替 process.nextTick(callback)，前者比后者效率要低得多。
+
+
+** util.inspect(object,[showHidden],[depth],[colors])
+    util.inherits
+    util.isArray()
+    util.isRegExp()
+    util.isDate()
+    util.isError()
+    util.format()
+    util.debug()
+
+
+** var events = require('events');
+   var emitter = new events.EventEmitter();
+   以上例子中，emitter 为事件 someEvent 注册了两个事件监听器，然后发射了
+   someEvent 事件。运行结果中可以看到两个事件监听器回调函数被先后调用。这就是EventEmitter最简单的用法。接下来我们介绍一下EventEmitter常用的API。
+   EventEmitter.on(event, listener) 为指定事件注册一个监听器，接受一个字符串 event 和一个回调函数 listener。
+   EventEmitter.emit(event, [arg1], [arg2], [...]) 发射 event 事件，传递若干可选参数到事件监听器的参数表。
+   EventEmitter.once(event, listener) 为指定事件注册一个单次监听器，即监听器最多只会触发一次，触发后立刻解除该监听器。
+   EventEmitter.removeListener(event, listener) 移除指定事件的某个监听器，listener 必须是该事件已经注册过的监听器。
+   EventEmitter.removeAllListeners([event]) 移除所有事件的所有监听器，如果指定 event，则移除指定事件的所有监听器。
+
+
+
+
