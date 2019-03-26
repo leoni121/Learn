@@ -9,7 +9,6 @@ module.exports = function () {
         try {
             // 客户端传入的是大写的
             const token = ctx.headers.authorization;
-            console.log(ctx.headers);
             if (token) {
                 let payload
                 try {

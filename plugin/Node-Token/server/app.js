@@ -5,13 +5,13 @@ const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
-const Kcors  = require('kcors');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const jwt = require('koa-jwt');
 const verifyToken = require('./middlreware/verifyToken');
 const secret = require('./config/secret.config');
 const cors = require('koa2-cors');
+
 // error handler
 onerror(app);
 

@@ -18,6 +18,7 @@ router.post('/register', userController.register)
 
 router.get('/getUserInfo', userController.getUserInfoById)
 
+// 用于验证 Token 是否生效
 
 router.get('/checkCors', function (ctx, next) {
     if (ctx.user) {

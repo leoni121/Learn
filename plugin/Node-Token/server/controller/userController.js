@@ -5,7 +5,6 @@ const bcrypt = require('../common/bcrypt');
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secret.config');
 const util = require('util');
-const verify = util.promisify(jwt.verify);
 
 
 exports.login = async ctx => {
@@ -14,7 +13,6 @@ exports.login = async ctx => {
         ,userInfo = await userModel.getUserByName(username)
         ,dbPasswordHash = userInfo && userInfo.password;
 
-    console.log(bcrypt.compare(password, dbPasswordHash));
     if (!!dbPasswordHash && bcrypt.compare(password, dbPasswordHash)) {
         // 签发token
         const userToken = {
@@ -40,7 +38,6 @@ exports.login = async ctx => {
 exports.register = async ctx => {
     let username = ctx.request.body.username
         ,dbPasswordHash = bcrypt.encrypt(ctx.request.body.password)
-        // ,dbPasswordHash = ctx.request.body.password
         ,id = UUID()
         ,exist = await userModel.getUserByName(username)
     if (!exist) {

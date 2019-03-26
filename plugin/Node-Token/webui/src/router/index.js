@@ -55,12 +55,10 @@ router.beforeEach((to, form, next) => {
   if (!to.meta.requireAuth) { // 不需要登录
     next();
   } else { // 需要登录
-    console.log(token, token === null, typeof localStorage.getItem('token'), typeof store.state.token);
-    if (localStorage.getItem('token')) { // token
-      console.log('有 token');
+    // localStorage.getItem('token')
+    if (token) { // token
       next();
     } else {
-      console.log('无 token');
       next({
         path: '/',
         query: { redirect: to.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
