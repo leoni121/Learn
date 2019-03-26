@@ -50,8 +50,10 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 });
+
 // /^\/users\/checkCors/
 app.use(jwt({secret: secret.sign}).unless({path: [/^\/users\/bar/, /^\/users\/login/, /^\/users\/register/, /^\/users\/getUserInfo/]}));
+
 // routes
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
