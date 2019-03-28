@@ -642,6 +642,8 @@ body {
 
 [在vue-loader中使用](#19. vue-loader 之 cacheDirectory(cache-loader) / cacheIdentifier)
 
+> 请注意，保存读取和保存缓存文件会产生开销，因此只能使用此加载程序来缓存昂贵的加载程序。
+
 在一些性能开销较大的 loader 之前添加此 loader，以将结果缓存到磁盘里。
 
 ```js
@@ -737,11 +739,13 @@ stage-X: 指处于某一阶段的js语言提案。
 
 ## 23. 其他 ##
 
-### 23.1 happypack ###
+### 23.1 happypack 和 thread-loader ###
 
-[参考-npm](https://www.npmjs.com/package/happypack)
+[***happypack-参考-npm***](https://www.npmjs.com/package/happypack)，[***thread-loader-参考-webpack***](<https://www.webpackjs.com/loaders/thread-loader/>) 
 
-HappyPack makes initial webpack builds faster by transforming files [in parallel](https://www.npmjs.com/package/happypack#how-it-works).
+***HappyPack*** 通过[并行](https://www.npmjs.com/package/happypack#how-it-works)转换文件使得初始webpack构建更快。
+
+***thread-loader*** 可以将非常消耗资源的 loaders 转存到 worker pool 中。
 
 ### 23.2 friendly-errors-webpack-plugin 和 node-notifier ###
 
