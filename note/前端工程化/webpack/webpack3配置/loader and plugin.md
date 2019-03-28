@@ -520,9 +520,9 @@ if (buildConfig.bundleAnalyzerReport) {
 
 `true` `'head'` `'body'` ` false` Inject all assets into the given `template` or `templateContent`. When passing `true` or `'body'` all javascript resources will be placed at the bottom of the body element. `'head'` will place the scripts in the head element.default is true.
 
-## 18. eslint-lader ##
+## 18. eslint-loader ##
 
-[参考-npm](https://www.jianshu.com/p/7d43d45b3ebf)
+[参考-npm]()
 
 ### 18.1 formatter (default: eslint stylish formatter) ###
 
@@ -569,13 +569,212 @@ options: {
 
 ### 18.3 `emitWarning` (default: `false`) ###
 
-## 19. vue-loader 之 cacheDirectory / cacheIdentifier ##
+## 19. vue-loader 之 cacheDirectory(cache-loader) / cacheIdentifier ##
 
 [参考-官网](<https://vue-loader.vuejs.org/zh/options.html#cachedirectory-cacheidentifier>)
 
 - 类型：`string`
 - 默认值：`undefined`
 
-当这两个选项同时被设置时，开启基于文件系统的模板编译缓存 (需要在工程里安装 `cache-loader`)。
+当这两个选项同时被设置时，开启基于文件系统的模板编译缓存 (需要在工程里安装  [cache-loader](#21. cache-loader) )。
 
-> 在内部，`vue-loader` 和 [cache-loader](https://www.webpackjs.com/loaders/cache-loader/) 之间的交互使用了 [loader 的内联 import 语法](https://webpack.js.org/concepts/loaders/#inline)，`!`将会被认为是不同 loaders 之间的分隔符，所以请确保你的 `cacheDirectory` 路径中不包含 `!`。
+```js
+{
+  test: /\.vue$/,
+  loader: 'vue-loader',
+  exclude: /node_modules/,
+  include: resolve('src'),
+  options: {
+    cacheDirectory: resolve('./cache-loader'),
+    cacheIdentifier: 'cache-loader:{version} {process.env.NODE_ENV}' // 标识
+  }
+},
+```
+
+> 在内部，`vue-loader` 和 [cache-loader](#21. cache-loader) 之间的交互使用了 [loader 的内联 import 语法](https://webpack.js.org/concepts/loaders/#inline)，`!`将会被认为是不同 loaders 之间的分隔符，所以请确保你的 `cacheDirectory` 路径中不包含 `!`。
+
+## 20. postcss ##
+
+### 20.1 postcss-import ###
+
+[参考-npm](<https://www.npmjs.com/package/postcss-import>)
+
+```scss
+/* can consume `node_modules`, `web_modules` or local modules */
+@import "cssrecipes-defaults"; /* == @import "../node_modules/cssrecipes-defaults/index.css"; */
+@import "normalize.css"; /* == @import "../node_modules/normalize.css/normalize.css"; */
+ 
+@import "foo.css"; /* relative to css/ according to `from` option above */
+ 
+@import "bar.css" (min-width: 25em);
+ 
+body {
+  background: black;
+}
+```
+
+will give you:
+
+```scss
+/* ... content of ../node_modules/cssrecipes-defaults/index.css */
+/* ... content of ../node_modules/normalize.css/normalize.css */
+ 
+/* ... content of css/foo.css */
+ 
+@media (min-width: 25em) {
+/* ... content of css/bar.css */
+}
+ 
+body {
+  background: black;
+}
+```
+
+### 20.2 postcss-url ###
+
+[参考-npm](https://www.npmjs.com/package/postcss-url)
+
+[PostCSS](https://github.com/postcss/postcss) plugin to rebase, inline or copy on url().
+
+## 21. cache-loader ##
+
+[参考-腾讯云社区](<https://cloud.tencent.com/developer/section/1477510>)
+
+[在vue-loader中使用](#19. vue-loader 之 cacheDirectory(cache-loader) / cacheIdentifier)
+
+在一些性能开销较大的 loader 之前添加此 loader，以将结果缓存到磁盘里。
+
+```js
+{
+  test: /\.js$/,
+  use: isProduction ? [
+    // 在磁盘（默认）或数据库中缓存后续loader的结果
+    {
+      loader: 'cache-loader',
+      options: {
+        cacheDirectory: resolve('cache-loader'),
+      }
+    },
+    'babel-loader'
+  ] : 'babel-loader',
+  exclude: /node_modules/,
+  include: resolve('src')
+},
+```
+
+## 22. babel ##
+
+> **plugin: babel的插件，在6.x版本之后babel必需要配合插件来进行工作**
+>
+> **preset: babel插件集合的预设，包含某一部分的插件plugin**
+
+### 22.1 Polyfill ###
+
+[参考-官网](<https://www.babeljs.cn/docs/usage/polyfill/>)
+
+它会仿效一个完整的 ES2015+ 环境，并意图运行于一个应用中而不是一个库/工具。这个 polyfill 会在使用 `babel-node` 时自动加载。
+
+这意味着你可以使用新的内置对象比如 `Promise` 或者 `WeakMap`, 静态方法比如 `Array.from` 或者 `Object.assign`, 实例方法比如 `Array.prototype.includes` 和生成器函数（提供给你使用 [regenerator](https://www.babeljs.cn/docs/plugins/transform-regenerator/) 插件）。为了达到这一点， polyfill 添加到了全局范围，就像原生类型比如 `String` 一样。
+
+在 `webpack.config.js` 中，将 `babel-polyfill` 加到你的 entry 数组中：
+
+```js
+module.exports = {
+  entry: ["babel-polyfill", "./app/js"]
+};
+```
+
+
+
+### 22.2 babel-core ###
+
+Babel 的核心依赖包
+
+
+
+### 22.3 babel-preset-stage-2 babel-preset-env ###
+
+[参考-博客](https://www.cnblogs.com/zhaozhipeng/p/8267741.html)
+
+babel-preset-es2015: 可以将es2015即es6的js代码编译为es5
+
+babel-preset-es2016: 可以将es2016即es7的js代码编译为es6
+
+babel-preset-es2017: 可以将es2017即es8的js代码编译为es7
+
+babel-preset-stage-x: 可以将处于某一阶段的js语法编译为正式版本的js代码
+
+stage-X: 指处于某一阶段的js语言提案。
+
+- 提案共分为五个阶段：
+- *stage-0: 稻草人-只是一个大胆的想法*
+- *stage-1: 提案-初步尝试*
+- *stage-2: 初稿-完成初步规范*
+- *stage-3: 候选-完成规范和浏览器初步实现*
+- *stage-4: 完成-将被添加到下一年发布*
+
+ 
+
+**当前 babel 推荐使用 babel-preset-env 替代 babel-preset-es2015 和 babel-preset-es2016 以及 babel-preset-es2017 ,env的支持范围更广，包含es2015 es2016 es2017的所有语法编译，并且它可以根据项目运行平台的支持情况自行选择编译版本。**
+
+使用方法： '.babelrc' 中 'es2015' 改为 'env'，
+
+```js
+"presets": ["env", "stage-2"]
+```
+
+### 22.4 注意 ###
+
+**插件中每个访问者都有排序问题。**
+
+这意味着如果两次转译都访问相同的”程序”节点，则转译将按照 plugin 或 preset 的规则进行排序然后执行。
+
+- Plugin 会运行在 Preset 之前。
+- Plugin 会从第一个开始顺序执行。ordering is first to last.
+- Preset 的顺序则刚好相反(从最后一个逆序执行)。
+
+
+
+## 23. 其他 ##
+
+### 23.1 happypack ###
+
+[参考-npm](https://www.npmjs.com/package/happypack)
+
+HappyPack makes initial webpack builds faster by transforming files [in parallel](https://www.npmjs.com/package/happypack#how-it-works).
+
+### 23.2 friendly-errors-webpack-plugin 和 node-notifier ###
+
+devServer quit: true；
+
+弹窗提示
+
+### 23.3. rimraf ###
+
+可以实现文件的删除。
+
+```js
+rm(path.join(...), err => {
+  if (err) throw err
+  webpack(webpackConfig, (err, stats) => {
+    if (err) throw err
+    ...
+  })
+})
+```
+
+### 23.4 shelljs ###
+
+nodejs 的shell 命令模块
+
+### 23.5 ###
+
+[博客-Vue-template-compiler 和vue-loader 的关系是怎么样的?马上就要合二为一了？](https://segmentfault.com/q/1010000011811513)
+
+You will only need it if you are writing build tools with very specific needs. In most cases you should be using vue- loader or vueify instead, both of which use this package internally.
+
+[VUE社区-安装了vue-loader之后，还需要vue-template-compiler吗](https://forum.vuejs.org/t/vue-loader-vue-template-compiler/49497)
+
+但凡用了 Vue 模板就需要这个编译器，但 vue-loader 并没有显式依赖 vue-template-compiler（不清楚确切原因，猜测单纯是为了解耦，因为理论上 vue-loader 并不关心模板编译的过程），而是假设用户自行解决了这个依赖，如果你没安装就报错了。
+
+> Vue-loader 依赖 Vue-template-compiler 
