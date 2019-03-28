@@ -771,7 +771,7 @@ rm(path.join(...), err => {
 
 nodejs 的shell 命令模块
 
-### 23.5 ###
+### 23.5 Vue-template-compiler ###
 
 [博客-Vue-template-compiler 和vue-loader 的关系是怎么样的?马上就要合二为一了？](https://segmentfault.com/q/1010000011811513)
 
