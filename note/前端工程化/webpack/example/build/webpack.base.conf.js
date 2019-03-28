@@ -41,6 +41,7 @@ module.exports = {
         include: [resolve('src')],
         exclude: /node_modules/,
         options: {
+          // 引入插件
           formatter: require('eslint-friendly-formatter'),
           emitError: devConfig.showEslintErrorsInOverlay,
           emitWarning: !devConfig.showEslintErrorsInOverlay,
@@ -54,7 +55,7 @@ module.exports = {
         include: resolve('src'),
         options: {
           cacheDirectory: resolve('./cache-loader'),
-          cacheIdentifier: 'cache-loader:{version} {process.env.NODE_ENV}'
+          cacheIdentifier: 'cache-loader:{version} {process.env.NODE_ENV}' // 标识
         }
       },
       {

@@ -23,7 +23,9 @@ export default {
 @import url('../scss/test.scss');
 .test{
   color: pink;
-  transform: translate(10px)
+  transform: translate(10px);
+  display: grid;
+  display: flex;
 }
 </style>
 
