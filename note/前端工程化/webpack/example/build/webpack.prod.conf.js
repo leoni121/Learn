@@ -37,7 +37,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       new OptimizeCSSAssetsPlugin({
         cssProcessorOptions: { safe: true, map: buildConfig.productionSourceMap }
       })
-    ]
+    ],
   },
   plugins: [
     // css 提取

@@ -5,6 +5,8 @@ const utils = require('./utils')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
+const HappyPack = require('happypack')
+const HappyThreadPool = HappyPack.ThreadPool({size: 5})
 const isProduction = process.env.NODE_ENV === 'production'
 const devConfig = config.dev, buildConfig = config.build
 
@@ -29,7 +31,9 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src')
-    }
+    },
+   /* symlinks: false, // 不使用 symlinks 
+    cacheWithContext: false // 你使用自定义解析 plugins ，并且没有指定 context 信息，可以设置 resolve.cacheWithContext: false */
   },
   module: {
     rules: [
@@ -60,16 +64,17 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: isProduction ? [
+        /*use: 'happypack/loader?id=js',*/
+        use: [
           // 在磁盘（默认）或数据库中缓存后续loader的结果
-          {
+          {  // isProduction ? 加 ：不加
             loader: 'cache-loader',
             options: {
               cacheDirectory: resolve('cache-loader'),
             }
           },
           'babel-loader'
-        ] : 'babel-loader',
+        ],
         exclude: /node_modules/,
         include: resolve('src')
       },
@@ -102,6 +107,7 @@ module.exports = {
         test: /\.s?css$/,
         use: [
           isProduction ? MiniCssExtractPlugin.loader : 'vue-style-loader',
+          /*'happypack/loader?id=style',*/
           {
             loader: 'css-loader',
             options: {
@@ -126,7 +132,49 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+
+    /* new HappyPack({
+      id: 'js',
+      threadPool: HappyThreadPool,
+      // isProduction ? 
+      loaders: [
+        // 在磁盘（默认）或数据库中缓存后续loader的结果
+        {
+          loader: 'cache-loader',
+          options: {
+            cacheDirectory: resolve('cache-loader'),
+          }
+        },
+        'babel-loader'
+      ]
+    }),*/
+
+    /*  new HappyPack({
+      id: 'style',
+      threadPool: HappyThreadPool,
+      loaders: [
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: false
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: false
+          }
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: false
+          }
+        }
+      ]
+    }),*/
     
+    // 引入 dll 依赖
     new webpack.DllReferencePlugin({
       manifest: require('../dll/vue-manifest.json')
     }),

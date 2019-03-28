@@ -105,7 +105,8 @@ module.exports = new Promise((resolve, reject) => {
 
       // 根据不同的port动态添加 FriendlyErrorsPlugin，得到不同的提示信息
       devWebpackConfig.plugins.push(
-        new FriendlyErrorsPlugin({ 
+        new FriendlyErrorsPlugin({ //  DONE  Compiled successfully in 5131ms 
+
           // 成功
           compilationSuccessInfo: {
             messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
