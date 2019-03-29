@@ -130,8 +130,8 @@
        用户操作 	          Expires/Cache Control                   	Last-Modified/Etag
        地址栏回车	           有效	                                      有效
        页面链接跳转	           有效	                                      有效
-       新开窗口	                有效	                                   有效
-       前进/后退	          有效                                       有效
+       新开窗口	                有效	                                  有效
+       前进/后退	          有效                                        有效
        F5/按钮刷新	          无效，浏览器重置max-age=0	                   有效
        Ctrl+F5	              无效重置cache-control: no-cache	             无效，请求头丢弃该选项
 

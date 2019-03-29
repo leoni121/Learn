@@ -1,5 +1,7 @@
 [TOC]
 
+
+
 ## 1. url-loader 和 file-loader 的区别及使用 ##
 
 url-loader不依赖于file-loader，即使用url-loader时，只需要安装url-loader即可，不需要安装file-loader，因为url-loader内置了file-loader
@@ -185,11 +187,11 @@ output: {
 
 ```
 
-公共依赖没有变,公共文件的hash 改变?
+***公共依赖没有变,公共文件的hash 改变?***
 
 每个 [`module.id`](https://www.webpackjs.com/api/module-variables#module-id-commonjs-) 会基于默认的解析顺序(resolve order)进行增量。也就是说，当解析顺序发生变化，ID 也会随之改变。
 
-> [`NamedModulesPlugin`](https://www.webpackjs.com/plugins/named-modules-plugin)，将使用模块的路径，而不是数字标识符。虽然此插件有助于在开发过程中输出结果的可读性，然而执行时间会长一些。第二个选择是使用 [`HashedModuleIdsPlugin`](https://www.webpackjs.com/plugins/hashed-module-ids-plugin)，推荐用于生产环境构建
+> 解决：[`NamedModulesPlugin`](https://www.webpackjs.com/plugins/named-modules-plugin)，将使用模块的路径，而不是数字标识符。虽然此插件有助于在开发过程中输出结果的可读性，然而执行时间会长一些。第二个选择是使用 [`HashedModuleIdsPlugin`](https://www.webpackjs.com/plugins/hashed-module-ids-plugin)，推荐用于生产环境构建
 
 
 
@@ -197,7 +199,7 @@ output: {
 
 [参考-github](https://github.com/survivejs/webpack-merge)
 
-**webpack-merge**提供了一个`merge`连接数组并合并创建新对象的对象的函数。如果遇到函数，它将执行它们，通过算法运行结果，然后再次将返回的值包装在函数中。
+**webpack-merge**提供了一个`merge`连接数组并合并创建新对象的函数。如果遇到函数，它将执行它们，通过算法运行结果，然后再次将返回的值包装在函数中。
 
 这种行为在配置webpack时特别有用，尽管它有超出它的用途。无论何时需要合并配置对象，**webpack-merge**都可以派上用场。
 
@@ -241,8 +243,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: devMode ? '[name].css' : '[name].[hash].css',
-      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+      filename: devMode ? '[name].css' : '[name].[contenthash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[contenthash].css',
     })
   ],
   module: {
@@ -409,7 +411,7 @@ Type: `Boolean|Number` Default: `false`
 
 Use multi-process parallel running to improve the build speed. Default number of concurrent runs: `os.cpus().length - 1`.
 
-> ℹ️ Parallelization can speedup your build significantly and is therefore **highly recommended**.
+> Parallelization can speedup your build significantly and is therefore **highly recommended**.
 
 `{Boolean}`
 
@@ -439,7 +441,7 @@ Use multi-process parallel running to improve the build speed. Default number of
 
 并发运行数。
 
-> ℹ️并行化可以显着加速您的构建，因此**强烈建议**
+> 并行化可以显着加速您的构建，因此**强烈建议**
 
 ### 12.2 `cache` ###
 
@@ -470,7 +472,8 @@ new OptimizeCSSAssetsPlugin({
 new AddAssetHtmlPlugin({
   filepath: path.resolve(__dirname, '../dll/*.dll.js'),
   publicPath: buildConfig.assetsPublicPath + 'static/js',
-  outputPath: '../dist/static/js'
+  outputPath: '../dist/static/js',
+  includeSourcemap: false
 }),
 ```
 
@@ -592,6 +595,8 @@ options: {
 ```
 
 > 在内部，`vue-loader` 和 [cache-loader](#21. cache-loader) 之间的交互使用了 [loader 的内联 import 语法](https://webpack.js.org/concepts/loaders/#inline)，`!`将会被认为是不同 loaders 之间的分隔符，所以请确保你的 `cacheDirectory` 路径中不包含 `!`。
+>
+> ***vue-loader 里面生成的 cache文件 和  其它地方生成的cache 文件不共享***
 
 ## 20. postcss ##
 
@@ -694,7 +699,7 @@ Babel 的核心依赖包
 
 
 
-### 22.3 babel-preset-stage-2 babel-preset-env ###
+### 22.3 babel-preset-stage-2 和 babel-preset-env ###
 
 [参考-博客](https://www.cnblogs.com/zhaozhipeng/p/8267741.html)
 
@@ -749,13 +754,15 @@ stage-X: 指处于某一阶段的js语言提案。
 
 ### 23.2 friendly-errors-webpack-plugin 和 node-notifier ###
 
-devServer quit: true；
+devServer.quit = true；
 
 弹窗提示
 
 ### 23.3. rimraf ###
 
 可以实现文件的删除。
+
+> 替代了 CleanWebpackPlugin 的作用
 
 ```js
 rm(path.join(...), err => {

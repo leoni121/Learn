@@ -17,6 +17,7 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 module.exports = {
+  // 基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader,默认使用当前目录，但是推荐在配置中传递一个值。
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -27,11 +28,12 @@ module.exports = {
     publicPath: isProduction ? buildConfig.assetsPublicPath : devConfig.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue', '.json'], // 自动解析确定的扩展
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src')
     },
+    // 优化相关
    /* symlinks: false, // 不使用 symlinks 
     cacheWithContext: false // 你使用自定义解析 plugins ，并且没有指定 context 信息，可以设置 resolve.cacheWithContext: false */
   },
@@ -58,7 +60,7 @@ module.exports = {
         exclude: /node_modules/,
         include: resolve('src'),
         options: {
-          cacheDirectory: resolve('./cache-loader'),
+          cacheDirectory: resolve('cache-loader'),
           cacheIdentifier: 'cache-loader:{version} {process.env.NODE_ENV}' // 标识
         }
       },
@@ -78,11 +80,12 @@ module.exports = {
         exclude: /node_modules/,
         include: resolve('src')
       },
+      // 这里的hash 是url-loader 计算出来的不是项目的hash
       {
         test: /.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 100,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },

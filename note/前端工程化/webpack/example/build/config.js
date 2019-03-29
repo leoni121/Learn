@@ -18,9 +18,6 @@ module.exports = {
     cacheBusting: false, // vue debugg 提示
   },
   build: {
-    // html模板
-    index: path.resolve(__dirname, '../dist/index.html'),
-
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',

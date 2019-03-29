@@ -22,10 +22,9 @@ const webpackConfig = merge(baseWebpackConfig, {
   // 覆盖 webpack.base.conf.js 中的设置
   output: {
     path: buildConfig.assetsRoot, // ../dist
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[name].[chunkhash].js')
+    filename: utils.assetsPath('js/[name].[chunkhash:7].js'),
+    chunkFilename: utils.assetsPath('js/[name].[chunkhash:7].js')
   },
-  // 此选项控制是否以及如何生成source-map。cheap-module-eval-source-map is faster for development
   devtool: buildConfig.devtool,
   optimization: {
     minimizer: [
@@ -42,8 +41,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     // css 提取
     new MiniCssExtractPlugin({
-      filename: utils.assetsPath('css/[name].[hash].css'),
-      chunkFilename: utils.assetsPath('/css/[name].[hash].css'),
+      filename: utils.assetsPath('css/[name].[contenthash:7].css'),
+      chunkFilename: utils.assetsPath('/css/[name].[contenthash:7].css'),
       sourceMap: buildConfig.productionSourceMap
     }),
     // DLL
@@ -57,10 +56,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     // html模板打包
     new HtmlWebpackPlugin({
       // title: '生成的html名字',
-      filename: buildConfig.index,
+      filename: './index.html',
       template: resolve('index.html'),
       // all javascript resources will be placed at the bottom of the body element.
-      inject: true, // 允许注入打包文件
+      inject: true, // 允许注入打包文件（body）
       // favicon
       // meta
       minify: {

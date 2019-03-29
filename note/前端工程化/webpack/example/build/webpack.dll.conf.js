@@ -5,7 +5,7 @@ console.log(process.env.NODE_ENV);
 
 module.exports = {
   mode: 'production',
-  // add-asset-html-webpack-plugin 插件使用时 没有加 includeSourcemap， 则需要 .map
+  // add-asset-html-webpack-plugin 插件使用时 没有加 includeSourcemap， 则需要 .map 文件
   // devtool: '#source-map',
   entry: {
     vue: ['vue/dist/vue.esm.js', 'vue-router', 'vuex', 'axios'],
