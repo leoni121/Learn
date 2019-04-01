@@ -1,5 +1,0 @@
-1. 类数组对象 =》 数组
-   arguments, arguments.callee, arguments.callee.caller
-   Array.prototype.slice.call(arguments) / [].slice.call(arguments);
-   Array.from
-

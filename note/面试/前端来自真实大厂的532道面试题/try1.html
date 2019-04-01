@@ -1,42 +1,40 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Full Permutation(Recursive Link) - Mengliao Software</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        .father {
+            position: relative;
+            background-color: red;
+            width: 200px;
+            height: 200px;
+        }
+        .father::before {
+            content: " ";
+            display: inline-block;
+            height: 100%;
+            width: 1%;
+            vertical-align: middle;
+        }
+        .father div {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+    </style>
 </head>
 <body>
-<p style="">Full Permutation(Recursive Link)<br />
-    Mengliao Software Studio - Bosun Network Co., Ltd.<br />
-    2012.03.29</p>
-<script type="text/javascript">
-  /*
-  全排列（递归链接）算法
-  1、设定源数组为输入数组，结果数组存放排列结果（初始化为空数组）；
-  2、逐一将源数组的每个元素链接到结果数组中（生成新数组对象）；
-  3、从原数组中删除被链接的元素（生成新数组对象）；
-  4、将新的源数组和结果数组作为参数递归调用步骤2、3，直到源数组为空，则输出一个排列。
-  */
-  let count=0;
-  function show(arr) {
-    document.write("P<sub>"+ ++count+"</sub>: "+arr+"<br />");
-  }
-  function perm(arr) {
-    (function fn(source, result) {
-      if (source.length === 0) {
-        show(result);
-      }
-      else {
-        for (let i = 0; i < source.length; i++) {
-          // 这里都不会改变source, 和 result只是传入的变化
-          fn(source.slice(0, i).concat(source.slice(i + 1)), result.concat(source[i]));
-        }
-      }
-    })(arr, []);
-  }
-  /* ["e2", "e3", "e4"]  ["e1"]*/
-  /* ["e3", "e4"]  ["e1", "e2"]*/
-  /* ["e4"]  ["e1", "e2", "e3"]*/
-  /* []  ["e1", "e2", "e3", "e4"]*/
-  perm(["e1", "e2", "e3", "e4"]);
+<button style="width:200px;" >测试按钮</button>
+   <img src="http://www.runoob.com/images/compatible_opera.gif" alt="" style="border:1px solid red; width:30px;height:30px;">
+<script>
 </script>
 </body>
 </html>
