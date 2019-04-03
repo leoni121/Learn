@@ -15,19 +15,21 @@ function readDir (path) {
   fs.readdir(path, function (err, files) {
     files.forEach(function (file) {
       let fPath = join(path, file);
-      fs.stat(fPath, function (err, stats) {
-        if (err) return;
+      if (file !== 'node_modules' && file !== '.git' && file !== '.idea' && file !== 'dist' && file !== 'build') {
+        fs.stat(fPath, function (err, stats) {
+          if (err) return;
 
-        if (stats.isDirectory()) { // 目录
+          if (stats.isDirectory()) { // 目录
 
-          readDir(fPath);
-        } else if (stats.isFile()) { // 文件
+            readDir(fPath);
+          } else if (stats.isFile()) { // 文件
 
-          if (/(^(?!(.*\..*$)))|(.+\.txt$)/.test(file)) { // 匹配没有文件格式的 和 以 “.txt” 结尾的
-            fileHandle(path, file);
+            if (/(^(?!(.*\..*$)))|(.+\.txt$)/.test(file)) { // 匹配没有文件格式的 和 以 “.txt” 结尾的
+              fileHandle(path, file);
+            }
           }
-        }
-      })
+        })
+      }
     })
   })
 }
@@ -96,4 +98,4 @@ function del(readerPath) {
   });
 }
 
-readDir('C:\\Users\\nzq\\Desktop\\面试');
+readDir('C:\\Users\\nzq\\Desktop\\LEARN');

@@ -1,6 +1,0 @@
-** 启蒙 ———— https://www.jianshu.com/p/c6a07755b08d
-
-** Google 和 Bing 可以很好对同步 JavaScript 应用程序进行索引
-
-** SEO优化，SSR和预渲染
-

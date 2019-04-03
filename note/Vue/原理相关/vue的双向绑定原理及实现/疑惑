@@ -1,2 +1,0 @@
-** 为什么不把元素直接添加到fragment ？
-    直接添加 =》 Uncaught DOMException: Failed to execute 'appendChild' on 'Node': The new child element contains the parent

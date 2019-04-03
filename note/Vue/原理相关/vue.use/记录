@@ -1,1 +1,0 @@
-** 个人理解：vue.use 就是利用对应install方法中的beforeCreate 方法，完成在Vue实例化的时候的相应的赋值

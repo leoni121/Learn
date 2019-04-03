@@ -1,0 +1,39 @@
+[TOC]
+1. DNS寻址以及IP解析
+	域名 => IP （301跳转、302跳转）IP=>域名服务器=>IP(最优)
+	session：不存在、临时缓存验证是否登陆了
+	域名解析：先“.”再“com”再左边的（右向左解析，左右边的“.”是公网，没有加“.”是大部分运营商,hash-map 运营商找)
+
+
+
+2. 浏览器解析
+	HTML文档 => DOM树 => render树（看见的界面，不关心结构，关心显示）=> 逐级遍历dom树 => {标签，img}
+						redner 和 DOM 不是一对一
+	link=>css、减少reflow-回流（宽度） ||| 重绘（颜色）
+
+
+
+3. js引擎, 不建议js写加密（效率低、明码）
+	追踪器：chrome://tracing/ （浏览器和渲染过程）-- https://github.com/ChenChenJoke/JokerChrome
+
+
+
+4. 作业：visiblity 能不能在render树里出现？（在dom中出现）				                                        “visibility:hidden”和“display：none”之间的不同，“visibility:hidden”将元素设置为不可见，但是同样在布局上占领一定空间（例如，它会被渲染成为空盒子），但是“display:none”的元素是将节点从整个render tree中移除，所以不是布局中的一部分
+
+
+
+5.
+	（1）浏览器并行下载域名的关系以及浏览器的并行数量（https://www.jianshu.com/p/8a86f414a69e）
+	（2）网页效率于雅虎准则
+DNS解析阻塞 
+https://blog.csdn.net/21aspnet/article/details/6570449
+	（3）国际化的不适合多域名的优化方式
+
+
+
+6. Bigpipe
+	缺点：
+		（1）.异步请求较多（网络环境复杂，浏览器并行的下载最大数量造成实际线性下载）
+		（2）.seo引擎难抓取
+		（3）.模块之间的通行
+		（4）.模板引擎重复渲染

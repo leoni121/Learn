@@ -1,2 +1,0 @@
-** curl -X POST --data "name=Jack" 127.0.0.1:3000 可以实现post请求并发送数据
-     curl --form upload=@/path/to/file http://127.0.0.1:3000

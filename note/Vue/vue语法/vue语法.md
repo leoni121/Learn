@@ -1,0 +1,15 @@
+[TOC]
+## data的命名规则 https://cn.vuejs.org/v2/api/#data
+
+
+## 注意props
+单向数据流 https://cn.vuejs.org/v2/guide/components-props.html?
+
+
+## router.replace：作用和router.push相同，不过它不会向history添加新纪录，而是替换当前的history记录。
+https://www.jb51.net/article/132336.htm
+
+
+## 给data添加相应的属性
+    Vue.set(vm.someObject, 'b', 2)
+    this.$set(this.someObject,'b',2)
