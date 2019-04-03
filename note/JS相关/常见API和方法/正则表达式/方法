@@ -7,3 +7,7 @@ replace
 exec
     /^{{(.*)}}$/.exec("{{nzq}}") => ["{{nzq}}", "nzq", index: 0, input: "{{nzq}}", groups: undefined]
     /^{{.*}}$/.exec("{{nzq}}")   => ["{{nzq}}", index: 0, input: "{{nzq}}", groups: undefined]
+
+
+不以某个结尾：https://www.jb51.net/article/52491.htm
+    不以“nzq”结尾 /^(?!nzq$)/
