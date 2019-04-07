@@ -11,10 +11,18 @@ let fs = require("fs");
 
 let bodyParser = require('body-parser');
 let multer  = require('multer');
+let storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/tmp/my-uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({ dest: '/tmp/'}).array('image'));
+app.use(multer(storage).array('image'));
 
 app.get('/index.htm', function (req, res) {
   res.sendFile( __dirname + "/" + "index.htm" );
@@ -22,10 +30,10 @@ app.get('/index.htm', function (req, res) {
 
 app.post('/file_upload', function (req, res) {
 
-  console.log(req.files[0]);  // 上传的文件信息
+/*  console.log(req.files[0]);  // 上传的文件信息*/
 
   let des_file = __dirname + "/" + req.files[0].originalname;
-  fs.readFile( req.files[0].path, function (err, data) {
+  /*fs.readFile( req.files[0].path, function (err, data) {
     fs.writeFile(des_file, data, function (err) {
       if( err ){
         console.log( err );
@@ -39,7 +47,9 @@ app.post('/file_upload', function (req, res) {
       res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
       res.end( JSON.stringify( response ) );
     });
-  });
+  });*/
+  res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
+  res.end( JSON.stringify( {} ) );
 })
 
 let server = app.listen(8081,'127.0.0.1', function () {

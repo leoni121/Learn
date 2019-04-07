@@ -66,18 +66,20 @@ function pipe () {
   let fs = require("fs");
 
 // 创建一个可读流
-  let readerStream = fs.createReadStream('input');
+  let readerStream = fs.createReadStream('input.txt');
 
 // 创建一个可写流
   let writerStream = fs.createWriteStream('output.txt');
 
 // 管道读写操作
 // 读取 input.txt 文件内容，并将内容写入到 output.txt 文件中
-  readerStream.pipe(writerStream);
+  readerStream.pipe(function (data) {
+    console.log(data); // 报错 dest.on('unpipe', onunpipe);
+  }).pipe(writerStream);
 
   console.log("程序执行完毕");
 }
-// pipe();
+pipe();
 
 function link () {
   let fs = require("fs");
@@ -92,4 +94,4 @@ function link () {
 
   console.log("文件压缩完成。");
 }
-link();
+// link();

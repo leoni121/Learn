@@ -11,7 +11,7 @@
 const fs = require('fs');
 const join = require('path').join;
 
-function readDir (path) {
+function transDir (path) {
   fs.readdir(path, function (err, files) {
     files.forEach(function (file) {
       let fPath = join(path, file);
@@ -21,7 +21,7 @@ function readDir (path) {
 
           if (stats.isDirectory()) { // 目录
 
-            readDir(fPath);
+            transDir(fPath);
           } else if (stats.isFile()) { // 文件
 
             if (/(^(?!(.*\..*$)))|(.+\.txt$)/.test(file)) { // 匹配没有文件格式的 和 以 “.txt” 结尾的
@@ -76,6 +76,7 @@ function reader (path, file, writerFun) {
 function writer(writerPath, readerPath, data) {
   let writerStream = fs.createWriteStream(writerPath);
   writerStream.write(data, 'UTF8');
+  // 标记文件末尾
   writerStream.end();
 
   // 处理流事件 --> data, end, and error
@@ -98,4 +99,4 @@ function del(readerPath) {
   });
 }
 
-readDir('C:\\Users\\nzq\\Desktop\\LEARN');
+transDir('C:\\Users\\nzq\\Desktop\\LEARN');
