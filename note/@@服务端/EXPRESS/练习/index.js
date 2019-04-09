@@ -10,6 +10,7 @@ app.all('/', (req, res, next) => {
   let responseText = 'Hello World!<br>'
   responseText += '<small>Requested at: ' + req.requestTime + '</small>'
   req.responseText = "nzq";
+  res.end("nzq")
   next();
 })
 app.get('/', function (req, res, next) {
