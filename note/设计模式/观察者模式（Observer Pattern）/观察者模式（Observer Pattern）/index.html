@@ -47,9 +47,9 @@
 
   addBtn["onclick"] = AddNewObserver;
 
-  // 具体的观察者
   function AddNewObserver(){
 
+    // 具体的观察者
     //建立一个新的用于增加的checkbox
     var check  = document.createElement( "input" );
     check.type = "checkbox";
@@ -57,7 +57,7 @@
     // 使用Observer类 扩展checkbox类
     extend( new Observer(), check );
 
-    // 使用定制的Update函数重载
+    // 使用定制的Update函数 重写
     check.Update = function( value ){
       this.checked = value;
     };

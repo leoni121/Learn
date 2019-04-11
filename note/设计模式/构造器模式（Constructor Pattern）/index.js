@@ -2,6 +2,7 @@
  * @Author nzq
  * @Date 2019/3/24
  * @Description: 构造器模式
+ *    构造器是一个当新建对象的内存被分配后，用来初始化该对象的一个特殊函数
  * @Param:
  * @Return:
  */

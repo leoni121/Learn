@@ -70,7 +70,7 @@ class Compile {
     let self = this
       ,initText = this.vm[exp]; // 初始化Observer get，但是此时订阅者的Dep.target 是空。不会添加订阅者进去
     self.updateText(node, initText); // 讲初始化的数据初始化到视图中
-    new Watcher(this.vm, exp, (value) => { // 初始化的时候会设置一个Dep.target,并且触发Observer get
+    new Watcher(this.vm, exp, (value) => { // 初始化的时候会设置一个Dep.target,并且触发Observer get, 自动添加经dep
       self.updateText(node, value);
     })
   }

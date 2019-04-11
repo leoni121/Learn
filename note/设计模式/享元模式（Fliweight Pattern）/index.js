@@ -27,7 +27,44 @@
  * @Param:
  * @Return:
  */
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+var Book = function( id, title, author, genre, pageCount,publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate,availability ){
+  // ...
+};
+
+Book.prototype = {
+  // ...
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Flyweight optimized version
+var Book = function ( title, author, genre, pageCount, publisherID, ISBN ) {
+  // ...
+};
+var BookFactory = (function () {
+  var existingBooks = {}, existingBook;
+
+  return {
+    createBook: function ( title, author, genre, pageCount, publisherID, ISBN ) {
+
+      // Find out if a particular book meta-data combination has been created before
+      // !! or (bang bang) forces a boolean to be returned
+      existingBook = existingBooks[ISBN];
+      if ( !!existingBook ) {
+        return existingBook;
+      } else {
+
+        // if not, let's create a new instance of the book and store it
+        var book = new Book( title, author, genre, pageCount, publisherID, ISBN );
+        existingBooks[ISBN] = book;
+        return book;
+
+      }
+    }
+  };
+
+});
 // 数据方面
 // BookRecordManager singleton
 var BookRecordManager = (function () {
@@ -38,7 +75,7 @@ var BookRecordManager = (function () {
     // add a new book into the library system
     addBookRecord: function ( id, title, author, genre, pageCount, publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate, availability ) {
 
-      var book = bookFactory.createBook( title, author, genre, pageCount, publisherID, ISBN );
+      var book = BookFactory.createBook( title, author, genre, pageCount, publisherID, ISBN );
 
       bookRecordDatabase[id] = {
         checkoutMember: checkoutMember,
@@ -48,6 +85,7 @@ var BookRecordManager = (function () {
         book: book
       };
     },
+
     updateCheckoutStatus: function ( bookID, newStatus, checkoutDate, checkoutMember, newReturnDate ) {
 
       var record = bookRecordDatabase[bookID];

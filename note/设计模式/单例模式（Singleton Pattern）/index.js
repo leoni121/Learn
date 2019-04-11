@@ -13,9 +13,7 @@ var mySingleton = (function () {
     var instance;
 
     function init () {
-
       // 单例
-
       // 私有方法和变量
       function privateMethod () {
         console.log("I am private");
@@ -40,7 +38,8 @@ var mySingleton = (function () {
 
       };
 
-    };
+    }
+
     return {
 
       // 如果存在获取此单例实例，如果不存在创建一个单例实例
