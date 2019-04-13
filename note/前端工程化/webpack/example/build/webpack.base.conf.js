@@ -16,6 +16,7 @@ function resolve(dir) {
   // 返回: '/foo/bar/baz/asdf'
   return path.join(__dirname, '..', dir)
 }
+
 module.exports = {
   // 基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader,默认使用当前目录，但是推荐在配置中传递一个值。
   context: path.resolve(__dirname, '../'),
@@ -85,10 +86,11 @@ module.exports = {
         test: /.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 100,
+          limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
+      // 这里的hash 是url-loader 计算出来的不是项目的hash
       {
         test: /.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
@@ -97,6 +99,7 @@ module.exports = {
           name: utils.assetsPath('media/[name].[hash:7].[ext]')
         }
       },
+      // 这里的hash 是url-loader 计算出来的不是项目的hash
       {
         test: /.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',

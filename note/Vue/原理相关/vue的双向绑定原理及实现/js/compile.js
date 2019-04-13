@@ -19,6 +19,25 @@ class Compile {
     }
   }
 
+
+  /**
+   * @author NZQ
+   * @date 2018/12/24
+   * @Description : 建一个fragment片段，将需要解析的dom节点存入fragment片段
+   */
+  nodeToFragment(el) {
+    let fragment = document.createDocumentFragment()
+      ,child = el.firstChild;
+    while(child) {
+      // 将Dom 元素移到fragment中，此后firstChild 是下一个节点
+      fragment.appendChild(child);
+      child = el.firstChild;
+    }
+/*   fragment.appendChild(el);*/
+    // 此时el 为空
+    return fragment;
+  }
+
   /**
    * @author NZQ
    * @date 2018/12/24
@@ -41,24 +60,6 @@ class Compile {
         self.compileElement(node)
       }
     })
-  }
-
-  /**
-   * @author NZQ
-   * @date 2018/12/24
-   * @Description : 建一个fragment片段，将需要解析的dom节点存入fragment片段
-   */
-  nodeToFragment(el) {
-    let fragment = document.createDocumentFragment()
-      ,child = el.firstChild;
-    while(child) {
-      // 将Dom 元素移到fragment中，此后firstChild 是下一个节点
-      fragment.appendChild(child);
-      child = el.firstChild;
-    }
-/*   fragment.appendChild(el);*/
-    // 此时el 为空
-    return fragment;
   }
 
   /**

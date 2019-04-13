@@ -19,6 +19,7 @@ class MyPromise {
     this._rejectedQueues = []
     // 执行handle
     try {
+      // 给我们自己写入的 resolve 和 reject 传入内部对应的函数
       handle(this._resolve.bind(this), this._reject.bind(this))
     } catch (err) {
       this._reject(err)
@@ -27,12 +28,13 @@ class MyPromise {
 
   // 添加resovle时执行的函数, 这里传入的值可能是Promise
   _resolve (val) {
-    // 为了支持同步的Promise（就是传入同步函数得时候， 保证这一步再then执行之后在执行），这里采用异步调用
+    // 为了支持 同步的Promise（就是传入同步函数得时候， 保证这一步再then执行之后在执行），这里采用异步调用
     setTimeout(() => {
       // 这里为什么会 !== PENDING ? 放外面（setTimeout）还是里面？
       if (this._status !== PENDING) return;
 
       this._status = FULFILLED; // 草l
+
       // 依次执行成功队列中的函数，并清空队列
       const runFulfilled = (value) => {
         let cb;
@@ -91,6 +93,7 @@ class MyPromise {
     const { _value, _status } = this;
     // 返回一个新的Promise对象
     return new MyPromise((resolveNext, rejectNext) => {
+
       // 封装一个当前异步函数成功时执行的函数
       let fulfilled = value => {
         try {
@@ -98,6 +101,7 @@ class MyPromise {
           if (!isFunction(onFulfilled)) {
             resolveNext(value)
           } else { // 传入then 中的是一个函数
+
             // 执行回调函数，并得到在then中的函数的返回值
             let res = onFulfilled(value);
             if (res instanceof MyPromise) {
@@ -142,11 +146,12 @@ class MyPromise {
       // 通过判断状态， 选择then回调函数的执行方式
       // 当进行回调函数时，已经执行了_resolve/_reject 状态改变，调用上面的函数，根据传入then中的内容（或传入then内容的返回值）进行处理
       switch (_status) {
-        // 当状态为pending时，将then方法回调函数加入执行队列等待执行
+        // 当状态为pending时，将then方法回调函数加入执行队列等待_status改变的时候执行
         case PENDING:
           this._fulfilledQueues.push(fulfilled)
           this._rejectedQueues.push(rejected)
           break
+
         // 当状态已经改变时，立即执行对应的回调函数
         case FULFILLED:
           fulfilled(_value)
@@ -222,33 +227,6 @@ class MyPromise {
     );
   };
 }
-/*
-let p = new MyPromise((resolve, reject) => {
-  let last = +new Date();
-  setTimeout(() => {
-    console.log("异步完成");
-    resolve((+new Date() - last) / 1000 );
-  }, 1230)
-})
-
-// then中正常
-p.then((time) => {
-  console.log("一共花费" + time + "s");
-})
-
-// then 中“为字符串”
-p.then("nzq").then((time) => {
-  console.log("一共花费" + time + "s");
-})
-
-// then 中回调返回 promise
-p.then((time) => {
-  return new MyPromise((resolve, reject) => {
-    resolve(time)
-  })
-}).then(time => {
-  console.log("一共花费" + time + "s")
-})*/
 
 let p = new MyPromise((resolve, reject) => {
   let last = +new Date();

@@ -36,9 +36,6 @@ url-loader工作分两种情况：
     	} 
     ```
 
-    
-
-
 
 ## 2. webpack-dev-server和webpack-dev-middleware的区别 ##
 
@@ -46,9 +43,9 @@ url-loader工作分两种情况：
 
 ### 2.1 webpack-dev-server ###
 
-`webpack-dev-server`实际上相当于启用了一个`express`的`Http服务器+调用webpack-dev-middleware`。它的作用主要是用来伺服资源文件。这个`Http服务器`和`client`使用了`websocket`通讯协议，原始文件作出改动后，`webpack-dev-server`会用webpack实时的编译，再用webpack-dev-middleware将webpack编译后文件会输出到内存中。适合纯前端项目，很难编写后端服务，进行整合。
+`webpack-dev-server`实际上相当于启用了一个`express`的`Http服务器+调用webpack-dev-middleware`。它的作用主要是用来伺服资源文件。这个`Http服务器`和`client`使用了`websocket`通讯协议，原始文件作出改动后，`webpack-dev-server`会用webpack实时的编译，再**用webpack-dev-middleware将webpack编译后文件会输出到内存中。**适合纯前端项目，很难编写后端服务，进行整合。
 
-当使用 webpack dev server 和 Node.js API 时，不要将 dev server 选项放在 webpack 配置对象(webpack config object)中。而是，在创建选项时，将其作为第二个参数传递。例如：
+当使用 **webpack dev server 和 Node.js API 时**，不要将 dev server 选项放在 webpack 配置对象(webpack config object)中。而是，在创建选项时，将其作为第二个参数传递。例如：
 
 ```js
 new WebpackDevServer(compiler, options)
@@ -230,7 +227,7 @@ module.exports =  merge（[object1，object2，object3]）;
 
 > English: This plugin should be used only on `production` builds without `style-loader` in the loaders chain, especially if you want to have HMR in `development`.
 >
-> 中：在使用时不能喝  `  style-loader`共存，只用于生产环境
+> 中：在使用时不能喝]和  `  style-loader`共存，只用于生产环境
 
 **webpack.config.js**
 
@@ -338,7 +335,7 @@ new webpack.ProvidePlugin({
 
 The imports loader allows you to use modules that depend on specific global variables.
 
-当模块运行在 CommonJS 环境下这将会变成一个问题，也就是说此时的 `this` 指向的是 `module.exports`。在这个例子中，你可以通过使用 [`imports-loader`](https://www.webpackjs.com/loaders/imports-loader/) 覆写 `this`
+当模块运行在 CommonJS 环境下这将会变成一个问题，也就是说此时的 `this` 指向的是 `module.exports`。在这个例子中，你可以**通过使用 [`imports-loader`](https://www.webpackjs.com/loaders/imports-loader/) 覆写 `this**`
 
 **使用**
 
@@ -395,7 +392,7 @@ require("exports-loader?file!./file.js");
 
 This plugin is used in a separate webpack config exclusively to create a dll-only-bundle. It creates a `manifest.json` file, which is used by the [`DllReferencePlugin`](https://webpack.js.org/plugins/dll-plugin#dllreferenceplugin) to map dependencies.
 
-将此插件与[`output.library`](https://webpack.js.org/configuration/output/#output-library)用于公开（也称为放入全局范围）dll函数的选项相结合
+**将此插件与[`output.library`](https://webpack.js.org/configuration/output/#output-library)用于公开（也称为放入全局范围）dll函数的选项相结合**
 
 **DllReferencePlugin**
 
@@ -566,8 +563,8 @@ Loader will always return errors if this option is set to `true`.
 
 ```js
 options: {
-          emitError: true
-        }
+    emitError: true
+}
 ```
 
 ### 18.3 `emitWarning` (default: `false`) ###
@@ -621,10 +618,16 @@ body {
 will give you:
 
 ```scss
-/* ... content of ../node_modules/cssrecipes-defaults/index.css */
-/* ... content of ../node_modules/normalize.css/normalize.css */
+/* 
+... content of ../node_modules/cssrecipes-defaults/index.css 
+*/
+
+/*
+... content of ../node_modules/normalize.css/normalize.css */
  
-/* ... content of css/foo.css */
+/*
+... content of css/foo.css 
+*/
  
 @media (min-width: 25em) {
 /* ... content of css/bar.css */
@@ -647,7 +650,7 @@ body {
 
 [在vue-loader中使用](#19. vue-loader 之 cacheDirectory(cache-loader) / cacheIdentifier)
 
-> 请注意，保存读取和保存缓存文件会产生开销，因此只能使用此加载程序来缓存昂贵的加载程序。
+> 请注意，**保存读取和保存缓存文件会产生开销**，因此**只能使用此加载程序来缓存昂贵的加载程序。**
 
 在一些性能开销较大的 loader 之前添加此 loader，以将结果缓存到磁盘里。
 
@@ -691,13 +694,9 @@ module.exports = {
 };
 ```
 
-
-
 ### 22.2 babel-core ###
 
 Babel 的核心依赖包
-
-
 
 ### 22.3 babel-preset-stage-2 和 babel-preset-env ###
 

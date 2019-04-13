@@ -16,9 +16,9 @@ export function initUse (Vue) {
     }
 
     if (typeof plugin.install === 'function') {
-      plugin.install.apply(plugin, args)
+      plugin.install.apply(this, plugin, args)
     } else if (typeof plugin === 'function') {
-      plugin.apply(null, args)
+      plugin.apply(this, args)
     }
     installedPlugins.push(plugin)
     return this
