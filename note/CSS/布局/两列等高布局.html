@@ -1,15 +1,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>两列等高布局，利用padding-bottom的正值与margin-bottom的负值相互抵消即可</title>
+    <title>两列等高布局</title>
     <style>
+        /* main1开始 */
+        /* 利用padding-bottom的正值与margin-bottom的负值相互抵消即可 */
+        .main1{
+            width:600px;
+            margin:0 auto;
+            overflow:hidden;
+        }
 
-        .main1{ width:600px; margin:0 auto; overflow:hidden;}
+        .left1{
+            background:red;
+            width:300px; float:left;
+            padding-bottom:2000px;
+            margin-bottom:-2000px;}
 
-        .left1{background:red; width:300px; float:left; padding-bottom:2000px; margin-bottom:-2000px;}
+        .right1{
+            background:green;
+            width:300px;
+            float:left;
+            padding-bottom:2000px;
+            margin-bottom:-2000px;
+        }
+        /* main1结束 */
 
-        .right1{background:green; width:300px;float:left;padding-bottom:2000px; margin-bottom:-2000px;}
 
+        /* main2开始 */
+        /* flex */
         .main2{
             margin-top: 50px;
             display: flex;
@@ -17,12 +36,15 @@
         }
 
         .left2{
-            background:red; width:300px;
+            background:red;
+            width:300px;
         }
 
         .right2{
-            background:green; width:300px;
+            background:green;
+            width:300px;
         }
+        /* main2结束 */
     </style>
 </head>
 <body>

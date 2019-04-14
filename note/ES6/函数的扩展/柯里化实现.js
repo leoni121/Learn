@@ -48,7 +48,7 @@ const curry3 = (fn, ...arg) => {
 
 
 // (1) test(1) test(2) test(3) test() 这种形式调用(公用一个空间，能all = [] 清楚)
-// (2) test(2)(2)(2)() => [20, 20, 20] ; test(2)(2)(2)() => [20, 20, 20, 20]
+// 错误 =》 (2) test(2)(2)(2)() => [20, 20, 20] ; test(2)(2)(2)() => [20, 20, 20, 20]
 const curry4 = (fn, ...arg) => {
   let all = arg || [];
   return (...rest) => {
@@ -57,9 +57,9 @@ const curry4 = (fn, ...arg) => {
     if (rest.length === 0) {
       all=[];
       return fn.apply(this, _args);
-    } else {
-      return curry3.call(this, fn, ..._args);
-    }
+    } /*else {
+      return curry4.call(this, fn, ..._args);
+    }*/
   }
 }
 
@@ -78,6 +78,11 @@ function add(...rest) {
   })
 }
 
-var test = curry3(function(...rest){
+var test = curry4(function(...rest){
   console.log(rest);
 })
+test(1);
+test(2);
+test();
+test(21);
+test();

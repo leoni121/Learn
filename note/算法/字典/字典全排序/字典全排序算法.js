@@ -16,16 +16,14 @@ function permutation(arr) {
   for(let i=1;i<=len;i++){
     times *= i;
   }
-
-  console.log(times);
-
   tempArr.sort()
+  console.log(times);
 
   // 循环 times 次
   for (let i = 1; i <= times; i++) {
-    // do something
-    console.log("arr: ",tempArr);
+    console.log(tempArr);
 
+    // 左邻小于右邻
     for (let j = len - 1; j > 0; j--) {
       if (tempArr[j - 1] < tempArr[j]) {
         a = j - 1;
@@ -33,6 +31,7 @@ function permutation(arr) {
       }
     }
 
+    // 右边往左找第一个右边大于tempArr[a]的第一个的位置
     for (let j = len - 1; j >= 0; j--) {
       if (tempArr[j] > tempArr[a]) {
         b = j;
@@ -40,11 +39,10 @@ function permutation(arr) {
       }
     }
 
+    // 交换
     [tempArr[a], tempArr[b]] = [tempArr[b], tempArr[a]]
     tempArr = tempArr.concat(tempArr.splice(a+1).sort((pre, cur) => pre - cur))
   }
-
-  console.log(arr);
 }
 
 permutation([1,2,3,4])

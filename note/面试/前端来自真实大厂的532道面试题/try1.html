@@ -7,35 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-
-        .father {
-            position: relative;
-            background-color: red;
-            width: 200px;
-            height: 200px;
+        .triangle {
+            width: 0;
+            height: 0;
+            border-width: 50px 25px 0 25px;
+           border-color: red transparent;
+            border-style: solid;
         }
-        .father::before {
-            content: " ";
-            display: inline-block;
-            height: 100%;
-            width: 1%;
-            vertical-align: middle;
-        }
-        .father div {
-            width: 100px;
-            height: 100px;
-            background-color: yellow;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
     </style>
 </head>
 <body>
-<button style="width:200px;" >测试按钮</button>
-<!---->
-   <img src="http://www.runoob.com/images/compatible_opera.gif" alt="" style="border:1px solid red; width:30px;height:30px;">
-<script>
-</script>
+<div class="triangle"></div>
 </body>
 </html>

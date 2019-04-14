@@ -13,7 +13,7 @@
     <title></title>
 
     <style>
-        /* flex布局开始 */
+        /* flex布局开始 order/flex-shrink */
         /* center优选加载 */
         /* 中左右 */
         .container1 {
@@ -32,7 +32,7 @@
             width: 100%;
             order: 2;
             background-color: yellow;
-            /*flex-shrink: 0; 错误*/
+            /*flex-shrink: 0; 错误-可以缩小*/
         }
         .right1 {
             flex-shrink: 0; /* 防止 width:100%; 让它缩小 */
@@ -45,21 +45,21 @@
         /* BFC布局开始 */
         /* 左右中 */
         .container2>div {
-            width:200px;
             height: 100px;
+            background:pink;
         }
         .left2{
-            background:pink;
+            width:200px;
             float: left;
         }
-        .container2>.center2{
-            background:lightyellow;
-            overflow:hidden;
-            width: 100%;
-        }
         .right2{
-            background: lightblue;
+            width:200px;
             float:right; /* float:left =》 最右边自适应 */
+        }
+        .container2 .center2{
+            background:lightyellow;
+            /*width: 100%; *//*都可以*/
+            overflow: hidden;
         }
         /* BFC布局结束 */
 
@@ -123,13 +123,15 @@
         .left5 {
             /* 负的margin-left会让元素沿文档流向左移动，如果负的数值比较大就会一直移动到上一行。关于负的margin的应用也是博大精深， */
             margin-left: -100%;
-            background-color: green;
             left: -200px;
             /* 接下来只要把left和right分别移动到这两个留白就可以了。可以使用相对定位移动 left和right部分。 */
+
+            background-color: green;
         }
         .right5 {
             margin-left: -200px;
             right: -200px;
+
             background-color: blue;
         }
         /* 圣杯布局结束 */
@@ -141,7 +143,7 @@
         .container6 {
             overflow: hidden;
         }
-        .left6, .center6, .right6 {
+        .left6, .right6 {
             float: left;
             min-height: 130px;
             width: 200px;
@@ -158,9 +160,12 @@
         .center6 {
             background-color: blue;
             width: 100%;
+            float: left;
+            min-height: 130px;
         }
         /* .center6 里面的模块 */
-        .content6{
+        .center6 .content6{
+            width: calc(100% - 200px);
             margin: 0 200px;
         }
         /* 双飞翼局结束 */
@@ -260,11 +265,11 @@
 <!-- 双飞翼布局开始 -->
 <!-- center优选加载 -->
 <div class="container6">
-　　<div class="center6">
-        　　<div class="content6">main</div>
-    </div>
-　　<div class="left6">left</div>
-　　<div class="right6">right</div>
+    　　<div class="center6">
+    　　<div class="content6">main</div>
+</div>
+    　　<div class="left6">left</div>
+    　　<div class="right6">right</div>
 </div>
 <!-- 双飞翼布局结束 -->
 </body>

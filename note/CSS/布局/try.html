@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>三列自适应布局 浮动</title>
+    <style type="text/css">
+        #left,#right{ width: 200px;height: 200px; background-color: #ffe6b8 }
+        #left {float: left;}
+        #right{float: right;}
+        #middle{height: 200px; background-color: #a0b3d6;
+            overflow: hidden;}
+    </style>
+</head>
+<body>
+
+<div id="left">left</div>
+<div id="right">right</div>
+<div id="middle">middle</div>  <!--注意middle块的位置，虽然写在right后面，但是在布局效果中出现在中间 -->
+</div>
+</body>
+</html>
