@@ -35,8 +35,8 @@ module.exports = {
       '@': resolve('src')
     },
     // 优化相关
-   /* symlinks: false, // 不使用 symlinks 
-    cacheWithContext: false // 你使用自定义解析 plugins ，并且没有指定 context 信息，可以设置 resolve.cacheWithContext: false */
+    /* symlinks: false, // 不使用 symlinks 
+     cacheWithContext: false // 你使用自定义解析 plugins ，并且没有指定 context 信息，可以设置 resolve.cacheWithContext: false */
   },
   module: {
     rules: [

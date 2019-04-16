@@ -154,23 +154,3 @@ gridUpdate = function( topic, data ){
   }
 
 };
-
-// Create a subscription to the newDataAvailable topic
-var subscriber = pubsub.subscribe( "newDataAvailable", gridUpdate );
-
-// The following represents updates to our data layer. This could be
-// powered by ajax requests which broadcast that new data is available
-// to the rest of the application.
-
-// Publish changes to the gridUpdated topic representing new entries
-pubsub.publish( "newDataAvailable", {
-  summary: "Apple made $5 billion",
-  identifier: "APPL",
-  stockPrice: 570.91
-});
-
-pubsub.publish( "newDataAvailable", {
-  summary: "Microsoft made $20 million",
-  identifier: "MSFT",
-  stockPrice: 30.85
-});

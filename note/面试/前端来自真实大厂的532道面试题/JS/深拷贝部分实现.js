@@ -2,6 +2,8 @@
  * @author Nzq
  * @date 2019/3/9
  * @Description: 得到相应的对象， 该方程参考https://www.cnblogs.com/rusr/p/8984604.html
+ *  1、从服务器fetch到数据, 保存和取消
+ *  2、不想修改原对象
  * @Param:
  */
 function getType(obj) {

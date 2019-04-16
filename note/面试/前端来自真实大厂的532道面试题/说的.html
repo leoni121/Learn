@@ -1,18 +1,18 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>两列等高布局，利用padding-bottom的正值与margin-bottom的负值相互抵消即可</title>
+    <meta charset="UTF-8">
+    <title>左列定值，右列宽度自适应（弹性盒布局法）</title>
     <style>
-
-
-
+        .main{ width: 100%; height: 600px; display: -webkit-box;}
+        .left{ width: 300px; height: 600px; border: 3px solid #FF1B79; -webkit-box-flex: 0;}
+        .right{ height: 600px; border: 3px solid #02A6E0;-webkit-box-flex:1;}
     </style>
 </head>
 <body>
-<script>
-  window.onpopstate = function (state) {
-    console.log(state);
-  }
-</script>
+<div class="main">
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
 </body>
-</html>

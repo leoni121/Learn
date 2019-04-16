@@ -4,29 +4,42 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        /* top bottom absolute */
-        #parent1 {
+        .parent {
             width: 400px;
             height: 400px;
             background-color: red;
-            position: relative;
+            margin-bottom: 50px;
         }
-        #son1 {
+
+        .son {
             width: 100px;
             height: 100px;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            margin: auto;
             background-color: yellow;
         }
 
 
+        /* absolute 开始 */
+        #parent1 {
+            position: relative;
+        }
+        /* 不加 width height 和 margin 的话 #son1 会占满整个 #parent1 */
+        #son1 {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+
+            /* top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);*/
+        }
+        /* absolute 结束 */
+
+
+        /* vertical-align: middle; 开始 */
         #parent2 {
-            margin-top: 100px;
-            width: 400px;
-            height: 400px;
-            background-color: red;
         }
         #parent2::before {
             content: " ";
@@ -37,22 +50,53 @@
             vertical-align: middle;
         }
         #son2 {
-            width: 100px;
-            height: 100px;
-            background-color: yellow;
-
             display: inline-block;
             vertical-align: middle;
         }
+        /* vertical-align: middle; 结束 */
+
+
+        /* flex 开始 */
+        #parent3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+           /* display: flex;
+            flex-direction: column;
+            justify-content: center;*/
+        }
+        #son3 {
+        }
+        /* flex 结束 */
+
+
+        /* table 开始 */
+        /* 占满整个屏幕 */
+        #parent4 {
+            display: table;
+        }
+        #son4 {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        /* table 结束 */
     </style>
 </head>
 <body>
-<div id="parent1">
-    <div id="son1"></div>
+<div id="parent1" class="parent">
+    <div id="son1" class="son"></div>
 </div>
 
-<div id="parent2">
-    <div id="son2"></div>
+<div id="parent2" class="parent">
+    <div id="son2" class="son"></div>
+</div>
+
+<div id="parent3" class="parent">
+    <div id="son3" class="son"></div>
+</div>
+
+<div id="parent4" class="parent">
+    <div id="son4" class="son">占满居中</div>
 </div>
 </body>
 </html>
