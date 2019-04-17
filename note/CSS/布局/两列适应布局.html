@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .parent {
+            height: 300px;
+            margin-bottom: 50px;
+        }
+
+        .left{
+            width: 300px;
+            height: 100%;
+            background-color: red;
+        }
+        .right, #right5Con{
+            height: 100%;
+            background-color: yellow;
+        }
+
+
+        /* BFC开始 */
+        #left1 {
+            float: left;
+        }
+        #right1 {
+            overflow: hidden;
+        }
+        /* BFC结束 */
+
+        /* flex开始 */
+        #parent2 {
+            display: flex;
+        }
+        #left2 {
+            flex-shrink: 0;
+        }
+        #right2 {
+            width: 100%;
+        }
+        /* flex结束 */
+
+        /* table-cell开始 */
+        #parent3 {
+            display: table;
+        }
+        #left3, #right3 {
+            display: table-cell;
+        }
+        #left3 {
+            min-width: 300px;
+        }
+        #right3 {
+            width: 100%;
+        }
+        /* table-cell结束 */
+
+        /* 圣杯开始 */
+        #parent4 {
+            overflow: hidden;
+            padding-left: 300px;
+        }
+
+        #parent4>div {
+            position: relative;
+            float: left;
+        }
+        #left4 {
+            margin-left: -300px;
+        }
+        #right4 {
+            width: 100%;
+        }
+        /* 圣杯结束 */
+
+        /* 双飞翼开始 */
+        #right5Con {
+            width: 100%;
+            margin-left: 300px;
+        }
+        #left5 {
+            float: left;
+        }
+        /* 双飞翼结束 */
+    </style>
+</head>
+<body>
+<div class="parent" id="parent1">
+    <div class="left" id="left1"></div>
+    <div class="right" id="right1"></div>
+</div>
+
+<div class="parent" id="parent2">
+    <div class="left" id="left2"></div>
+    <div class="right" id="right2"></div>
+</div>
+
+<div class="parent" id="parent3">
+    <div class="left" id="left3"></div>
+    <div class="right" id="right3"></div>
+</div>
+
+<div class="parent" id="parent4">
+    <div class="left" id="left4">sdsadsa</div>
+    <div class="right" id="right4"></div>
+</div>
+
+<div class="parent" id="parent5">
+    <div class="left" id="left5">sdsadsa</div>
+    <div id="right5Con">
+        <div class="right" id="right5"></div>
+    </div>
+</div>
+</body>
+</html>
