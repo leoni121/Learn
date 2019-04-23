@@ -5,18 +5,25 @@
  * @Param:
  * @Return:
  */
-function debounce(fn, delay = 50) {
-  let timer = null;
-  return function (...arg) {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(() => {
-      timer = null;
-      fn(...arg);
+function debounce(fun, delay) {
+  return function (...args) {
+    let that = this;
+    clearTimeout(fun.timer)
+    fun.timer = setTimeout(function () {
+      fun.call(that, args)
     }, delay)
   }
 }
+/*
+function debounce(method, context) {
+  clearTimeout(method.tId);
+  method.tId = setTimeout(function () {
+    method.call(context);
+  }, 100)
+}
+*/
+
+
 
 
 /**
@@ -27,22 +34,21 @@ function debounce(fn, delay = 50) {
  * @Return:
  */
 
-function throttle(fn, delay=200) {
-  let timer = null
-    ,last = 0
-    ,now = 0;
-
-  return function (...arg) {
+function throttle(fun, delay) {
+  let last, now;
+  return function (...args) {
+    let that = this;
     now = +new Date()
-    if (last && now - last < delay) {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        last = now;
-        fn(...arg);
+    if (last && now < last + delay) {
+      clearTimeout(fun.timer)
+      fun.timer = setTimeout(function () {
+        last = now
+        fun.apply(that, args)
       }, delay)
     }else {
-      last = +new Date();
-      fn(...arg);
+      last = now
+      fun.apply(that,args)
     }
   }
 }
+

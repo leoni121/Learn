@@ -741,9 +741,14 @@ stage-X: 指处于某一阶段的js语言提案。
 
 
 
-## 23. 其他 ##
+## 23. css-loader 和style-loader ##
 
-### 23.1 happypack 和 thread-loader ###
+- `css-loader`: 加载.css文件，将@import 和 url() 转换成 import/require()的
+- `style-loader`:使用`<style>`将css-loader内部样式注入到我们的HTML页面
+
+## 24. 其他 ##
+
+### 24.1 happypack 和 thread-loader ###
 
 [***happypack-参考-npm***](https://www.npmjs.com/package/happypack)，[***thread-loader-参考-webpack***](<https://www.webpackjs.com/loaders/thread-loader/>) 
 
@@ -757,7 +762,7 @@ devServer.quit = true；
 
 弹窗提示
 
-### 23.3. rimraf ###
+### 24.3. rimraf ###
 
 可以实现文件的删除。
 
@@ -773,11 +778,11 @@ rm(path.join(...), err => {
 })
 ```
 
-### 23.4 shelljs ###
+### 24.4 shelljs ###
 
 nodejs 的shell 命令模块
 
-### 23.5 Vue-template-compiler ###
+### 24.5 Vue-template-compiler ###
 
 [博客-Vue-template-compiler 和vue-loader 的关系是怎么样的?马上就要合二为一了？](https://segmentfault.com/q/1010000011811513)
 
