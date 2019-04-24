@@ -1,10 +1,10 @@
 [TOC]
-## iframe
+## 1. iframe
 document.getElementsByTagName("iframe")[1].contentWindow.document.body.classList.add("content-scroll-beautify")
 
 
 
-## HTML元素的显示优先级
+## 2. HTML元素的显示优先级
 https://blog.csdn.net/basycia/article/details/50482977
     有窗口的元素总是显示在无窗口元素的前面，z-index属性值只有在同一类元素之间才起决定作用。形象地说，有窗口元素和无窗口元素就像画在同一浏览器窗口的两块不同画布上，两类元素分别自成体系，它们的z-index属性也只相对于同一画布上的其他元素起作用。
     帧元素>HTML元素优先，表单元素总>非表单元素优先
@@ -13,7 +13,7 @@ https://blog.csdn.net/basycia/article/details/50482977
 
 
 
-## 基于以下 HTML 结构，判断浏览器会发送多少个图片请求？
+## 3. 基于以下 HTML 结构，判断浏览器会发送多少个图片请求？
 	\				不产生请求										    产生请求
 img标签				把图片地址设置为不存在的属性，如data-src="..."	   设置了src属性（无论display:none;还是visibility:hidden;）
 图片背景			display:none;或visibility:hidden					可见
@@ -22,11 +22,7 @@ js的new Image()
 													el.innerHTML = '<img src="http://www.maxmeng.top/images/avatar.jpg" />'; // 产生请求
 												new Image().src = 'http://www.maxmeng.top/images/avatar.jpg'; // 也产生请求
 
-
-## textarea
-    text
-
-## 1. Viewport ##
+## 4. Viewport ##
 
 > [移动前端开发之viewport的深入理解](https://www.cnblogs.com/2050/p/3877280.html)
 
@@ -43,3 +39,15 @@ viewport 是**用户网页的可视区域**，**手机浏览器是把页面放�
 4. maximum-scale：允许用户缩放到的最大比例。
 5. minimum-scale：允许用户缩放到的最小比例。
 6. user-scalable：用户是否可以手动缩放。
+
+## 5. HTML 语法标签，块级和行级的区别是什么？ ##
+
+1. width; height
+
+2. 布局
+
+3. padding/margin
+
+   > padding: 100px ; === padding: 0 100px 100px;
+   >
+   > margin: 100px; === margin: 0 100px;
