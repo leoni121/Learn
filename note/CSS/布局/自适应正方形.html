@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .square {
+            background-color: red;
+            width: 20%;
+            margin: 0 auto 100px;
+        }
+
+        /* CSS3 vw 单位，vw是相对于视口的宽度。视口被均分为100单位的vw。1vw = 1% viewport width */
+        .square1 {
+            height: 20vw;
+        }
+
+        /* 垂直方向的padding撑开容器(padding可以用百分比，百分比是根据它包含块的width来确定的，也就是父级元素的width） */
+        /* 如果不写hegith的话，正方形内文字会溢出，溢出的高度正好就是文字所占空间的高度。 */
+        .square2 {
+            padding-bottom: 20%;
+            height: 0;
+        }
+
+        /* 伪元素：after;before; margin-top;margin-bottom;padding-bottom;padding-top; */
+        .square3:after{
+            content: '';
+            display: block;
+            padding-bottom: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<div class="square1 square">square1</div>
+
+<div class="square2 square">square2</div>
+
+<div class="square3 square">square3</div>
+</body>
+</html>
