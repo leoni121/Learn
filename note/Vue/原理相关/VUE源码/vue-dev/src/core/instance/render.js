@@ -59,7 +59,9 @@ export function setCurrentRenderingInstance (vm: Component) {
 }
 
 export function renderMixin (Vue: Class<Component>) {
+
   // install runtime convenience helpers
+  // 作用就是在 Vue.prototype 上添加一系列方法，
   installRenderHelpers(Vue.prototype)
 
   // nzq_mark

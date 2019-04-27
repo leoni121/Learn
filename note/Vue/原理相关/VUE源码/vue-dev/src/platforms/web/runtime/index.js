@@ -1,5 +1,6 @@
 /* @flow */
 
+// 引入Vue
 import Vue from 'core/index'
 import config from 'core/config'
 import { extend, noop } from 'shared/util'
@@ -20,6 +21,8 @@ import platformDirectives from './directives/index'
 import platformComponents from './components/index'
 
 // install platform specific utils
+// 覆盖默认导出的 config 对象的属性
+// Vue 的 config 属性代理到 core/config.js 文件导出的 config 对象
 Vue.config.mustUseProp = mustUseProp
 Vue.config.isReservedTag = isReservedTag
 Vue.config.isReservedAttr = isReservedAttr
@@ -27,14 +30,16 @@ Vue.config.getTagNamespace = getTagNamespace
 Vue.config.isUnknownElement = isUnknownElement
 
 // install platform runtime directives & components
+// 在 Vue.options 上添加 web 平台运行时的特定组件和指令。
 extend(Vue.options.directives, platformDirectives)
 extend(Vue.options.components, platformComponents)
 
 // install platform patch function
+// 在浏览器环境运行的话，这个方法的值为 patch 函数，否则是一个空函数 noop。
 Vue.prototype.__patch__ = inBrowser ? patch : noop
 
 // public mount method
-// nzq_mark
+// 在 Vue.prototype 上添加了 $mount 方法
 Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
@@ -45,6 +50,7 @@ Vue.prototype.$mount = function (
 
 // devtools global hook
 /* istanbul ignore next */
+// vue-devtools 的全局钩子，它被包裹在 setTimeout 中
 if (inBrowser) {
   setTimeout(() => {
     if (config.devtools) {
@@ -74,4 +80,5 @@ if (inBrowser) {
   }, 0)
 }
 
+// 导出 Vue
 export default Vue

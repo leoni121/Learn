@@ -19,7 +19,9 @@ function TreeNode(x=0) {
   this.right = null;
 }
 
-function reConstructBinaryTree(pre, vin) {
+function reConstructBinaryTree(pre, vin)
+{
+  // write code here
   let vinLTreeArr = [],
     vinRTreeArr = [],
     preLTreeArr = [],

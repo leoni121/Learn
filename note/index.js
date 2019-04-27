@@ -7,3 +7,5 @@ function addFloat(float1, float2) {
     return '.' + ma;
   })
 }
+
+console.log(Object)

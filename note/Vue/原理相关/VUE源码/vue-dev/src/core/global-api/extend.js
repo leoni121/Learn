@@ -10,6 +10,9 @@ export function initExtend (Vue: GlobalAPI) {
    * cid. This enables us to create wrapped "child
    * constructors" for prototypal inheritance and cache them.
    */
+  // 每个实例构造函数（包括Vue）都有一个
+  // CID。这使我们能够创建包装的“子级”
+  // 用于原型继承和缓存的构造函数。
   Vue.cid = 0
   let cid = 1
 

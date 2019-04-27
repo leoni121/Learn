@@ -322,9 +322,15 @@ export function stateMixin (Vue: Class<Component>) {
   // when using Object.defineProperty, so we have to procedurally build up
   // the object here.
   const dataDef = {}
+  // $data 属性实际上代理的是 _data 这个实例属性。
   dataDef.get = function () { return this._data }
+
   const propsDef = {}
+  // $props 代理的是 _props 这个实例属性。
   propsDef.get = function () { return this._props }
+
+  // 非开发环境提示：不能修改 $data 和 $props
+  // $data 和 $props 是两个只读的属性
   if (process.env.NODE_ENV !== 'production') {
     dataDef.set = function () {
       warn(
@@ -338,11 +344,11 @@ export function stateMixin (Vue: Class<Component>) {
     }
   }
 
-  // 不指定 configurable、enumerable、writable 都为false
+  // $data 和 $props，这两个属性的定义分别写在了 dataDef 以及 propsDef 这两个对象里
+  // 没有指定 configurable、enumerable、writable 都为false
   Object.defineProperty(Vue.prototype, '$data', dataDef)
   Object.defineProperty(Vue.prototype, '$props', propsDef)
 
-  // nzq_mark
   // 给对象，数组动态添加属性
   Vue.prototype.$set = set
   Vue.prototype.$delete = del

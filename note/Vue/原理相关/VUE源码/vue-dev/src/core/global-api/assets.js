@@ -2,6 +2,7 @@
 
 import { ASSET_TYPES } from 'shared/constants'
 import { isPlainObject, validateComponentName } from '../util/index'
+import { initExtend } from './extend'
 
 export function initAssetRegisters (Vue: GlobalAPI) {
   /**
@@ -21,6 +22,7 @@ export function initAssetRegisters (Vue: GlobalAPI) {
         }
         if (type === 'component' && isPlainObject(definition)) {
           definition.name = definition.name || id
+          // extend 方法是前一步的 initExtend(Vue) 添加的静态方法
           definition = this.options._base.extend(definition)
         }
         if (type === 'directive' && typeof definition === 'function') {
