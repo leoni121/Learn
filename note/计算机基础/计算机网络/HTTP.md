@@ -42,7 +42,7 @@ HTTP默认端口号为80，但是你也可以改为8080或者其他端口。
 
 ***Response***
 
-**响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。**
+**响应也由四个部分组成，分别是：状态行(HTTP-Version Status-Code Reason-Phrase CRLF)、消息报头、空行和响应正文。**
 
 ![httpresponse](../img/httpresponse.png)
 
@@ -107,40 +107,39 @@ HTTP默认端口号为80，但是你也可以改为8080或者其他端口。
 * 206
 
   > 1. HTTP `206 Partial Content`成功状态响应代码指示请求已成功并且主体包含所请求的数据范围，如`Range`请求标题中所述。如果只有一个范围，则整个响应`Content-Type`设置为文档的类型，并提供一个`Content-Range`。如果发送了几个范围，则`Content-Type`设置为`multipart/byteranges`并且每个片段都覆盖一个范围，并且使用`Content-Range`和`Content-Type`对其进行描述。
+  > 2. **发生在客户端继续请求一个[未完成的下载](http://blogs.msdn.com/b/ieinternals/archive/2011/06/03/send-an-etag-to-enable-http-206-file-download-resume-without-restarting.aspx)的时候**
+  > 3. 状态 ：206 Partial Content
+  > 4. **实例**：
   >
-  > 2. 状态 ：206 Partial Content
-  >
-  > 3. **实例**：
-  >
-  >    ```
-  >    包含一个范围的响应：
-  >    HTTP/1.1 206 Partial Content
-  >    Date: Wed, 15 Nov 2015 06:25:24 GMT
-  >    Last-Modified: Wed, 15 Nov 2015 04:58:08 GMT
-  >    Content-Range: bytes 21010-47021/47022
-  >    Content-Length: 26012
-  >    Content-Type: image/gif
-  >    ... 26012 bytes of partial image data ...
-  >    
-  >    包含以下几个范围的响应：
-  >    HTTP/1.1 206 Partial Content
-  >    Date: Wed, 15 Nov 2015 06:25:24 GMT
-  >    Last-Modified: Wed, 15 Nov 2015 04:58:08 GMT
-  >    Content-Length: 1741
-  >    Content-Type: multipart/byteranges; boundary=String_separator
-  >    
-  >    --String_separator
-  >    Content-Type: application/pdf
-  >    Content-Range: bytes 234-639/8000
-  >    
-  >    ...the first range...
-  >    --String_separator
-  >    Content-Type: application/pdf
-  >    Content-Range: bytes 4590-7999/8000
-  >    
-  >    ...the second range
-  >    --String_separator--
-  >    ```
+  > ```
+  > 包含一个范围的响应：
+  > HTTP/1.1 206 Partial Content
+  > Date: Wed, 15 Nov 2015 06:25:24 GMT
+  > Last-Modified: Wed, 15 Nov 2015 04:58:08 GMT
+  > Content-Range: bytes 21010-47021/47022
+  > Content-Length: 26012
+  > Content-Type: image/gif
+  > ... 26012 bytes of partial image data ...
+  > 
+  > 包含以下几个范围的响应：
+  > HTTP/1.1 206 Partial Content
+  > Date: Wed, 15 Nov 2015 06:25:24 GMT
+  > Last-Modified: Wed, 15 Nov 2015 04:58:08 GMT
+  > Content-Length: 1741
+  > Content-Type: multipart/byteranges; boundary=String_separator
+  > 
+  > --String_separator
+  > Content-Type: application/pdf
+  > Content-Range: bytes 234-639/8000
+  > 
+  > ...the first range...
+  > --String_separator
+  > Content-Type: application/pdf
+  > Content-Range: bytes 4590-7999/8000
+  > 
+  > ...the second range
+  > --String_separator--
+  > ```
   >
   > 状态：206 Partial Content
 
@@ -270,16 +269,21 @@ HTTP默认端口号为80，但是你也可以改为8080或者其他端口。
 
 ### 4.3 引申的问题和思考 ###
 
-1.  303和307的存在，归根结底是由于POST方法的非幂等属性引起的。
+1. 303和307的存在，归根结底是由于POST方法的非幂等属性引起的。
 
 2. 308 的存在，返回时301对于某些使用HTTP/1.0协议的浏览器，当它们发送的POST请求得到了一个301响应的话，接下来的重定向请求将会变成GET方式。
 
 3. 301/302/303/307/308的区别 及注意点
 
    > 1. 301，302是http1.0的内容，303、307、308是http1.1的内容。
+   >
    > 2. 301和302本来在规范中是**不允许**重定向时改变请求方法的（将POST改为GET），但是许多浏览器却**允许重定向时改变请求方法**（这是一种不规范的实现）。
+   >
    > 3. 301表示搜索引擎在抓取新内容的同时也将旧的网址交换为重定向之后的网址；302表示旧地址A的资源还在（仍然可以访问），这个重定向只是临时地从旧地址A跳转到地址B，搜索引擎会抓取新的内容而保存旧的网址。
-   > 4.  因为301与302的区别，所以导致产生302网址劫持，故不建议使用302重定向（然而浏览器默认是使用302重定向）
+   >
+   > 4. 因为301与302的区别，所以导致产生302网址劫持，故不建议使用302重定向（然而浏览器默认是使用302重定向）
+   >
+   >    网络劫持参考 [本地——记录：170-229.md——204. 301和302的区别](../../面试/前端来自真实大厂的532道面试题/记录：170-229.md)
 
 4. 301请求码进行跳转被谷歌认为是将网站地址由 **HTTP 迁移到 HTTPS的最佳方法**, 但是淘宝就是 302跳转
 
@@ -454,14 +458,14 @@ google提出了SPDY的方案，优化了HTTP1.X的**请求延迟**，解决了HT
 
 **具体优化如下：**
 
-1.  **多路复用**，针对HTTP高延迟的问题，SPDY优雅的采取了多路复用（multiplexing）。**多路复用通过多个请求stream共享一个tcp连接的方**式，解决了HOL blocking的问题，降低了延迟同时提高了带宽的利用率。
+1. **多路复用**，针对HTTP高延迟的问题，SPDY优雅的采取了多路复用（multiplexing）。**多路复用通过多个请求stream共享一个tcp连接的方**式，解决了HOL blocking（Head-of-line *blocking*）的问题，降低了延迟同时提高了带宽的利用率。
 
-2.  **请求优先级**（request prioritization）。多路复用带来一个新的问题是，在连接共享的基础之上有可能会导致**关键请求被阻塞**。SPDY允许给每个request**设置优先级，这样重要的请求就会优先得到响应**。
+2. **请求优先级**（request prioritization）。多路复用带来一个新的问题是，在连接共享的基础之上有可能会导致**关键请求被阻塞**。SPDY允许给每个request**设置优先级，这样重要的请求就会优先得到响应**。
    比如浏览器加载首页，首页的html内容应该优先展示，之后才是各种静态资源文件，脚本文件等加载，这样可以保证用户能第一时间看到网页内容。
 
-3.  **header压缩。**前面提到**HTTP1.x的header很多时候都是重复多余的**。选择合适的压缩算法可以减小包的大小和数量。
+3. **header压缩。**前面提到**HTTP1.x的header很多时候都是重复多余的**。选择合适的压缩算法可以减小包的大小和数量。
 
-4.  **基于HTTPS的加密协议传输**，大大提高了传输数据的可靠性。
+4. **基于HTTPS的加密协议传输**，大大提高了传输数据的可靠性。
 
 5. ###### 服务端推送（server push） ######
 
@@ -477,7 +481,7 @@ HTTP2.0可以说是SPDY的升级版（其实原本也是基于SPDY设计的）�
 
 ### 9.5 HTTP2.0和HTTP1.X 的区别 ###
 
-1. **新的二进制格式**（Binary Format），**HTTP1.x的解析是基于文本**。基于文本协议的格式解析存在天然缺陷，文本的表现形式有多样性，要做到健壮性考虑的场景必然很多，二进制则不同，只认0和1的组合。基于这种考虑HTTP2.0的协议解析决定采用二进制格式，实现方便且健壮。
+1. **新的二进制格式**（Binary Format），**HTTP1.x的解析是基于文本**。基于文本协议的格式解析存在天然缺陷，**文本的表现形式有多样性**，要做到健壮性考虑的场景必然很多，**二进制则不同，只认0和1的组合**。基于这种考虑HTTP2.0的协议解析决定采用二进制格式，实现方便且健壮。
 2. **多路复用**（MultiPlexing），即连接共享，即每一个request都是是用作连接共享机制的。一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的 id将request再归属到各自不同的服务端请求里面。
 3. **header压缩**，如上文中所言，对前面提到过HTTP1.x的header带有大量信息，而且每次都要重复发送，**HTTP2.0使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。**
 4. **服务端推送**（server push），同SPDY一样，HTTP2.0也具有server push功能。[参考](#服务端推送（server push）)
@@ -512,7 +516,7 @@ HTTP2.0可以说是SPDY的升级版（其实原本也是基于SPDY设计的）�
 
 （1）终端发起续传请求时，URL对应的文件内容在**服务端**已经发生**变化**，此时续传的数据肯定是错误！
 
-> * 此时我们需要有一个标识文件唯一性的方法。在RFC2616中也有相应的定义，比如实现Last-Modified来标识文件的最后修改时间，这样即可判断出续传文件时是否已经发生过改动。同时RFC2616中还定义有一个ETag的头，可以使用ETag头来放置文件的唯一标识，比如文件的MD5值。
+> * 此时我们需要有一个标识文件唯一性的方法。在RFC2616中也有相应的定义，比如实现Last-Modified来标识文件的最后修改时间，这样即可判断出续传文件时是否已经发生过改动。同时RFC2616中还定义有一个ETag的头，可以使用**ETag头来放置文件的唯一标识，比如文件的MD5值**。
 >   终端在发起续传请求时应该在HTTP头中申明If-Match 或者If-Modified-Since 字段，帮助服务端判别文件变化。
 > * 另外RFC2616中同时定义有一个**If-Range头**，终端如果在续传是使用If-Range。**If-Range中的内容可以为最初收到的ETag头或者是Last-Modfied中的最后修改时候。**服务端在收到续传请求时，通过If-Range中的内容进行校验
 > * **校验一致时返回206的续传回应，不一致时服务端则返回200回应，回应的内容为新的文件的全部数据。**

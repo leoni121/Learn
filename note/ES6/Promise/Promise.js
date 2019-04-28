@@ -230,17 +230,18 @@ class MyPromise {
 
 let p = new MyPromise((resolve, reject) => {
   let last = +new Date();
-  setTimeout(() => {
+  /*setTimeout(() => {
     console.log("异步完成");
     resolve(new MyPromise((resolve1, reject1) => {
       console.log("dsfsd")
       resolve1((+new Date() - last) / 1000 + "s");
     }));
-  }, 1230)
+  }, 1230)*/
+  resolve(last)
 })
 
 // then中正常
 p.then((time) => {
-  console.log("一共花费" + time + "s");
+  console.log("一共花费" + time);
 })
 console.log("1")

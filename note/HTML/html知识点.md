@@ -42,6 +42,8 @@ viewport 是**用户网页的可视区域**，**手机浏览器是把页面放�
 
 ## 5. HTML 语法标签，块级和行级的区别是什么？ ##
 
+[说说行内元素和块级元素](<https://www.jianshu.com/p/d69878549d92>)
+
 1. width; height
 
 2. 布局
@@ -51,3 +53,86 @@ viewport 是**用户网页的可视区域**，**手机浏览器是把页面放�
    > padding: 100px ; === padding: 0 100px 100px;
    >
    > margin: 100px; === margin: 0 100px;
+
+4. 块级可以容纳行级
+
+5. 块级宽度默认是 100%， 行级默认是内容宽度
+
+**常见的块元素**
+
+```
+address - 地址
+ blockquote - 块引用
+ center - 举中对齐块
+ dir - 目录列表
+ div - 常用块级容易，也是css layout的主要标签
+ dl - 定义列表
+ fieldset - form控制组
+ form - 交互表单
+ h1 - 大标题
+ h2 - 副标题
+ h3 - 3级标题
+ h4 - 4级标题
+ h5 - 5级标题
+ h6 - 6级标题
+ hr - 水平分隔线
+ isindex - input prompt
+ menu - 菜单列表
+ noframes - frames可选内容（对于不支持frame的浏览器显示此区块内容）
+ noscript - 可选脚本内容（对于不支持script的浏览器显示此内容）
+ ol - 排序列表
+ p - 段落
+ pre - 格式化文本
+ table - 表格
+ ul - 非排序列表
+```
+
+**常见的内联元素**
+
+```
+a - 锚点
+abbr - 缩写
+acronym - 首字
+b - 粗体（不推荐）
+bdo - bidi override
+big - 大字体
+br - 换行
+cite - 引用
+code - 计算机代码（在引用源码的时候需要）
+dfn - 定义字段
+em - 强调
+font - 字体设定（不推荐）
+i - 斜体
+img - 图片
+input - 输入框
+kbd - 定义键盘文本
+label - 表格标签
+q - 短引用
+s - 中划线（不推荐）
+samp - 定义范例计算机代码
+select - 项目选择
+small - 小字体文本
+span - 常用内联容器，定义文本内区块
+strike - 中划线
+strong - 粗体强调
+sub - 下标
+sup - 上标
+textarea - 多行文本输入框
+tt - 电传文本
+u - 下划线
+var - 定义变量
+```
+
+**块级元素和内联元素之间的转换**
+
+1. display
+   块元素默认display:block;**行内非替换元素(a,span)**默认为display：inline;**行内替换元素(input)**默认为display:inline-block;
+   - display:none;不显示该元素，也不会保留该元素原先占有的文档流位置。
+   - display:block;转换为块级元素。
+   - display:inline;转换为行内元素。
+   - display:inline-block;转换为行内块级元素。
+2. float
+   当把行内元素设置完float:left/right后，该行内元素的display属性会被赋予block值，且拥有浮动特性。行内元素去除了之间的莫名空白。
+3. position
+   当为行内元素进行定位时，position:absolute与position:fixed.都会使得原先的行内元素变为块级元素
+

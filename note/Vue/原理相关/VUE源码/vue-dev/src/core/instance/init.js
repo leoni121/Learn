@@ -61,9 +61,9 @@ export function initMixin (Vue: Class<Component>) {
       // $options 属性用于当前 Vue 的初始化，下面所有初始化相关的函数都使用了 $options
       // mergeOptions 的意义就是用来得到 $options
       vm.$options = mergeOptions(
-        resolveConstructorOptions(vm.constructor),
-        options || {},
-        vm
+        resolveConstructorOptions(vm.constructor), // 构造者的 options
+        options || {}, // 我们传入的 options
+        vm // Vue 实例
       )
     }
 
@@ -125,7 +125,11 @@ export function initInternalComponent (vm: Component, options: InternalComponent
   }
 }
 
+// 在上面initMixin中传入了 vm.constructor
+// 用来获取当前实例构造者的 options 属性的，即使 if 判断分支内也不例外，
+// 因为 if 分支只不过是处理了 options，最终返回的永远都是 options。
 export function resolveConstructorOptions (Ctor: Class<Component>) {
+  // Ctor === vm.constructor，就是 Vue 构造函数
   let options = Ctor.options
   if (Ctor.super) {
     const superOptions = resolveConstructorOptions(Ctor.super)
