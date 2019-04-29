@@ -1,7 +1,7 @@
 /**
  * @Author nzq
  * @Date 2019/4/16
- * @Description:
+ * @Description: 输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
  * @Param:
  * @Return:
  */

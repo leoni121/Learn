@@ -18,7 +18,17 @@ import {
   invokeWithErrorHandling
 } from '../util/index'
 
+// 这个变量将总是保存着当前正在渲染的实例的引用，
+// 所以它就是当前实例 components 下注册的子组件的父实例，
+// 所以 Vue 实际上就是这样做到自动侦测父级的。
 export let activeInstance: any = null
+// isUpdatingChildComponent 初始值为 false，只有当
+// updateChildComponent 函数开始执行的时候会被更新为 true，
+// 当 updateChildComponent 执行结束时又将
+// isUpdatingChildComponent 的值还原为 false，
+// 这是因为 updateChildComponent 函数需要更新实例对象的
+// $attrs 和 $listeners 属性，所以此时是不需要提示 $attrs
+// 和 $listeners 是只读属性的。
 export let isUpdatingChildComponent: boolean = false
 
 // nzq_mark
@@ -37,15 +47,27 @@ export function initLifecycle (vm: Component) {
   const options = vm.$options
 
   // locate first non-abstract parent
+  // 定义 parent，它引用当前实例的父实例
   let parent = options.parent
+  // 如果当前实例有父组件，且当前实例不是抽象的
+  // keep-alive 或者 transition，这两个组件它是不会渲染DOM至页
+  // 面的、不会出现在父子关系的路径上。但他们依然给我提供了很有
+  // 用的功能，他们是抽象的
   if (parent && !options.abstract) {
+    // 使用 while 循环查找第一个非抽象的父组件
+    // 抽象的组件是不能够也不应该作为父级的(keep-alive transition)
     while (parent.$options.abstract && parent.$parent) {
       parent = parent.$parent
     }
+    // 经过上面的 while 循环后，parent 应该是一个非抽象的组件，
+    // 将它作为当前实例的父级，所以将当前实例 vm 添加到父级的 $children 属性里
     parent.$children.push(vm)
   }
 
+  // 添加一些属性
+  // 设置当前实例的 $parent 属性，指向父级
   vm.$parent = parent
+  // 设置 $root 属性，有父级就是用父级的 $root，否则 $root 指向自身
   vm.$root = parent ? parent.$root : vm
 
   vm.$children = []
@@ -361,15 +383,20 @@ export function callHook (vm: Component, hook: string) {
   // disable dep collection when invoking（调用） lifecycle hooks
   // #7573 disable dep collection when invoking lifecycle hooks
   pushTarget()
+  // 生命周期钩子选项最终会被合并处理成一个数组
+  // handlers 就是对应生命周期钩子的数组
   const handlers = vm.$options[hook]
   const info = `${hook} hook`
-  // nzq_mark
   // 执行 对应 hook 下面的函数
   if (handlers) {
     for (let i = 0, j = handlers.length; i < j; i++) {
       invokeWithErrorHandling(handlers[i], vm, null, vm, info)
     }
   }
+  //  vm._hasHookEvent 是在 initEvents 函数中定义的，它的作用
+  // 是判断是否存在生命周期钩子的事件侦听器，初始化值为 false
+  // 代表没有，当组件检测到存在生命周期钩子的事件侦听器时，会将
+  // vm._hasHookEvent 设置为 true
   if (vm._hasHookEvent) {
     vm.$emit('hook:' + hook)
   }

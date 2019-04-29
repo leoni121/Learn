@@ -14,10 +14,23 @@ import { updateListeners } from '../vdom/helpers/index'
 // 分为注册事件跟触发事件(观察者模式)
 export function initEvents (vm: Component) {
   vm._events = Object.create(null)
+  /**
+   * _hasHookEvent 服务于下面形式
+   * <child
+       @hook:beforeCreate="handleChildBeforeCreate"
+       @hook:created="handleChildCreated"
+       @hook:mounted="handleChildMounted"
+       @hook:生命周期钩子
+     />
+   * */
   vm._hasHookEvent = false
   // init parent attached events
+  // 初始化父组件添加的事件，表示父组件绑定在当前组件上的事件
+  //  vm.$options._parentListeners 通过在
+  // core/vdom/create-component.js 中的 createComponentInstanceForVnode 创建
   const listeners = vm.$options._parentListeners
   if (listeners) {
+    // 将父级的事件定义到当前vm中
     updateComponentListeners(vm, listeners)
   }
 }
@@ -42,6 +55,7 @@ function createOnceHandler (event, fn) {
   }
 }
 
+// 将父级的事件定义到当前vm中
 export function updateComponentListeners (
   vm: Component,
   listeners: Object,
@@ -62,10 +76,19 @@ export function eventsMixin (Vue: Class<Component>) {
         vm.$on(event[i], fn)
       }
     } else {
+      // _events是表示直接绑定在组件上的事件，如果是通过$on新添加的事件
+      // （也相当于直接绑定在组件上的事件）,我们也要把事件和回调方法
+      // 传入到_events对象中。
       (vm._events[event] || (vm._events[event] = [])).push(fn)
       // optimize hook:event cost by using a boolean flag marked at registration
       // instead of a hash lookup
       if (hookRE.test(event)) {
+        /**
+         *  <child
+             @hook:created="hookFromParent"
+            >
+         * */
+        // 它表示的是父组件有没有直接绑定钩子函数在当前组件上
         vm._hasHookEvent = true
       }
     }

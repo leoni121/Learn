@@ -69,6 +69,9 @@ export function initMixin (Vue: Class<Component>) {
 
     /* istanbul ignore else */
     if (process.env.NODE_ENV !== 'production') {
+      // 在实例对象 vm 上添加 _renderProxy 属性。
+      // 生产环境和非生产环境下要保持功能一致
+      // 设置渲染函数的作用域代理，其目的是为我们提供更好的提示信息。
       initProxy(vm)
     } else {
       vm._renderProxy = vm
@@ -80,12 +83,17 @@ export function initMixin (Vue: Class<Component>) {
     // 真正的初始化 和 一些钩子函数
     // 都使用到了实例的 $options 属性，即 vm.$options
     initLifecycle(vm)
+    // 参考 —— https://segmentfault.com/a/1190000014957450
     initEvents(vm)
     initRender(vm)
+    // callHook 调用生命周期钩子函数
     callHook(vm, 'beforeCreate')
-    initInjections(vm) // resolve injections before data/props
+    // resolve injections before data/props
+    initInjections(vm)
     initState(vm)
-    initProvide(vm) // resolve provide after data/props
+    // resolve provide after data/props
+    initProvide(vm)
+    // 此时还没有任何挂载的操作，所以在 created 中是不能访问DOM的，即不能访问 $el。
     callHook(vm, 'created')
 
     /* istanbul ignore if */

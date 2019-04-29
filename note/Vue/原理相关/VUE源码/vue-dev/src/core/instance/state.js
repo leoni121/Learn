@@ -46,16 +46,20 @@ export function proxy (target: Object, sourceKey: string, key: string) {
 }
 
 export function initState (vm: Component) {
+  // 这个数组将用来存储所有该组件实例的 watcher 对象。
   vm._watchers = []
   const opts = vm.$options
+  // props 早于 data 初始化，这就是可以使用 props 初始化 data 的原因
   if (opts.props) initProps(vm, opts.props)
   if (opts.methods) initMethods(vm, opts.methods)
   if (opts.data) {
     initData(vm)
   } else {
+    // 不存在则直接调用 observe 函数观测一个空对象：{}
     observe(vm._data = {}, true /* asRootData */)
   }
   if (opts.computed) initComputed(vm, opts.computed)
+  // 在火狐浏览器中依然能够通过原型链访问到原生的 Object.prototype.watch
   if (opts.watch && opts.watch !== nativeWatch) {
     initWatch(vm, opts.watch)
   }

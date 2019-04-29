@@ -6,6 +6,7 @@ import { warn, makeMap, isNative } from '../util/index'
 let initProxy
 
 if (process.env.NODE_ENV !== 'production') {
+  // allowedGlobals 函数的作用是判断给定的 key 是否出现在上面字符串中定义的关键字中的。
   const allowedGlobals = makeMap(
     'Infinity,undefined,NaN,isFinite,isNaN,' +
     'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' +
@@ -13,6 +14,9 @@ if (process.env.NODE_ENV !== 'production') {
     'require' // for Webpack/Browserify
   )
 
+  // 提示你“在渲染的时候引用了 key，但是在实例对象上并没有定义 key 这个属性或方法”。
+  // 比如 使用了 没有定义的 data
+  // 为了在开发阶段给我们一个友好而准确的提示。
   const warnNonPresent = (target, key) => {
     warn(
       `Property or method "${key}" is not defined on the instance but ` +
@@ -54,9 +58,12 @@ if (process.env.NODE_ENV !== 'production') {
 
   const hasHandler = {
     has (target, key) {
+      // has 常量是真实经过 in 运算符得来的结果
       const has = key in target
+      // 如果 key 在 allowedGlobals 之内，或者 key 是以下划线 _ 开头的字符串，则为真
       const isAllowed = allowedGlobals(key) ||
         (typeof key === 'string' && key.charAt(0) === '_' && !(key in target.$data))
+      // 如果 has 和 isAllowed 都为假，使用 warnNonPresent 函数打印错误
       if (!has && !isAllowed) {
         if (key in target.$data) warnReservedPrefix(target, key)
         else warnNonPresent(target, key)
@@ -79,6 +86,8 @@ if (process.env.NODE_ENV !== 'production') {
     if (hasProxy) {
       // determine which proxy handler to use
       const options = vm.$options
+      // ptions.render._withStripped 这个属性只在测试代码中出现过，
+      // 所以一般情况下这个条件都会为假，也就是使用 hasHandler 作为代理配置。
       const handlers = options.render && options.render._withStripped
         ? getHandler
         : hasHandler

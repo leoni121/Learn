@@ -46,7 +46,7 @@ const componentVNodeHooks = {
     } else {
       const child = vnode.componentInstance = createComponentInstanceForVnode(
         vnode,
-        activeInstance
+        activeInstance // parent, 来自于 core/instance/lifecycle.js 文件
       )
       child.$mount(hydrating ? vnode.elm : undefined, hydrating)
     }
@@ -205,6 +205,9 @@ export function createComponent (
   return vnode
 }
 
+// 在 Vue 内部，会首先以子组件选项对象作为参数通过 Vue.extend
+// 函数创建一个子类出来，然后再通过实例化子类来创建子组件
+// 这里的作用就是实例化子组件
 export function createComponentInstanceForVnode (
   vnode: any, // we know it's MountedComponentVNode but flow doesn't
   parent: any, // activeInstance in lifecycle state
