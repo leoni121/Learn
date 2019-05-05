@@ -115,9 +115,22 @@ function initProps (vm: Component, propsOptions: Object) {
 
 function initData (vm: Component) {
   let data = vm.$options.data
+  // option.js 里面 vm.$options.data 其实最终被处理成了一个函数
+  // 这里判断是因为：beforeCreate 生命周期钩子函数是在 mergeOptions
+  // 函数之后 initData 之前被调用的，如果在 beforeCreate 生命周期钩
+  // 子函数中修改了 vm.$options.data 的值，那么在 initData 函数中对
+  // 于 vm.$options.data 类型的判断就是必要的
   data = vm._data = typeof data === 'function'
     ? getData(data, vm)
     : data || {}
+
+  // 是不是一个纯对象
+  // 防止开发者编写时 在data 函数中返回其他类型数据，如下：
+  /**
+   *  data () {
+        return '我就是不返回对象'
+      }
+   * */
   if (!isPlainObject(data)) {
     data = {}
     process.env.NODE_ENV !== 'production' && warn(
@@ -133,6 +146,10 @@ function initData (vm: Component) {
   let i = keys.length
   while (i--) {
     const key = keys[i]
+    // 在非生产环境下如果发现在 methods 对象上定义了同样的 key，
+    // 也就是说 data 数据的 key 与 methods 对象中定义的函数名称相同，
+    // 那么会打印一个警告
+    // vue 会代理访问 data, props, methods
     if (process.env.NODE_ENV !== 'production') {
       if (methods && hasOwn(methods, key)) {
         warn(
@@ -141,13 +158,16 @@ function initData (vm: Component) {
         )
       }
     }
+    // 如果发现 data 数据字段的 key 已经在 props 中有定义了，那么就会打印警告。
     if (props && hasOwn(props, key)) {
       process.env.NODE_ENV !== 'production' && warn(
         `The data property "${key}" is already declared as a prop. ` +
         `Use prop default value instead.`,
         vm
       )
+      // !isReserved(key)，该条件的意思是判断定义在 data 中的 key 是否是保留键
     } else if (!isReserved(key)) {
+      // 实现实例对象的代理访问
       proxy(vm, `_data`, key)
     }
   }
@@ -157,6 +177,7 @@ function initData (vm: Component) {
 
 export function getData (data: Function, vm: Component): any {
   // #7573 disable dep collection when invoking data getters
+  // 防止使用 props 数据初始化 data 数据时收集冗余的依赖，
   pushTarget()
   try {
     return data.call(vm, vm)
