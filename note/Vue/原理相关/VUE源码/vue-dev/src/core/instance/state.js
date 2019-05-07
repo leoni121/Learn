@@ -175,7 +175,7 @@ function initData (vm: Component) {
   observe(data, true /* asRootData */)
 }
 
-export function getData (data: Function, vm: Component): any {
+export function   getData (data: Function, vm: Component): any {
   // #7573 disable dep collection when invoking data getters
   // 防止使用 props 数据初始化 data 数据时收集冗余的依赖，
   pushTarget()

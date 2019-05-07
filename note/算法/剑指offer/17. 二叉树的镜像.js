@@ -9,7 +9,7 @@
  * @Return:
  */
 
-let tempArr = [];
+/*let tempArr = [];
 function Mirror(root) {
   // write code here
   preTransGet(root);
@@ -34,6 +34,7 @@ function preTransSet (root) {
   root.val = tempArr.pop();
   preTransSet(root.right);
 }
+
 console.log(Mirror(
   {
     val: 8,
@@ -64,4 +65,22 @@ console.log(Mirror(
       },
     }
   }
-))
+))*/
+
+
+/* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+function Mirror(root)
+{
+  // write code here
+  if (!root) return;
+  let right = root.right;
+  root.right = root.left;
+  root.left = right;
+
+  Mirror(root.left);
+  Mirror(root.right);
+}

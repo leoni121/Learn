@@ -21,6 +21,10 @@ const arrayKeys = Object.getOwnPropertyNames(arrayMethods)
 /**
  * In some cases we may want to disable observation inside a component's
  * update computation.
+ *
+ * 在某些情况下，我们可能希望禁用组件内部的观察者，更新计算。
+ *
+ *
  */
 export let shouldObserve: boolean = true
 
@@ -123,18 +127,25 @@ function copyAugment (target: Object, src: Object, keys: Array<string>) {
  * returns the new observer if successfully observed,
  * or the existing observer if the value already has one.
  */
+// asRootData Boolean 判断被观测的数据是否是根级数据
 export function observe (value: any, asRootData: ?boolean): Observer | void {
   if (!isObject(value) || value instanceof VNode) {
     return
   }
+  // 保存 Observer 实例
   let ob: Observer | void
+  // 用来避免重复观测一个数据对象
   if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
     ob = value.__ob__
   } else if (
     shouldObserve &&
     !isServerRendering() &&
     (Array.isArray(value) || isPlainObject(value)) &&
+    // 被观测的数据对象必须是可扩展的。一个普通的对象默认就是可扩展的
+    // 以下三个方法都可以使得一个对象变得不可扩展：Object.preventExtensions()、
+    // Object.freeze() 以及 Object.seal()。
     Object.isExtensible(value) &&
+    // Vue 实例对象拥有 _isVue 属性，所以这个条件用来避免 Vue 实例对象被观测。
     !value._isVue
   ) {
     ob = new Observer(value)
