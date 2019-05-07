@@ -136,3 +136,6 @@ var - 定义变量
 3. position
    当为行内元素进行定位时，position:absolute与position:fixed.都会使得原先的行内元素变为块级元素
 
+## 6. style标签可以写在body里面吗 ##
+
+可以的，但是[CSS](https://www.baidu.com/s?wd=CSS&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao)又会重新渲染了一次页面，占用一定的时间，如果网页篇幅少的话感觉不出来，如果篇幅多（包含有大量[HTML](https://www.baidu.com/s?wd=HTML&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao)）会有一定的影响，所以大页面中不建议将style写进body里。
