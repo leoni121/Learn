@@ -40,7 +40,11 @@ export function initRender (vm: Component) {
   const parentData = parentVnode && parentVnode.data
 
   /* istanbul ignore else */
+  // $attrs 和 $listeners 非深度观测
   if (process.env.NODE_ENV !== 'production') {
+    // defineReactive 函数的第四个参数是一个箭头函数，这个函数就是 customSetter，
+    // 这个箭头函数的作用是当你尝试修改 vm.$attrs 属性的值时，打印一段信息：
+    // $attrs 属性是只读的。
     defineReactive(vm, '$attrs', parentData && parentData.attrs || emptyObject, () => {
       // isUpdatingChildComponent 来源自 lifecycle.js 文件
       !isUpdatingChildComponent && warn(`$attrs is readonly.`, vm)

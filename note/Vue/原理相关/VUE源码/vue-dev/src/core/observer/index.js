@@ -1,4 +1,12 @@
 /* @flow */
+/**
+ * 备注：
+ *  （1）定义 a 的 setter/getter 的时候有一个dep,同时如果a是一个对象，
+ * 则 a 所指向的对象含有一个 __ob__ 属性，这个属性指向当前 a 的 observer 实例，
+ * 内部含有 dep属性。
+ *
+ *
+ * */
 
 import Dep from './dep'
 import VNode from '../vdom/vnode'
@@ -47,10 +55,27 @@ export class Observer {
     this.value = value
     this.dep = new Dep()
     this.vmCount = 0
+    // __ob__ 这个属性的值就是当前 Observer 实例对象
+    // 定义不可枚举的属性，这样后面遍历数据对象的时候就能够防止遍历到 __ob__ 属性。
     def(value, '__ob__', this)
+    /**
+     *
+     * const data = {
+        a: 1
+      }
+     ==》
+     * const data = {
+        a: 1,
+        // __ob__ 是不可枚举的属性
+        __ob__: {
+          value: data, // value 属性指向 data 数据对象本身，这是一个循环引用
+          dep: dep实例对象, // new Dep()
+          vmCount: 0
+        }
+      }
+     * */
 
-    // nzq_mark
-    // 传入的是数组
+    // 当前观察的是数组
     if (Array.isArray(value)) {
       // 有 __proto__
       if (hasProto) {
@@ -59,6 +84,7 @@ export class Observer {
         copyAugment(value, arrayMethods, arrayKeys)
       }
       this.observeArray(value)
+    // 当前观察的是对象
     } else {
       this.walk(value)
     }
@@ -74,8 +100,8 @@ export class Observer {
    * getter/setters。只有在以下情况下才应调用此方法
    * 值类型为对象。
    */
-  // nzq_mark
   walk (obj: Object) {
+    // 获取对象所有可枚举的属性
     const keys = Object.keys(obj)
     for (let i = 0; i < keys.length; i++) {
       defineReactive(obj, keys[i])
@@ -85,7 +111,6 @@ export class Observer {
   /**
    * Observe a list of Array items.
    */
-  // nzq_mark
   // 观察数组
   observeArray (items: Array<any>) {
     for (let i = 0, l = items.length; i < l; i++) {
@@ -127,8 +152,32 @@ function copyAugment (target: Object, src: Object, keys: Array<string>) {
  * returns the new observer if successfully observed,
  * or the existing observer if the value already has one.
  */
+/**
+ * const data = {
+    a: {
+      b: 1
+    }
+  }
+ observe(data)
+
+ ===>
+
+ const data = {
+    // 属性 a 通过 setter/getter 通过闭包引用着 dep 和 childOb
+    a: {
+      // 属性 b 通过 setter/getter 通过闭包引用着 dep 和 childOb
+      b: 1
+      __ob__: {a, dep, vmCount}
+    }
+    __ob__: {data, dep, vmCount}
+  }
+
+ 属性 a 闭包引用的 childOb 实际上就是 data.a.__ob__，Observer 实例对象
+ */
 // asRootData Boolean 判断被观测的数据是否是根级数据
+// 该函数也可以用来获取对应的 __ob__
 export function observe (value: any, asRootData: ?boolean): Observer | void {
+  // 当待观察的不是对象的时候退出，不包含数组
   if (!isObject(value) || value instanceof VNode) {
     return
   }
@@ -159,6 +208,10 @@ export function observe (value: any, asRootData: ?boolean): Observer | void {
 /**
  * Define a reactive property on an Object.
  */
+// 每次调用 defineReactive 定义访问器属性时，该属性的 setter/getter
+// 都闭包引用了一个属于自己的 dep
+// customSetter 函数的作用，用来打印辅助信息，当然除此之外你可以将
+// customSetter 用在任何适合使用它的地方。
 export function defineReactive (
   obj: Object,
   key: string,
@@ -166,6 +219,7 @@ export function defineReactive (
   customSetter?: ?Function,
   shallow?: boolean
 ) {
+  // 每一个数据字段都通过闭包引用着属于自己的 dep 常量
   const dep = new Dep()
 
   const property = Object.getOwnPropertyDescriptor(obj, key)
@@ -180,17 +234,31 @@ export function defineReactive (
     val = obj[key]
   }
 
+  // val 本身有可能也是一个对象，那么此时应该继续调用 observe(val)
+  // 函数观测该对象从而深度观测数据对象。
+  // 前提是 defineReactive 函数的最后一个参数 shallow 应该是假
+  // !shallow 为真时才会继续调用 observe 函数深度观测，由于在 walk
+  // 函数中调用 defineReactive 函数时没有传递 shallow 参数，所以该
+  // 参数是 undefined，那么也就是说默认就是深度观测
+
+  // 当传入的val 不是对象时，返回 undefined
   let childOb = !shallow && observe(val)
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
+    // 正确地返回属性值以及收集依赖
     get: function reactiveGetter () {
+      // getter 常量中保存的是属性原有的 get 函数
       const value = getter ? getter.call(obj) : val
+      // Dep.target 中保存的值就是要被收集的依赖(观察者)
+      // 存在的话说明有依赖需要被收集
       if (Dep.target) {
         dep.depend()
         if (childOb) {
+          // childOb.dep === data.a.__ob__.dep
           childOb.dep.depend()
           if (Array.isArray(value)) {
+            // 调用 dependArray 函数逐个触发数组每个元素的依赖收集
             dependArray(value)
           }
         }
@@ -198,22 +266,30 @@ export function defineReactive (
       return value
     },
     set: function reactiveSetter (newVal) {
+      // 获取原有的值
       const value = getter ? getter.call(obj) : val
       /* eslint-disable no-self-compare */
+      // 检查一般的数据 和 NaN
       if (newVal === value || (newVal !== newVal && value !== value)) {
         return
       }
       /* eslint-enable no-self-compare */
+      // customSetter 函数是 defineReactive 函数的第四个参数
       if (process.env.NODE_ENV !== 'production' && customSetter) {
         customSetter()
       }
       // #7981: for accessor properties without setter
       if (getter && !setter) return
+      // 如果属性原来拥有自身的 set 函数，那么应该继续使用该函数来设置属性的值，
+      // 从而保证属性原有的设置操作不受影响。如果属性原本就没有 set 函数，
+      // 那么就设置 val 的值：val = newVal。
       if (setter) {
         setter.call(obj, newVal)
       } else {
         val = newVal
       }
+      // 为属性设置的新值是一个数组或者纯对象，那么该数组或纯对象是未被观测的，
+      // 所以需要对新值进行观测
       childOb = !shallow && observe(newVal)
       dep.notify()
     }
