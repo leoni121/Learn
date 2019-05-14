@@ -24,6 +24,7 @@ import {
   isServerRendering
 } from '../util/index'
 
+// 获取变异方法的 name 集
 const arrayKeys = Object.getOwnPropertyNames(arrayMethods)
 
 /**
@@ -56,7 +57,8 @@ export class Observer {
     this.dep = new Dep()
     this.vmCount = 0
     // __ob__ 这个属性的值就是当前 Observer 实例对象
-    // 定义不可枚举的属性，这样后面遍历数据对象的时候就能够防止遍历到 __ob__ 属性。
+    // 定义不可枚举的属性，这样后面遍历数据对象的时候就能够防止遍历到 __ob__ 属性
+    // 无论是对象还是数组，都将通过 def 函数为其定义 __ob__ 属性。
     def(value, '__ob__', this)
     /**
      *
@@ -79,6 +81,7 @@ export class Observer {
     if (Array.isArray(value)) {
       // 有 __proto__
       if (hasProto) {
+        // 设置数组实例的 __proto__ 属性，让其指向一个代理原型，从而做到拦截
         protoAugment(value, arrayMethods)
       } else {
         copyAugment(value, arrayMethods, arrayKeys)
@@ -125,7 +128,7 @@ export class Observer {
  * Augment a target Object or Array by intercepting
  * the prototype chain using __proto__
  */
-// nzq_mark
+
 // 在__proto__ 上面添加属性
 function protoAugment (target, src: Object) {
   /* eslint-disable no-proto */
@@ -138,8 +141,7 @@ function protoAugment (target, src: Object) {
  * hidden properties.
  */
 /* istanbul ignore next */
-// nzq_mark
-// 添加属性
+// 将对应属性添加到对象的 实例属性上（会覆盖 __proto__ 属性）
 function copyAugment (target: Object, src: Object, keys: Array<string>) {
   for (let i = 0, l = keys.length; i < l; i++) {
     const key = keys[i]
@@ -256,7 +258,15 @@ export function defineReactive (
         dep.depend()
         if (childOb) {
           // childOb.dep === data.a.__ob__.dep
+          // 没有依赖收集的话，像 ins.$set(ins.$data.arr[0], 'b', 2) 不是响应式
           childOb.dep.depend()
+
+          // 那么为什么数组需要这样处理，而纯对象不需要呢？
+          // 因为 数组的索引是非响应式的（arr[1] = 1，类似的不是响应式）。现在我们已经知道了
+          // 数据响应系统对纯对象和数组的处理方式是不同，
+          // 对于纯对象只需要逐个将对象的属性重新定义为访问器属性，
+          // 并且当属性的值同样为纯对象时进行递归定义即可，
+          // 而对于数组的处理则是通过拦截数组变异方法的方式，
           if (Array.isArray(value)) {
             // 调用 dependArray 函数逐个触发数组每个元素的依赖收集
             dependArray(value)
@@ -302,7 +312,8 @@ export function defineReactive (
  * already exist.
  */
 export function set (target: Array<any> | Object, key: any, val: any): any {
-  // nzq_mark
+  // 如果 set 函数的第一个参数是 undefined 或 null 或者是原始类型值，
+  // 那么在非生产环境下会打印警告信息
   if (process.env.NODE_ENV !== 'production' &&
     (isUndef(target) || isPrimitive(target))
   ) {
@@ -310,16 +321,27 @@ export function set (target: Array<any> | Object, key: any, val: any): any {
   }
   // 检查是否是数组和合法的 key(数字)
   if (Array.isArray(target) && isValidArrayIndex(key)) {
-    // 可能是更新或添加
+    // 将数组的长度修改为 target.length 和 key 中的较大者，
+    // 否则如果当要设置的元素的索引大于数组长度时 splice 无效。
     target.length = Math.max(target.length, key)
+    // 数组的变异方法
     target.splice(key, 1, val)
     return val
   }
+
+  // 不是数组时（对象），且当前 key 在实例属性上
+  // 已存在的属性是响应式的。
+  // in 操作符可以检测到 原型链上面的元素
   if (key in target && !(key in Object.prototype)) {
     target[key] = val
     return val
   }
+
   const ob = (target: any).__ob__
+  // 当使用 Vue.set/$set 函数为根数据对象添加属性时，是不被允许的
+  // 因为这样做是永远触发不了依赖的,根数据对象的 Observer 实例收集
+  // 不到依赖(观察者)，因为data 本身并不是响应的
+  // get 里面收集 childOb 依赖
   if (target._isVue || (ob && ob.vmCount)) {
     process.env.NODE_ENV !== 'production' && warn(
       'Avoid adding reactive properties to a Vue instance or its root $data ' +
@@ -327,12 +349,12 @@ export function set (target: Array<any> | Object, key: any, val: any): any {
     )
     return val
   }
+  // target 是非响应的，这个时候 target.__ob__ 是不存在的
   if (!ob) {
     target[key] = val
     return val
   }
-
-  // nzq_mark
+  // 正在给对象添加一个全新的属性
   defineReactive(ob.value, key, val)
   ob.dep.notify()
   return val
@@ -347,7 +369,9 @@ export function del (target: Array<any> | Object, key: any) {
   ) {
     warn(`Cannot delete reactive property on undefined, null, or primitive value: ${(target: any)}`)
   }
+  // 数组
   if (Array.isArray(target) && isValidArrayIndex(key)) {
+    // 数组的变异方法
     target.splice(key, 1)
     return
   }
@@ -362,7 +386,9 @@ export function del (target: Array<any> | Object, key: any) {
   if (!hasOwn(target, key)) {
     return
   }
+  // 对象
   delete target[key]
+  // 没有 __ob__ 直接退出
   if (!ob) {
     return
   }
@@ -372,10 +398,16 @@ export function del (target: Array<any> | Object, key: any) {
 /**
  * Collect dependencies on array elements when the array is touched, since
  * we cannot intercept array element access like property getters.
+ *
+ * 在 touched 数组时收集数组元素的依赖项，
+ * 因为我们不能像属性getter那样拦截数组元素访问。
  */
 function  dependArray (value: Array<any>) {
   for (let e, i = 0, l = value.length; i < l; i++) {
     e = value[i]
+    // 如果当前的 数组元素 含有 __ob__ ,则收集依赖
+    // 如果该元素的值拥有 __ob__ 对象和 __ob__.dep 对象，
+    // 那说明该元素也是一个对象或数组
     e && e.__ob__ && e.__ob__.dep.depend()
     if (Array.isArray(e)) {
       dependArray(e)
