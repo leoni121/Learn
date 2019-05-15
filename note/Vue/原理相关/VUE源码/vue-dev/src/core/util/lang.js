@@ -34,8 +34,13 @@ export function def (obj: Object, key: string, val: any, enumerable?: boolean) {
 /**
  * Parse simple path.
  */
+// 触发 '**.**' 的 get 拦截器函数，同时新函数会将 '**.**' 的值返回
 const bailRE = new RegExp(`[^${unicodeRegExp.source}.$_\\d]`)
+// 不是 \w，也就是说这个位置不能是 字母 或 数字 或 下划线
+// 不是字符 .
+// 不是字符 $
 export function parsePath (path: string): any {
+  // path 中含有特殊的 字符
   if (bailRE.test(path)) {
     return
   }

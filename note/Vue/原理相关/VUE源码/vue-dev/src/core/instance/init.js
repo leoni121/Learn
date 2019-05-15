@@ -107,6 +107,8 @@ export function initMixin (Vue: Class<Component>) {
       measure(`vue ${vm._name} init`, startTag, endTag)
     }
 
+    // 判断是否有 $options.el
+    // $mount 函数是如何将组件挂载到给定元素
     if (vm.$options.el) {
       vm.$mount(vm.$options.el)
     }

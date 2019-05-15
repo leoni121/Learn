@@ -7,26 +7,26 @@
  */
 
 function IsPopOrder(pushV, popV) {
-  // write code here
-  let stack = []
-    ,temp;
-  for (let i = 0, len = popV.length; i < len; i++) {
-    temp = popV.shift();
-    // stack 长度为0
-    if (!stack.length) {
-      stack.push(...pushV.splice(0, pushV.indexOf(temp)+1))
-    } else {
-      let pushVTempNum = pushV.length && pushV.shift();
-      if (stack[stack.length-1] !== temp && stack.indexOf(temp) !== -1 // popV 第一个元素在栈中其他位置
-        || pushVTempNum !== temp && stack.indexOf(temp) === -1 // popV 第一个元素不在栈中，不在pushV的第一个元素
-      ) {
-        return false;
-      } else if (pushVTempNum !== temp && stack.indexOf(temp) === 0) { // popV 第一个元素不在栈中，在pushV的第一个元素
-        stack.push(pushVTempNum);
-      }
+  let stack = [];
+
+  while (true) {
+    // 当栈不为空，且栈顶元素和popV[0] 相等时
+    while (stack.length !== 0 && stack[stack.length - 1] === popV[0]) {
+      stack.pop();
+      popV.shift();
     }
-    stack.pop();
+    // pushV 不为空且 栈为空或栈顶元素和popV[0]不相等时
+    while(pushV.length!==0 && (!stack[stack.length-1] || stack[stack.length-1] !== popV[0])) {
+      stack.push(pushV.shift());
+    }
+    // popV 为空时
+    if (popV.length === 0) {
+      return true
+      // pushV 为空且栈顶元素和popV[0]不相等时
+    } else if((pushV.length === 0 && stack[stack.length-1] !== popV[0])) {
+      return false;
+    }
   }
-  return true
 }
 console.log(IsPopOrder([1,2,3,4,5],[4,5,3,2,1]));
+

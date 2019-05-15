@@ -87,6 +87,7 @@ export function lifecycleMixin (Vue: Class<Component>) {
   // 官网解释说是:“可以说这三个方法一般是用不到的,除非你代码出问题了~”
 
   // vnode对象更新时候触发
+  // 把 vm._render 函数生成的虚拟节点渲染成真正的 DOM
   Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
     const vm: Component = this
     const prevEl = vm.$el
@@ -171,15 +172,16 @@ export function lifecycleMixin (Vue: Class<Component>) {
   }
 }
 
-// nzq_mark
 export function mountComponent (
   vm: Component,
   el: ?Element,
   hydrating?: boolean
 ): Component {
-  // nzq_mark
   // 为什么我们在beforecreated跟created方法中拿不到this.el的原因,因为this.el？
   // 因为this.el的原因,因为this.el还没被赋值.
+  // (1). vm.$el 始终是组件模板的根元素
+  // (2). 没有传递 template 选项，el 选项指定的挂载点将被作为组件模板
+  // 这里明明把 el 挂载元素赋值给了 vm.$el，那么 vm.$el 怎么可能引用的是 template 选项指定的模板的根元素呢？其实这里仅仅是暂时赋值而已，这是为了给虚拟DOM的 patch 算法使用的，实际上 vm.$el 会被 patch 算法的返回值重写，可见 Vue.prototype._update 方法
   vm.$el = el
   // 没有render 方法的时候
   if (!vm.$options.render) {
@@ -196,6 +198,7 @@ export function mountComponent (
           vm
         )
       } else {
+        // 非生产环境下会根据相应的情况打印警告信息
         warn(
           'Failed to mount component: template or render function not defined.',
           vm
@@ -206,8 +209,13 @@ export function mountComponent (
 
   callHook(vm, 'beforeMount')
 
+  // 这个函数将用作创建 Watcher 实例时传递给 Watcher 构造函数的第二个参数
+  // 把渲染函数生成的虚拟DOM渲染成真正的DOM
+  // 数据变化时将重新执行 updateComponent 函数，这就完成了重新渲染
   let updateComponent
   /* istanbul ignore if */
+
+  // 这一段做相应的性能检测 updateComponent 的结果不变
   if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
     updateComponent = () => {
       const name = vm._name
@@ -227,6 +235,8 @@ export function mountComponent (
     }
   } else {
     updateComponent = () => {
+      // vm._render 函数的作用是调用 vm.$options.render 函数并返回生成的虚拟节点(vnode)
+      // vm._update 函数的作用是把 vm._render 函数生成的虚拟节点渲染成真正的 DOM
       vm._update(vm._render(), hydrating)
     }
   }
@@ -234,6 +244,7 @@ export function mountComponent (
   // we set this to vm._watcher inside the watcher's constructor
   // since the watcher's initial patch may call $forceUpdate (e.g. inside child
   // component's mounted hook), which relies on vm._watcher being already defined
+  // 渲染函数的观察者
   new Watcher(vm, updateComponent, noop, {
     before () {
       if (vm._isMounted && !vm._isDestroyed) {

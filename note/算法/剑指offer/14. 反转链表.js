@@ -6,6 +6,7 @@
  * @Return:
  */
 
+// 1. 将单链表储存为数组，时间复杂度：O(N)，空间复杂度：O(N)
 function ListNode(x){
     this.val = x;
     this.next = null;
@@ -43,9 +44,10 @@ function ReverseList(pHead)
   return pHead;
 }
 
-var a= new ListNode(1);
-var b = new ListNode(2);
-a.next = b;
-var c = new ListNode(3);
-b.next = c;
-console.log(ReverseList(a))
+// 2. 使用3个指针遍历单链表，逐个链接点进行反转
+// 时间复杂度：O(N)
+// 空间复杂度：O(1)
+
+// 3. 从第2个节点到第N个节点，依次逐节点插入到第1个节点(head节点)之后，最后将第一个节点挪到新表的表尾。
+// 时间复杂度：O(N)
+// 空间复杂度：O(1)

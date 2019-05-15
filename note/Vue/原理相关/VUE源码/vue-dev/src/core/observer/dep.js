@@ -20,6 +20,8 @@ export default class Dep {
     this.subs = []
   }
 
+  // 真正用来收集观察者的方法，并且收集到的观察者都会被添加到
+  // subs 数组中存起来。
   addSub (sub: Watcher) {
     this.subs.push(sub)
   }
@@ -28,6 +30,8 @@ export default class Dep {
     remove(this.subs, sub)
   }
 
+  // depend 方法内部其实并没有真正的执行收集依赖的动作，
+  // 而是调用了观察者实例对象的 addDep
   depend () {
     if (Dep.target) {
       Dep.target.addDep(this)
@@ -62,5 +66,6 @@ export function pushTarget (target: ?Watcher) {
 
 export function popTarget () {
   targetStack.pop()
+  // 赋值最后一个 target
   Dep.target = targetStack[targetStack.length - 1]
 }

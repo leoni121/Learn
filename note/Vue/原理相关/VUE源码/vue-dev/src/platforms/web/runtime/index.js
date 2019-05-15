@@ -45,6 +45,8 @@ Vue.prototype.$mount = function (
   hydrating?: boolean
 ): Component {
   el = el && inBrowser ? query(el) : undefined
+  // mountComponent 函数完成真正的挂载工作
+  // mountComponent 完成挂载所需的必要条件就是：提供渲染函数给 mountComponent
   return mountComponent(this, el, hydrating)
 }
 
