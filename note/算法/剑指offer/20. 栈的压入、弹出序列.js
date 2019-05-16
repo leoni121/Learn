@@ -6,6 +6,10 @@
  * @Return:
  */
 
+// 思路：
+//  （1）当栈顶元素和popV[0] 相等时
+//       1. stack
+//  （2）不相等时
 function IsPopOrder(pushV, popV) {
   let stack = [];
 
@@ -15,7 +19,7 @@ function IsPopOrder(pushV, popV) {
       stack.pop();
       popV.shift();
     }
-    // pushV 不为空且 栈为空或栈顶元素和popV[0]不相等时
+    // pushV 不为空且 栈为空或栈顶元素和popV[0]不相等时, 就需要向里面添加元素
     while(pushV.length!==0 && (!stack[stack.length-1] || stack[stack.length-1] !== popV[0])) {
       stack.push(pushV.shift());
     }

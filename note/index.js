@@ -11,7 +11,61 @@
     this.left = null;
     this.right = null;
 } */
-function FindPath(root, expectNumber)
+// 非递归
+function _FindPath(root, expectNumber) {
+  // write code here
+  if (root.val > expectNumber) {
+    return [];
+  }
+  let pathArr = []
+    ,curNode = root
+    ,curNum = 0
+    ,nodeStack = []
+    ,numStack = []
+    ,pathSum = 0;
+
+  while(true) {
+    if (curNode) {
+      pathSum += curNum;
+
+      if (pathSum === expectNumber) {
+        pathArr.push(numStack.slice().push(curNum));
+        curNode = nodeStack.pop().right;
+        pathSum -= numStack.pop();
+        if (!nodeStack.length) {
+          return pathArr
+        }
+      } else if(pathSum > expectNumber) {
+        if (!nodeStack.length) {
+          return pathArr
+        }
+        curNode = nodeStack.pop().right;
+        pathSum -= numStack.pop();
+      }else {
+        nodeStack.push(curNode);
+        numStack.push(curNode.val);
+        curNode = curNode.left;
+      }
+    } else {
+      if (!nodeStack.length){
+        return pathArr;
+      }
+      curNode = nodeStack[nodeStack.length - 1].right;
+      nodeStack[nodeStack.length - 1].visity = true;
+      if (!curNode) {
+        curNode = nodeStack.pop();
+        numStack.pop();
+
+        while(curNode.visity) {
+          curNode = nodeStack.pop();
+          numStack.pop();
+        }
+        curNode = curNode.right;
+      }
+    }
+  }
+  return pathArr;
+}
 {
   // write code here
   if (root.val > expectNumber) {
@@ -19,42 +73,70 @@ function FindPath(root, expectNumber)
   }
   let pathArr = []
     ,curNode = root
+    ,curNum = 0
     ,nodeStack = []
-    ,tempStack = []
+    ,numStack = []
     ,pathSum = 0;
 
   while(true) {
     if (curNode) {
-      pathSum += curNode.val;
-      console.log(pathSum)
-
       if (pathSum === expectNumber) {
+        pathArr.push(numStack.slice().push(curNum));
+        curNode = nodeStack.pop().right;
+        pathSum -= numStack.pop();
         if (!nodeStack.length) {
           return pathArr
         }
-        pathArr.push(tempStack.slice().push(curNode.val));
-        curNode = nodeStack.pop().right;
-        pathSum -= tempStack.pop();
       } else if(pathSum > expectNumber) {
         if (!nodeStack.length) {
           return pathArr
         }
         curNode = nodeStack.pop().right;
-        pathSum -= tempStack.pop();
+        pathSum -= numStack.pop();
       }else {
         nodeStack.push(curNode);
-        tempStack.push(curNode.val);
+        numStack.push(curNode.val);
         curNode = curNode.left;
+        curNum = curNode.val;
+        pathSum += curNum;
       }
-
     } else {
       if (!nodeStack.length){
         return pathArr;
       }
       curNode = nodeStack.pop().right;
+      pathSum -= numStack.pop();
+
+      if (curNode) {
+        curNum = curNode.val;
+        pathSum += curNum;
+      }
     }
   }
   return pathArr;
+}
+
+let pathSum = 0;
+let resArr = [];
+let numStack = [];
+// 递归
+function FindPath(root, expectNumber) {
+  // write code here
+  if (!root && root.val > expectNumber) {
+    return resArr;
+  }
+  numStack.push(root.val);
+  pathSum += root.val;
+  if (expectNumber === pathSum) {
+    resArr.push(numStack.slice());
+
+  } else if (expectNumber > pathSum) {
+
+  }
+  root.left && FindPath(root.left, expectNumber - root.val);
+  root.right && FindPath(root.right, expectNumber - root.val);
+
+  return resArr;
 }
 
 console.log(FindPath({

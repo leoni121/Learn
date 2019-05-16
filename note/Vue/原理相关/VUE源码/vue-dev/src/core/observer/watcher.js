@@ -74,7 +74,7 @@ export default class Watcher {
       this.user = !!options.user
       // 计算属性是惰性求值
       this.lazy = !!options.lazy
-      // 用来告诉观察者当数据变化时是否同步求值并执行回调
+      // 用来告诉观察者当数据变化时是否同步求值并执行回调（如，数据更新刷新视图）
       this.sync = !!options.sync
       // 可以理解为 Watcher 实例的钩子，当数据变化之后，触发更新之前，
       // 调用在创建渲染函数的观察者实例对象时传递的 before 选项
@@ -210,13 +210,20 @@ export default class Watcher {
    * Subscriber interface.
    * Will be called when a dependency changes.
    */
+  // 无论是同步更新变化还是将更新变化的操作放到异步更新队列，
+  // 真正的更新变化操作都是通过调用观察者实例对象的 run 方法完成的
   update () {
     /* istanbul ignore else */
+    // 是不是计算属性的观察者
     if (this.lazy) {
       this.dirty = true
     } else if (this.sync) {
       this.run()
     } else {
+      // 没有指定这个观察者是同步更新(this.sync 为真)，
+      // 那么这个观察者的更新机制就是异步
+
+      // 将观察者放到一个队列中等待所有突变完成之后统一执行更新
       queueWatcher(this)
     }
   }
@@ -227,7 +234,13 @@ export default class Watcher {
    */
   run () {
     if (this.active) {
+      // 对于渲染函数的观察者来讲，重新求值其实等价于重新执行渲染函数，
+      // 最终结果就是重新生成了虚拟DOM并更新真实DOM，这样就完成了重新渲染的过程
       const value = this.get()
+
+      // 渲染函数的观察者来讲并不会执行这个 if 语句块
+      // this.get 方法的返回值其实就等价于 updateComponent 函数的返回值，
+      // 这个值将永远都是 undefined，函数在 lifecycle 中， 无 return 语句
       if (
         value !== this.value ||
         // Deep watchers and watchers on Object/Arrays should fire even
@@ -236,9 +249,16 @@ export default class Watcher {
         isObject(value) ||
         this.deep
       ) {
+        // 1. 值不相等的时候会调用通过参数传递进来的回调
+        // 2. 新值的类型是否是对象，如果是对象的话即使值不变也需要执行回调，
+        // 注意这里的“不变”指的是引用不变，
+
         // set new value
         const oldValue = this.value
         this.value = value
+
+        // 开发者定义，通过 watch 选项或 $watch 函数定义的观察者，
+        // 回调函数是由开发者编写的 可能存在错误
         if (this.user) {
           try {
             this.cb.call(this.vm, value, oldValue)

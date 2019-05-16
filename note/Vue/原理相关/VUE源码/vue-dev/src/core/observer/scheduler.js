@@ -19,6 +19,7 @@ const activatedChildren: Array<Component> = []
 let has: { [key: number]: ?true } = {}
 let circular: { [key: number]: number } = {}
 let waiting = false
+// 队列更新开始时会将 flushing 变量的值设置为 true，代表着此时正在执行更新
 let flushing = false
 let index = 0
 
@@ -161,22 +162,39 @@ function callActivatedHooks (queue) {
  * Jobs with duplicate IDs will be skipped unless it's
  * pushed when the queue is being flushed.
  */
+// 将观察者放到一个队列中等待所有突变完成之后统一执行更新
 export function queueWatcher (watcher: Watcher) {
+  // 将该观察者的 id 值登记到 has 对象上作为 has 对象的属性同时将该属性值设置为 true
   const id = watcher.id
+  // 避免将相同的观察者重复入队
   if (has[id] == null) {
     has[id] = true
+    // 队列没有执行更新时才会简单地将观察者追加到队列的尾部
     if (!flushing) {
+      // 将该观察者放入队列中
       queue.push(watcher)
     } else {
+      // 队列执行更新的过程中观察者入队
+      // 例：队列执行更新时经常会执行渲染函数观察者的更新，
+      //     渲染函数中很可能有计算属性的存在，由于计算属性在实现方式上
+      //     与普通响应式属性有所不同，所以当触发计算属性的 get 拦截器函
+      //     数时会有观察者入队的行为
+
+
+
       // if already flushing, splice the watcher based on its id
       // if already past its id, it will be run next immediately.
       let i = queue.length - 1
+
+      // 保证观察者的执行顺序
       while (i > index && queue[i].id > watcher.id) {
         i--
       }
       queue.splice(i + 1, 0, watcher)
     }
     // queue the flush
+    // waiting 的值设置为 true（初始值为 false），
+    // 意味着无论调用多少次 queueWatcher 函数，if 语句块的代码只会执行一次
     if (!waiting) {
       waiting = true
 

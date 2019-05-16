@@ -55,6 +55,7 @@ export const isServerRendering = () => {
 export const devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__
 
 /* istanbul ignore next */
+// 判断是否是原生的方法
 export function isNative (Ctor: any): boolean {
   // Proxy.toString() => "function Proxy() { [native code] }"
   return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
