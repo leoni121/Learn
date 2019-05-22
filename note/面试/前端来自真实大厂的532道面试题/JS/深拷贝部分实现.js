@@ -7,7 +7,6 @@
  * @Param:
  */
 function getType(obj) {
-  let getType = Object.prototype.toString;
   let map = {
     '[object Boolean]'  : 'boolean',
     '[object Number]'   : 'number',
@@ -21,7 +20,7 @@ function getType(obj) {
     '[object Object]'   : 'object',
   }
   // return (obj instanceof Element) ? 'element' : map[typeOf(obj)];
-  return  map[getType.call(obj)]
+  return  map[Object.prototype.toString.call(obj)]
 }
 
 /**
@@ -55,7 +54,6 @@ function deepClone(obj) {
           resObj[key] = _deepClone(obj[key]);
         }
       }
-
       return resObj;
     }
   )(obj)
