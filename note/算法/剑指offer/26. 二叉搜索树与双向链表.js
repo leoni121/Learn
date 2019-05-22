@@ -50,7 +50,7 @@ function _Convert(pRootOfTree)
 }
 
 // 中序遍历 递归
-let leftLast = null;
+let leftLast = null; // 左子树的最后一个
 function Convert(pRootOfTree)
 {
   // write code here
@@ -66,7 +66,8 @@ function Convert(pRootOfTree)
     leftLast.right = pRootOfTree;
     pRootOfTree.left = leftLast;
   }
-  leftLast = root;
+  // 此时左子树最后一个是 pRootOfTree
+  leftLast = pRootOfTree;
   let right = Convert(pRootOfTree.right);
 
   if (right !== null) {

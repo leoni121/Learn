@@ -13,7 +13,7 @@ function checkPalindrome (str) {
 
   return true
 }
-// 找出所有的子字符串，看是否时回文
+// (1).找出所有的子字符串，看是否时回文
 function longestPalindrome1 (str) {
   if (str.length <= 1) {
     return str;
@@ -35,7 +35,7 @@ function longestPalindrome1 (str) {
 }
 
 // 一次for 循环一每个位置的i开始查看是否是字符串
-// 遍历一次 以每个当前的做中心  O(*) < O(n*(n/2))
+// (2).遍历一次 以每个当前的做中心  O(*) < O(n*(n/2))
 let longestPalindrome2 = function(s) {
   let len = s.length
     ,subStr = "";
@@ -72,7 +72,7 @@ let longestPalindrome2 = function(s) {
   return subStr;
 };
 
-// 在字符中添加符号
+// (3). 在字符中添加符号
 function longestPalindrome3 (str) {
   if (str.length <= 1) {
     return str;
