@@ -23,7 +23,9 @@ class heapMin {
   constructor (arr = []) {
     this.set = arr;
     if (arr.length > 1) {
-      this.adjust(0);
+      for (let i = Math.floor(this.set.length / 2); i >= 0; i--) {
+        this.adjust(i)
+      }
     }
   }
 
@@ -41,8 +43,10 @@ class heapMin {
       min = right;
     }
     if (min !== index) {
-      [selfSet[min], selfSet[index]] = [selfSet[min], selfSet[index]]
-      this.adjust(min);
+      [selfSet[min], selfSet[index]] = [selfSet[min], selfSet[index]];
+      if (min * 2 + 1 >= len) {
+        this.adjust(min);
+      }
     }
   }
 
@@ -102,10 +106,11 @@ class HuffmanCode {
 
   createHuffmanTree (str) {
     let heap = this.calcHeap(str);
-
+    console.log(heap);
     while (heap.size() > 1) {
       let min1 = heap.pop();
       let min2 = heap.pop();
+      console.log(min1.weight, min2.weight);
       // 生成的非叶节点都是没有，char的
       let parent = new HuffmanTreeNode({
         weight: min1.weight + min2.weight,

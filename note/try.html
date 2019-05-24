@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>点击其它地方关闭DIV</title>
+</head>
+
+<body>
+<input type="text" value="" id="input"/>
+<script>
+  const data = {};
+  const input = document.getElementById('input');
+  Object.defineProperty(data, 'text', {
+    set(value) {
+      input.value = value;
+      this._text = value;
+    },
+    get() {
+      return this._text;
+    }
+  });
+  input.oninput = function(e) {
+    data.text = e.target.value;
+  }
+  window.data = data;
+</script>
+</body>
+</html>
