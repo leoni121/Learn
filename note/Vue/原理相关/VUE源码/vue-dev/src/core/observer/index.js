@@ -212,12 +212,12 @@ export function observe (value: any, asRootData: ?boolean): Observer | void {
  */
 // 每次调用 defineReactive 定义访问器属性时，该属性的 setter/getter
 // 都闭包引用了一个属于自己的 dep
-// customSetter 函数的作用，用来打印辅助信息，当然除此之外你可以将
-// customSetter 用在任何适合使用它的地方。
 export function defineReactive (
   obj: Object,
   key: string,
   val: any,
+  // customSetter 函数的作用，用来打印辅助信息，当然除此之外你可以将
+  // customSetter 用在任何适合使用它的地方。
   customSetter?: ?Function,
   shallow?: boolean
 ) {

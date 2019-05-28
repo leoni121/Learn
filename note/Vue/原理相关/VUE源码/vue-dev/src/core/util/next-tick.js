@@ -8,7 +8,7 @@ import { isIE, isIOS, isNative } from './env'
 export let isUsingMicroTask = false
 
 const callbacks = []
-let pending = false
+let pending = false // 回调队列是否处于等待刷新的状态
 
 function flushCallbacks () {
   pending = false

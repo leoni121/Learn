@@ -212,6 +212,33 @@ export default class Watcher {
    */
   // 无论是同步更新变化还是将更新变化的操作放到异步更新队列，
   // 真正的更新变化操作都是通过调用观察者实例对象的 run 方法完成的
+  /**
+   * update () {
+      if (this.computed) {
+      // A computed property watcher has two modes: lazy and activated.
+      // It initializes as lazy by default, and only becomes activated when
+      // it is depended on by at least one subscriber, which is typically
+      // another computed property or a component's render function.
+      if (this.dep.subs.length === 0) {
+      // In lazy mode, we don't want to perform computations until necessary,
+      // so we simply mark the watcher as dirty. The actual computation is
+      // performed just-in-time in this.evaluate() when the computed property
+      // is accessed.
+      this.dirty = true
+    } else {
+      // In activated mode, we want to proactively perform the computation
+      // but only notify our subscribers when the value has indeed changed.
+      this.getAndInvoke(() => {
+        this.dep.notify()
+      })
+    }
+    } else if (this.sync) {
+      this.run()
+    } else {
+      queueWatcher(this)
+    }
+    }
+   * */
   update () {
     /* istanbul ignore else */
     // 是不是计算属性的观察者
@@ -276,7 +303,11 @@ export default class Watcher {
    * Evaluate the value of the watcher.
    * This only gets called for lazy watchers.
    */
+  // 运用于 计算属性手动求值
   evaluate () {
+    // 如果计算属性 compA 依赖了数据对象的 a 属性，那么属性 a
+    // 将收集计算属性 compA 的 计算属性观察者对象，而 计算属性观察
+    // 者对象 将收集 渲染函数观察者对象
     this.value = this.get()
     this.dirty = false
   }
@@ -297,17 +328,27 @@ export default class Watcher {
   // nzq_mark
   // 把自己从所有得订阅列表中移出
   teardown () {
+    // 该观察者已经不处于激活状态，什么都不需要做
+    // 此时为真
     if (this.active) {
       // remove self from vm's watcher list
       // this is a somewhat expensive operation so we skip it
       // if the vm is being destroyed.
+      // 为真说明该组件实例已经被销毁了，为假说明该组件还没有被销毁
       if (!this.vm._isBeingDestroyed) {
+        // vm._watchers 数组中包含了该组件所有的观察者实例对象，
+        // 所以将当前观察者实例对象从 vm._watchers 数组中移除是解除属性
+        // 与观察者实例对象之间关系的第一步
         remove(this.vm._watchers, this)
       }
+      // 属性的 Dep 实例对象都会被收集到该观察者实例对象的 this.deps
+      // 数组中，所以解除属性与观察者之间关系的第二步就是将当前
+      // 观察者实例对象从所有的 Dep 实例对象中移除，
       let i = this.deps.length
       while (i--) {
         this.deps[i].removeSub(this)
       }
+      // 该观察者对象已经处于非激活状态
       this.active = false
     }
   }

@@ -198,6 +198,11 @@ export function queueWatcher (watcher: Watcher) {
     if (!waiting) {
       waiting = true
 
+      // Vue.config.async 全局配置，它的默认值为 true，
+      // 我们可以在 src/core/config.js 文件中看到这样一句代码,
+      // 这个全局配置将决定 Vue 中的观察者以何种方式执行，
+      // 默认是异步执行的，当我们将其修改为 Vue.config.async = false 时，
+      // 所有观察者都将会同步执行。
       if (process.env.NODE_ENV !== 'production' && !config.async) {
         flushSchedulerQueue()
         return
