@@ -739,7 +739,63 @@ stage-X: 指处于某一阶段的js语言提案。
 - Plugin 会从第一个开始顺序执行。ordering is first to last.
 - Preset 的顺序则刚好相反(从最后一个逆序执行)。
 
+### 22.5 babel 转化后的代码分析 ###
 
+[babel到底将代码转换成什么鸟样？](<http://ju.outofmemory.cn/entry/259973>)
+
+#### 22.5.1 中括号解释属性 ####
+
+```js
+const prop2 = "PROP2";
+var obj = {
+    ['prop']: 1,
+    ['func']: function() {
+        console.log('func');
+    },
+        [prop2]: 3
+};
+```
+
+**转**
+
+```js
+var _obj;
+// 已美化
+function _defineProperty(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: true,
+            configurable: true,
+            writable: true
+        });
+    } else {
+        obj[key] = value;
+    }
+    return obj;
+}
+ 
+var prop2 = "PROP2";
+var obj = (
+    _obj = {},
+    _defineProperty(_obj, 'prop', 1),
+    _defineProperty(_obj, 'func', function func() {
+   		console.log('func');
+	}), 
+    _defineProperty(_obj, prop2, 3),
+    _obj,
+);
+```
+
+#### 22.5.2 Object.assign 和 Object.is  ####
+
+es6新增的Object.assign极大方便了对象的克隆复制。但babel的es2015 preset并不支持，所以没对其进入转换，这会使得一些移动端机子遇到这种写法会报错。所以一般开发者都会使用object-assign这个npm的库做兼容。
+
+[@babel/plugin-transform-object-assign](<https://babeljs.io/docs/en/babel-plugin-transform-object-assign/>)
+
+[webpack babel 怎么将Object.assign() 转成es5语法](https://segmentfault.com/q/1010000006626971)
+
+#### 22.5.3 类class  ####
 
 ## 23. css-loader 和style-loader ##
 

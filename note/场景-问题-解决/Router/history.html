@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+<div id="ul">
+    <a href="/">black</a> <br>
+    <a href="/red">red</a><br>
+    <a href="/blue">blue</a>
+</div>
+<button onclick="router.back()">back</button>
+</body>
+<script>
+  let body = document.body;
+  class Router {
+    constructor () {
+      this._route = {};
+      // 在初始化时监听popstate事件
+      window.addEventListener('load', () => {
+        this.init('/');
+      })
+      window.addEventListener('popstate',(e) => {
+        console.log('pop');
+        const path = e.state && e.state.path;
+        this._route[path] && this._route[path]();
+      });
+    }
+
+    // 初始化路由
+    init (path) {
+      setTimeout(() => {
+        history.replaceState({path: path}, null, path);
+        console.log('init')
+        this._route[path] && this._route[path]();
+      }, 3000)
+    }
+
+    // 将路径和对应回调函数加入hashMap储存
+    route (path, callback) {
+      this._route[path] = callback || function () {};
+    }
+
+    // 触发路由对应回调
+    go (path) {
+      history.pushState({path: path}, null, path);
+      this._route[path] && this._route[path]();
+    }
+    back() {
+      history.back();
+    }
+  }
+
+  window.router = new Router();
+  router.route('/', function () {
+    body.style.backgroundColor = 'black';
+  })
+  router.route('/red', function () {
+    body.style.backgroundColor = 'red';
+  })
+  router.route('/blue', function () {
+    body.style.backgroundColor = 'blue';
+  })
+  document.querySelector("#ul").addEventListener('click', e => {
+    if (e.target.tagName === 'A') {
+      e.preventDefault();
+      router.go(e.target.getAttribute('href'));
+    }
+  });
+
+</script>
+</html>
+

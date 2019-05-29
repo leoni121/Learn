@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+<a href="#/">black</a> <br>
+<a href="#/red">red</a><br>
+<a href="#/blue">blue</a>
+<button onclick="router.back()">back</button>
+</body>
+<script>
+    let body = document.body;
+    class Router{
+      constructor () {
+        this._route = {};
+        this.curIdx = 0;
+        this.history = [];
+        this.isBack = false;
+        this.curUrl = '';
+        addEventListener('load', () => { this.refresh() }, false);
+        addEventListener('hashchange', () => { this.refresh() }, false)
+      }
+
+      route(hash, cb) {
+        this._route[hash] = cb || function () {};
+      }
+
+      refresh() {
+        console.log('refresh');
+        this.curUrl = location.hash.slice(1) || '/';
+        if (!this.isBack) {
+          console.log('push');
+          // 将当前hash路由推入数组储存
+          this.history.push(this.curUrl);
+          // 指针向前移动
+          this.curIdx++;
+        }
+
+        this._route[this.curUrl]();
+        this.isBack = false;
+      }
+
+      back() {
+        console.log('back');
+        this.isBack = true;
+        // 如果指针小于0的话就不存在对应hash路由了,因此锁定指针为0即可
+        if (this.curIdx <= 1) {
+          this.curIdx = 1
+        } else {
+          this.curIdx = this.curIdx - 1;
+          console.log('pop');
+          this.history.pop();
+        }
+        // 随着后退,location.hash也应该随之变化
+        location.hash = `#${this.history[this.curIdx-1]}`;
+      }
+    }
+
+    window.router = new Router();
+    router.route('/', function () {
+      body.style.backgroundColor = 'black';
+    })
+    router.route('/red', function () {
+      body.style.backgroundColor = 'red';
+    })
+    router.route('/blue', function () {
+      body.style.backgroundColor = 'blue';
+    })
+</script>
+</html>
+
