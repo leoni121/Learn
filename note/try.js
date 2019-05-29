@@ -5,7 +5,6 @@
  * @Param:
  * @Return:
  */
-
 // 思路一：穷举
 // O（n*n），在牛客网上面，不能通过。
 // case通过率为50.00%
@@ -28,44 +27,50 @@ function _InversePairs(data)
 }
 
 // 思路二：归并
+// 注意如果在 merge 里面 copy 的话会出问题（复杂度）
 function InversePairs(data)
 {
   // write code here
   if (data.length < 2) {
     return 0;
   }
-  let copy = data.slice();
-  return merge(data, copy, 0, copy.length-1) % 1000000007;
+  let copy = data.slice(0); // 注意如果在 merge 里面 copy 的话会出问题（复杂度）
+  return merge(data, copy, 0, data.length-1) % 1000000007;
 }
 function merge(data, copy, start, end) {
   if(end === start) {
     return 0;
   }
-  let mid = (end-start)>>1,
-    left = mergeSort(copy,data,start,start+mid),
-    right = mergeSort(copy,data,start+mid+1,end),
+  // [1,2,3]
+  let mid = (end+start)>>1,
+    lCount = merge(data, copy, start, mid),
+    rCount = merge(data, copy, mid+1, end),
     count = 0,
-    p = start+mid,//前一个数组的最后一个下标
-    q = end,//后一个数组的下标
-    copyIndex = end;//辅助数组下标，从最后一个算起
+    lP = mid,
+    rP = end,
+    copyIdx = end;
 
-  while(p>=start && q>=start+mid+1){
-    if(data[p]>data[q]){
-      count+=q-start-mid;
-      copy[copyIndex--] = data[p--];
-    }else{
-      copy[copyIndex--] = data[q--];
+  // 重点在于 两个有序数组怎么 获取 逆序对
+  while(lP>=start && rP>mid) {
+    if (data[lP] > data[rP]) {
+      count += (rP-mid);
+      copy[copyIdx--] = data[lP--];
+    } else {
+      copy[copyIdx--] = data[rP--];
     }
   }
 
-  while(p>=start){
-    copy[copyIndex--] = data[p--];
+  while (lP >= start) {
+    copy[copyIdx--] = data[lP--];
+  }
+  while (rP > mid) {
+    copy[copyIdx--] = data[rP--];
+  }
+  for (let i = start; i <= end; i++) {
+    data[i] = copy[i];
   }
 
-  while(q>=start+mid+1){
-    copy[copyIndex--] = data[q--];
-  }
-  return left+right+count;
+  return lCount + rCount + count;
 }
 
 console.log(InversePairs([364,637,341,406,747,995,234,971,571,219,993,407,416,366,315,301,601,650,418,355,460,505,360,965,516,648,727,667,465,849,455,181,486,149,588,233,144,174,557,67,746,550,474,162,268,142,463,221,882,576,604,739,288,569,256,936,275,401,497,82,935,983,583,523,697,478,147,795,380,973,958,115,773,870,259,655,446,863,735,784,3,671,433,630,425,930,64,266,235,187,284,665,874,80,45,848,38,811,267,575]))
