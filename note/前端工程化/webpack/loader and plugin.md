@@ -743,6 +743,10 @@ stage-X: 指处于某一阶段的js语言提案。
 
 [babel到底将代码转换成什么鸟样？](<http://ju.outofmemory.cn/entry/259973>)
 
+[es 6 在线转换平台](https://es6console.com/)
+
+[babel 在线转化平台](https://babeljs.io/repl)
+
 #### 22.5.1 中括号解释属性 ####
 
 ```js
@@ -796,6 +800,359 @@ es6新增的Object.assign极大方便了对象的克隆复制。但babel的es201
 [webpack babel 怎么将Object.assign() 转成es5语法](https://segmentfault.com/q/1010000006626971)
 
 #### 22.5.3 类class  ####
+
+```js
+class Animal {
+ 
+    constructor(name, type) {
+        this.name = name;
+        this.type = type;
+    }
+ 
+    walk() {
+        console.log('walk');
+    }
+ 
+    run() {
+        console.log('run')
+    }
+ 
+    static getType() {
+        return this.type;
+    }
+ 
+    get getName() {
+        return this.name;
+    }
+ 
+    set setName(name) {
+        this.name = name;
+    }
+ 
+ 
+}
+ 
+class Dog extends Animal {
+    constructor(name, type) {
+        super(name, type);
+    }
+ 
+    get getName() {
+        return super.getName();
+    }
+}
+```
+
+**转**
+
+```js
+"use strict";
+// 子类实现constructor
+function _possibleConstructorReturn(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    // 若call是函数/对象则返回
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+// 继承类
+function _inherits(subClass, superClass) {
+   // 父类一定要是function类型
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    // 使原型链subClass.prototype.__proto__指向父类superClass，同时保证constructor是subClass自己
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    // 保证subClass.__proto__指向父类superClass
+    if (superClass) 
+        Object.setPrototypeOf ? 
+        Object.setPrototypeOf(subClass, superClass) :    subClass.__proto__ = superClass;
+}
+
+// 检测 当前 class 的调用方式
+function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+// 创建类
+var _createClass = (function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            // es6规范要求类方法为non-enumerable
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            // 对于setter和getter方法，writable为false
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        // 非静态方法定义在原型链上
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        // 静态方法直接定义在constructor函数上
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+})();
+
+var Animal = (function () {
+    function Animal(name, type) {
+                // 此处是constructor的实现，用_classCallCheck来判定constructor正确与否
+        _classCallCheck(this, Animal);
+ 
+        this.name = name;
+        this.type = type;
+    }
+        // _creatClass用于创建类及其对应的方法
+    _createClass(Animal, [{
+        key: 'walk',
+        value: function walk() {
+            console.log('walk');
+        }
+    }, {
+        key: 'run',
+        value: function run() {
+            console.log('run');
+        }
+    }, {
+        key: 'getName',
+        get: function get() {
+            return this.name;
+        }
+    }, {
+        key: 'setName',
+        set: function set(name) {
+            this.name = name;
+        }
+    }], [{
+        key: 'getType',
+        value: function getType() {
+            return this.type;
+        }
+    }]);
+ 
+    return Animal;
+})();
+ 
+var Dog = (function (_Animal) {
+        // 子类继承父类
+    _inherits(Dog, _Animal);
+ 
+    function Dog(name, type) {
+        _classCallCheck(this, Dog);
+                // 子类实现constructor
+                // babel会强制子类在constructor中使用super，否则编译会报错
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Dog).call(this, name, type));
+    }
+ 
+    _createClass(Dog, [{
+        key: 'getName',
+        get: function get() {
+          // 跟上文使用super调用原型链的super编译解析的方法一致，
+          // 也是自己写了一个回溯prototype原型链
+            return _get(Object.getPrototypeOf(Dog.prototype), 'getName', this).call(this);
+        }
+    }]);
+ 
+    return Dog;
+})(Animal);
+```
+
+#### 22.5.4 模块化  ####
+
+es6的模块加载是属于**多对象多加载**，而**commonjs则属于单对象单加载**。babel需要做一些手脚才能将es6的模块写法写成commonjs的写法。主要是通过定义__esModule这个属性来判断这个模块是否经过babel的编译。然后通过_interopRequireWildcard对各个模块的引用进行相应的处理。
+
+通过webpack打包babel编译后的代码，每一个模块里面都包含了相同的类继承帮助方法，这是开发时忽略的。在开发的时候用es5的语法可能会比使用es6的class能使js bundle更小。
+
+```
+import { Animal as Ani, catwalk } from "./t1";
+import * as All from "./t2";
+
+Ani();
+catwalk();
+```
+
+**转**
+
+```js
+"use strict";
+
+var _t = require("./t1");
+
+var _t2 = require("./t2");
+
+var All = _interopRequireWildcard(_t2);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+
+(0, _t.Animal)();
+(0, _t.catwalk)();
+```
+
+```js
+export function catwal() {
+    console.log('cat walk');
+};
+```
+
+**转**
+
+```js
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.catwal = catwal;
+function catwal() {
+    console.log('cat walk');
+};
+```
+
+#### 22.5.5 let const ####
+
+```js
+const a3 = 3;
+var a4 = 5;
+
+let a1 = 1;
+ 
+{
+    let a1 = 2;
+ 
+    {
+        let a1 = 4;
+      	{
+        	let a1 = 6;
+        }
+    }
+}
+a1 = 3;
+```
+
+**转**
+
+```js
+"use strict";
+
+var a3 = 3;
+var a4 = 5;
+var a1 = 1;
+{
+  var _a = 2;
+  {
+    var _a2 = 4;
+    {
+      var _a3 = 6;
+    }
+  }
+}
+a1 = 3;
+```
+
+#### 22.5.6 箭头函数 ####
+
+```js
+var obj = {
+    prop: 1,
+    func: function() {
+        var innerFunc = () => {
+            this.prop = 1;
+        };
+ 
+        var innerFunc1 = function() {
+            this.prop = 1;
+        };
+    },
+ 
+};
+```
+
+**转**
+
+```js
+"use strict";
+
+var obj = {
+  prop: 1,
+  func: function func() {
+    var _this = this;
+
+    var innerFunc = function innerFunc() {
+      _this.prop = 1;
+    };
+
+    var innerFunc1 = function innerFunc1() {
+      this.prop = 1;
+    };
+  }
+};
+```
+
+#### 22.5.7 使用super去调用prototype  ####
+
+```js
+var obj = {
+    toString() {
+     // Super calls
+     return "d " + super.toString();
+    },
+};
+```
+
+**转**
+
+```js
+var _obj;
+// 已美化
+var _get = function get(object, property, receiver) {
+   // 如果prototype为空，则往Function的prototype上寻找
+    if (object === null) object = Function.prototype;
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        // 如果在本层prototype找不到，再往更深层的prototype上找
+        if (parent === null) {
+            return undefined;
+        } else {
+            return get(parent, property, receiver);
+        }
+    }
+    // 如果是属性，则直接返回
+    else if ("value" in desc) {
+        return desc.value;
+    }
+    // 如果是方法，则用call来调用，receiver是调用的对象 
+    else {
+        var getter = desc.get;  // getOwnPropertyDescriptor返回的getter方法
+        if (getter === undefined) {
+            return undefined;
+        }
+        return getter.call(receiver);
+    }
+};
+ 
+var obj = _obj = {
+  toString: function toString() {
+    // Super calls
+    return "d " + _get(Object.getPrototypeOf(_obj), "toString", this).call(this);
+  }
+};
+```
+
+
 
 ## 23. css-loader 和style-loader ##
 

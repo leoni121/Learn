@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .parent {
+            margin: 30px 0 30px -20px;
+            overflow: hidden;
+        }
+        .son {
+            background-color: red;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            box-sizing: border-box;
+            border: 1px solid black;
+            margin-left: 20px;
+        }
+
+        /* calc */
+        .parent1 .son{
+            width: calc((100% - 60px) / 3);
+            float: left;
+        }
+
+        /* flex */
+        .parent2 {
+            display: flex;
+        }
+        .parent2 .son {
+            /*flex: 1 1 100%;*/
+            flex-grow: 1; /* default 0 */
+            flex-shrink: 1; /* default 1 */
+            flex-basis: 100%;
+        }
+
+        /* table */
+        .parent3 {
+            margin-left: 0;
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        .parent3 .son {
+            display: table-cell;
+            padding: 0 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="parent1 parent">
+    <div class="son">1</div>
+    <div class="son">2</div>
+    <div class="son">3</div>
+</div>
+<div class="parent2 parent">
+    <div class="son">1</div>
+    <div class="son">2</div>
+    <div class="son">3</div>
+</div>
+<div class="parent3 parent">
+    <div class="son">1</div>
+    <div class="son">2</div>
+    <div class="son">3</div>
+</div>
+</body>
+</html>
