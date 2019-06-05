@@ -862,7 +862,7 @@ function _inherits(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
-    // 使原型链subClass.prototype.__proto__指向父类superClass，同时保证constructor是subClass自己
+    // 使原型链subClass.prototype.__proto__指向父类superClass.prototype，同时保证constructor是subClass自己
     subClass.prototype = Object.create(superClass && superClass.prototype, {
         constructor: {
             value: subClass,
@@ -975,7 +975,9 @@ es6的模块加载是属于**多对象多加载**，而**commonjs则属于单对
 
 通过webpack打包babel编译后的代码，每一个模块里面都包含了相同的类继承帮助方法，这是开发时忽略的。在开发的时候用es5的语法可能会比使用es6的class能使js bundle更小。
 
-```
+**导入的转化**
+
+```js
 import { Animal as Ani, catwalk } from "./t1";
 import * as All from "./t2";
 
@@ -994,12 +996,32 @@ var _t2 = require("./t2");
 
 var All = _interopRequireWildcard(_t2);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) {
+    // 发现是babel编译的， 直接返回
+    if (obj && obj.__esModule) {
+        return obj;
+    }
+   // 非babel编译， 猜测可能是第三方模块，为了不报错，让default指向它自己
+    else {
+        var newObj = {};
+        if (obj != null) {
+            for (var key in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+            }
+        }
+        newObj.default = obj;
+        return newObj;
+    }
+}
 
 
 (0, _t.Animal)();
 (0, _t.catwalk)();
 ```
+
+
+
+**导出的转化**
 
 ```js
 export function catwal() {
@@ -1150,6 +1172,138 @@ var obj = _obj = {
     return "d " + _get(Object.getPrototypeOf(_obj), "toString", this).call(this);
   }
 };
+```
+
+#### 22.5.8 Generator 函数 ####
+
+```js
+const gen = function* () {
+  const f1 = yield readFile('/etc/fstab');
+  const f2 = yield readFile('/etc/shells');
+  console.log(f1.toString());
+  console.log(f2.toString());
+};
+
+
+// 转换为
+
+
+"use strict";
+var gen =
+/*#__PURE__*/
+regeneratorRuntime.mark(function gen() {
+  var f1, f2;
+  return regeneratorRuntime.wrap(function gen$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return readFile('/etc/fstab');
+
+        case 2:
+          f1 = _context.sent;
+          _context.next = 5;
+          return readFile('/etc/shells');
+
+        case 5:
+          f2 = _context.sent;
+          console.log(f1.toString());
+          console.log(f2.toString());
+
+        case 8:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, gen);
+});
+```
+
+#### 22.5.9 Async ####
+
+```
+const fetchValue = async function () {
+    var value1 = await fetchData(1);
+    var value2 = await fetchData(value1);
+    var value3 = await fetchData(value2);
+    console.log(value3)
+};
+
+fetchValue();
+```
+
+**转化**
+
+```js
+function _asyncToGenerator(fn) {
+  return function() {
+   // ...
+  };
+}
+
+var fetchValue = (function() {
+  var _ref = _asyncToGenerator(
+    /*#__PURE__*/ regeneratorRuntime.mark(function _callee() {
+      var value1, value2, value3;
+      return regeneratorRuntime.wrap(
+        function _callee$(_context) {
+          while (1) {
+            switch ((_context.prev = _context.next)) {
+              case 0:
+                _context.next = 2;
+                return fetchData(1);
+
+              case 2:
+                value1 = _context.sent;
+                _context.next = 5;
+                return fetchData(value1);
+
+              case 5:
+                value2 = _context.sent;
+                _context.next = 8;
+                return fetchData(value2);
+
+              case 8:
+                value3 = _context.sent;
+
+                console.log(value3);
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        },
+        _callee,
+        this
+      );
+    })
+  );
+
+  return function fetchValue() {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+fetchValue();
+```
+
+
+
+#### 22.5.10 Promise ####
+
+```js
+const fetchData = (data) => new Promise((resolve) => setTimeout(resolve, 1000, data + 1))
+
+
+// 转换
+
+var fetchData = function fetchData(data) {
+  return new Promise(function(resolve) {
+    return setTimeout(resolve, 1000, data + 1);
+  });
+};
+
 ```
 
 

@@ -36,8 +36,8 @@ function getType(obj) {
  */
 function deepClone(obj) {
   let visitedQueue = [],
-    visitedIdx = 0,
-    createQueue = [];
+    createQueue = [],
+    visitedIdx = 0;
 
   return (function _clone (target) {
     let res = null,
