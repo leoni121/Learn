@@ -22,7 +22,6 @@
         #parent1 {
             position: relative;
         }
-        /* 不加 width height 和 margin 的话 #son1 会占满整个 #parent1 */
         #son1 {
             position: absolute;
             top: 0;
@@ -39,13 +38,15 @@
 
 
         /* vertical-align: middle; 开始 */
-        #parent2 {
-        }
         /* #parent2::before */
+        #parent2 {
+            text-align: center;
+        }
         #parent2:before {
-            content: " ";
+            content: "";
             height: 100%;
             width: 0;
+            display: none;
 
             display: inline-block;
             vertical-align: middle;
@@ -78,6 +79,7 @@
         }
         #son4 {
             display: table-cell;
+            text-align: center;
             vertical-align: middle;
         }
         /* table 结束 */

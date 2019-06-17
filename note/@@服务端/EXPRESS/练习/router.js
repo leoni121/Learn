@@ -16,6 +16,7 @@ router.use('/try', (req, res, next) =>{
 // define the home page route
 router.get('/try', function (req, res) {
   console.timeEnd("总共用时：");
+  console.log(req.responseText)
   res.send(req.responseText + "nzq");
 })
 // define the about route

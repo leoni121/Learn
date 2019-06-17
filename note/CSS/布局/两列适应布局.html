@@ -33,11 +33,11 @@
         #parent2 {
             display: flex;
         }
-        #left2 {
-            flex-shrink: 0;
-        }
         #right2 {
             width: 100%;
+        }
+        #left2 {
+            flex-shrink: 0; /* 不加入这个的话 会因为 #right2 的宽是 100% 而缩小 */
         }
         /* flex结束 */
 
@@ -48,17 +48,16 @@
         #left3, #right3 {
             display: table-cell;
         }
-        #left3 {
-            min-width: 300px;
-        }
         #right3 {
             width: 100%;
+        }
+        #left3 {
+            min-width: 300px; /* 防止 #left3 的宽度变为 0 */
         }
         /* table-cell结束 */
 
         /* 圣杯开始 */
         #parent4 {
-            overflow: hidden;
             padding-left: 300px;
         }
 
@@ -109,7 +108,7 @@
 <div class="parent" id="parent5">
     <div class="left" id="left5">sdsadsa</div>
     <div id="right5Con">
-        <div class="right" id="right5"></div>
+        <div class="right" id="right5">的撒多所所</div>
     </div>
 </div>
 </body>

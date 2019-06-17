@@ -1,19 +1,26 @@
-<ul> <li> </li> </ul>
-<ol> <li> </li> </ol>
-<dl>
-    <dt>dd</dt>
-    <dd>dd</dd>
-</dl>
-<dl>
-    <dt>dd</dt>
-    <dd>dd</dd>
-</dl>
-<dl>
-	sasa
-    <dt>dd</dt>
-    <dd>dd</dd>
-</dl>
-<dl>
-    <dt>dd</dt>
-    <dd>dd</dd>
-</dl>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>测试H5新标签兼容性</title>
+    <script>
+        document.createElement('nzq');
+        document.createElement('wx');
+    </script>
+
+    <style>
+        nzq, wx{
+            display: block;
+            width:100px;
+            height: 100px;
+            background-color:red;
+        }
+    </style>
+</head>
+<body>
+<nzq id="header1">header</nzq>
+<wx id="footer1">footer</wx>
+
+
+</body>
+</html>
