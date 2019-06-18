@@ -11,17 +11,6 @@
     this.val = x;
     this.next = null;
 }*/
-l
-let obj = {
-	nzq: 'name',
-	wx: 'name'
-}
-
-for (let d in object) {
-	if (object.hasOwnPropelet d)) {
-
-}
-}
 
 function deleteDuplication(pHead) {
 	// write code here
