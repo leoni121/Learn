@@ -60,11 +60,21 @@ const whitespaceRE = /\s+/g
 
 const invalidAttributeRE = /[\s"'<>\/=]/
 
+/*
+ * cached 函数我们前面遇到过，它的作用是接收一个函数作为参数并返回一个新的函数，
+ * 新函数的功能与作为参数传递的函数功能相同，唯一不同的是新函数具有缓存值的功能，
+ * 如果一个函数在接收相同参数的情况下所返回的值总是相同的，那么 cached 函数将
+ * 会为该函数提供性能提升的优势。
+ *
+ * he.decode: HTML 实体解码函数
+ */
 const decodeHTMLCached = cached(he.decode)
 
 export const emptySlotScopeToken = `_empty_`
 
 // configurable state
+// 平台化选项变量, 在parse 函数中，这些变量将被初始化一个值，这些值都是平台化
+// 的编译器选项参数， 不同平台这些变量将被初始化的值是不同的。
 export let warn: any
 let delimiters
 let transforms
@@ -75,6 +85,16 @@ let platformMustUseProp
 let platformGetTagNamespace
 let maybeComponent
 
+/**
+ * 创建一个元素的描述对象
+ * @method createASTElement
+ * @date   2019-06-19
+ * @author NZQ
+ * @param  {string}         tag    [sd]
+ * @param  {attrs}         attrs  属性
+ * @param  {currentParent} parent currentParent
+ * @return {ASTElement}                AST
+ */
 export function createASTElement(
 	tag: string,
 	attrs: Array < ASTAttr > ,
@@ -112,6 +132,8 @@ export function parse(
 
 	delimiters = options.delimiters
 
+	// 初始化一些变量的值，以及创建一些新的变量，其中包括 root 变量，
+	// 该变量为 parse 函数的返回值，即 AST
 	const stack = []
 	const preserveWhitespace = options.preserveWhitespace !== false
 	const whitespaceOption = options.whitespace
@@ -189,6 +211,7 @@ export function parse(
 		}
 	}
 
+	// 
 	function trimEndingWhitespace(el) {
 		// remove trailing whitespace node
 		if (!inPre) {
@@ -203,6 +226,9 @@ export function parse(
 		}
 	}
 
+	// 检测模板根元素是否符合要求，我们知道在编写 Vue 模板的时候会受到两种约束，
+	// 首先模板必须有且仅有一个被渲染的根元素，第二不能使用 slot 标签和 template 标签作为模板的根元素
+	// 这些限制都是出于 必须有且仅有一个根元素的　考虑
 	function checkRootConstraints(el) {
 		if (el.tag === 'slot' || el.tag === 'template') {
 			warnOnce(
@@ -212,6 +238,7 @@ export function parse(
 				}
 			)
 		}
+		// 根元素是不允许使用 v-for 指令的	
 		if (el.attrsMap.hasOwnProperty('v-for')) {
 			warnOnce(
 				'Cannot use v-for on stateful component root element because ' +
@@ -222,8 +249,16 @@ export function parse(
 	}
 
 	/*
+	 * 核心代码
+	 * 
 	 * parseHTML 函数的作用就是用来做词法分析的，
 	 * 而 parse 函数的作用则是在词法分析的基础上做句法分析从而生成一棵 AST
+	 */
+	/*
+	 * 1、start 钩子函数，在解析 html 字符串时每次遇到 开始标签 时就会调用该函数
+	 * 2、end 钩子函数，在解析 html 字符串时每次遇到 结束标签 时就会调用该函数
+	 * 3、chars 钩子函数，在解析 html 字符串时每次遇到 纯文本 时就会调用该函数
+	 * 4、comment 钩子函数，在解析 html 字符串时每次遇到 注释节点 时就会调用该函数
 	 */
 	parseHTML(template, {
 		warn,
@@ -237,14 +272,19 @@ export function parse(
 		start(tag, attrs, unary, start, end) {
 			// check namespace.
 			// inherit parent ns if there is one
+			//　尝试获取一个元素的命名空间，并将获取到的命名空间的名字赋值给 ns 常量
 			const ns = (currentParent && currentParent.ns) || platformGetTagNamespace(tag)
 
 			// handle IE svg bug
 			/* istanbul ignore if */
+			//　ＩＥ处理
 			if (isIE && ns === 'svg') {
 				attrs = guardIESVGBug(attrs)
 			}
 
+			// 为当前元素创建了描述对象，并且元素描述对象的创建是通过 createASTElement 完成的，
+			// 并将当前标签的元素描述对象赋值给 element 变量。紧接着检查当前元素是否存在命名空间 ns，
+			// 如果存在则在元素对象上添加 ns 属性，其值为命名空间的值。
 			let element: ASTElement = createASTElement(tag, attrs, currentParent)
 			if (ns) {
 				element.ns = ns
@@ -272,6 +312,9 @@ export function parse(
 				})
 			}
 
+			// 非服务端渲染情况, 禁止在模板中使用的标签
+			// <style> 标签和 <script> 都被认为是禁止的标签
+			// Vue 并非禁止了所有的 <script> 元素
 			if (isForbiddenTag(element) && !isServerRendering()) {
 				element.forbidden = true
 				process.env.NODE_ENV !== 'production' && warn(
@@ -284,9 +327,15 @@ export function parse(
 			}
 
 			// apply pre-transforms
+			// reTransforms 数组中的那些函数与 process* 系列函数唯一的区别就是平台化的区分
 			for (let i = 0; i < preTransforms.length; i++) {
 				element = preTransforms[i](element, options) || element
 			}
+
+			/*
+			 * 开始大量调用 process* 系列的函数
+			 * 		在元素描述对象上添加各种各样的具有标识作用的属性，就比如之前遇到的 ns 属性和 forbidden 属性，它们都能够对标签起到描述作用。
+			 */
 
 			if (!inVPre) {
 				processPre(element)
@@ -306,6 +355,9 @@ export function parse(
 				processOnce(element)
 			}
 
+			// 如果 root 不存在那说明当前元素应该就是根元素
+			// 每当遇到一个非一元标签都会将该元素的描述对象添加到 stack 数组，
+			// 并且 currentParent 始终存储的是 stack 栈顶的元素，即当前解析元素的父级
 			if (!root) {
 				root = element
 				if (process.env.NODE_ENV !== 'production') {
@@ -313,6 +365,7 @@ export function parse(
 				}
 			}
 
+			// 非一元标签
 			if (!unary) {
 				currentParent = element
 				stack.push(element)
@@ -425,6 +478,15 @@ export function parse(
 	return root
 }
 
+
+/*
+ * （１）、process* 系列函数的作用就是对 元素描述对象(el 对象) 做进一步处理，
+ * 比如其中一个函数叫做 processPre，这个函数的作用就是用来检测 
+ * el 元素是否拥有 v-pre 属性，如果有 v-pre 属性则会在 el
+ *  描述对象上添加一个 pre 属性
+ * （２）、非　ｐｒｏｃｅｓｓ　系列函数，例如 findPrevElement、makeAttrsMap 等等，
+ * 这些函数实际上就是工具函数。
+ */
 function processPre(el) {
 	if (getAndRemoveAttr(el, 'v-pre') != null) {
 		el.pre = true
@@ -572,6 +634,15 @@ function processIf(el) {
 	}
 }
 
+/*
+ * 通过 findPrevElement 函数找到当前元素的前一个元素描述对象，并将其赋值给 prev 常量，
+ * 接着进入 if 条件语句，判断当前元素的前一个元素是否使用了 v-if 指令，我们知道对于使用了 
+ * v-else-if 或 v-else 指令的元素来讲，他们的前一个元素必然需要使用相符的 v-if 指令才行。
+ * 如果前一个元素确实使用了 v-if 指令，那么则会调用 addIfCondition 函数将当前元素描述对象
+ * 添加到前一个元素的 ifConditions 数组中。如果前一个元素没有使用 v-if 指令，那么此时将会进
+ * 入 else...if 条件语句的判断，即如果是非生产环境下，会打印警告信息提示开发者没有相符的使用了 
+ * v-if 指令的元素。
+ */
 function processIfConditions(el, parent) {
 	const prev = findPrevElement(parent.children)
 	if (prev && prev.if) {
@@ -954,6 +1025,14 @@ function parseModifiers(name: string): Object | void {
 	}
 }
 
+/**
+ * 将标签的属性数组转换成名值对一一对象的对象
+ * @method makeAttrsMap
+ * @date   2019-06-19
+ * @author NZQ
+ * @param  {attrs}     attrs  属性数组		
+ * @return {Object}           对象
+ */
 function makeAttrsMap(attrs: Array < Object > ): Object {
 	const map = {}
 	for (let i = 0, l = attrs.length; i < l; i++) {
@@ -963,6 +1042,7 @@ function makeAttrsMap(attrs: Array < Object > ): Object {
 		) {
 			warn('duplicate attribute: ' + attrs[i].name, attrs[i])
 		}
+		// [{name:'', value: ''}] => {[name]: [value]}
 		map[attrs[i].name] = attrs[i].value
 	}
 	return map
@@ -974,6 +1054,12 @@ function isTextTag(el): boolean {
 }
 
 function isForbiddenTag(el): boolean {
+	//允许　
+	/*
+	 * <script type="text/x-template" id="hello-world-template">
+		  <p>Hello hello hello</p>
+		</script>
+	 */
 	return (
 		el.tag === 'style' ||
 		(el.tag === 'script' && (

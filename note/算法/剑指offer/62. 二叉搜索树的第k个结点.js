@@ -10,10 +10,12 @@
  * @date        2019-06-18
  * @author NZQ
  * @param       {TreeNode}   pRoot
- * @param       {Number}   k     
+ * @param       {Number}   k
  * @constructor
  */
-function KthNode(pRoot, k) {
+
+//　非递归
+function _KthNode(pRoot, k) {
 	// write code here
 	if (!pRoot || k === 0) return null;
 	let stack = [],
@@ -36,3 +38,21 @@ function KthNode(pRoot, k) {
 	}
 	return null;
 }
+
+//　递归
+let count = 0;
+function KthNode(pRoot, k) {
+	// write code here
+	if (!!pRoot && k > 0) {
+		let node = KthNode(pRoot.left, k);
+		if(!!node) return node;
+
+		count++;
+		if(count == k) return pRoot;
+
+		node = KthNode(pRoot.right, k);
+		if(!!node) return node;
+	}
+	return null;
+}
+

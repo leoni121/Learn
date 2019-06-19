@@ -28,6 +28,11 @@ export const createCompiler = createCompilerCreator(function baseCompile(
 	options: CompilerOptions
 ): CompiledResult {
 	//　词法分析 -> 句法分析 -> 代码生成
+
+	// 构建抽象语法树的工作就是创建一个类似能够描述节点关系的对象树，
+	// 节点与节点之间通过 parent 和 children 建立联系，
+	// 每个节点的 type 属性用来标识该节点的类别，比如 type 为 1 代表该节点为元素节点，
+	// type 为 2 代表该节点为文本节点，这只是人为的一个规定，你可以用任何方便的方式加以区分。
 	const ast = parse(template.trim(), options)
 	if (options.optimize !== false) {
 		optimize(ast, options)
