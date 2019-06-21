@@ -1,4 +1,4 @@
-**[完全用 GNU/Linux 工作](https://www.w3cschool.cn/working_on_gnu_linux/?)**                            
+> **[完全用 GNU/Linux 工作](https://www.w3cschool.cn/working_on_gnu_linux/?)**                       
 
 1. [ubuntu中下载.tar.gz 安装包添加到桌面启动](https://blog.csdn.net/qq_35191331/article/details/79927168)
 2. [【Linux】目录文件权限的查看和修改【转】](https://www.cnblogs.com/sxdcgaq8080/p/7498906.html)
@@ -11,6 +11,7 @@
 9. [文件与目录权限](https://wiki.deepin.org/wiki/文件与目录权限)
 10. [程序在Linux后台运行方法 （关掉终端继续让程序运行的方法）](<https://blog.csdn.net/yuhan61659/article/details/82790727>)
 11. [回收站的 deepinwine 相关文件怎么都删不掉清空不了](<https://bbs.deepin.org/forum.php?mod=viewthread&tid=178838>)
+12. [Linux下面解压.tar.gz和.gz文件解压的方式](<https://blog.csdn.net/Sky786905664/article/details/80927013>)
 
 ## 1. Node 环境相关
 

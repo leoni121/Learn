@@ -10,11 +10,11 @@
 
 **查询方式**
 
-![dns查询1](C:/Users/nzq/Desktop/Learn/note/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/img/dns%E6%9F%A5%E8%AF%A21.png)
+![dns查询1](../img/dns%E6%9F%A5%E8%AF%A21.png)
 
 **具体例子**
 
-![dns查询](C:/Users/nzq/Desktop/Learn/note/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/img/dns%E6%9F%A5%E8%AF%A2.png)
+![dns查询](../img/dns%E6%9F%A5%E8%AF%A2.png)
 
 例如上图所示的例子中，主机cis.poly.edu想知道主机gaia.cs.umass.edu的IP地址，并且主机gaia.cs.umass.edu的权威DNS服务器为dns.umass.edu。
 
