@@ -24,7 +24,6 @@
 1. [可以安装rpm文件吗？](<https://bbs.deepin.org/forum.php?mod=viewthread&tid=167787>)
    1. [deepin卸载mysql并安装设置mysql5.7](https://www.cnblogs.com/jason1990/p/9948091.html)
    2. [deepin安装MySQL5.7](<https://blog.csdn.net/sinat_37064286/article/details/82224562>)
-   3. [一些有用的 Atom 插件（前端向）](https://segmentfault.com/p/1210000007435904)
 
 ## 3. 常用命令
 1. ps -ef|grep node
