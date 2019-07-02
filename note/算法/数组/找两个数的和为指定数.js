@@ -1,27 +1,27 @@
 /**
  * @Author nzq
  * @Date 2019/3/21
- * @Description:
+ * @Description: 有序数组
  * @Param:
  * @Return:
  */
 
-function GetNumbersWithSumInArray (arr, count) {
+function GetNumbersWithSumInArray(arr, count) {
   if (!arr.length) {
     return false;
   }
 
-  let len = arr.length
-    ,minIdx = 0
-    ,maxIdx = len - 1
-    ,sum = 0
-    ,result = [];
+  let len = arr.length,
+    minIdx = 0,
+    maxIdx = len - 1,
+    sum = 0,
+    result = [];
 
   while (minIdx < maxIdx) {
     sum = arr[minIdx] + arr[maxIdx];
     if (sum < count) {
       minIdx++;
-    } else if(sum > count) {
+    } else if (sum > count) {
       maxIdx--;
     } else {
       result.push({

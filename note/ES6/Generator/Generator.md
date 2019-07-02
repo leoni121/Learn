@@ -6,7 +6,7 @@ Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为�
 
 * Generator 函数是一个**状态机**，封装了多个内部状态
 
-* 还是一个**遍历器对象生成函数**。执行 Generator 函数返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。
+* 还是一个**遍历器对象生成函数**,返回遍历器。执行 Generator 函数返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。
 
 ```js
 function* helloWorldGenerator() {

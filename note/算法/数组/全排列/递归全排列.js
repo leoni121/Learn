@@ -5,39 +5,25 @@
  * @Param:
  * @Return:
  */
+function sort(arr) {
+  let len = arr.length;
+  if (!len) return;
+  let result = [];
 
-class Permutation {
-  constructor(arr) {
-    this.arr = Array.from(arr);
-    this.result = [];
-    this.len = 0;
-    this.run(0);
-  }
+  (function _sort(arr, idx) {
+    if (idx === len - 1) {
+      result.push(arr.slice());
+    } else {
+      for (let i = idx; i < len; i++) {
+        [arr[i], arr[idx]] = [arr[idx], arr[i]];
+        _sort(arr, idx + 1);
+        [arr[i], arr[idx]] = [arr[idx], arr[i]];
+      }
+    }
+  })(arr, 0);
 
-  run(index) {
-    if (index === this.arr.length - 1) {
-      this.result.push(Array.from(this.arr));
-      this.len++;
-      return;
-    }
-    for(let i = index; i < this.arr.length; i++) {
-      // 将第一个和其他位置的数交换
-      [this.arr[index], this.arr[i]] = [this.arr[i], this.arr[index]];
-      // 全排序后面侧
-      this.run(index + 1);
-      // 将先前交换的数再 交换回来
-      [this.arr[index], this.arr[i]] = [this.arr[i], this.arr[index]];
-    }
-  }
+  console.log(arr);
+  return result;
 }
 
-let p = new Permutation(["A", "B", "C"]);
-console.log(p.result);
-console.log(p.len);
-// [ [ 'A', 'B', 'C' ],
-//   [ 'A', 'C', 'B' ],
-//   [ 'B', 'A', 'C' ],
-//   [ 'B', 'C', 'A' ],
-//   [ 'C', 'B', 'A' ],
-//   [ 'C', 'A', 'B' ] ]
-// 6
+console.log(sort(["A", "B", "C"]));

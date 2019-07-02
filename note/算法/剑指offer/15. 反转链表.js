@@ -45,6 +45,7 @@ function __ReverseList(pHead)
 }
 
 // 2. 使用3个指针遍历单链表，逐个链接点进行反转
+// pre pHead next
 // 时间复杂度：O(N)
 // 空间复杂度：O(1)
 function ___ReverseList(pHead)
