@@ -1,49 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>css阻塞</title>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        .Grid-cell {
-            display: flex;
-            margin-left: -10px;
-        }
-
-        .Grid-cell div {
-            flex: 1 1 0%;
-            margin: 10px 0 10px 10px;
-            background: red;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        var startDate = new Date();
+        console.log('before css,',document.querySelector('h1'));
+        setTimeout(() => {
+            console.log('render后:', document.querySelector('h1'));
+        }, 0)
+    </script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+    <script>
+        console.log('after css,', (+new Date() -startDate) + 'ms')
+    </script>
 </head>
 <body>
-<div class="Grid">
-    <div class="Grid-cell">
-        <div>1/2</div>
-        <div>1/2</div>
-    </div>
-    <div class="Grid-cell">
-        <div>1/3</div>
-        <div>1/3</div>
-        <div>1/3</div>
-    </div>
-    <div class="Grid-cell">
-        <div>1/4</div>
-        <div>1/4</div>
-        <div>1/4</div>
-        <div>1/4</div>
-    </div>
-    <div class="Grid-cell">
-        <div>从幼儿园到小学，教过我的老师有好多个，但我印象最深的还是教我一年级数学的毛老师。她长着一头长长的头发，像一股泉水“哗啦啦”地倾泻而下；两颗大大的眼睛就像黑宝石一样璀璨；一张通红的小嘴，如同樱桃一样可爱。毛老师总是能根据我们的年龄特点，设计出我们喜欢的教学方法。记得有一</div>
-        <div>从幼儿园到小学，教过我的老师有好多个，</div>
-    </div>
-</div>
+<h1>这是红色的</h1>
+<script>
+    var endDate = new Date();
+    console.log('bottom, 经过了' + (endDate -startDate) + 'ms')
+</script>
 </body>
 </html>
