@@ -5,3 +5,4 @@ node_modules
 .atom
 **/.atom
 .DS_Store
+**/.DS_Store
