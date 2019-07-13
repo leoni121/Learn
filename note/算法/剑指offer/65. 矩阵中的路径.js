@@ -17,6 +17,8 @@
 *  ＃　＃　＃
 *
 * */
+// 上下左右
+const DIRECTION = [[0, -1], [0, 1], [-1, 0], [1, 0]];
 function hasPath(matrix, rows, cols, path) {
   // write code here
   if (!matrix.length
@@ -34,9 +36,7 @@ function hasPath(matrix, rows, cols, path) {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       // 循环遍历二维数组，找到起点等于str第一个元素的值，再递归判断四周是否有符合条件的----回溯法
-      if (judge(matrix, i, j, rows, cols, flag, path, 0)) {
-        return true;
-      }
+      if (judge(matrix, i, j, rows, cols, flag, path, 0)) return true;
     }
   }
 
@@ -50,29 +50,28 @@ function judge (matrix, i, j, rows, cols, flag, path, k) {
   let idx = i*cols+j;
 
   // 递归终止条件
-  if (i<0
+  if (i<0 // 超出范围
     ||　j<0
     ||　i>=rows
     ||　j>=cols
-    ||　matrix[idx] !== path[k]
-    || flag[idx])
+    ||　matrix[idx] !== path[k] // 不相等
+    || flag[idx]) // 已访问
   {
     return false;
   }
 
   //　若k已经到达str末尾了说明之前的都已经匹配成功了　
   // 或者ｐａｔｈ　长度是１，直接返回true
-  if (k === path.length - 1 || path.length === 1) return true;
+  // 已知 本次比较相等
+  if (k === path.length - 1) return true;
 
   //　要走的第一个位置置为true，表示已经走过了
   flag[idx] = true;
 
-  if(judge(matrix, i-1, j, rows, cols, flag, path, k+1) //　上
-    || judge(matrix, i+1, j, rows, cols, flag, path, k+1) //　下
-    || judge(matrix, i, j-1, rows, cols, flag, path, k+1) //　左
-    || judge(matrix, i, j+1, rows, cols, flag, path, k+1))　//　右
-  {
-    return true;
+  let r,c;
+  for(let p = 0; p< DIRECTION.length; p++) {
+    [r,c] = DIRECTION[p];
+    if (judge(matrix, i+r, j+c, rows, cols, flag, path, k+1)) return true;
   }
 
   // 走到这，说明这一条路不通，还原，再试其他的路径

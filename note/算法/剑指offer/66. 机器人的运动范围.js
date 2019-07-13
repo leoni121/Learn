@@ -5,7 +5,8 @@
  * @Param:
  * @Return:
  */
-
+// 上下左右
+const DIRECTION = [[0, -1], [0, 1], [-1, 0], [1, 0]];
 function sum(rest) {
   let count = 0;
   for (let i = 0, len = rest.length; i < len; i++) {
@@ -38,10 +39,11 @@ function trval (i, j, rows, cols, threshold, flag) {
   let count = 0;
   flag[i * cols + j] = true;
 
-  count += trval(i-1, j, rows, cols, threshold, flag); //　上
-  count += trval(i+1, j, rows, cols, threshold, flag); //　下
-  count += trval(i, j-1, rows, cols, threshold, flag); //　左
-  count += trval(i, j+1, rows, cols, threshold, flag); //　右
+  let r, c;
+  for (let p = 0; p < DIRECTION.length; p++) {
+    [r, c] = DIRECTION[p];
+    count += trval(i+r, j+c, rows, cols, threshold, flag);
+  }
 
   return count+1;
 }

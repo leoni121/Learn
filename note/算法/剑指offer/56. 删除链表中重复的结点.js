@@ -12,31 +12,49 @@
     this.next = null;
 }*/
 
-function deleteDuplication(pHead) {
+function _deleteDuplication(pHead) {
 	// write code here
 	if (!pHead || !pHead.next) return pHead;
 	let cur = pHead,
-		temp = null,
+		pre = null,
 		val = 0;
 
 
+	// cur.next 是为了记录不重复的节点，用于重复节点的删除
 	while (cur && cur.next) {
 		val = cur.val;
-		if (val === cur.next.val) {
-			while (cur.next && val === cur.next.val) {
+		if (val === cur.next.val) { // 当前节点值和下一个节点值相等
+			while (cur.next && val === cur.next.val) { // 下一个存在且当前节点值和下一个节点值相等
 				cur = cur.next;
 			}
-			if (!temp) {
+			// 此时 cur 是重复的节点中的最后一个
+			// 根据pre 的不同删除所有重复的节点
+			if (!pre) {
 				pHead = cur.next;
 			} else {
-				temp.next = cur.next;
+				pre.next = cur.next;
 			}
 		} else {
-			temp = cur;
+			pre = cur;
 		}
 		cur = cur.next;
 	}
 	return pHead;
+}
+
+function deleteDuplication(pHead) {
+	if (!pHead || !pHead.nextß) return pHead;
+
+	let next = pHead.next;
+	if (pHead.val === next.val) {
+		while(!next && pHead.val === next.val) {
+			next = next.next;
+		}
+		return deleteDuplication(next);
+	} else {
+		pHead.next = deleteDuplication(pHead.next);
+		return pHead;
+	}
 }
 
 let pHead = {
@@ -55,4 +73,4 @@ let pHead = {
 		}
 	}
 }
-console.log(deleteDuplication(pHead))
+console.log(JSON.stringify(deleteDuplication(pHead)))

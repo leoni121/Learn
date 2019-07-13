@@ -38,11 +38,15 @@ function getList(arr) {
   // 从第二个开始
   for (let i = 1; i < len; i++) {
     for (let j = 0; j < i; j++) {
-      // 后一个 > 前面某一个
-      /*if (arr[i] > arr[j] && res[i] < res[j] + 1) {
+      // 找到 以arr[i]结尾的非递减序列的 前面部分（以合适的arr[j]结尾的为递减序列）
+      if (arr[i] > arr[j] && res[i] < res[j] + 1) { // res[i] < res[j] + 1 保证上述条件的关键
         res[i] = res[j] + 1; // 计算以arr[i]结尾的序列的最长递增子序列长度
-      }*/
-      if (arr[i] > arr[])
+      }
+      /* 错误-不能保证递增
+        if (arr[i] > arr[j]) {
+          res[i]++;
+        }
+      */
     }
   }
 

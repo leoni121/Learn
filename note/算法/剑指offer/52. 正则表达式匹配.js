@@ -18,7 +18,7 @@ function match(s, pattern)
     if (pattern[0] === s[0] || (pattern[0]=='.' && s[0])) { // 第一个相等的时候
       // 匹配 0个 或者 多个
       return match(s, pattern.slice(2)) || match(s.slice(1), pattern);
-    } else {
+    } else { // "字符*" 匹配空
       return match(s, pattern.slice(2));
     }
   } else {

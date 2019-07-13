@@ -93,21 +93,29 @@ HTTP默认端口号为80，但是你也可以改为8080或者其他端口。
 
   > 1. HTTP `100 Continue`信息状态响应代码表明目前为止的所有内容都是正常的，并且**客户端应该继续请求或者如果它已经完成则忽略它。**
   > 2. 状态：100 Continue
+  > 3. **场景**：大资源POST(cors 不是-option) [How to handle “100 continue” HTTP message?](https://zhuanlan.zhihu.com/p/30830041)
 
 * 101 Switching Protocols
 
   > 1. HTTP **101 Switching Protocols**响应代码指示**服务器**正在根据**发送包括[`Upgrade`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade)请求头的消息的客户端的请求**   ***切换到的协议***。
   > 2. 服务器在此响应中包含一个[`Upgrade`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade)响应标题，指示它切换到的协议。
   > 3. 状态 101 Switching Protocols
+  > 4. **场景**：websocket
 
 * 200 OK 服务器成功处理了请求
 
 * 204 请求被受理但没有资源可以返回
 
+  > 1. 没有数据，**浏览器不用刷新页面.也不用导向新的页面**
+  >
+  > 2. **场景**：对于一些提交到服务器处理的数据，只需要返回是否成功的情况下，可以考虑使用状态码204来作为返回信息，从而省掉多余的数据传输
+  >
+  >    put
+
 * 206
 
   > 1. HTTP `206 Partial Content`成功状态响应代码指示请求已成功并且主体包含所请求的数据范围，如`Range`请求标题中所述。如果只有一个范围，则整个响应`Content-Type`设置为文档的类型，并提供一个`Content-Range`。如果发送了几个范围，则`Content-Type`设置为`multipart/byteranges`并且每个片段都覆盖一个范围，并且使用`Content-Range`和`Content-Type`对其进行描述。
-  > 2. **发生在客户端继续请求一个[未完成的下载](http://blogs.msdn.com/b/ieinternals/archive/2011/06/03/send-an-etag-to-enable-http-206-file-download-resume-without-restarting.aspx)的时候**
+  > 2. ****场景**：发生在客户端继续请求一个[未完成的下载](http://blogs.msdn.com/b/ieinternals/archive/2011/06/03/send-an-etag-to-enable-http-206-file-download-resume-without-restarting.aspx)（暂停或网络中断）的时候**
   > 3. 状态 ：206 Partial Content
   > 4. **实例**：
   >
