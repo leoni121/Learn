@@ -46,7 +46,54 @@ HTTP默认端口号为80，但是你也可以改为8080或者其他端口。
 
 ![httpresponse](../img/httpresponse.png)
 
-## 3. HTTP方法的安全性和幂等性 ##
+## 3. HTTP方法及其安全性和幂等性 ##
+### 3.1 方法
+* GET
+获取
+* HEAD
+获取报文首部。
+和 GET 方法类似，但是不返回报文实体主体部分，主要用于确认 URL 的有效性以及资源更新的日期时间等。
+
+* POST
+添加
+
+* PUT
+修改
+
+* PATCH
+> 对资源进行部分修改
+> 
+> PUT 也可以用于修改资源，但是只能完全替代原始资源，PATCH 允许部分修改。
+
+  ```http
+PATCH /file.txt HTTP/1.1
+Host: www.example.com
+Content-Type: application/example
+If-Match: "e0023aa4e"
+Content-Length: 100
+[description of changes]
+  ```
+
+* DELETE
+删除文件
+
+* OPTIONS
+查询指定的 URL 能够支持的方法。
+会返回 `Allow: GET, POST, HEAD, OPTIONS` 这样的内容。
+
+* CONNECT
+  要求在与代理服务器通信时建立隧道。
+  SSL（Secure Sockets Layer，安全套接层）和 TLS（Transport Layer Security，传输层安全）协议把通信内容加密后经网络隧道传输。
+
+  ```html
+  CONNECT www.example.com:443 HTTP/1.1
+  ```
+
+* TRACE
+回馈服务器收到的请求，用于远程诊断服务器。
+
+
+### 3.2 安全、幂等
 
 ***安全性***，仅指该方法的***多次调用不会产生副作用***，不涉及传统意义上的“安全”，这里的***副作用是指资源状态***。即，安全的方法不会修改资源状态，尽管多次调用的返回值可能不一样(被其他非安全方法修改过)。	
 
@@ -234,9 +281,11 @@ HTTP默认端口号为80，但是你也可以改为8080或者其他端口。
 
   > （Gone）表示服务器上的某个资源被永久性的删除
 
-* 500 内部服务器错误，服务器遇到一个错误，使其无法为请求提供服务
+* 500 内部服务器错误
+> 服务器遇到一个错误，使其无法为请求提供服务
 
 * 503 服务器正忙，服务器超时
+> 服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。
 
 ### 4.2 一些状态码的使用场景 ###
 
@@ -395,7 +444,7 @@ HTTP默认端口号为80，但是你也可以改为8080或者其他端口。
    Cookie：userId=C5bYpXrimdmsiQmsBPnE1Vn8ZQmdWSm3WRlEB3vRwTnRtW &lt;-- Cookie 
    If-Modified-Since：Sun, 01 Jun 2008 12:05:30 GMT 
    Cache-Control：max-age=0 
-   ```
+```
 
    
 
@@ -535,7 +584,7 @@ HTTP2.0可以说是SPDY的升级版（其实原本也是基于SPDY设计的）�
 
 ### 11.1 什么是 HTTPS ###
 
-HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。 现在它被广泛用于万维网上安全敏感的通讯，例如交易支付方面。
+HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。
 
 ![](../img/https-http1.webp)
 
@@ -560,20 +609,20 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是�
 #### 11.3.2　缺点
 
 [前端安全学习dns解析https dns劫持](<https://www.jianshu.com/p/9fd307782c7a?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation>)
-
-1. SEO方面
-    HTTPS协议会使页面的加载时间延长近50%，增加10%到20%的耗电，此外，HTTPS协议还会影响缓存，增加数据开销和功耗，甚至已有安全措施也会受到影响也会因此而受到影响。
-    而且HTTPS协议的加密范围也比较有限，在黑客攻击、拒绝服务攻击、服务器劫持等方面几乎起不到什么作用。
-    最关键的，SSL证书的信用链体系并不安全，特别是在某些国家可以控制CA根证书的情况下，中间人攻击一样可行。
-2. 经济方面
-    （1）、SSL证书需要钱，功能越强大的证书费用越高，个人网站、小网站没有必要一般不会用。
-    （2）、SSL证书通常需要绑定IP，不能在同一IP上绑定多个域名，IPv4资源不可能支撑这个消耗（SSL有扩展可以部分解决这个问题，但是比较麻烦，而且要求浏览器、操作系统支持，Windows XP就不支持这个扩展，考虑到XP的装机量，这个特性几乎没用）。
-    （3）、HTTPS连接缓存不如HTTP高效，大流量网站如非必要也不会采用，流量成本太高。
-    （4）、HTTPS连接服务器端资源占用高很多，支持访客稍多的网站需要投入更大的成本，如果全部采用HTTPS，基于大部分计算资源闲置的假设的VPS的平均成本会上去。
-    （5）、HTTPS协议握手阶段比较费时，对网站的相应速度有负面影响，如非必要，没有理由牺牲用户体验。
-
+1. 安全
+  * HTTPS协议的加密范围有限，在黑客攻击、拒绝服务攻击、服务器劫持等方面几乎起不到什么作用
+  * SSL证书的信用链体系并不安全，特别是在某些国家可以控制CA根证书的情况下
+2. 加密解密过程。
+  * 用户体验，页面的加载时间延长近50%，HTTPS协议握手阶段比较费时
+  * 服务器端资源占用高
+  * 耗电10%~20%
+  * SEO方面
+3. 费用
+  * 需要支付证书授权的高额费用，小网站没必要
+  
 ### 11.4 HTTPS 过程 ###
 
+> ***`HTTPS` 采用混合的加密机制，使用非对称密钥加密用于传输对称密钥来保证传输过程的安全性，之后使用对称密钥加密进行通信来保证通信过程的效率。***
 一个HTTPS请求实际上包含了两次HTTP传输，可以细分为8步。
 
 1. 客户端向服务器发起HTTPS请求，连接到服务器的443端口
@@ -644,4 +693,35 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是�
 #### 11.7.3 第三类攻击
 
 软件厂商
+
+## 12 通信数据转发
+
+### 12.1 代理
+
+代理服务器接受客户端的请求，并且转发给其它服务器。
+
+使用代理的主要目的是：
+
+- 缓存
+- 负载均衡
+- 网络访问控制
+- 访问日志记录
+
+代理服务器分为正向代理和反向代理两种：
+
+- 用户察觉得到正向代理的存在。
+
+<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/a314bb79-5b18-4e63-a976-3448bffa6f1b.png" width=""/> </div><br>
+
+- 而反向代理一般位于内部网络中，用户察觉不到。
+
+<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/2d09a847-b854-439c-9198-b29c65810944.png" width=""/> </div><br>
+
+### 12.2 网关
+
+与代理服务器不同的是，网关服务器会将 HTTP 转化为其它协议进行通信，从而请求其它非 HTTP 服务器的服务。
+
+### 12.3 隧道
+
+使用 SSL 等加密手段，在客户端和服务器之间建立一条安全的通信线路。
 
