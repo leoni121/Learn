@@ -21,8 +21,8 @@
 则DNS查询过程如下：
 
 1. 主机cis.poly.edu首先向它的本地DNS服务器dns.poly.edu发送一个DNS查询报文，该查询报文包含有要求转换的主机名gaia.cs.umass.edu
-2. 本地DNS服务器dns.poly.edu将该报文转发至根DNS服务器。
-3. 该根DNS服务器注意到DNS服务器的edu前缀并向本地DNS服务器dns.poly.edu返回负责edu的顶级域DNS服务器的IP地址列表
+2. 本地DNS服务器dns.poly.edu将该报文转发至**根DNS服务器**。
+3. 该根DNS服务器注意到DNS服务器的edu前缀并向本地DNS服务器dns.poly.edu返回**负责edu的顶级域DNS服务器的IP地址列表**
 4. 本地DNS服务器接收到了返回的报文，根据报文中的IP地址，向该顶级域DNS服务器发送查询报文
 5. 顶级域DNS服务器注意到了umass.edu前缀，用包含权威DNS服务器的IP地址进行响应，该权威DNS服务器是负责马萨诸塞大学的dns.umass.edu
 6. 本地DNS服务器直接向主机dns.umass.edu重发查询报文

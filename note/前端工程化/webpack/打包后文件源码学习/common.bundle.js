@@ -16,8 +16,7 @@
       /******/            modules[moduleId] = moreModules[moduleId];
       /******/        }
     /******/        if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
-    /******/        while(callbacks.length)
-      /******/            callbacks.shift().call(null, __webpack_require__);
+    /******/
     /******/        if(moreModules[0]) {
       /******/            installedModules[0] = 0;
       /******/            return __webpack_require__(0);
