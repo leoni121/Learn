@@ -151,14 +151,17 @@ Content-Length: 100
 
 * 200 OK 服务器成功处理了请求
 
+* 202
+
+  > 服务器已接受请求，但尚未处理
+
 * 204 请求被受理但没有资源可以返回
 
   > 1. 没有数据，**浏览器不用刷新页面.也不用导向新的页面**
   >
   > 2. **场景**：对于一些提交到服务器处理的数据，只需要返回是否成功的情况下，可以考虑使用状态码204来作为返回信息，从而省掉多余的数据传输
   >
-  >    put
-
+  
 * 206
 
   > 1. HTTP `206 Partial Content`成功状态响应代码指示请求已成功并且主体包含所请求的数据范围，如`Range`请求标题中所述。如果只有一个范围，则整个响应`Content-Type`设置为文档的类型，并提供一个`Content-Range`。如果发送了几个范围，则`Content-Type`设置为`multipart/byteranges`并且每个片段都覆盖一个范围，并且使用`Content-Range`和`Content-Type`对其进行描述。
@@ -444,6 +447,7 @@ Content-Length: 100
    Cookie：userId=C5bYpXrimdmsiQmsBPnE1Vn8ZQmdWSm3WRlEB3vRwTnRtW &lt;-- Cookie 
    If-Modified-Since：Sun, 01 Jun 2008 12:05:30 GMT 
    Cache-Control：max-age=0 
+   ```
 ```
 
    
@@ -464,7 +468,7 @@ Content-Length: 100
    X-Cache：HIT from 236-41、D07071951、sina、com、cn &lt;-- 反向代理服务器使用的 HTTP 头部 
    Via：1.0 236-41.D07071951.sina.com.cn:80 (squid/2.6.STABLE13) 
    Connection：close
-   ```
+```
 
 
 ## 8. HTTP的基本优化 ##
@@ -619,7 +623,7 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是�
   * SEO方面
 3. 费用
   * 需要支付证书授权的高额费用，小网站没必要
-  
+
 ### 11.4 HTTPS 过程 ###
 
 > ***`HTTPS` 采用混合的加密机制，使用非对称密钥加密用于传输对称密钥来保证传输过程的安全性，之后使用对称密钥加密进行通信来保证通信过程的效率。***
@@ -712,11 +716,9 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是�
 - 用户察觉得到正向代理的存在。
 
 <div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/a314bb79-5b18-4e63-a976-3448bffa6f1b.png" width=""/> </div><br>
-
 - 而反向代理一般位于内部网络中，用户察觉不到。
 
 <div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/2d09a847-b854-439c-9198-b29c65810944.png" width=""/> </div><br>
-
 ### 12.2 网关
 
 与代理服务器不同的是，网关服务器会将 HTTP 转化为其它协议进行通信，从而请求其它非 HTTP 服务器的服务。

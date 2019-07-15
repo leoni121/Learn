@@ -6,7 +6,7 @@
 
 url-loader不依赖于file-loader，即使用url-loader时，只需要安装url-loader即可，不需要安装file-loader，因为url-loader内置了file-loader
 
-url-loader工作分两种情况：
+file-loader工作分两种情况：
 
 1. 文件大小小于limit参数，url-loader将会把文件转为DataURL。
 
@@ -278,7 +278,7 @@ module: {
   },
 ```
 
-## 6 CommonsChunkPlugin ##
+## 6. CommonsChunkPlugin ##
 
 `CommonsChunkPlugin` 插件，是一个可选的用于建立一个独立文件(又称作 chunk)的功能，这个文件包括多个入口 `chunk` 的公共模块。
 
