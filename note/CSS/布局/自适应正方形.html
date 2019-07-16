@@ -10,7 +10,7 @@
         .square {
             background-color: red;
             width: 20%;
-            margin: 0 auto 100px;
+            margin-bottom: 100px;
         }
 
         /* CSS3 vw 单位，vw是相对于视口的宽度。视口被均分为100单位的vw。1vw = 1% viewport width */
@@ -30,6 +30,7 @@
         /* 伪元素：after;before; margin-top;margin-bottom;padding-bottom;padding-top; */
         .square3:after{
             content: '';
+            width: 0;
             display: block;
             padding-bottom: 100%;
         }
@@ -41,6 +42,8 @@
 
 <div class="square2 square">square2</div>
 
-<div class="square3 square">square3</div>
+<div class="square3 square">
+    <div style="position: absolute;">square3</div>
+</div>
 </body>
 </html>

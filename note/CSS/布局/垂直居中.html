@@ -39,15 +39,11 @@
 
         /* vertical-align: middle; 开始 */
         /* #parent2::before */
-        #parent2 {
-            text-align: center;
-        }
         #parent2:before {
             content: "";
             height: 100%;
             width: 0;
-            display: none;
-
+            /* 关键 */
             display: inline-block;
             vertical-align: middle;
         }
@@ -62,7 +58,6 @@
         #parent3 {
             display: flex;
             align-items: center;
-            justify-content: center;
            /* display: flex;
             flex-direction: column;
             justify-content: center;*/
@@ -78,8 +73,8 @@
             display: table;
         }
         #son4 {
+            /* 关键 */
             display: table-cell;
-            text-align: center;
             vertical-align: middle;
         }
         /* table 结束 */
