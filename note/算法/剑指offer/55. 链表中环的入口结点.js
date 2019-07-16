@@ -64,6 +64,7 @@ function __EntryNodeOfLoop(pHead) {
 // 2 * Sslow === Sfast;
 // x = (n - 2 *m -1 )*c + c - a
 // 环前面的路程 = 整数个环的长度（为可能为0） + 相遇点到入口点的路程
+// 环前面的路程 = 相遇点到入口的路径
 function EntryNodeOfLoop(pHead) {
   if (pHead == null || pHead.next == null || pHead.next.next == null) return null;
   let fast = pHead,
@@ -77,6 +78,7 @@ function EntryNodeOfLoop(pHead) {
 
   //循环出来的话就是有环，且此时fast==slow.
   fast = pHead;
+  // fast pHead 出发， slow 重相遇点出发
   while (fast != slow) {
     fast = fast.next;
     slow = slow.next;
