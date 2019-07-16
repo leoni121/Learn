@@ -23,7 +23,6 @@ function _EntryNodeOfLoop(pHead) {
     node = null;
 
   while (pHead) {
-    console.log(map)
     if (map.has(pHead)) {
       node = pHead;
       break;
