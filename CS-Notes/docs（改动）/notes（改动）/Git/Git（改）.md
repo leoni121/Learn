@@ -113,18 +113,6 @@ HEAD is now at 049d078 added the index file (To restore them type "git stash app
 
 该功能可以用于 bug 分支的实现。如果当前正在 dev 分支上进行开发，但是此时 master 上有个 bug 需要修复，但是 dev 分支上的开发还未完成，不想立即提交。在新建 bug 分支并切换到 bug 分支之前就需要使用 git stash 将 dev 分支的未提交修改储藏起来。
 
-# SSH 传输设置
-
-Git 仓库和 Github 中心仓库之间的传输是通过 SSH 加密。
-
-如果工作区下没有 .ssh 目录，或者该目录下没有 id_rsa 和 id_rsa.pub 这两个文件，可以通过以下命令来创建 SSH Key：
-
-```
-$ ssh-keygen -t rsa -C "youremail@example.com"
-```
-
-然后把公钥 id_rsa.pub 的内容复制到 Github "Account settings" 的 SSH Keys 中。
-
 # .gitignore 文件
 
 忽略以下文件：
