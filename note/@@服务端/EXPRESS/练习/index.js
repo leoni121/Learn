@@ -10,16 +10,18 @@ app.all('/', (req, res, next) => {
   let responseText = 'Hello World!<br>'
   responseText += '<small>Requested at: ' + req.requestTime + '</small>'
   req.responseText = "nzq";
-  res.end("nzq")
+  console.log(req.responseText);
+  // res.end("nzq")
   next();
 })
-app.get('/', function (req, res, next) {
-  let responseText = 'Hello World!<br>'
+app.get('/try', function (req, res, next) {
+  let responseText = '1111Hello World!<br>'
   responseText += '<small>Requested at: ' + req.requestTime + '</small>'
   req.responseText = responseText;
+  console.log(req.responseText);
   next();
 })
 app.use('/', router);
 
 
-app.listen('3000');
+app.listen('3001');

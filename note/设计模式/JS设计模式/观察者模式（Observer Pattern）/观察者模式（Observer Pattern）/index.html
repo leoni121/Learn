@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body,html {
+            padding: 0 50px;font-family: Palatino, "Palatino Linotype", Georgia, Times, "Times New Roman", serif
+        }
+    </style>
+</head>
+<body>
+<p>实现目标：</p>
+<ul>
+    <li> 一个按钮，这个按钮用于增加新的充当观察者的选择框到页面上 </li>
+    <li> 一个控制用的选择框 , 充当一个被观察者，通知其它选择框是否应该被选中 </li>
+    <li> 一个容器，用于放置新的选择框 </li>
+</ul>
+<div>
+    <button id="addNewObserver">Add New Observer checkbox</button>
+</div>
+
+<div>
+    目标：<input id="mainCheckbox" type="checkbox"/>
+</div>
+
+<div>
+    观察者容器：
+    <div id="observersContainer"></div>
+</div>
+
+<script src="index.js"></script>
+<script>
+  // 我们DOM 元素的引用
+  var controlCheckbox = document.getElementById( "mainCheckbox" ),
+    addBtn = document.getElementById( "addNewObserver" ),
+    container = document.getElementById( "observersContainer" );
+
+
+  // 具体的被观察者
+  //Subject类扩展 controlCheckbox类
+  extend( new Subject(), controlCheckbox );
+
+  //点击checkbox 将会触发对观察者的通知
+  controlCheckbox["onclick"] = new Function( "controlCheckbox.Notify(controlCheckbox.checked)" );
+
+
+  addBtn["onclick"] = AddNewObserver;
+
+  function AddNewObserver(){
+
+    // 具体的观察者
+    //建立一个新的用于增加的checkbox
+    var check  = document.createElement( "input" );
+    check.type = "checkbox";
+
+    // 使用Observer类 扩展checkbox类
+    extend( new Observer(), check );
+
+    // 使用定制的Update函数 重写
+    check.Update = function( value ){
+      this.checked = value;
+    };
+
+    // 增加新的观察者到我们主要的被观察者的观察者列表中
+    controlCheckbox.AddObserver( check );
+
+    // 将元素添加到容器的最后
+    container.appendChild( check );
+  }
+</script>
+</body>
+</html>

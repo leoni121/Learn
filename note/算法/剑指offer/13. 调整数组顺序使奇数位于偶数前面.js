@@ -5,6 +5,8 @@
  * @Param:
  * @Return:
  */
+
+// 思路一： 两个数组
 function reOrderArray(array)
 {
   // write code here
@@ -25,3 +27,6 @@ function reOrderArray(array)
 
   return oddArr.concat(evenArr);
 }
+
+// 思路二：一个数组，记录奇数个数，两个指正分别 ++ 操作
+// 思路三：利用冒泡，O（n*n）,每次把偶数后移

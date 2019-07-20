@@ -5,6 +5,7 @@
  * @Param:
  * @Return:
  */
+const type = Object.prototype.toString;
 
 function getType(obj) {
   const map = {
@@ -20,8 +21,7 @@ function getType(obj) {
     '[object Date]'            : 'date',
     '[object RegExp]'          : 'regExp',
     '[object HTMLDivElement]'  : 'dom',
-  },
-    type = Object.prototype.toString;
+  };
 
   return map[type.call(obj)];
 }
@@ -35,6 +35,7 @@ function getType(obj) {
  * @Return:
  */
 function deepClone(obj) {
+  // visitedQueue 和 createQueue 的值一定要相互对应
   let visitedQueue = [],
     createQueue = [],
     visitedIdx = 0;
@@ -45,14 +46,19 @@ function deepClone(obj) {
 
     visitedIdx = visitedQueue.indexOf(target);
 
+    // 访问过
     if ( visitedIdx !== -1) {
-      res = createQueue[visitedIdx];
-    } else {
+      res = createQueue[visitedIdx]; // 获取对应的 createQueue 中的值
+    }
+    // 没访问过
+    else {
       switch(type) {
         case 'object': {
           res = {};
           visitedQueue.push(target);
           createQueue.push(res);
+
+          // 遍历
           for (let key in target) {
            res[key] = _clone(target[key]);
           }
@@ -62,6 +68,8 @@ function deepClone(obj) {
           res = [];
           visitedQueue.push(target);
           createQueue.push(res);
+
+          // 遍历
           for (let idx in target) {
             res[idx] = _clone(target[key]);
           }

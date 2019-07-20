@@ -1,6 +1,3 @@
-function sayHello(person: string) {
-    return 'Hello, ' + person;
-}
-
-let user = 'Tom';
-console.log(sayHello(user));
+enum Color {Red, Green, Blue}
+let c: Color = Color.Green;
+console.log(c);

@@ -55,3 +55,21 @@
     }
     return theRequest;
   }
+  
+ // 思路三： 转化为 object  
+function parseQueryString(url) {
+    if (url === void 0) { url = window.location.href; }
+    if (url.includes('?')) {
+        if (url.includes('#')) {
+            url = url.slice(0, url.lastIndexOf('#'));
+        }
+        var search = url.slice(url.lastIndexOf('?') + 1);
+        return JSON.parse("{\"" + decodeURIComponent(search)
+            .replace(/"/g, '\\"')
+            .replace(/&/g, '","')
+            .replace(/=/g, '":"') + "\"}");
+    }
+    else {
+        return {};
+    }
+}

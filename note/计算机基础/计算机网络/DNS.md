@@ -10,19 +10,19 @@
 
 **查询方式**
 
-![dns查询1](C:/Users/nzq/Desktop/Learn/note/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/img/dns%E6%9F%A5%E8%AF%A21.png)
+![dns查询1](../img/dns%E6%9F%A5%E8%AF%A21.png)
 
 **具体例子**
 
-![dns查询](C:/Users/nzq/Desktop/Learn/note/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/img/dns%E6%9F%A5%E8%AF%A2.png)
+![dns查询](../img/dns%E6%9F%A5%E8%AF%A2.png)
 
 例如上图所示的例子中，主机cis.poly.edu想知道主机gaia.cs.umass.edu的IP地址，并且主机gaia.cs.umass.edu的权威DNS服务器为dns.umass.edu。
 
 则DNS查询过程如下：
 
 1. 主机cis.poly.edu首先向它的本地DNS服务器dns.poly.edu发送一个DNS查询报文，该查询报文包含有要求转换的主机名gaia.cs.umass.edu
-2. 本地DNS服务器dns.poly.edu将该报文转发至根DNS服务器。
-3. 该根DNS服务器注意到DNS服务器的edu前缀并向本地DNS服务器dns.poly.edu返回负责edu的顶级域DNS服务器的IP地址列表
+2. 本地DNS服务器dns.poly.edu将该报文转发至**根DNS服务器**。
+3. 该根DNS服务器注意到DNS服务器的edu前缀并向本地DNS服务器dns.poly.edu返回**负责edu的顶级域DNS服务器的IP地址列表**
 4. 本地DNS服务器接收到了返回的报文，根据报文中的IP地址，向该顶级域DNS服务器发送查询报文
 5. 顶级域DNS服务器注意到了umass.edu前缀，用包含权威DNS服务器的IP地址进行响应，该权威DNS服务器是负责马萨诸塞大学的dns.umass.edu
 6. 本地DNS服务器直接向主机dns.umass.edu重发查询报文
@@ -31,7 +31,10 @@
 
 ### 1.2 DNS服务器的层次和类别 ###
 
-DNS服务器是有层次的，它可以分为三种类型：**根DNS服务器， 顶级域**（Top-Level Domain, TLD ）**DNS服务器和权威DNS服务器**，分别对应下面三个层次（从上至下）
+DNS服务器是有层次的，它可以分为三种类型：**根域名服务器， 顶级域**（Top-Level Domain, TLD ）**域名服务器和权威权威服务器**，分别对应下面三个层次（从上至下）
+> 顶级域名服务器：
+> 1. 国家顶级域名服务器
+> 2. 通用顶级域名服务器
 
 ### 1.3 什么是本地域名服务器 ###
 

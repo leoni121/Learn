@@ -9,6 +9,8 @@ function ListNode(x){
     this.val = x;
     this.next = null;
 }
+
+// 思路一：遍历一遍记长度，在遍历一遍
 function _FindKthToTail(head, k)
 {
   // write code here
@@ -35,6 +37,8 @@ function _FindKthToTail(head, k)
   }
   return tempHead;
 }
+
+// 思路二：遍历一遍记录数组，取值
 function FindKthToTail(head, k) {
   let nodeArr = [];
   while(head) {
@@ -44,6 +48,13 @@ function FindKthToTail(head, k) {
 
   return nodeArr[nodeArr.length - k]
 }
+
+
+// 思路三：回调，重尾到头记录个数 输出
+
+
+// 性能最好
+// 思路四：设链表的长度为 N。设置两个指针 P1 和 P2，先让 P1 移动 K 个节点，则还有 N - K 个节点可以移动。此时让 P1 和 P2 同时移动，可以知道当 P1 移动到链表结尾时，P2 移动到第 N - K 个节点处，该位置就是倒数第 K 个节点。
 
 
 var a= new ListNode(1);

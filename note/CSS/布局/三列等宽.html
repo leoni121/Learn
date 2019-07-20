@@ -25,13 +25,13 @@
             margin-left: 20px;
         }
 
-        /* calc */
+        /* calc 实现 */
         .parent1 .son{
             width: calc((100% - 60px) / 3);
             float: left;
         }
 
-        /* flex */
+        /* flex 实现 */
         .parent2 {
             display: flex;
         }
@@ -39,7 +39,7 @@
             /*flex: 1 1 100%;*/
             flex-grow: 1; /* default 0 */
             flex-shrink: 1; /* default 1 */
-            flex-basis: 100%;
+            /* flex-basis: 100%; */
         }
 
         /* table */
@@ -51,7 +51,7 @@
         }
         .parent3 .son {
             display: table-cell;
-            padding: 0 10px;
+            margin: 0 10px;
         }
 
     </style>

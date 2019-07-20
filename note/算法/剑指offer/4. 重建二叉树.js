@@ -27,7 +27,7 @@ function reConstructBinaryTree(pre, vin)
     preLTreeArr = [],
     preRTreeArr = [],
     node = null,
-    rootVal = (pre && pre[0]) && pre[0];
+    rootVal = pre && pre[0];
 
   if (rootVal) {
     node = new TreeNode();

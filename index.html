@@ -1,18 +1,35 @@
-<ul> <li> </li> </ul>
-<ol> <li> </li> </ol>
-<dl>
-    <dt>dd</dt>
-    <dd>dd</dd>
-</dl>
-<dl>
-    <dt>dd</dt>
-    <dd>dd</dd>
-</dl>
-<dl>
-    <dt>dd</dt>
-    <dd>dd</dd>
-</dl>
-<dl>
-    <dt>dd</dt>
-    <dd>dd</dd>
-</dl>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+    :root {
+      --bg: red;
+    }
+    div {
+      background: var(--bg);
+    }
+    #parent {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 100px;
+      left: 100px;
+    }
+    #son {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+<div id="parent">
+  <div id="son"></div>
+</div>
+</body>
+</html>

@@ -18,6 +18,7 @@ function VerifySquenceOfBST(sequence)
   }
   root = sequence.pop();
   for (let i = 0, len = sequence.length; i < len; i++) {
+    //
     if (!isOrder && sequence[i] > root) {
       lt = sequence.slice(0, i);
       rt = sequence.slice(i);

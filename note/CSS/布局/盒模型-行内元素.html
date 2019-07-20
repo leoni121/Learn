@@ -18,14 +18,15 @@
             -moz-box-sizing: border-box;
             box-sizing: border-box;
         }
-        /* 布局会忽略行内元素的 margin-top margin-bottom border-top border-bottom*/
+        /* 行内元素的 margin-top margin-bottom 无效，padding都会生效 */
+        /* 布局会忽略行内元素的 padding-top padding-bottom border-top border-bottom*/
         span {
+            margin: 100px;
             border: 10px solid grey;
             /*display: inline-block; 不设置，box-sizing 对行内元素没影响*/
             padding: 10px;
         }
         .span2 {
-            margin: 100px;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;

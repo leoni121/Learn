@@ -14,23 +14,23 @@ function _Power(base, exponent)
 
 // 参考网友
 function Power (base, exponent) {
+  if (exponent === 0) return 1;
+  if (exponent === 1) return base;
+  let isNegative = false; // exponent 是非负数
+
   if (exponent < 0) {
-    if (base === 0) {
-      throw new Error('分母不能为0');
-    } else {
-      if (-exponent % 2 === 1) {
-        return 1/(Power(base, -exponent-1) * base)
-      } else {
-        return 1/ (Power(base, -exponent/2) * Power(base, -exponent/2))
-      }
-    }
-  } else if (exponent === 0) {
-    return 1;
-  } else {
-    if (exponent % 2 === 1) {
-      return Power(base, exponent - 1) * base;
-    } else {
-      return Power(base, exponent/2) * Power(base, exponent/2);
-    }
+    exponent = -exponent;
+    isNegative = true;
   }
+  let pow = 0;
+  if (exponent % 2 === 0) {
+    pow = Power(base, exponent/2);
+    pow *= pow;
+  } else {
+    pow = Power(base, exponent-1) * base;
+  }
+
+  return isNegative ? 1/pow : pow;
 }
+
+console.log(Power(2, 4));

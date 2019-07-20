@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<button id="btn">测试</button>
+<button id="btn1">关闭</button>
+<script>
+ /* var w;
+  function start() {
+    if (typeof Worker !== 'undefined') {
+      w = new Worker('./worker.js');
+      w.postMessage({
+        nzq: "nzq"
+      })
+      w.onmessage = function (event) {
+        document.getElementById('result').innerHTML = event.data;
+      }
+    } else {
+      document.getElementById('result').innerHTML = '您的浏览器不支持web worker';
+    }
+
+  }
+
+  function stop() {
+    w.terminate();
+    w = undefined;
+  }*/
+ var worker = new Worker("worker.js");
+ document.querySelector("#btn1").onclick = function () {
+   worker.terminate();
+ }
+ document.querySelector("#btn").onclick = function () {
+   worker.postMessage("测试")
+ }
+ worker.onmessage=function(message){
+   console.log(message);
+ };
+ worker.onerror=function(error){
+   console.log(error.filename,error.lineno,error.message);
+ }
+</script>
+</body>
+</html>

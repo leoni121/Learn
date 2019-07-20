@@ -3,24 +3,26 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>两列等高布局</title>
     <style>
-        /* main1开始 */
-        /* 利用padding-bottom的正值与margin-bottom的负值相互抵消即可 */
-        .main1{
+        .main{
             width:600px;
-            margin:0 auto;
+            margin:50px auto;
             overflow:hidden;
         }
-
-        .left1{
-            background:red;
-            width:300px; float:left;
-            padding-bottom:2000px;
-            margin-bottom:-2000px;}
-
-        .right1{
-            background:green;
+        .main>div {
             width:300px;
-            float:left;
+        }
+        .main>div:nth-child(1){
+            background:red;
+        }
+        .main>div:nth-child(2){
+            background:green;
+        }
+
+
+        /* main1开始 */
+        /* 利用padding-bottom的正值与margin-bottom的负值相互抵消即可 */
+        .left1,.right1 {
+            float: left;
             padding-bottom:2000px;
             margin-bottom:-2000px;
         }
@@ -30,25 +32,14 @@
         /* main2开始 */
         /* flex */
         .main2{
-            margin-top: 50px;
             display: flex;
             justify-content: center;
-        }
-
-        .left2{
-            background:red;
-            width:300px;
-        }
-
-        .right2{
-            background:green;
-            width:300px;
         }
         /* main2结束 */
     </style>
 </head>
 <body>
-<div class="main1">
+<div class="main1 main">
     <div class="left1">
         <p>we are good friend</p>
     </div>
@@ -59,7 +50,7 @@
         <p>we are good friend</p>
     </div>
 </div>
-<div class="main2">
+<div class="main2 main">
     <div class="left2">
         <p>we are good friend</p>
     </div>

@@ -76,3 +76,25 @@ function Convert(pRootOfTree)
   }
   return left !== null ? left : pRootOfTree;
 }
+
+
+// 中序遍历，利用两个指针  pre <==> current
+// 不同于上面。上面的解决办法是返回响应的节点 leftRoot <==> current <==> rightRoot
+let pre = null,
+  head = null;
+
+function _Convert(root) {
+  inOrder(root);
+  return head;
+}
+
+function inOrder (node) {
+  if (!node) return;
+
+  inOrder(node.left);
+  node.left = pre;
+  if (pre) pre.right = node;
+  pre = node;
+  if (!head) head = node;
+  inOrder(node.right);
+}

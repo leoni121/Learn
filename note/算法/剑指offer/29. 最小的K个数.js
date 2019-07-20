@@ -73,11 +73,13 @@ function GetLeastNumbers_Solution(input, k)
   if (k === len) {
     result = input.sort((pre, next) => pre - next);
   } else if(k>0 &&  k<right) {
-    for (let i = 0; i < k; i++) {
+    // 复杂度 很高
+    /*for (let i = 0; i < k; i++) {
       while(left < right) {
         pivotIdx = partition(input, left, right);
         if (pivotIdx === i) {
           result.push(input[pivotIdx]);
+          // 置响应的数字 再次循环
           left = 0;
           right = len-1;
           break;
@@ -87,10 +89,21 @@ function GetLeastNumbers_Solution(input, k)
           left = pivotIdx;
         }
       }
+    }*/
+
+    k--;
+    while(left < right) {
+      pivotIdx = partition(input, left, right);
+      if(pivotIdx === k) {
+        break;
+      }
+      if (pivotIdx > k) right = pivotIdx - 1;
+      if (pivotIdx < k) left = pivotIdx + 1;
     }
+    result = input.slice(0, k);
   }
 
-  return result;
+  return result.sort((pre, cur) => pre - cur);
 }
 
 function partition(arr, left, right) {

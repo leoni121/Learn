@@ -1,8 +1,27 @@
 [TOC]
 ## 1. iframe
+
+**使用**
+
+```js
 document.getElementsByTagName("iframe")[1].contentWindow.document.body.classList.add("content-scroll-beautify")
+```
 
+**优点：**
 
+1. iframe能够原封不动的把嵌入的网页展现出来。
+2. 如果有多个网页引用iframe，那么你只需要修改iframe的内容，就可以实现调用的每一个页面内容的更改，方便快捷。
+3. 网页如果为了统一风格，头部和版本都是一样的，就可以写成一个页面，用iframe来嵌套，可以增加代码的可重用。
+4. 如果遇到加载缓慢的第三方内容如图标和广告，这些问题可以由iframe来解决。
+
+**缺点：**
+
+1. iframe会阻塞主页面的onload事件；
+2. iframe和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载。，会产生很多页面，不容易管理。
+3. iframe框架结构有时会让人感到迷惑，如果框架个数多的话，可能会出现上下、左右滚动条，会分散访问者的注意力，用户体验度差。
+4. 代码复杂，无法被一些搜索引擎索引到，这一点很关键，现在的搜索引擎爬虫还不能很好的处理iframe中的内容，所以使用iframe会不利于搜索引擎优化（SEO）。
+5. 很多的移动设备无法完全显示框架，设备兼容性差。
+6. iframe框架页面会增加服务器的http请求，对于大型网站是不可取的。
 
 ## 2. HTML元素的显示优先级
 https://blog.csdn.net/basycia/article/details/50482977
@@ -139,3 +158,16 @@ var - 定义变量
 ## 6. style标签可以写在body里面吗 ##
 
 可以的，但是[CSS](https://www.baidu.com/s?wd=CSS&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao)又会重新渲染了一次页面，占用一定的时间，如果网页篇幅少的话感觉不出来，如果篇幅多（包含有大量[HTML](https://www.baidu.com/s?wd=HTML&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao)）会有一定的影响，所以大页面中不建议将style写进body里。
+
+## 7. Doctype
+
+> [Doctype作用?严格模式与混杂模式如何区分？它们有何意义?](https://www.cnblogs.com/wuqiutong/p/5986191.html)
+
+`<!DOCTYPE>`声明叫做文件类型定义（DTD），声明的作用为了告诉浏览器该文件的类型。让浏览器解析器知道应该用哪个规范来解析文档。`<!DOCTYPE>`声明必须在 HTML 文档的第一行，这并不是一个 `HTML` 标签。
+
+
+**严格模式：**又称标准模式，是指浏览器按照 W3C 标准解析代码。
+
+**混杂模式：**又称怪异模式或兼容模式，是指浏览器用自己的方式解析代码。
+
+HTML5 没有 DTD ，因此也就没有严格模式与混杂模式的区别，HTML5 有相对宽松的语法，实现时，已经尽可能大的实现了向后兼容。**（ HTML5 没有严格和混杂之分）**
