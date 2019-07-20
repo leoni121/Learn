@@ -1,40 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
-  .element, .outer-container {
-    width: 200px;
-    height: 200px;
+  <title></title>
+  <style type="text/css">
+    :root {
+      --bg: red;
     }
-
-    .outer-container {
-    border: 5px solid purple;
-    position: relative;
-    overflow: hidden;
+    div {
+      background: var(--bg);
     }
-
-    .inner-container {
-    position: absolute;
-    left: 0;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    #parent {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 100px;
+      left: 100px;
     }
-
-    .inner-container::-webkit-scrollbar {
-    display: none;
+    #son {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: blue;
     }
   </style>
 </head>
 <body>
-  <img src="e" alt="">
-  <div class="outer-container">
-    <div class="inner-container">
-      
-    </div>
+<div id="parent">
+  <div id="son"></div>
 </div>
 </body>
 </html>

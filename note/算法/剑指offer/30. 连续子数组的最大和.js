@@ -35,7 +35,10 @@ function _FindGreatestSumOfSubArray(array)
 }
 
 // 思路二：动态规划
+// 只要F(i-1) 不<=0，就把前面的加上
+// F（i）：以array[i]为末尾元素的子数组的和的最大值，子数组的元素的相对位置不变
 // F(i) = max(F(i-1), arr[i]);
+// res：所有子数组的和的最大值
 // res = max(F(i), res) 始终从开始记录 最大的 sum
 function __FindGreatestSumOfSubArray(array)
 {
@@ -46,30 +49,14 @@ function __FindGreatestSumOfSubArray(array)
     return array[0];
   }
   let res = array[0], // 记录当前所有子数组的和的最大值
-    sum = array[0],  // 包含array[i]的连续数组最大值
+    sum = array[0],  // 包含array[i]的连续数
+    // 组最大值
     left = 0,
     right = 0;
 
   for (let i = 1, len = array.length; i < len; i++) {
     sum = Math.max(sum + array[i], array[i]);
     res = Math.max(res, sum);
-
-    /*
-    *
-    *  // sum = sum>=0 ? sum + array[i] : array[i];
-       // res = res < sum ? sum : res;
-        if (sum >= 0) {
-          sum += array[i];
-          right = i;
-        } else {
-          sum = array[i];
-          left = i;
-        }
-
-        if (res < sum) {
-          res = sum;
-        }
-    * */
   }
   return res;
 }

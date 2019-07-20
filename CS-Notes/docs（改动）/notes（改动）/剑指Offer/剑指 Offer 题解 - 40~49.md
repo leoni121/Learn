@@ -3,7 +3,7 @@
 * [41.1 数据流中的中位数](#411-数据流中的中位数)
 * [41.2 字符流中第一个不重复的字符](#412-字符流中第一个不重复的字符)
 * [42. 连续子数组的最大和](#42-连续子数组的最大和)
-* [43. 从 1 到 n 整数中 1 出现的次数](#43-从-1-到-n-整数中-1-出现的次数)
+  * [43. 从 1 到 n 整数中 1 出现的次数](#43-从-1-到-n-整数中-1-出现的次数)
 * [44. 数字序列中的某一位数字](#44-数字序列中的某一位数字)
 * [45. 把数组排成最小的数](#45-把数组排成最小的数)
 * [46. 把数字翻译成字符串](#46-把数字翻译成字符串)
@@ -95,7 +95,7 @@ public ArrayList<Integer> GetLeastNumbers_Solution(int[] nums, int k) {
 }
 ```
 
-# 41.1 数据流中的中位数
+# 41 数据流中的中位数
 
 [NowCoder](https://www.nowcoder.com/practice/9be0172896bd43948f8a32fb954e1be1?tpId=13&tqId=11216&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
@@ -136,7 +136,7 @@ public Double GetMedian() {
 }
 ```
 
-# 41.2 字符流中第一个不重复的字符
+# 42 字符流中第一个不重复的字符
 
 [NowCoder](https://www.nowcoder.com/practice/00de97733b8e4f97a3fb5c680ee10720?tpId=13&tqId=11207&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 

@@ -49,3 +49,8 @@
 1. ps -ef|grep node
 2. 查看包含其他使用者的进程，和PID，CPU占有率，记忆体使用情况，运行状态等，可以输入ps -aux
 3. ps -ef|grep node|awk '{print $2}'|xargs kill -9
+4. [Linux - 查看文件信息的三个命令](https://www.cnblogs.com/anliven/p/7944816.html)
+
+## Mac
+1. [Mac下查看某个命令的路径](https://www.cnblogs.com/gujiande/p/9447029.html)
+2. [mac上怎么去/usr/local等平常看不到的文件夹](https://jingyan.baidu.com/article/fdbd4277f1d5dcb89f3f485c.html)

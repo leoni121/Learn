@@ -43,6 +43,7 @@ function _HasSubtree(pRoot1, pRoot2) {
 }
 
 // 其他
+// pRoot2 是不是 pRoot1 的子树
 function HasSubtree(pRoot1, pRoot2) {
   // write code here
   if (!pRoot1 || !pRoot2) {

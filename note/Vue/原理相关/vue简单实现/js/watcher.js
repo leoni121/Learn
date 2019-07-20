@@ -45,6 +45,7 @@ class Watcher {
       ,oldVal = this.value; // 初始值
     if (value !== oldVal) {
       this.value = value;
+      console.log('调用了 watcher', value)
       // :: 绑定符
       this.callback.call(this.vm, value, oldVal); // 处理函数
     }

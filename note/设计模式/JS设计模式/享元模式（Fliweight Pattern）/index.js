@@ -63,7 +63,6 @@ var BookFactory = (function () {
       }
     }
   };
-
 });
 // 数据方面
 // BookRecordManager singleton

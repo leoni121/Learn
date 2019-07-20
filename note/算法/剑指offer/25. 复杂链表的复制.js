@@ -65,7 +65,7 @@ function Clone(pHead) {
     curNewNode = newPHead;
 
   if (pHead) {
-    // 1
+    // 1 添加节点
     while(curNode) {
       tempNode = {
         label: curNode.label,
@@ -76,7 +76,7 @@ function Clone(pHead) {
       curNode = tempNode.next;
     }
 
-    // 2
+    // 2 节点间关系
     curNode = pHead;
     while(curNode) {
       tempNode = curNode.next;

@@ -14,7 +14,7 @@ function IsPopOrder(pushV, popV) {
   let stack = [];
 
   while (true) {
-    // 当栈不为空，且栈顶元素和popV[0] 相等时
+    // （栈不为空）栈顶元素和popV[0] 相等时
     while (stack.length !== 0 && stack[stack.length - 1] === popV[0]) {
       stack.pop();
       popV.shift();
