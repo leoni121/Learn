@@ -220,7 +220,8 @@ export function defineReactive (
   // customSetter 用在任何适合使用它的地方。
   customSetter?: ?Function,
   shallow?: boolean
-) {
+)
+ {
   // 每一个数据字段都通过闭包引用着属于自己的 dep 常量
   const dep = new Dep()
 
@@ -244,7 +245,7 @@ export function defineReactive (
   // 参数是 undefined，那么也就是说默认就是深度观测
 
   // 当传入的val 不是对象时，返回 undefined
-  let childOb = !shallow && observe(val)
+  let childOb = !shallow && observe(val) 
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,

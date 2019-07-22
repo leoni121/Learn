@@ -7,7 +7,7 @@ import {
   formatComponentName,
   invokeWithErrorHandling
 } from '../util/index'
-import { updateListeners } from '../vdom/helpers/index'
+import { u  pdateListeners } from '../vdom/helpers/index'
 
 // nzq_see
 // 我们执行vm.once、vm.on、vm.$emit方法发送的一些事件

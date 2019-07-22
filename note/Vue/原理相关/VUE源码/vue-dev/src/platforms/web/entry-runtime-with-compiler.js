@@ -75,7 +75,7 @@ Vue.prototype.$mount = function(
 					template = idToTemplate(template)
 
 					/* istanbul ignore if */
-					// 没有 template
+					// 没有 template  f
 					if (process.env.NODE_ENV !== 'production' && !template) {
 						warn(
 							`Template element not found or is empty: ${options.template}`,

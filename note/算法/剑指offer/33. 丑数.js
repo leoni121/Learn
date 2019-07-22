@@ -33,6 +33,8 @@
 重点说说下面代码中p的作用：int p[] = new int[] { 0, 0, 0 }; p[0]表示最小用于
 乘2比较数在数组a中的【位置】。
 */
+*
+// p=2^x * 3^y * 5^z
 function GetUglyNumber_Solution(index)
 {
   // write code here

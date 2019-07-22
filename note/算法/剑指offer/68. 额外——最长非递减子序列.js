@@ -13,10 +13,10 @@ function _getList(arr) {
     temp = 1;
   for (let i = 1; i < len; i++) {
     if (arr[i]>=arr[i-1]) {
-      res++;
+      temp++;
     }
     if (arr[i]<arr[i-1] || i+1===len) {
-      temp > res ? res = temp : null;
+      res = temp > res ? temp : res;
       temp = 1;
     }
   }
@@ -49,8 +49,8 @@ function getList(arr) {
       */
     }
   }
-
-  console.log(res);
+  
+  // 获取最大
   let max = 0;
   for (let i = 0; i < len; i++) {
     if (res[i] > max) max = res[i];
@@ -59,4 +59,4 @@ function getList(arr) {
   return max;
 }
 
-console.log(getList([10,11,12,1 ,2, 3]));
+console.log(getList([10,11,12,1 ,2, 3, 4,1,6,5]));

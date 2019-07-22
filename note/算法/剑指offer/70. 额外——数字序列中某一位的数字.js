@@ -14,12 +14,12 @@ function getDigitIndex(index) {
   let place = 1; // 1 表示个位，2 表示 十位...
   let amount = 0;
   while (true) {
-    amount = getAmountOfPlace(place);
-    if (index < amount) {
-      return getDigitAtIndex(index, place);
-    }
-    index -= amount;
-    place++;
+      amount = getAmountOfPlace(place);
+      if (index < amount) {
+        return getDigitAtIndex(index, place);
+      }
+      index -= amount;
+      place++;
   }
 }
 
@@ -28,9 +28,9 @@ function getDigitIndex(index) {
  * 10, 90, 900, ...
  */
 function getAmountOfPlace(place) {
-  if (place === 1)
-    return 10;
-  return Math.pow(10, place - 1) * 9 * place;
+    if (place === 1)
+        return 10;
+    return Math.pow(10, place - 1) * 9 * place;
 }
 
 /**
@@ -38,28 +38,20 @@ function getAmountOfPlace(place) {
  * 0, 10, 100, ...
  */
 function getBeginNumberOfPlace(place) {
-  if (place === 1)
-    return 0;
-  return Math.pow(10, place - 1);
+    if (place === 1)
+        return 0;
+    return Math.pwow(10, place - 1);
 }
 
 /**
  * 在 place 位数组成的字符串中，第 index 个数
  */
-// 10 11
 function getDigitAtIndex(index, place) {
-  let beginNumber = getBeginNumberOfPlace(place);
-  let shiftNumber = Math.ceil(index / place);
-  let number = (beginNumber + shiftNumber-1) + "";
-  let count = index % place;
-  console.log(beginNumber, shiftNumber, number, count, index)
-  return count === 0 ? number[place-1] : number[count-1];
+    let beginNumber = getBeginNumberOfPlace(place);
+    let shiftNumber = Math.floor(index / place);
+    let number = (beginNumber + shiftNumber) + "";
+    let count = index % place;
+    return number.charAt(count) - '0';
 }
 
-{
-  // 0123456789 101112131415
-  //          10 11
-
-}
-
-console.log(getDigitIndex(196));
+console.log(getDigitIndex(11));

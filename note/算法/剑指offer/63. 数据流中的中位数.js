@@ -19,3 +19,5 @@ function GetMedian() {
 	let len = arr.length;
 	return len % 2 === 0 ? (arr[len / 2 - 1] + arr[len / 2]) / 2 : arr[Math.floor(len / 2)]
 }
+
+// 思路二： 利用一个大顶堆（左）、一个小顶堆（右）

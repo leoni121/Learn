@@ -542,6 +542,7 @@ export function mergeOptions (
       mergeField(key)
     }
   }
+  
   function mergeField (key) {
     // 当一个选项没有对应的策略函数时，使用默认策略
     const strat = strats[key] || defaultStrat

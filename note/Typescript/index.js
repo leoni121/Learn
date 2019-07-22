@@ -1,1 +1,1 @@
-console.log(jQuery.version);
+console.log('nzsq');
