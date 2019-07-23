@@ -1,0 +1,139 @@
+<!--
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .slide {
+            margin: 0 auto;
+            width: 600px;
+            height: 300px;
+            border: 1px solid red;
+            position: relative;
+        }
+        ul {
+            width: 9999px;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            animation: ani 5s infinite;
+        }
+        ul li {
+            width: 600px;
+            height: 100%;
+            background-color: skyblue;
+            list-style: none;
+            float: left;
+        }
+        @keyframes ani {
+            0% {
+                left: 0;
+            }
+            25% {
+                left: -600px;
+            }
+            50% {
+                left: -1200px;
+            }
+            75% {
+                left: -1800px;
+            }
+            100% {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="slide">
+    <ul>
+        <li>图片1</li>
+        <li>图片2</li>
+        <li>图片3</li>
+        <li>图片1</li>
+    </ul>
+</div>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        div {
+            width: 600px;
+            height: 86px;
+            margin: 200px auto;
+            overflow: hidden;
+            border: 1px solid red;
+            position: relative;
+        }
+        div > ul {
+            /*设置ul的宽度为2倍div的宽度*/
+            width: 6000px;
+            list-style: none;
+            height: 100%;
+            position: absolute;
+            /*动画属性*/
+            animation: imgMove 5s infinite;
+
+        }
+        /* 暂停动画 */
+        div>ul:hover{
+            animation-play-state: paused;
+        }
+
+        div > ul > li {
+            width: 200px;
+            float: left;
+            height: 100%;
+            background-color: red;
+        }
+
+        div img {
+            width: 100%;
+        }
+        /*创建动画*/
+        @keyframes imgMove {
+            0% {
+                left: 0;
+            }
+            25% {
+                left: -200px;
+            }
+            50% {
+                left: -400px;
+            }
+            75% {
+                left: -600px;
+            }
+            100% {
+                left: -800px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>1</li>
+    </ul>
+</div>
+</body>
+</html>
