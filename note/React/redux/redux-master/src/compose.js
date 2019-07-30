@@ -9,6 +9,10 @@
  * (...args) => f(g(h(...args))).
  */
 
+// let xx= (...args) => a(b(...args));
+// let xxx = (...args) => xx(c(...args))
+// result = (...args) => a(b(c(...args)))
+
 export default function compose(...funcs) {
   if (funcs.length === 0) {
     return arg => arg

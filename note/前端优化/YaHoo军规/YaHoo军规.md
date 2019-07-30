@@ -39,7 +39,7 @@
 25. 使用无 cookie 的域
 26. 减少 DOM 访问
 27. 开发智能事件处理程序
-28. 用 <link> 代替 @import
+28. 用 `<link> `代替 @import
 29. 避免使用滤镜
 30. 优化图像
 31. 优化 CSS Spirite

@@ -1310,7 +1310,7 @@ var fetchData = function fetchData(data) {
 
 ## 23. css-loader 和style-loader ##
 
-- `css-loader`: 加载.css文件，将@import 和 url() 转换成 import/require()的
+- `css-loader`: 加载.css文件，将@import 和 url() 转换成 import/require()
 - `style-loader`:使用`<style>`将css-loader内部样式注入到我们的HTML页面
 
 ## 24. 其他 ##

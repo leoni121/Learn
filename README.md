@@ -11,6 +11,8 @@
 
 6. CS-Notes 来源自[GitHub](https://github.com/CyC2018/CS-Notes), 感谢！！！！！
 
+7. 秋招：不能只刷题要有自己的感悟！
+
    > 注：自己有相应改动，侵删！
 
 

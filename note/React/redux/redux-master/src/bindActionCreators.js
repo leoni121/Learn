@@ -4,7 +4,8 @@ function bindActionCreator(actionCreator, dispatch) {
   }
 }
 
-/**
+/**\
+
  * Turns an object whose values are action creators, into an object with the
  * same keys, but with every function wrapped into a `dispatch` call so they
  * may be invoked directly. This is just a convenience method, as you can call

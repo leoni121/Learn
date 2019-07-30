@@ -187,9 +187,9 @@ class MyPromise {
   all (list) {
     return new MyPromise((resolve, reject) => {
       // 返回值的集合
-      let values = [];
+    a  let values = [];
       // 记录当前已经有多少个异步完成
-      let count = [];
+      let count = 0;
 
       for (let [i, p] of list.entries()) {
         // 数组参数如果不是MyPromise实例，先调用MyPromise.resolve

@@ -111,9 +111,18 @@ function assertReducerShape(reducers) {
  * @returns {Function} A reducer function that invokes every reducer inside the
  * passed object, and builds a state object with the same shape.
  */
+
+ /**
+  当dispatch一个action的时候，通过遍历每一个reducer, 来计算出每个reducer的state,
+  其中用到的优化就是每遍历一个reducer就会判断新旧的state是否发生了变化, 
+  最后决定是返回旧state还是新state。最后得到的state的数据结构类似存reducer的数据结构，
+  就是键为reducer的名字，值为对应reducer的值。这个部分其实也不难。
+ */
 export default function combineReducers(reducers) {
   const reducerKeys = Object.keys(reducers)
+  // 最终的 reducers
   const finalReducers = {}
+  // 把 reducers 放入finalReducers
   for (let i = 0; i < reducerKeys.length; i++) {
     const key = reducerKeys[i]
 
@@ -138,11 +147,15 @@ export default function combineReducers(reducers) {
 
   let shapeAssertionError
   try {
+    
+    // 检验用户传入的reducers的准确性
     assertReducerShape(finalReducers)
   } catch (e) {
     shapeAssertionError = e
   }
 
+  //////////////////////////////////////////////////////
+  // 最总 createStore 调用的 reducer函数
   return function combination(state = {}, action) {
     if (shapeAssertionError) {
       throw shapeAssertionError
@@ -162,9 +175,13 @@ export default function combineReducers(reducers) {
 
     let hasChanged = false
     const nextState = {}
+    
+    
+    // 遍历所有的reducer，把action传进去，计算state
     for (let i = 0; i < finalReducerKeys.length; i++) {
       const key = finalReducerKeys[i]
       const reducer = finalReducers[key]
+      
       const previousStateForKey = state[key]
       const nextStateForKey = reducer(previousStateForKey, action)
       if (typeof nextStateForKey === 'undefined') {
@@ -174,6 +191,7 @@ export default function combineReducers(reducers) {
       nextState[key] = nextStateForKey
       hasChanged = hasChanged || nextStateForKey !== previousStateForKey
     }
+    
     return hasChanged ? nextState : state
   }
 }

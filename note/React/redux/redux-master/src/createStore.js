@@ -27,6 +27,7 @@ import isPlainObject from './utils/isPlainObject'
  *
  * @returns {Store} A Redux store that lets you read the state, dispatch actions
  * and subscribe to changes.
+ * 
  */
 export default function createStore(reducer, preloadedState, enhancer) {
   if (
@@ -135,6 +136,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
     ensureCanMutateNextListeners()
     nextListeners.push(listener)
 
+    // 从队列中删除
     return function unsubscribe() {
       if (!isSubscribed) {
         return
@@ -181,6 +183,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
    * Note that, if you use a custom middleware, it may wrap `dispatch()` to
    * return something else (for example, a Promise you can await).
    */
+  // 用reducers 更新 state,执行 listeners
   function dispatch(action) {
     if (!isPlainObject(action)) {
       throw new Error(
@@ -202,11 +205,13 @@ export default function createStore(reducer, preloadedState, enhancer) {
 
     try {
       isDispatching = true
+      // 改变当前的 State
       currentState = currentReducer(currentState, action)
     } finally {
       isDispatching = false
     }
 
+    // 执行 listeners
     const listeners = (currentListeners = nextListeners)
     for (let i = 0; i < listeners.length; i++) {
       const listener = listeners[i]
@@ -246,7 +251,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
    * For more information, see the observable proposal:
    * https://github.com/tc39/proposal-observable
    */
-function observable() {
+   function observable() {
     const outerSubscribe = subscribe
     return {
       /**
@@ -282,7 +287,7 @@ function observable() {
   // When a store is created, an "INIT" action is dispatched so that every
   // reducer returns their initial state. This effectively populates
   // the initial state tree.
-  dispatch({ type: ActionTypes.INIT })
+  dispatch({ type: ActionTypes.INIT }) // 处理话 数据
 
   return {
     dispatch,

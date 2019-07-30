@@ -9,36 +9,30 @@
  * @Return: 
  */
 
-_storage = {
-  setCookie: function (key, value, days) {
-    // 设置过期原则
-    if (!value) {
-      localStorage.removeItem(key)
+(function () {
+  let getItem = localStorage.getItem.bind(localStorage)
+    ,setItem = localStorage.setItem.bind(localStorage);
+
+  localStorage.setItem = function (key, value, expires = 7 * 24 * 60 * 60 * 1000) {
+    return setItem(key, JSON.stringify({
+      value,
+      expires: +new Date() + expires
+    }));
+  }
+
+  localStorage.getItem = function (key) {
+    let obj = JSON.parse(getItem(key))
+      ,value;
+    if (obj.expires < +new Date()) {
+      alert('过期');
+      value = '';
     } else {
-      var Days = days || 7; // 默认保留7天
-      var exp = new Date();
-      localStorage[key] = JSON.stringify({
-        value,
-        expires: exp.getTime() + Days * 24 * 60 * 60 * 1000
-      })
+      value = obj.value;
     }
-  },
-  getCookie: function (name) {
-    try {
-      let o = JSON.parse(localStorage[name])
-      if (!o || o.expires < Date.now()) {
-        return null
-      } else {
-        return o.value
-      }
-    } catch (e) {
-      // 兼容其他localstorage
-      console.log(e)
-      return localStorage[name]
-    } finally {
-    }
-  },
-}
+    return value
+  }
+})()
+
 ```
 
 
