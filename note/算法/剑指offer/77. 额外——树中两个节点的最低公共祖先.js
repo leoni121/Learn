@@ -31,7 +31,7 @@ function _lowestCommonAncestor (root, p1, p2) {
 
 // 情况三：普通二叉树
 // 在左右子树中查找是否存在 p 或者 q，如果 p 和 q 分别在两个子树中，那么就说明根节点就是最低公共祖先。
-
+// 找到公共点的时候回一直返回
 function lowestCommonAncestor (root, p1, p2) {
   if (root == null || root == p || root == q) // (1).没有对应节点（null） (2).找到对应节点
     return root;

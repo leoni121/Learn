@@ -155,7 +155,7 @@ export default function combineReducers(reducers) {
   }
 
   //////////////////////////////////////////////////////
-  // 最总 createStore 调用的 reducer函数
+  // 最终 createStore 调用的 reducer函数
   return function combination(state = {}, action) {
     if (shapeAssertionError) {
       throw shapeAssertionError
