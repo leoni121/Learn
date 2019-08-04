@@ -1,4 +1,5 @@
 ```js
+// initComputed
 // 1
 const watchers = vm._computedWatchers = Object.create(null)
 

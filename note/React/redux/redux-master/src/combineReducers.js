@@ -2,6 +2,7 @@ import ActionTypes from './utils/actionTypes'
 import warning from './utils/warning'
 import isPlainObject from './utils/isPlainObject'
 
+// 错误信息
 function getUndefinedStateErrorMessage(key, action) {
   const actionType = action && action.type
   const actionDescription =
@@ -120,6 +121,7 @@ function assertReducerShape(reducers) {
  */
 export default function combineReducers(reducers) {
   const reducerKeys = Object.keys(reducers)
+
   // 最终的 reducers
   const finalReducers = {}
   // 把 reducers 放入finalReducers
@@ -147,7 +149,6 @@ export default function combineReducers(reducers) {
 
   let shapeAssertionError
   try {
-    
     // 检验用户传入的reducers的准确性
     assertReducerShape(finalReducers)
   } catch (e) {
@@ -155,6 +156,8 @@ export default function combineReducers(reducers) {
   }
 
   //////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////
+  // finalReducers
   // 最终 createStore 调用的 reducer函数
   return function combination(state = {}, action) {
     if (shapeAssertionError) {

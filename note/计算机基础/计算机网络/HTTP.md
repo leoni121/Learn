@@ -377,8 +377,10 @@ Content-Length: 100
 
 2. ***Transfer-Encoding***
 
+   > [HTTP 协议中的 Transfer-Encoding](https://imququ.com/post/transfer-encoding-header-in-http.html)
+   
    > **动态页面** 等
-   >
+>
    > 即如果要一边产生数据，一边发给客户端，服务器就需要使用"Transfer-Encoding: chunked"这样的方式来代替Content-Length。
 
    服务器是不可能预先知道内容大小，可以使用Transfer-Encoding：chunk模式来传输数据了。chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明**长度为0**的chunk标示结束。
@@ -523,7 +525,7 @@ HTTP2.0可以说是SPDY的升级版（其实原本也是基于SPDY设计的）�
 
 ### 11.1 什么是 HTTPS ###
 
-HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是**以安全为目标的HTTP通道，简单讲是HTTP的安全版**。
+HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer,安全套接字层上的超文本传输协议），是**以安全为目标的HTTP通道，简单讲是HTTP的安全版**。
 
 ![](../img/https-http1.webp)
 
@@ -532,9 +534,9 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是*
 * HTTP和HTTPS使用的是完全**不同的连接方式**，用的端口也不一样，前者是**80**，后者是**443**。
 
 - HTTP的**连接很简单，是无状态的**；HTTPS 协议是由 SSL+HTTP 协议构建的可进行**加密传输、身份认证的网络协议**，比 HTTP 协议安全。
-- HTTPS协议需要到**CA申请证书**，一般免费证书很少，需要交费。
 - HTTP协议运行在TCP之上，所有传输的内容都是**明文**，HTTPS运行在SSL/TLS之上，SSL/TLS运行在TCP之上，所有传输的内容都经过**加密**的。
 - HTTPS可以有效的**防止运营商劫持**，解决了防劫持的一个大问题。
+- HTTPS协议需要到**CA申请证书**，一般免费证书很少，需要交费。
 
 ![](../img/https-http1.webp)
 
@@ -666,3 +668,47 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是*
 
 使用 SSL 等加密手段，在客户端和服务器之间建立一条安全的通信线路。
 
+## 13 HTTP缓存
+
+### 13.1 强制缓存
+
+> 强制缓存(size: from disk cache)、对比缓存(status: 304)。
+>
+> 缓存规则信息包含在响应header
+
+（1）强制缓存优先级高于对比缓存，也就是说，当执行强制缓存的规则时，如果缓存生效，直接使用缓存，不再执行对比缓存规则。
+
+（2）对于强制缓存来说，响应header中会有两个字段来标明失效规则（Expires、Cache-Control）
+
+- ***Expires***的值为**服务端返回的到期时间**，即下一次请求时，请求时间小于服务端返回的到期时间，直接使用缓存数据。不过Expires 是HTTP 1.0的东西，现在默认浏览器均默认使用HTTP 1.1，所以它的作用基本忽略。另一个问题是，到期时间是由服务端生成的，但是客户端时间可能跟服务端时间有误差，这就会导致缓存命中的误差。所以HTTP 1.1 的版本，使用Cache-Control替代。
+
+- **Cache-Control** 是最重要的规则。常见的取值有private、public、no-cache、max-age，no-store，默认为private。
+
+  - private: 客户端可以缓存
+  - public: 客户端和代理服务器都可缓存（前端的同学，可以认为public和private是一样的）
+  - max-age=xxx: 缓存的内容将在 xxx 秒后失效
+  - no-cache: 需要使用对比缓存来验证缓存数据（后面介绍）
+  - no-store:  **所有内容都不会缓存，强制缓存，对比缓存都不会触发**（对于前端开发来说，缓存越多越好，so...基本上和它说886）
+
+- **Pragma**
+
+  http 1.0 ,规范定义的唯一形式
+
+  ```http
+  Pragme:no-cache
+  ```
+
+  只用于客户端发送的请求中。客户端会要求所有的中间服务器不返回缓存的资源。
+
+  如果所有的中间服务器都以实现http/1.1为标准，那么直接使用Cache-Control:no-cache即可，如果不是的话，就要包含两个字段
+
+  ```
+  Cache-Control:no-cache
+  ```
+
+### 13.2 协商缓存
+
+（1）对比缓存，顾名思义，需要进行比较判断是否可以使用缓存。浏览器第一次请求数据时，服务器会将缓存标识与数据一起返回给客户端，客户端将二者备份至缓存数据库中。再次请求数据时，客户端将备份的缓存标识发送给服务器，服务器根据缓存标识进行判断，判断成功后，返回304状态码，通知客户端比较成功，可以使用缓存数据。缓存标识的传递是我们着重需要理解的，它在请求header和响应header间进行传递，一共分为两种标识传递，接下来，我们分开介绍。
+
+- Last-Modified(response header) / If-Modified-Since(request header用来发送last-modified)
+- Etag(服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）) / If-None-Match(发送Etag)。（优先级高于Last-Modified  /  If-Modified-Since）

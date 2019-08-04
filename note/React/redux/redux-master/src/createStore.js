@@ -46,6 +46,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
     preloadedState = undefined
   }
 
+  // 中间件
   if (typeof enhancer !== 'undefined') {
     if (typeof enhancer !== 'function') {
       throw new Error('Expected the enhancer to be a function.')
@@ -291,6 +292,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
   // 初始化数据
   dispatch({ type: ActionTypes.INIT })
 
+  // 就是我们的 store
   return {
     dispatch,
     subscribe,

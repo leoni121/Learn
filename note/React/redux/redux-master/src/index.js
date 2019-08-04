@@ -25,7 +25,7 @@ if (
       'to ensure you have the correct code for your production build.'
   )
 }
-
+// 导出的redux
 export {
   createStore,
   combineReducers,

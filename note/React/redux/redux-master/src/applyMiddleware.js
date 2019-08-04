@@ -39,6 +39,7 @@ export default function applyMiddleware(...middlewares) {
       dispatch: (...args) => dispatch(...args)
     }
     
+    
     // 中间件里面可以调用的API
     const chain = middlewares.map(middleware => middleware(middlewareAPI))
     dispatch = compose(...chain)(store.dispatch)

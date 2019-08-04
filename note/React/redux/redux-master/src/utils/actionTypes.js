@@ -11,7 +11,7 @@ const randomString = () =>
     .substring(7)
     .split('')
     .join('.')
-
+    
 const ActionTypes = {
   INIT: `@@redux/INIT${randomString()}`,
   REPLACE: `@@redux/REPLACE${randomString()}`,
