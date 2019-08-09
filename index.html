@@ -1,47 +1,42 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title></title>
-  <style type="text/css">
-    :root {
-      --bg: red;
-    }
-    div {
-      background: var(--bg);
-    }
-    #parent {
-      width: 100px;
-      height: 100px;
-      position: absolute;
-      top: 100px;
-      left: 100px;
-    }
-    #son {
-      width: 40px;
-      height: 40px;
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: blue;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 <body>
-<div id="parent">
-  <div id="son"></div>
+<div>
+  <style>
+    .try1 {
+      background-color: red;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+  <div class="try1"></div>
+  <script>
+    let a = 'nzq';
+  </script>
 </div>
-<script>
-  /**
-   * @Author nzq
-   * @Date 2019-07-29
-   * @Description:
-   * @Param:
-   * @Return:
-   */
-
-
-
-</script>
+<hr>
+<div>
+  <style>
+    .try1 {
+      background-color: red;
+      width: 100px;
+      height: 100px;
+    }
+    .try2 {
+      border-radius: 10px;
+    }
+  </style>
+  <div class="try1 try2"></div>
+  <script>
+    console.log(a);
+  </script>
+</div>
 </body>
 </html>

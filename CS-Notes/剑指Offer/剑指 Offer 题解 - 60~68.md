@@ -82,7 +82,6 @@ public List<Map.Entry<Integer, Double>> dicesSum(int n) {
 五张牌，其中大小鬼为癞子，牌面为 0。判断这五张牌是否能组成顺子。
 
 <div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/eaa506b6-0747-4bee-81f8-3cda795d8154.png" width="350px"> </div><br>
-
 ## 解题思路
 
 ```java
@@ -212,7 +211,6 @@ public int Add(int a, int b) {
 给定一个数组 A[0, 1,..., n-1]，请构建一个数组 B[0, 1,..., n-1]，其中 B 中的元素 B[i]=A[0]\*A[1]\*...\*A[i-1]\*A[i+1]\*...\*A[n-1]。要求不能使用除法。
 
 <div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/4240a69f-4d51-4d16-b797-2dfe110f30bd.png" width="250px"> </div><br>
-
 ## 解题思路
 
 ```java

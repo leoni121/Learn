@@ -5,6 +5,7 @@ class LazyManClass {
         this.name = name;
         console.log(`Hi I am ${this.name}`);
         setTimeout(() => {
+          	console.log(this.taskList)
             this.next();
         }, 0);
     }

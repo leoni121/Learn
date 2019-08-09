@@ -96,23 +96,6 @@ function assertReducerShape(reducers) {
   })
 }
 
-/**
- * Turns an object whose values are different reducer functions, into a single
- * reducer function. It will call every child reducer, and gather their results
- * into a single state object, whose keys correspond to the keys of the passed
- * reducer functions.
- *
- * @param {Object} reducers An object whose values correspond to different
- * reducer functions that need to be combined into one. One handy way to obtain
- * it is to use ES6 `import * as reducers` syntax. The reducers may never return
- * undefined for any action. Instead, they should return their initial state
- * if the state passed to them was undefined, and the current state for any
- * unrecognized action.
- *
- * @returns {Function} A reducer function that invokes every reducer inside the
- * passed object, and builds a state object with the same shape.
- */
-
  /**
   当dispatch一个action的时候，通过遍历每一个reducer, 来计算出每个reducer的state,
   其中用到的优化就是每遍历一个reducer就会判断新旧的state是否发生了变化, 
@@ -124,6 +107,7 @@ export default function combineReducers(reducers) {
 
   // 最终的 reducers
   const finalReducers = {}
+  
   // 把 reducers 放入finalReducers
   for (let i = 0; i < reducerKeys.length; i++) {
     const key = reducerKeys[i]
@@ -176,6 +160,10 @@ export default function combineReducers(reducers) {
       }
     }
 
+
+    //////////////////////////////////
+    //////////////////////////////////
+    //////////////////////////////////
     let hasChanged = false
     const nextState = {}
     
@@ -186,12 +174,14 @@ export default function combineReducers(reducers) {
       const reducer = finalReducers[key]
       
       const previousStateForKey = state[key]
+      // 下一个状态
       const nextStateForKey = reducer(previousStateForKey, action)
       if (typeof nextStateForKey === 'undefined') {
         const errorMessage = getUndefinedStateErrorMessage(key, action)
         throw new Error(errorMessage)
       }
       nextState[key] = nextStateForKey
+      
       hasChanged = hasChanged || nextStateForKey !== previousStateForKey
     }
     

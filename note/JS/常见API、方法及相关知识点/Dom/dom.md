@@ -20,7 +20,7 @@ HTMLCollection对象与NodeList对象类似，也是节点的集合，返回一�
 
 ## 2. range ##
 
-​    [JS Range 对象的使用](https://segmentfault.com/a/1190000009875696)
+> [JS Range 对象的使用](https://segmentfault.com/a/1190000009875696)
 
 Range是指html文档中的区域，如用户用鼠标拖动选中的区域，如下图：
 
@@ -46,7 +46,7 @@ range = selection.getRangeAt(0);
 
 ## 3. DocumentFragment ##
 
-[了解DocumentFragment 给我们带来的性能优化](https://www.cnblogs.com/blueSkys/p/3685740.html)
+> [了解DocumentFragment 给我们带来的性能优化](https://www.cnblogs.com/blueSkys/p/3685740.html)
 
 ## 4. node.textContent ##
 
@@ -58,9 +58,9 @@ textContent 属性设置或返回指定节点的文本内容，以及它的所�
 
 [textContent和innerText以及innerHTML的区别](<https://blog.csdn.net/qq_39207948/article/details/86099905>)
 
-（1）textContent属性可以获取指定节点的文本及其后代节点中文本内容，也包括<script>和<style>元素中的内容；
+（1）textContent属性可以获取指定节点的文本及其后代节点中文本内容，也包括`<script>`和`<style>`元素中的内容；
 
-（2）innerText也是获取指定节点的文本及其后代节点中文本内容，但不能获取<script>和<style>元素中的内容。
+（2）innerText也是获取指定节点的文本及其后代节点中文本内容，但不能获取`<script>`和`<style>`元素中的内容。
 
 innerHTML是获取HTML文本结构内容。
 
@@ -88,9 +88,11 @@ innerHTML是获取HTML文本结构内容。
 
 ## 8. JS获取浏览器窗口大小 获取屏幕，浏览器，网页高度宽度 ##
 
-[JS获取浏览器窗口大小 获取屏幕，浏览器，网页高度宽度](https://www.cnblogs.com/wujindong/p/5592908.html)
-
-[深入理解盒模型]( https://www.cnblogs.com/chengzp/p/cssbox.html)
+> [JS获取浏览器窗口大小 获取屏幕，浏览器，网页高度宽度](https://www.cnblogs.com/wujindong/p/5592908.html)
+>
+> [深入理解盒模型]( https://www.cnblogs.com/chengzp/p/cssbox.html)
+>
+> [你了解getBoundingClientRect（）？](https://www.jianshu.com/p/824eb6f9dda4)
 
 ```js
 dom.style.width
@@ -106,9 +108,10 @@ dom.offsetWidth
 
 ## 10. document.readySate ##
 
+> [document.readyState](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/readyState)
+
 ```js
 loading // 加载
-document // 仍在加载
 interactive // 互动，文档已经完成加载，文档已被解析，但是诸如图像，样式表和框架之类的子资源仍在加载。
 complete // 完成，文档和所有子资源已完成加载。状态表示 load 事件即将被触发。当这个属性的值变化时，document 对象上的readystatechange 事件将被触发。
 ```
@@ -117,9 +120,9 @@ complete // 完成，文档和所有子资源已完成加载。状态表示 load
 
 ### 1. radio ###
 
-​    document.querySelector("input[name=nzq]:nth-child(1)").checked = true;
-
 ```js
+document.querySelector("input[name=nzq]:nth-child(1)").checked = true;
+
 var radios = document.querySelectorAll("input[name=nzq]");
   for (var i = 0, len = radios.length; i < len; i++) {
     if (radios[i].checked) {

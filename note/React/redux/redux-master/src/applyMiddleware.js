@@ -25,8 +25,10 @@ enhancer接收一个creatStore，会在内部创建一个store，
 然后将增强的dispatch作为store新的dispatch暴露给用户。
  */
 export default function applyMiddleware(...middlewares) {
+  
   return createStore => (...args) => {
     const store = createStore(...args)
+    
     let dispatch = () => {
       throw new Error(
         'Dispatching while constructing your middleware is not allowed. ' +
