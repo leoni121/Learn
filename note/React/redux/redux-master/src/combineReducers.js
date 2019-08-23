@@ -20,7 +20,8 @@ function getUnexpectedStateShapeWarningMessage(
   reducers,
   action,
   unexpectedKeyCache
-) {
+) 
+{
   const reducerKeys = Object.keys(reducers)
   const argumentName =
     action && action.type === ActionTypes.INIT
@@ -122,16 +123,9 @@ export default function combineReducers(reducers) {
       finalReducers[key] = reducers[key]
     }
   }
+  
   const finalReducerKeys = Object.keys(finalReducers)
 
-  // This is used to make sure we don't warn about the same
-  // keys multiple times.
-  let unexpectedKeyCache
-  if (process.env.NODE_ENV !== 'production') {
-    unexpectedKeyCache = {}
-  }
-
-  let shapeAssertionError
   try {
     // 检验用户传入的reducers的准确性
     assertReducerShape(finalReducers)
@@ -144,26 +138,8 @@ export default function combineReducers(reducers) {
   // finalReducers
   // 最终 createStore 调用的 reducer函数
   return function combination(state = {}, action) {
-    if (shapeAssertionError) {
-      throw shapeAssertionError
-    }
+    
 
-    if (process.env.NODE_ENV !== 'production') {
-      const warningMessage = getUnexpectedStateShapeWarningMessage(
-        state,
-        finalReducers,
-        action,
-        unexpectedKeyCache
-      )
-      if (warningMessage) {
-        warning(warningMessage)
-      }
-    }
-
-
-    //////////////////////////////////
-    //////////////////////////////////
-    //////////////////////////////////
     let hasChanged = false
     const nextState = {}
     

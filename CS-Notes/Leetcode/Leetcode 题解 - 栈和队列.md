@@ -1,18 +1,11 @@
-<!-- GFM-TOC -->
-* [1. 用栈实现队列](#1-用栈实现队列)
-* [2. 用队列实现栈](#2-用队列实现栈)
-* [3. 最小值栈](#3-最小值栈)
-* [4. 用栈实现括号匹配](#4-用栈实现括号匹配)
-* [5. 数组中元素与下一个比它大的元素之间的距离](#5-数组中元素与下一个比它大的元素之间的距离)
-* [6. 循环数组中比当前元素大的下一个元素](#6-循环数组中比当前元素大的下一个元素)
-<!-- GFM-TOC -->
+[TOC]
 
 
 # 1. 用栈实现队列
 
 [232. Implement Queue using Stacks (Easy)](https://leetcode.com/problems/implement-queue-using-stacks/description/)
 
-栈的顺序为后进先出，而队列的顺序为先进先出。使用两个栈实现队列，一个元素需要经过两个栈才能出队列，在经过第一个栈时元素顺序被反转，经过第二个栈时再次被反转，此时就是先进先出顺序。
+栈的顺序为后进先出，而队列的顺序为先进先出。使用两个栈实现队列，**一个元素需要经过两个栈才能出队列，在经过第一个栈时元素顺序被反转，经过第二个栈时再次被反转，此时就是先进先出顺序。**
 
 ```java
 class MyQueue {
@@ -52,7 +45,7 @@ class MyQueue {
 
 [225. Implement Stack using Queues (Easy)](https://leetcode.com/problems/implement-stack-using-queues/description/)
 
-在将一个元素 x 插入队列时，为了维护原来的后进先出顺序，需要让 x 插入队列首部。而队列的默认插入顺序是队列尾部，因此在将 x 插入队列尾部之后，需要让除了 x 之外的所有元素出队列，再入队列。
+在将一个元素 x 插入队列时，为了维护原来的后进先出顺序，需要让 x 插入队列首部。而队列的默认插入顺序是队列尾部，因此在**将 x 插入队列尾部之后，需要让除了 x 之外的所有元素出队列，再入队列**。
 
 ```java
 class MyStack {
@@ -88,6 +81,23 @@ class MyStack {
 # 3. 最小值栈
 
 [155. Min Stack (Easy)](https://leetcode.com/problems/min-stack/description/)
+
+设计一个支持 push，pop，top 操作，并能在常数时间内检索到最小元素的栈。
+
+**示例**
+
+```js
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin();   --> 返回 -3.
+minStack.pop();
+minStack.top();      --> 返回 0.
+minStack.getMin();   --> 返回 -2.
+```
+
+​	**实现**
 
 ```java
 class MinStack {
@@ -168,7 +178,10 @@ Input: [73, 74, 75, 71, 69, 72, 76, 73]
 Output: [1, 1, 4, 2, 1, 1, 0, 0]
 ```
 
-在遍历数组时用栈把数组中的数存起来，如果当前遍历的数比栈顶元素来的大，说明栈顶元素的下一个比它大的数就是当前元素。
+> 栈中记录数组下标。
+
+1. 在遍历数组时用栈把数组中的数存起来，（1）当前比栈顶小，加入栈顶（2）当前遍历的数比栈顶元素来的大，说明栈顶元素的下一个比它大的数就是当前元素，此时栈顶pop，循环判断。
+2. 栈，从后往前。（1）当前比栈顶小（得到差值），（2）当前值比栈顶大，循环pop比“当前值”小的“栈顶值”，比较。
 
 ```java
 public int[] dailyTemperatures(int[] temperatures) {

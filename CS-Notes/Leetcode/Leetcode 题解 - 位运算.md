@@ -1,19 +1,4 @@
-<!-- GFM-TOC -->
-* [1. 统计两个数的二进制表示有多少位不同](#1-统计两个数的二进制表示有多少位不同)
-* [2. 数组中唯一一个不重复的元素](#2-数组中唯一一个不重复的元素)
-* [3. 找出数组中缺失的那个数](#3-找出数组中缺失的那个数)
-* [4. 数组中不重复的两个元素](#4-数组中不重复的两个元素)
-* [5. 翻转一个数的比特位](#5-翻转一个数的比特位)
-* [6. 不用额外变量交换两个整数](#6-不用额外变量交换两个整数)
-* [7. 判断一个数是不是 2 的 n 次方](#7-判断一个数是不是-2-的-n-次方)
-* [8.  判断一个数是不是 4 的 n 次方](#8--判断一个数是不是-4-的-n-次方)
-* [9. 判断一个数的位级表示是否不会出现连续的 0 和 1](#9-判断一个数的位级表示是否不会出现连续的-0-和-1)
-* [10. 求一个数的补码](#10-求一个数的补码)
-* [11. 实现整数的加法](#11-实现整数的加法)
-* [12. 字符串数组最大乘积](#12-字符串数组最大乘积)
-* [13. 统计从 0 \~ n 每个数的二进制表示中 1 的个数](#13-统计从-0-\~-n-每个数的二进制表示中-1-的个数)
-<!-- GFM-TOC -->
-
+[TOC]
 
 **基本原理** 
 
@@ -145,10 +130,10 @@ Output: 2
 ```java
 public int missingNumber(int[] nums) {
     int ret = 0;
-    for (int i = 0; i < nums.length; i++) {
+    for (int i = 0; i <= nums.length; i++) {
         ret = ret ^ i ^ nums[i];
     }
-    return ret ^ nums.length;
+    return ret;
 }
 ```
 
@@ -251,11 +236,13 @@ public boolean isPowerOfTwo(int n) {
 }
 ```
 
+**计数1**
+
 # 8.  判断一个数是不是 4 的 n 次方
 
 [342. Power of Four (Easy)](https://leetcode.com/problems/power-of-four/)
 
-这种数在二进制表示中有且只有一个奇数位为 1，例如 16（10000）。
+这种数**在二进制表示中有且只有一个奇数位为 1**，例如 16（10000）。
 
 ```java
 public boolean isPowerOfFour(int num) {
@@ -297,6 +284,8 @@ public boolean hasAlternatingBits(int n) {
 ```
 
 # 10. 求一个数的补码
+
+> [476  求一个数的补数](https://blog.csdn.net/pengchengliu/article/details/90517227)
 
 [476. Number Complement (Easy)](https://leetcode.com/problems/number-complement/description/)
 
@@ -367,6 +356,8 @@ public int getSum(int a, int b) {
 
 # 12. 字符串数组最大乘积
 
+> [LeetCode_318 最大单词长度乘积](https://blog.csdn.net/q_m_x_d_d_/article/details/84594078)
+
 [318. Maximum Product of Word Lengths (Medium)](https://leetcode.com/problems/maximum-product-of-word-lengths/description/)
 
 ```html
@@ -389,6 +380,7 @@ public int maxProduct(String[] words) {
         }
     }
     int ret = 0;
+  	// 单词之间两两比较 n*n 
     for (int i = 0; i < n; i++) {
         for (int j = i + 1; j < n; j++) {
             if ((val[i] & val[j]) == 0) {

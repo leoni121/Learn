@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        /* 1. 正确 */
+        .son1 {
+            float: left;
+            width: calc((100% - 80px)/3);
+            margin:0 0 100px 20px;
+            height: 100px;
+            background: #000;
+        }
+
+        /* 2. 错误 */
+        .parent2 {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .son2 {
+            width: calc((100% - 80px)/3);
+            margin:100px 0 0 20px;
+            height: 100px;
+            background-color: red;
+            flex-shrink: 0;
+        }
+        .son2:last-of-type {
+            margin-right: 20px;
+        }
+
+        /*
+            其他不相关的 float: left;
+            li:nth-child(-n+3) {
+                margin-top: 0;
+            }
+         */
+    </style>
+</head>
+<body>
+<div class="parent1">
+    <div class="son1">1</div>
+    <div class="son1">2</div>
+    <div class="son1">3</div>
+    <div class="son1">4</div>
+    <div class="son1">5</div>
+    <div class="son1">6</div>
+    <div class="son1">7</div>
+    <div class="son1">8</div>
+    <div class="son1">9</div>
+</div>
+<div class="parent2">
+    <div class="son2">1</div>
+    <div class="son2">2</div>
+    <div class="son2">3</div>
+    <div class="son2">4</div>
+    <div class="son2">5</div>
+    <div class="son2">6</div>
+    <div class="son2">7</div>
+    <div class="son2">8</div>
+    <div class="son2">9</div>
+</div>
+
+</body>
+</html>
