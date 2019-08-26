@@ -8,7 +8,8 @@
 
 URI 包含 URL 和 URN。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/8441b2c4-dca7-4d6b-8efb-f22efccaf331.png" width="500px"> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/8441b2c4-dca7-4d6b-8efb-f22efccaf331.png)
+
 * **统一资源标识符(Uniform Resource Identifier).**能够在互联网上被唯一标识和定位的信息资源。
 * **统一资源定位符(Uniform Resource Locator).**描述了一台特定的服务器上的某一个具体资源的特定位置。
 * **统一资源名称 (Uniform Resource Name, URN)，**用特定命名空间的名字标识资源。
@@ -17,10 +18,12 @@ URI 包含 URL 和 URN。
 
 ### 1. 请求报文
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/HTTP_RequestMessageExample.png" width=""/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/HTTP_RequestMessageExample.png)
+
 ### 2. 响应报文
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/HTTP_ResponseMessageExample.png" width=""/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/HTTP_ResponseMessageExample.png)
+
 # 二、HTTP 方法
 
 客户端发送的  **请求报文**  第一行为请求行，包含了方法字段。
@@ -37,15 +40,13 @@ URI 包含 URL 和 URN。
 
 和 GET 方法类似，但是不返回报文实体主体部分。
 
-主要用于确认 URL 的有效性以及资源更新的日期时间等。
+主要用于确认 URL 的有效性以及**资源更新的日期时间**等。
 
 ## POST
 
 > 传输实体主体
 
 POST 主要用来传输数据，而 GET 主要用来获取资源。
-
-更多 POST 与 GET 的比较请见第九章。
 
 ## PUT
 
@@ -66,7 +67,7 @@ Content-length: 16
 
 > 对资源进行部分修改
 
-PUT 也可以用于修改资源，但是只能完全替代原始资源，PATCH 允许部分修改。
+PUT 也可以用于修改资源，但是只能完全替代原始资源，**PATCH 允许部分修改**。
 
 ```html
 PATCH /file.txt HTTP/1.1
@@ -100,13 +101,14 @@ DELETE /file.html HTTP/1.1
 
 > 要求在与代理服务器通信时建立隧道
 
-使用 SSL（Secure Sockets Layer，安全套接层）和 TLS（Transport Layer Security，传输层安全）协议把通信内容加密后经网络隧道传输。
+**使用 SSL（Secure Sockets Layer，安全套接层）和 TLS（Transport Layer Security，传输层安全）协议把通信内容加密后经网络隧道传输。**
 
 ```html
 CONNECT www.example.com:443 HTTP/1.1
 ```
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/dc00f70e-c5c8-4d20-baf1-2d70014a97e3.jpg" width=""/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/dc00f70e-c5c8-4d20-baf1-2d70014a97e3.jpg)
+
 ## TRACE
 
 > 追踪路径
@@ -248,7 +250,8 @@ CONNECT www.example.com:443 HTTP/1.1
 
 ## 连接管理
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/HTTP1_x_Connections.png" width="800"/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/HTTP1_x_Connections.png)
+
 ### 1. 短连接与长连接
 
 当浏览器访问一个包含多张图片的 HTML 页面时，除了请求访问的 HTML 页面资源，还会请求图片资源。如果每进行一次 HTTP 通信就要新建一个 TCP 连接，那么开销会很大。
@@ -310,9 +313,9 @@ Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT;
 
 ### 4. 作用域
 
-Domain 标识指定了哪些主机可以接受 Cookie。如果不指定，默认为当前文档的主机（不包含子域名）。如果指定了 Domain，则一般包含子域名。例如，如果设置 Domain=mozilla.org，则 Cookie 也包含在子域名中（如 developer.mozilla.org）。
+**Domain** 标识指定了哪些主机可以接受 Cookie。如果不指定，默认为当前文档的主机（不包含子域名）。如果指定了 Domain，则一般包含子域名。例如，如果设置 Domain=mozilla.org，则 Cookie 也包含在子域名中（如 developer.mozilla.org）。
 
-Path 标识指定了主机下的哪些路径可以接受 Cookie（该 URL 路径必须存在于请求 URL 中）。以字符 %x2F ("/") 作为路径分隔符，子路径也会被匹配。例如，设置 Path=/docs，则以下地址都会匹配：
+**Path** 标识指定了主机下的哪些路径可以接受 Cookie（该 URL 路径必须存在于请求 URL 中）。以字符 %x2F ("/") 作为路径分隔符，子路径也会被匹配。例如，设置 Path=/docs，则以下地址都会匹配：
 
 - /docs
 - /docs/Web/
@@ -320,7 +323,7 @@ Path 标识指定了主机下的哪些路径可以接受 Cookie（该 URL 路径
 
 ### 5. JavaScript
 
-浏览器通过 `document.cookie` 属性可创建新的 Cookie，也可通过该属性访问非 HttpOnly 标记的 Cookie。
+浏览器通过 `document.cookie` 属性可创建新的 Cookie，也可通过该属性访问非 **HttpOnly** 标记的 Cookie。
 
 ```html
 document.cookie = "yummy_cookie=choco";
@@ -576,10 +579,12 @@ HTTP/1.1 使用虚拟主机技术，使得一台服务器拥有多个域名，�
 
 - 用户察觉得到正向代理的存在。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/a314bb79-5b18-4e63-a976-3448bffa6f1b.png" width=""/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/a314bb79-5b18-4e63-a976-3448bffa6f1b.png)
+
 - 而反向代理一般位于内部网络中，用户察觉不到。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/2d09a847-b854-439c-9198-b29c65810944.png" width=""/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/2d09a847-b854-439c-9198-b29c65810944.png)
+
 ### 2. 网关
 
 与代理服务器不同的是，网关服务器会将 HTTP 转化为其它协议进行通信，从而请求其它非 HTTP 服务器的服务。
@@ -600,7 +605,8 @@ HTTPS 并不是新协议，而是让 HTTP 先和 SSL（Secure Sockets Layer）�
 
 通过使用 SSL，HTTPS 具有了加密（防窃听）、认证（防伪装）和完整性保护（防篡改）。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/ssl-offloading.jpg" width="700"/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/ssl-offloading.jpg)
+
 ## 加密
 
 ### 1. 对称密钥加密
@@ -610,7 +616,8 @@ HTTPS 并不是新协议，而是让 HTTP 先和 SSL（Secure Sockets Layer）�
 - 优点：运算速度快；
 - 缺点：无法安全地将密钥传输给通信方。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/7fffa4b8-b36d-471f-ad0c-a88ee763bb76.png" width="600"/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/7fffa4b8-b36d-471f-ad0c-a88ee763bb76.png)
+
 ### 2.非对称密钥加密
 
 非对称密钥加密，又称公开密钥加密（Public-Key Encryption），加密和解密使用不同的密钥。
@@ -622,12 +629,14 @@ HTTPS 并不是新协议，而是让 HTTP 先和 SSL（Secure Sockets Layer）�
 - 优点：可以更安全地将公开密钥传输给通信发送方；
 - 缺点：运算速度慢。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/39ccb299-ee99-4dd1-b8b4-2f9ec9495cb4.png" width="600"/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/39ccb299-ee99-4dd1-b8b4-2f9ec9495cb4.png)
+
 ### 3. HTTPS 采用的加密方式
 
 HTTPS 采用混合的加密机制，使用非对称密钥加密用于传输对称密钥来保证传输过程的安全性，之后使用对称密钥加密进行通信来保证通信过程的效率。（下图中的 Session Key 就是对称密钥）
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/How-HTTPS-Works.png" width="600"/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/How-HTTPS-Works.png)
+
 ## 认证
 
 通过使用  **证书**  来对通信方进行认证。
@@ -638,7 +647,8 @@ HTTPS 采用混合的加密机制，使用非对称密钥加密用于传输对�
 
 进行 HTTPS 通信时，服务器会把证书发送给客户端。客户端取得其中的公开密钥之后，先使用数字签名进行验证，如果验证通过，就可以开始通信了。
 
-<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/2017-06-11-ca.png" width=""/> </div><br>
+![](https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/2017-06-11-ca.png)
+
 ## 完整性保护
 
 SSL 提供报文摘要功能来进行完整性保护。
@@ -683,9 +693,9 @@ HTTP/2.0 在客户端请求一个资源时，会把相关的资源一起发送�
 
 HTTP/1.1 的首部带有大量信息，而且每次都要重复发送。
 
-HTTP/2.0 要求客户端和服务器同时维护和更新一个包含之前见过的首部字段表，从而避免了重复传输。
+**HTTP/2.0 要求客户端和服务器同时维护和更新一个包含之前见过的首部字段表，从而避免了重复传输。**
 
-不仅如此，HTTP/2.0 也使用 Huffman 编码对首部字段进行压缩。
+不仅如此，HTTP/2.0 也使用 **Huffman 编码对首部字段进行压缩**。
 
 <div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/_u4E0B_u8F7D.png" width="600"/> </div><br>
 # 八、HTTP/1.1 新特性

@@ -1,6 +1,7 @@
 /**
  * @Author nzq
  * @Date 2019/5/15
+ * [二叉树中和为某一值的路径](https://www.nowcoder.com/practice/b736e784e3e34731af99065031301bca?tpId=13&tqId=11177&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  * @Description: 输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)
  * @Param:
  * @Return:
@@ -24,7 +25,7 @@ function _FindPath(root, expectNumber)
 }
 
 function find(root, expectNumber, path, pathAll) {
-  path.push(root.val);
+  path.push(root.val); // 加入
   expectNumber -= root.val;
   if (expectNumber === 0 && root.left === null && root.right === null) {
     pathAll.push(path.slice());
@@ -35,7 +36,7 @@ function find(root, expectNumber, path, pathAll) {
   if (root.right) {
     find(root.right, expectNumber, path, pathAll);
   }
-  path.pop();
+  path.pop(); // 回退
 }
 
 //非递归版本
@@ -73,6 +74,7 @@ function FindPath(root, expectNumber) {
         if (tempNode.right && tempNode.right !== lastNode) {
           curNode = tempNode.right;
         } else {
+          // 此时的 curNode 还是为 null, 以为着下一次还是会走当前 else
           lastNode = tempNode;
 
           nodeStack.pop();
