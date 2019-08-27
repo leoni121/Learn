@@ -30,4 +30,11 @@
  <p id="p1" draggable="true" ondragstart="dragstart_handler(event);">This element is draggable.</p>
  <div id="target" ondrop="drop_handler(event);" ondragover="dragover_handler(event);">Drop Zone</div>
 </body>
+<script>
+    (function(){
+        var a=b=1;
+    })();
+    console.log(a=='undefined');
+    console.log(b=='undefined');
+</script>
 </html>

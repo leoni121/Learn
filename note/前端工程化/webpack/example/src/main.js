@@ -8,6 +8,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { APP },
+  components: {
+    APP
+  },
   template: '<APP />'
 })
