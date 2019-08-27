@@ -69,7 +69,7 @@ function walkStep(list, step) {
 }
 zq
 // 思路三：
-// pHead1 + pHead2 和 pHead2 + pHead1 一定有交集
+// pHead1 + pHead2 和 pHead2 + pHead1 一定有交集（交集在最后）
 // 1 - 2 - 3 - 4 - 5  $$$  9 - 8 - 7 - 6 - 3 - 4 - 5
 // 9 - 8 - 7 - 6 - 3 - 4 - 5  $$$  1 - 2 - 3 - 4 - 5
 

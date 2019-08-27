@@ -2,48 +2,48 @@
 
 
 
-## 1. url-loader 和 file-loader 的区别及使用 ##
+## 1. url-loader 和 file-loader ##
 
-url-loader不依赖于file-loader，即使用url-loader时，只需要安装url-loader即可，不需要安装file-loader，因为url-loader内置了file-loader
+url-loader内置了file-loader。
 
-file-loader工作分两种情况：
+url-loader工作分两种情况：
 
-1. 文件大小小于limit参数，url-loader将会把文件转为DataURL。
+* 文件大小小于limit参数，url-loader将会把文件转为DataURL。
 
-- 文件大小大于limit，url-loader会调用file-loader进行处理，参数也会直接传给file-loader。因此我们只需要安装url-loader即可。
->小提示： webpack最终会将各个模块打包成一个文件，因此我们样式中的url路径是相对入口html页面的，而不是相对于原始css文件所在的路径的。这就会导致图片引入失败。 file-loader可以解析项目中的url引入（不仅限于css），根据我们的配置，将图片拷贝到相应的路径，再根据我们的配置，修改打包后文件引用路径，使之指向正确的文件
+- 文件大小大于limit，调用file-loader进行处理。
+>**小提示**： webpack最终会将各个模块打包成一个文件，**样式中的url路径是相对入口html页面的**，而不是相对于原始css文件所在的路径的，这就会导致图片引入失败。 file-loader可以解析项目中的url引入（不仅限于css），根据我们的配置，将**图片拷贝到相应的路径**，**修改打包后文件引用路径**。
 
-下面例子涉及到了4个参数：`limit`、`name`、`outputPath`、`publicPath`，file-loader相关的是`name`、`outputPath`和`outputPath`。下面解释一下这3个参数
+下面例子涉及到了4个参数：`limit`、`name`、`outputPath`、`publicPath`。
 
-1. `name`表示输出的文件名规则，如果不添加这个参数，输出的就是默认值：文件哈希。加上[path]表示输出文件的相对路径与当前文件相对路径相同，加上[name].[ext]则表示输出文件的名字和扩展名与当前相同。加上[path]这个参数后，打包后文件中引用文件的路径也会加上这个相对路径。
+```js
+{
+  loader: 'url-loader',
+    options: {
+      // 注意这里有一个限制图片大小的
+      limit: 5000,
+        name: '[hash:8].[ext]',
+          // 这个有点相对于output路径的赶脚
+          outputPath: function (fileName) {
+            return "./img/" + fileName   // 后面要拼上这个 fileName 才行
+          }
+    }
+}
+```
+
+* `name`表示输出的文件名规则，如果不添加这个参数，输出的就是默认值：文件哈希。加上[path]表示输出文件的相对路径与当前文件相对路径相同，加上[name].[ext]则表示输出文件的名字和扩展名与当前相同。加上[path]这个参数后，打包后文件中引用文件的路径也会加上这个相对路径。
 
 - `outputPath`表示输出文件路径前缀。图片经过url-loader打包都会打包到指定的输出文件夹下。但是我们可以指定图片在输出文件夹下的路径。比如outputPath=img/，图片被打包时，就会在输出文件夹下新建（如果没有）一个名为img的文件夹，把图片放到里面。
 
 - `publicPath`表示打包文件中引用文件的路径前缀，如果你的图片存放在CDN上，那么你上线时可以加上这个参数，值为CDN地址，这样就可以让项目上线后的资源引用路径指向CDN了。
 
-    ```js
-    module: {  
-            rules: [  
-                {  
-                    test: /\.css$/,  
-                    use: ['style-loader', 'css-loader']  
-                },  
-                {  
-                    test: /\.jpeg$/,  
-                    use: 'url-loader?limit=1024&name=[path][name].[ext]&outputPath=img/&publicPath=output/',  
-                }  
-          	  ]  
-    	} 
-    ```
 
+## 2. webpack-dev-server和webpack-dev-middleware ##
 
-## 2. webpack-dev-server和webpack-dev-middleware的区别 ##
-
-[参考地址1-博客](https://www.cnblogs.com/wangpenghui522/p/6826182.html)， [参考地址2-官网](https://www.webpackjs.com/guides/development/)
+> [参考地址1-博客](https://www.cnblogs.com/wangpenghui522/p/6826182.html)， [参考地址2-官网](https://www.webpackjs.com/guides/development/)
 
 ### 2.1 webpack-dev-server ###
 
-`webpack-dev-server`实际上相当于启用了一个`express`的`Http服务器+调用webpack-dev-middleware`。它的作用主要是用来伺服资源文件。这个`Http服务器`和`client`使用了`websocket`通讯协议，原始文件作出改动后，`webpack-dev-server`会用webpack实时的编译，再**用webpack-dev-middleware将webpack编译后文件会输出到内存中。**适合纯前端项目，很难编写后端服务，进行整合。
+**`webpack-dev-server`实际上相当于启用了一个`express`的`Http服务器+调用webpack-dev-middleware`。它的作用主要是用来伺服资源文件。**这个`Http服务器`和`client`使用了`websocket`通讯协议，原始文件作出改动后，`webpack-dev-server`会用webpack实时的编译，再**用webpack-dev-middleware将webpack编译后文件会输出到内存中。**适合纯前端项目，很难编写后端服务，进行整合。
 
 当使用 **webpack dev server 和 Node.js API 时**，不要将 dev server 选项放在 webpack 配置对象(webpack config object)中。而是，在创建选项时，将其作为第二个参数传递。例如：
 
@@ -75,13 +75,11 @@ server.listen(5000, 'localhost', () => {
 });
 ```
 
-> *如果你在* [使用 `webpack-dev-middleware`](https://www.webpackjs.com/guides/development#using-webpack-dev-middleware)*，可以通过* [`webpack-hot-middleware`](https://github.com/webpack-contrib/webpack-hot-middleware) *package 包，在自定义开发服务下启用 HMR。*
-
 ### 2.2 webpack-dev-middleware ###
 
 [配置参考](https://segmentfault.com/a/1190000011761306)
 
-webpack-dev-middleware输出的文件存在于内存中。你定义了 webpack.config，webpack 就能据此梳理出entry和output模块的关系脉络，而 webpack-dev-middleware 就在此基础上形成一个文件映射系统，每当应用程序请求一个文件，它匹配到了就把内存中缓存的对应结果以文件的格式返回给你，反之则进入到下一个中间件。
+**webpack-dev-middleware输出的文件存在于内存中。**你定义了 webpack.config，webpack 就能据此梳理出entry和output模块的关系脉络，而 webpack-dev-middleware 就在此基础上**形成一个文件映射系统**，**每当应用程序请求一个文件，它匹配到了就把内存中缓存的对应结果以文件的格式返回给你，**反之则进入到下一个中间件。
 
 因为是内存型文件系统，所以重建速度非常快，很适合于开发阶段用作静态资源服务器；因为 webpack 可以把任何一种资源都当作是模块来处理，因此能向客户端反馈各种格式的资源，所以可以替代HTTP 服务器。事实上，大多数 webpack 用户用过的 webpack-dev-server 就是一个 express＋webpack-dev-middleware 的实现。二者的区别仅在于 webpack-dev-server 是封装好的，除了 webpack.config 和命令行参数之外，很难去做定制型开发。而 webpack-dev-middleware 是中间件，可以编写自己的后端服务然后把它整合进来，相对而言比较灵活自由。
 
@@ -112,35 +110,33 @@ app.listen(3000, function () {
 
 
 
-## 3. NamedModulesPlugin 和 HashedModuleIdsPlugin 的区别及使用 ##
+## 3. NamedModulesPlugin 和 HashedModuleIdsPlugin ##
 
 ### 3.1 NamedModulesPlugin ###
 
-[参考](https://www.jianshu.com/p/8499842defbe)
+> [参考](https://www.jianshu.com/p/8499842defbe)
 
-> 当开启 [HMR](https://www.webpackjs.com/guides/hot-module-replacement) 的时候使用该插件会显示模块的相对路径，建议用于开发环境。
+被引入的 js 文件会转化为 `[index: function(...){}]` 的形式。打包的实现显示的就是 `[HMR]  - index` 的形式。
 
-这个插件的作用是在*热加载时直接返回更新文件名*，而不是文件的id。
-
-要这种效果
-
-```js
-[HMR] Updated modules:
-[HMR]  - ./example.js
-[HMR]  - ./hmr.js
-[HMR] Update applied.
-```
-
-而不是这样
-
-```js
+```bash
 [HMR] Updated modules:
 [HMR]  - 39
 [HMR]  - 40
 [HMR] Update applied.
 ```
 
-具体使用就是这样
+
+
+NamedModulesPlugin达到下面效果
+
+```bash
+[HMR] Updated modules:
+[HMR]  - ./example.js
+[HMR]  - ./hmr.js
+[HMR] Update applied.
+```
+
+**使用**
 
 ```js
 plugin: [
@@ -150,9 +146,9 @@ plugin: [
 
 ### 3.2 HashedModuleIdsPlugin ###
 
-[参考-官网](https://www.webpackjs.com/plugins/hashed-module-ids-plugin/)
+> [参考-官网](https://www.webpackjs.com/plugins/hashed-module-ids-plugin/)
 
-> 该插件会根据模块的相对路径生成一个四位数的hash作为模块id, 建议用于生产环境。
+该插件会根据模块的相对路径生成一个四位数的hash作为模块id, 建议用于生产环境。
 
 该插件支持以下参数：
 
@@ -170,19 +166,9 @@ new webpack.HashedModuleIdsPlugin({
 })
 ```
 
-### 5.3 使用场景 ###
+### 3.3 使用场景 ###
 
-[参考-官网](https://www.webpackjs.com/plugins/hashed-module-ids-plugin/)
-
-`output`如下设置:
-
-```js
-output: {
-    filename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, 'dist')
-}
-
-```
+> [参考-官网](https://www.webpackjs.com/plugins/hashed-module-ids-plugin/)
 
 ***公共依赖没有变,公共文件的hash 改变?***
 
@@ -194,19 +180,12 @@ output: {
 
 ## 4. webpack-merge ##
 
-[参考-github](https://github.com/survivejs/webpack-merge)
+> [参考-github](https://github.com/survivejs/webpack-merge)
 
 **webpack-merge**提供了一个`merge`连接数组并合并创建新对象的函数。如果遇到函数，它将执行它们，通过算法运行结果，然后再次将返回的值包装在函数中。
 
-这种行为在配置webpack时特别有用，尽管它有超出它的用途。无论何时需要合并配置对象，**webpack-merge**都可以派上用场。
-
-还有一个特定于webpack的合并变体`merge.smart`，它可以考虑webpack特性（即，它可以展平加载器定义）。
-
-**标准合并 merge(...configuration | [...configuration])**
-
-`merge`是API的核心，也是最重要的想法。除非您想进一步定制，否则通常这就是您所需要的。
-
 ```js
+// 标准合并 merge(...configuration | [...configuration])
 //默认API 
 module.exports =  merge（object1，object2，object3， ...）;
 
@@ -219,15 +198,13 @@ module.exports =  merge（[object1，object2，object3]）;
 
 ## 5. ExtractTextWebpackPlugin 和 MiniCssExtractPlugin ##
 
-[参考-官网](https://www.webpackjs.com/plugins/extract-text-webpack-plugin/), [项目webpack3 迁移到 webpack4 可参考](https://blog.csdn.net/lqlqlq007/article/details/83865176)
+> [参考-官网](https://www.webpackjs.com/plugins/extract-text-webpack-plugin/), [项目webpack3 迁移到 webpack4 可参考](https://blog.csdn.net/lqlqlq007/article/details/83865176)
+>
+> 在使用时不能和  `  style-loader`共存，只用于生产环境。
 
 ### 5.1 MiniCssExtractPlugin  ###
 
-[参考-官网](https://www.npmjs.com/package/mini-css-extract-plugin)
-
-> English: This plugin should be used only on `production` builds without `style-loader` in the loaders chain, especially if you want to have HMR in `development`.
->
-> 中：在使用时不能喝]和  `  style-loader`共存，只用于生产环境
+> [参考-官网](https://www.npmjs.com/package/mini-css-extract-plugin)
 
 **webpack.config.js**
 
@@ -238,8 +215,6 @@ const devMode = process.env.NODE_ENV !== 'production'
 module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
       filename: devMode ? '[name].css' : '[name].[contenthash].css',
       chunkFilename: devMode ? '[id].css' : '[id].[contenthash].css',
     })
@@ -262,7 +237,7 @@ module.exports = {
 
 ### 5.2 ExtractTextWebpackPlugin ###
 
-[参考-官网](https://www.webpackjs.com/plugins/extract-text-webpack-plugin/)
+> [参考-官网](https://www.webpackjs.com/plugins/extract-text-webpack-plugin/)
 
 ```js
 module: {
@@ -301,20 +276,11 @@ module: {
 
 ## 7. ProvidePlugin ##
 
-[参考-官网](<https://www.webpackjs.com/plugins/provide-plugin/>)
+> [参考-官网](<https://www.webpackjs.com/plugins/provide-plugin/>)
 
 使用 [`ProvidePlugin`](https://www.webpackjs.com/plugins/provide-plugin) 后，能够在通过 webpack 编译的每个模块中，通过访问一个变量来获取到 package 包，而不必到处 `import` 或 `require`。
 
 **使用**
-
-```js
-new webpack.ProvidePlugin({
-  identifier: 'module1',
-  // ...
-})
-```
-
-or
 
 ```js
 new webpack.ProvidePlugin({
@@ -325,15 +291,9 @@ new webpack.ProvidePlugin({
 
 任何时候，当 `identifier` 被当作未赋值的变量时，`module` 就会自动被加载，并且 `identifier` 会被这个 `module` 输出的内容所赋值。（模块的 `property` 用于支持命名导出(named export)）。
 
-> 对于 ES2015 模块的 default export，你必须指定模块的 default 属性，才能使用
->
-> 本质上，我们所做的，就是告诉 webpack如果你遇到了至少一处用到 `lodash` 变量的模块实例，那请你将 `lodash` package 包引入进来，并将其提供给需要用到它的模块
-
 ## 8. imports-loader ##
 
-[参考-官网](<https://www.webpackjs.com/loaders/imports-loader/>)
-
-The imports loader allows you to use modules that depend on specific global variables.
+> [参考-官网](<https://www.webpackjs.com/loaders/imports-loader/>)
 
 当模块运行在 CommonJS 环境下这将会变成一个问题，也就是说此时的 `this` 指向的是 `module.exports`。在这个例子中，你可以**通过使用 [`imports-loader`](https://www.webpackjs.com/loaders/imports-loader/) 覆写 `this**`
 
@@ -384,13 +344,11 @@ require("exports-loader?file!./file.js");
 
 ## 11. DllPlugin和DllReferencePlugin ##
 
- [参考-博客-简书](https://www.jianshu.com/p/6fb08d492b59)
+> [参考-博客-简书](https://www.jianshu.com/p/6fb08d492b59)
 
 `DLLPlugin` 和 `DLLReferencePlugin` 用某种方法实现了拆分 bundles，同时还大大提升了构建的速度。
 
 **DllPlugin**
-
-This plugin is used in a separate webpack config exclusively to create a dll-only-bundle. It creates a `manifest.json` file, which is used by the [`DllReferencePlugin`](https://webpack.js.org/plugins/dll-plugin#dllreferenceplugin) to map dependencies.
 
 **将此插件与[`output.library`](https://webpack.js.org/configuration/output/#output-library)用于公开（也称为放入全局范围）dll函数的选项相结合**
 
@@ -400,65 +358,58 @@ This plugin is used in the primary webpack config, it references the dll-only-bu
 
 ## 12. UglifyjsWebpackPlugin ##
 
-[参考1-官网-webpack](https://www.webpackjs.com/plugins/uglifyjs-webpack-plugin/)， [参考2-博客-中文](<https://blog.csdn.net/u013884068/article/details/83511343>)， [参考3-官网-npm](<https://www.npmjs.com/package/uglifyjs-webpack-plugin>)
+> [参考1-官网-webpack](https://www.webpackjs.com/plugins/uglifyjs-webpack-plugin/)， [参考2-博客-中文](<https://blog.csdn.net/u013884068/article/details/83511343>)， [参考3-官网-npm](<https://www.npmjs.com/package/uglifyjs-webpack-plugin>)
 
 ### 12.1 `parallel` ###
 
-Type: `Boolean|Number` Default: `false`
+> [os.cpus()](http://nodejs.cn/api/os/os_cpus.html)
 
 Use multi-process parallel running to improve the build speed. Default number of concurrent runs: `os.cpus().length - 1`.
 
-> Parallelization can speedup your build significantly and is therefore **highly recommended**.
-
-`{Boolean}`
-
 **webpack.config.js**
 
 ```js
+// webpack 3
+new webpack.optimize.UglifyJsPlugin
+// webpack 4
 [
   new UglifyJsPlugin({
-    parallel: true
+    parallel: true/number,
   })
 ]
 ```
-
-启用并行化。默认并发运行数：`os.cpus().length - 1`。
-
-`{Number}`
-
-**webpack.config.js**
-
-```js
-[
-  new UglifyJsPlugin({
-    parallel: 4
-  })
-]
-```
-
-并发运行数。
-
-> 并行化可以显着加速您的构建，因此**强烈建议**
 
 ### 12.2 `cache` ###
 
-Type: `Boolean|String` Default: `false`
+类型：`boolean string`默认值：`false`
 
-Enable file caching. Default path to cache directory: `node_modules/.cache/uglifyjs-webpack-plugin`.
+启用文件缓存。缓存目录的默认路径：`node_modules/.cache/uglifyjs webpack plugin`。
+
+```js
+// webpack 4
+[
+  new UglifyJsPlugin({
+    cache: true,
+  })
+]
+```
 
 ## 13 optimize-css-assets-webpack-plugin ##
 
-一个优化'压缩CSS的WebPack插件
+一个优化压缩CSS的WebPack插件
 
 ```js
 new OptimizeCSSAssetsPlugin({
-  cssProcessorOptions: { safe: true, map: buildConfig.productionSourceMap }
+  cssProcessorOptions: { 
+    safe: true, 
+    map: buildConfig.productionSourceMap 
+  }
 })
 ```
 
 ## 14. add-asset-html-webpack-plugin ##
 
-[参考1-官网-NPM](https://www.npmjs.com/package/add-asset-html-webpack-plugin)，[参考2-官网-TAONPM](http://npm.taobao.org/package/add-asset-html-webpack-plugin)
+> [参考1-官网-NPM](https://www.npmjs.com/package/add-asset-html-webpack-plugin)，[参考2-官网-TAONPM](http://npm.taobao.org/package/add-asset-html-webpack-plugin)
 
 ### 14.1 使用 ###
 
@@ -492,11 +443,13 @@ Type: `Boolean|String` Default: `false`
 
 Enable file caching. The default path to cache directory: `node_modules/.cache/compression-webpack-plugin`.
 
-### 15.2 minRatio ###
+### 15.2 `minRatio` ###
 
 Type: `Number` Default: `0.8`
 
 Only assets that compress better than this ratio 
+
+### 15.3 `include`、`exclude`、`test`
 
 ## 16. webpack-bundle-analyzer ##
 
@@ -646,11 +599,11 @@ body {
 
 ## 21. cache-loader ##
 
-[参考-腾讯云社区](<https://cloud.tencent.com/developer/section/1477510>)
-
-[在vue-loader中使用](#19. vue-loader 之 cacheDirectory(cache-loader) / cacheIdentifier)
-
-> 请注意，**保存读取和保存缓存文件会产生开销**，因此**只能使用此加载程序来缓存昂贵的加载程序。**
+> [参考-腾讯云社区](<https://cloud.tencent.com/developer/section/1477510>)
+>
+> [在vue-loader中使用](#19. vue-loader 之 cacheDirectory(cache-loader) / cacheIdentifier)
+>
+> **请注意，****保存读取和保存缓存文件会产生开销**，因此**只能使用此加载程序来缓存昂贵的加载程序。**
 
 在一些性能开销较大的 loader 之前添加此 loader，以将结果缓存到磁盘里。
 
@@ -756,7 +709,7 @@ var obj = {
     ['func']: function() {
         console.log('func');
     },
-        [prop2]: 3
+    [prop2]: 3
 };
 ```
 
@@ -908,7 +861,7 @@ var _createClass = (function() {
 
 var Animal = (function () {
     function Animal(name, type) {
-                // 此处是constructor的实现，用_classCallCheck来判定constructor正确与否
+        // 此处是constructor的实现，用_classCallCheck来判定constructor正确与否
         _classCallCheck(this, Animal);
  
         this.name = name;
@@ -971,9 +924,37 @@ var Dog = (function (_Animal) {
 
 #### 22.5.4 模块化  ####
 
-es6的模块加载是属于**多对象多加载**，而**commonjs则属于单对象单加载**。babel需要做一些手脚才能将es6的模块写法写成commonjs的写法。主要是通过定义__esModule这个属性来判断这个模块是否经过babel的编译。然后通过_interopRequireWildcard对各个模块的引用进行相应的处理。
+es6的模块加载是属于**多对象多加载**，而**commonjs则属于单对象单加载**。babel需要做一些手脚才能将es6的模块写法写成commonjs的写法。主要是通过定义**`__esModule`**这个属性来判断这个模块是否经过babel的编译。然后通过_interopRequireWildcard对各个模块的引用进行相应的处理。
 
 通过webpack打包babel编译后的代码，每一个模块里面都包含了相同的类继承帮助方法，这是开发时忽略的。在开发的时候用es5的语法可能会比使用es6的class能使js bundle更小。
+
+```JS
+// t2.js
+export class Person {
+}
+ 
+export class Plane {
+}
+
+// ///////////////==>
+
+// t2.js的模块
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+ 
+// 省略一些类继承的方法
+ 
+var Person = exports.Person = function Person() {
+    _classCallCheck(this, Person);
+};
+ 
+var Plane = exports.Plane = function Plane() {
+    _classCallCheck(this, Plane);
+};
+```
+
+
 
 **导入的转化**
 
@@ -1048,12 +1029,9 @@ function catwal() {
 ```js
 const a3 = 3;
 var a4 = 5;
-
-let a1 = 1;
- 
+let a1 = 1; 
 {
     let a1 = 2;
- 
     {
         let a1 = 4;
       	{
@@ -1221,7 +1199,7 @@ regeneratorRuntime.mark(function gen() {
 
 #### 22.5.9 Async ####
 
-```
+```js
 const fetchValue = async function () {
     var value1 = await fetchData(1);
     var value2 = await fetchData(value1);
@@ -1310,7 +1288,7 @@ var fetchData = function fetchData(data) {
 
 ## 23. css-loader 和style-loader ##
 
-- `css-loader`: 加载.css文件，将@import 和 url() 转换成 import/require()的
+- `css-loader`: 加载.css文件，将@import 和 url() 转换成 import/require()
 - `style-loader`:使用`<style>`将css-loader内部样式注入到我们的HTML页面
 
 ## 24. 其他 ##

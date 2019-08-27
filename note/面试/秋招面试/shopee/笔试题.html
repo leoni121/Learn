@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="parent">
+    <div class="son">son</div>
+</div>
+<script>
+    // 出些什么题啊？   错题
+    console.log('\n\nscript1')
+    let parent = document.querySelector(".parent");
+    let son = parent.querySelector(".son");
+    parent.onclick = function () {
+      console.log('parent')
+    }
+    son.addEventListener('click', (e) => {
+      console.log('son1');
+      e.stopPropagation();
+    })
+    son.addEventListener('click', () => {
+      console.log('son2');
+    })
+</script>
+<script>
+    // [Object.prototype.isPrototypeOf()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/isPrototypeOf)
+    console.log('\n\nscript2')
+    function Foo() {}
+    let fo = new Foo();
+    window.Foo = Foo;window.fo = fo;
+    console.log(Foo.isPrototypeOf(fo)) // false
+    console.log(Foo.prototype.isPrototypeOf(fo)) // true
+    console.log(Object.isPrototypeOf(fo)) // false
+    console.log(Object.prototype.isPrototypeOf(fo)) // true
+</script>
+
+<script>
+  console.log('\n\nscript3');
+  let one = function () {};
+  one.prototype = Object.create(null);
+  let two = Object.create(one);
+  let three = Object.create(two);
+  let T1 = function() {};
+  T1.prototype = three;
+  let t = new T1();
+
+  console.log(t instanceof Object);
+  console.log(t instanceof one);
+  console.log(t instanceof two);
+  console.log(t instanceof three);
+</script>
+</body>
+</html>

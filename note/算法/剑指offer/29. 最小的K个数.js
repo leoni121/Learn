@@ -1,12 +1,13 @@
 /**
  * @Author nzq
  * @Date 2019/5/23
+ * [最小的K个数](https://www.nowcoder.com/practice/6a296eb82cf844ca8539b57c23e6e9bf?tpId=13&tqId=11182&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  * @Description: 输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
  * @Param:
  * @Return:
  */
 
-// 思路一：先排序；
+// 思路一：先排序，再找最小的k个数
 function _GetLeastNumbers_Solution(input, k)
 {
   // write code here
@@ -73,24 +74,6 @@ function GetLeastNumbers_Solution(input, k)
   if (k === len) {
     result = input.sort((pre, next) => pre - next);
   } else if(k>0 &&  k<right) {
-    // 复杂度 很高
-    /*for (let i = 0; i < k; i++) {
-      while(left < right) {
-        pivotIdx = partition(input, left, right);
-        if (pivotIdx === i) {
-          result.push(input[pivotIdx]);
-          // 置响应的数字 再次循环
-          left = 0;
-          right = len-1;
-          break;
-        } else if (pivotIdx > i) {
-          right = pivotIdx;
-        } else if (pivotIdx < i) {
-          left = pivotIdx;
-        }
-      }
-    }*/
-
     k--;
     while(left < right) {
       pivotIdx = partition(input, left, right);
@@ -119,4 +102,6 @@ function partition(arr, left, right) {
   return left;
 }
 
+// 思路4：利用一个 length === k 的数组，记录最小的数
+// 时间复杂度O(k * n)
 console.log(GetLeastNumbers_Solution([2,4,7,1,100,6,9], 4))

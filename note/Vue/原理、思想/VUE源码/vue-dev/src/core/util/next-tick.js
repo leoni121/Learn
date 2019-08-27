@@ -98,9 +98,11 @@ export function nextTick (cb?: Function, ctx?: Object) {
       _resolve(ctx)
     }
   })
+  
   if (!pending) {
     pending = true
-    timerFunc()
+    timerFunc() // 闭包调用 `flushCallbacks`, 使用callback
+    // Promise、MutationObserver、setImmediate、setTimeoutÒ
   }
   // $flow-disable-line
   if (!cb && typeof Promise !== 'undefined') {

@@ -55,6 +55,7 @@ export function initLifecycle (vm: Component) {
   // 用的功能，他们是抽象的
   if (parent && !options.abstract) {
     // 使用 while 循环查找第一个非抽象的父组件
+    
     // 抽象的组件是不能够也不应该作为父级的(keep-alive transition)
     while (parent.$options.abstract && parent.$parent) {
       parent = parent.$parent

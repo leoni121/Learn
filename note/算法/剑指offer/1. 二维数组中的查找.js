@@ -1,22 +1,11 @@
 /**
  * @Author nzq
  * @Date 2019/4/15
+ * [二维数组中的查找](https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?tpId=13&tqId=11154&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  * @Description: 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
  * @Param:
  * @Return:
  */
-
-/*
-*  while (line = readline()) {
-    var lines = line.replace(',', ' ').split(' ');
-    var a = lines[0];
-    var b = lines[1].replace(/\[\[|\]\]/g, '').replace(/\]\,\[/g, ',').split(',');
-    function Find(target, array) {
-        return array.indexOf(target) > -1 ? true : false
-    }
-    print(Find(a, b));
-}
-* */
 function Find(target, array) {
   let temArr;
   let aLen = array && array[0] && array[0].length;
@@ -28,6 +17,12 @@ function Find(target, array) {
   }
   return temArr.indexOf(target) > -1
 }
+
+/** 思路
+ * 矩阵是有序的，从左下角来看，向上数字递减，向右数字递增，
+ * 因此从左下角开始查找，当要查找数字比左下角数字大时。右移
+ * 要查找数字比左下角数字小时，上移
+ */
 
 // [
 //     [1,2,3,4,5],

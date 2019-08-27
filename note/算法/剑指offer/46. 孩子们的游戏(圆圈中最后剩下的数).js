@@ -20,10 +20,11 @@ function LastRemaining_Solution(n, m) {
     }
     let idx = 0,
         arr = [];
-    for (let i = 0; i < n; i++) {
-        arr[i] = i;
+    for (let i = 0; i < n; i++) { // n 个小孩子
+        arr[i] = i; // 记录位置 0 开始
     }
     while (arr.length > 1) {
+        // (idx + m - 1) 当前位置开始的第 m 个孩纸
         idx = (idx + m - 1) % arr.length;
         arr.splice(idx, 1);
     }
@@ -31,8 +32,14 @@ function LastRemaining_Solution(n, m) {
 }
 
 // 思路二：递归
+// 约瑟夫环，圆圈长度为 n 的解可以看成长度为 n-1 
+// 的解再加上报数的长度 m。因为是圆圈
+// ，所以最后需要对 n 取余。
 // f[1]=0;
 // f[i]=(f[i-1]+m)%i;  (i>1)
+// 
+//  0  1
+//  3  2
 function LastRemaining_Solution(n, m) {
     // write code here
     if (n === 0) {
@@ -40,6 +47,7 @@ function LastRemaining_Solution(n, m) {
     } else if (n === 1) { //　一个小朋友
         return 0;
     } else {
+        // 编号m - m =  编号 0
         return (LastRemaining_Solution(n - 1, m) + m) % n;
     }
 

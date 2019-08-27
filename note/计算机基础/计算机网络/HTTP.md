@@ -8,9 +8,9 @@
 
 ### 1.1 简介 ###
 
-HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是基于客户端/服务端（C/S）的架构模型，通过一个可靠的链接来交换信息，是一个无状态、无连接、媒体独立的请求/响应协议。用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议
+HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是基于客户端/服务端（C/S）的架构模型，是一个**无状态、无连接、媒体独立的请求/响应协议**。
 
-HTTP基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。
+HTTP基于**TCP/IP通信协议**来传递数据（HTML 文件, 图片文件, 查询结果等）。
 
 ### 1.2 HTTP 工作原理 ###
 
@@ -36,34 +36,30 @@ HTTP默认端口号为80，但是你也可以改为8080或者其他端口。
 
 ***Request***
 
-**请求行（request line）、请求头部（header）、空行和请求数据四个部分组成，下图给出了请求报文的一般格式。**
+**请求行**（request line）、**请求头部**（header）、**空行**和**请求数据**四个部分组成，下图给出了请求报文的一般格式。**
 
 ![../img/httprequest.png](../img/httprequest.png)
 
 ***Response***
 
-**响应也由四个部分组成，分别是：状态行(HTTP-Version Status-Code Reason-Phrase CRLF)、消息报头、空行和响应正文。**
+响应也由四个部分组成，分别是：**状态行**(HTTP-Version Status-Code Reason-Phrase CRLF)、**响应头部**、**空行**和**响应正文**。
 
 ![httpresponse](../img/httpresponse.png)
 
 ## 3. HTTP方法及其安全性和幂等性 ##
-### 3.1 方法
+### 3.1 方法/作用
 * GET
 获取
 * HEAD
-获取报文首部。
-和 GET 方法类似，但是不返回报文实体主体部分，主要用于确认 URL 的有效性以及资源更新的日期时间等。
-
+获取报文首部。和 GET 方法类似，但是不返回报文实体主体部分，主要用于**确认 URL 的有效性以及资源更新的日期时间等**。
+* DELETE
+删除文件
 * POST
 添加
-
 * PUT
 修改
-
 * PATCH
-> 对资源进行部分修改
-> 
-> PUT 也可以用于修改资源，但是只能完全替代原始资源，PATCH 允许部分修改。
+> **对资源进行部分修改**，PUT 也可以用于修改资源，但是只能完全替代原始资源，PATCH 允许部分修改。
 
   ```http
 PATCH /file.txt HTTP/1.1
@@ -74,23 +70,18 @@ Content-Length: 100
 [description of changes]
   ```
 
-* DELETE
-删除文件
-
 * OPTIONS
-查询指定的 URL 能够支持的方法。
-会返回 `Allow: GET, POST, HEAD, OPTIONS` 这样的内容。
-
-* CONNECT
-  要求在与代理服务器通信时建立隧道。
-  SSL（Secure Sockets Layer，安全套接层）和 TLS（Transport Layer Security，传输层安全）协议把通信内容加密后经网络隧道传输。
-
-  ```html
-  CONNECT www.example.com:443 HTTP/1.1
-  ```
+查询指定的 URL 能够**支持的方法**。会返回 `Allow: GET, POST, HEAD, OPTIONS` 这样的内容。
 
 * TRACE
-回馈服务器收到的请求，用于远程诊断服务器。
+**回馈服务器收到的请求，用于远程诊断服务器**。
+
+* CONNECT
+  要求在**与代理服务器通信时建立隧道**。SSL（Secure Sockets Layer，安全套接层）和 TLS（Transport Layer Security，传输层安全）协议把通信内容加密后经网络隧道传输。
+  
+```http
+  CONNECT www.example.com:443 HTTP/1.1
+```
 
 
 ### 3.2 安全、幂等
@@ -110,13 +101,11 @@ Content-Length: 100
 |   PUT   |   否   |   是   |
 |  POST   |   否   |   否   |
 
-（1）可以认为安全的方法都是只读的方法(GET, HEAD, OPTIONS)
+* ***HTTP协议规定DELETE方法是幂等的***，每次删除该资源都要返回状态码200 OK，服务器端要实现幂等的DELETE方法，必须**记录所有已删除资源的元数据(Metadata),**否则，第二次删除后返回的响应码就会类似404 Not Found了。
 
-（2）DELETE方法的语义表示删除服务器上的一个资源，第一次删除成功后该资源就不存在了，资源状态改变了，所以DELETE方法不具备安全特性。然而***HTTP协议规定DELETE方法是幂等的***，每次删除该资源都要返回状态码200 OK，服务器端要实现幂等的DELETE方法，必须记录所有已删除资源的元数据(Metadata),否则，第二次删除后返回的响应码就会类似404 Not Found了。
+* PUT方法是幂等、POST 不幂等，设计的理由是：
 
-（3）PUT和POST方法语义中都有修改资源状态的意思，因此都不是安全的。但是PUT方法是幂等的，POST方法不是幂等的，这么设计的理由是：
-
-- HTTP协议规定，POST方法修改资源状态时，URL指示的是该资源的父级资源，待***修改资源的ID信息在请求体中携带***。而PUT方法修改资源状态时，***URL直接指示待修改资源***。因此，***同样是创建资源，重复提交POST请求可能产生两个不同的资源，而重复提交PUT请求只会对其URL中指定的资源起作用，也就是只会创建一个资源。***
+  HTTP协议规定，POST方法修改资源状态时，URL指示的是该资源的父级资源，待***修改资源的ID信息在请求体中携带***。而PUT方法修改资源状态时，***URL直接指示待修改资源***。因此，***同样是创建资源，重复提交POST请求可能产生两个不同的资源，而重复提交PUT请求只会对其URL中指定的资源起作用，也就是只会创建一个资源。***
 
 ## 4 HTTP 状态码 ##
 
@@ -137,41 +126,34 @@ Content-Length: 100
 ### 4.1 常见状态码 ###
 
 > [HTTP 响应代码](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)
-* 100 Continue
+* `100 Continue`
 
-  > 1. HTTP `100 Continue`信息状态响应代码表明目前为止的所有内容都是正常的，并且**客户端应该继续请求或者如果它已经完成则忽略它。**
-  > 2. 状态：100 Continue
+  > 1. **客户端应该继续请求或者如果它已经完成则忽略它。**
   > 3. **场景**：大资源POST(cors 不是-option) [How to handle “100 continue” HTTP message?](https://zhuanlan.zhihu.com/p/30830041)
+  
+* `101 Switching Protocols`
 
-* 101 Switching Protocols
-
-  > 1. HTTP **101 Switching Protocols**响应代码指示**服务器**正在根据**发送包括[`Upgrade`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade)请求头的消息的客户端的请求**   ***切换到的协议***。
-  > 2. 服务器在此响应中包含一个[`Upgrade`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade)响应标题，指示它切换到的协议。
-  > 3. 状态 101 Switching Protocols
+  > 1. 指示**服务器**正在根据**发送包括[`Upgrade`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade)请求头的消息的客户端的请求，切换协议**。
   > 4. **场景**：websocket
   
-* 102 Processing (WebDAV)
+* `200 OK `
 
-  > 此代码表示服务器已收到并正在处理该请求，但没有响应可用。
-* 200 OK 服务器成功处理了请求
+  > 服务器成功处理了请求
 
-* 202
-
-  > 服务器已接受请求，但尚未处理
-
-* 204 请求被受理但没有资源可以返回
+* `204` 请求被受理但没有资源可以返回
 
   > 1. 没有数据，**浏览器不用刷新页面.也不用导向新的页面**
-  >2. **场景**：对于一些提交到服务器处理的数据，只需要返回是否成功的情况下，可以考虑使用状态码204来作为返回信息，从而省掉多余的数据传输（fetch-post-option）
+  >2. **场景**：对于一些提交到服务器处理的数据，只需要返回是否成功的情况下，可以考虑使用状态码204来作为返回信息，从而省掉多余的数据传输（`fetch-post-option`）
   > 
   
-* 206
+* `206 Partial Content` 成功状态响应代码
 
-  > 1. HTTP `206 Partial Content`成功状态响应代码指示请求已成功并且主体包含所请求的数据范围，如`Range`请求标题中所述。如果只有一个范围，则整个响应`Content-Type`设置为文档的类型，并提供一个`Content-Range`。如果发送了几个范围，则`Content-Type`设置为`multipart/byteranges`并且每个片段都覆盖一个范围，并且使用`Content-Range`和`Content-Type`对其进行描述。
+  > 1. 请求已成功并且主体包含所请求的数据范围。
+  >    * 一个范围，则整个响应`Content-Type`设置为文档的类型，并提供一个`Content-Range`。
+  >    * 多个范围，则`Content-Type`设置为`multipart/byteranges`并且每个片段都覆盖一个范围，并且使用`Content-Range`和`Content-Type`对其进行描述。
   > 2. ****场景**：发生在客户端继续请求一个[未完成的下载](http://blogs.msdn.com/b/ieinternals/archive/2011/06/03/send-an-etag-to-enable-http-206-file-download-resume-without-restarting.aspx)（暂停或网络中断）的时候**
-  > 3. 状态 ：206 Partial Content
-  > 4. **实例**：
-  >
+  >3. **实例**：
+  > 
   > ```
   > 包含一个范围的响应：
   > HTTP/1.1 206 Partial Content
@@ -200,85 +182,67 @@ Content-Length: 100
   > 
   > ...the second range
   > --String_separator--
-  > ```
-  >
-  > 状态：206 Partial Content
+  >```
+  > 
 
   
 
-* 301 永久性重定向，请求的URL已移走
+* `301 Moved Permanently` 
 
-  > 1. 被请求的**资源已永久移动到新位置**，并且将来任何对此资源的引用都应该使用本响应返回的若干个URI之一。如果可能，拥有链接编辑功能的**客户端应当自动把请求的地址修改为从服务器反馈回来的地址。**除非额外指定，否则这个响应**也是可缓存的**。新的永久性的URI应当**在响应的Location域中返回**。除非这是一个HEAD请求，否则响应的实体中应当包含指向新的URI的超链接及简短说明。
+  > 1. 被请求的**资源已永久移动到新位置**，响应**可缓存的**。新的永久性的URI应当**在响应的Location域中返回**。除非这是一个HEAD请求，否则**响应的实体中应当包含指向新的URI的超链接及简短说明**。
   > 2. 如果这**不是一个GET或者HEAD请求，因此浏览器禁止自动进行重定向**（（**第二次 POST 时，环境可能已经发生变化（POST 方法不是幂等）**）），除非得到用户的确认，因为请求的条件可能因此发生变化。
   > 3. **注意：**对于**某些使用HTTP/1.0协议**的浏览器，当它们发送的POST请求得到了一个301响应的话，接下来的重定向请求将会变成GET方式。
-  > 4. 搜索引擎更新它们到资源的链接（在 SEO 中，据说链接汁被发送到新的 URL）
-  > 5. 状态： 301 Moved Permanently
-  >
-  > ```js
-  > res.writeHead(301,{
-  >             'Location': 'http://127.0.0.1:3000/login'
-  >         })
-  > ```
-
+  > 4. 搜索引擎更新它们到资源的链接
+  > 
+  
   ![](../img/http301.png)
+  
+* `302 Found`
 
-* 302 临时重定向，维护
-
-  > 1. 要求客户端执行临时重定向（原始描述短语为“Moved Temporarily”）。由于这样的重定向**是临时**的，**客户端应当继续向原有地址发送以后的请求**。只有**在Cache-Control或Expires中进行了指定的情况下，这个响应才是可缓存的。** **新的临时性的URI应当在响应的Location域中返回。除非这是一个HEAD请求，否则响应的实体中应当包含指向新的URI的超链接及简短说明。**
+  > 1. 重定向**是临时**的，**客户端应当继续向原有地址发送以后的请求**。只有**在Cache-Control或Expires中进行了指定的情况下，这个响应才是可缓存的。** **新的临时性的URI应当在响应的Location域中返回。除非这是一个HEAD请求，否则响应的实体中应当包含指向新的URI的超链接及简短说明。**
   > 2. 如果这不是一个GET或者HEAD请求，那么浏览器禁止自动进行重定向（**第二次 POST 时，环境可能已经发生变化（POST 方法不是幂等）**），除非得到用户的确认，因为请求的条件可能因此发生变化。
   > 3. **注意：**虽然RFC 1945和RFC 2068规范不允许客户端在重定向时改变请求的方法，但是很**多现存的浏览器将302响应视作为303响应，并且使用GET方式访问在Location中规定的URI，而无视原先请求的方法。** **因此状态码303和307被添加了进来，用以明确服务器期待客户端进行何种反应。**
   > 4. 搜索引擎不会更新他们到资源的链接（在 SEO 中，据说链接果汁不会被发送到新的 URL）
-  > 5. 状态 ： 302 Found
+  
 
-  ![](../img/http302.png)
+![](../img/http302.png)
 
-* 303 See Other（查看其他）
+* `303 See Other`
 
-  > 1. 对应当前请求的响应可以在另一个URI上被找到，**当响应于POST（或PUT / DELETE）接收到响应时，客户端应该假定服务器已经收到数据，并且应该使用单独的GET消息发出重定向。**这个方法的存在主要是为了允许由脚本激活的POST请求输出重定向到一个新的资源。这个新的URI**不是原始资源的替代引用。**同时，**303响应禁止被缓存**。当然，**第二个请求（重定向）可能被缓存。**新的URI应当在响应的Location域中返回。除非这是一个HEAD请求，否则响应的实体中应当包含指向新的URI的超链接及简短说明。
+  > 1. **当响应于POST（或PUT / DELETE）接收到响应时，客户端应该假定服务器已经收到数据，并且应该使用单独的GET消息发出重定向。**这个方法的存在主要是为了允许由脚本激活的POST请求输出重定向到一个新的资源。这个新的URI**不是原始资源的替代引用。**同时，**303响应禁止被缓存**。当然，**第二个请求（重定向）可能被缓存。**新的URI应当在响应的Location域中返回。除非这是一个HEAD请求，否则响应的实体中应当包含指向新的URI的超链接及简短说明。
   > 2. **注意：**许多HTTP/1.1版以前的浏览器不能正确理解303状态。如果需要考虑与这些浏览器之间的互动，302状态码应该可以胜任，因为大**多数的浏览器处理302响应时的方式恰恰就是上述规范要求客户端处理303响应时应当做的。**
-  > 3. 状态 ： 303 See Other
+  
+* `304 Not Modified` 
 
-  ![](../img/http303.png)
-
-* 304 表示未修改，客户的缓存资源是最新的，要客户端使用缓存
-
-  > 1. HTTP **304 Not Modified**客户端重定向响应代码指示不需要重新传输请求的资源。这是对缓存资源的隐式重定向。这发生在请求方法是安全的时候，比如一个 `GET`或者一个`HEAD`请求，或者当请求是有条件的并且使用一个 `If-None-Match`或者一个`If-Modified-Since`标头时。
+  > 1. 不需要重新传输请求的资源，**对缓存资源的隐式重定向**。这发生在请求方法是安全的时候，比如一个 `GET`或者一个`HEAD`请求，或者当请求是有条件的并且使用一个 `If-None-Match`或者一个`If-Modified-Since`标头时。
   > 2. 等效`200` `OK`响应会包括头`Cache-Control`，`Content-Location`，`Date`，`ETag`，`Expires`，和`Vary`。
-  > 3. 状态：304 Not Modified
+  
+* `307 Temporary Redirect`
 
-* 307 Temporary Redirect（临时重定向）
-
-  > 1. HTTP **307 Temporary Redirect**重定向状态响应代码指示所请求的资源已暂时移动到由`Location`标题给定的 URL 。
+  > 1. 所请求的资源已暂时移动到由`Location`标题给定的 URL 。
   > 2. **原始请求的方法和主体被重用来执行重定向的请求**。在你想要改变方法的情况下，改为`GET`使用`303` `See Other`。当你想给一个`PUT`不是上传资源的方法，而是一个确认信息（如“你成功上传 XYZ”）时，这很有用。
-  > 3. `307`和`302`之间的唯一区别在于`307`该方法和主体将不会被重定向的请求时改变保证。使用`302`，一些老客户错误地将方法改变为`GET`：使用非`GET`方法的行为，然后`302`在Web上不可预知，而使用`307`的行为则是可预测的。对于`GET`请求，它们的行为是相同的。
-  > 4. 状态 ： 307 Temporary Redirect
+  > 3. `307`和`302`之间的唯一区别在于**`307`该方法和主体将不会被重定向的请求时改变保证**。使用`302`，一些老客户错误地将方法改变为`GET`：使用非`GET`方法的行为，然后`302`在Web上不可预知，而使用`307`的行为则是可预测的。对于`GET`请求，它们的行为是相同的。
+  
+* `308 Permanent Redirect`
 
-* 308 Permanent Redirect （永久重定向）
+  > **请求方法和主体不会被更**改，`301`但有时可能会被错误地更改为[`GET`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/GET)方法。
+  
+* `400 Bad Request`
 
-  > 1. HTTP **308 Permanent Redirect**重定向状态响应代码指示所请求的资源已明确移动到`Location`标题给定的 URL 。浏览器重定向到这个页面，搜索引擎更新它们到资源的链接（在 SEO 中，据说链接汁被发送到新的 URL）。
-  > 2. 请求方法和主体不会被更改，`301`但有时可能会被错误地更改为[`GET`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/GET)方法。
-  > 3. 一些 Web 应用程序可能会以非标准方式使用`308 Permanent Redirect`并用于其他目的。例如，Google 云端硬盘使用`308 Resume Incomplete`响应来向客户端指示上传不完整的时间。
+  > 指示服务器无法理解请求，请求格式。
+  
+* `401 Unauthorized`
 
-* 400 Bad Request
+  > 缺少目标资源的有效认证凭证。此状态与包含有关如何正确授权信息的`WWW-Authenticate`标头一起发送。
+  
+* `403 Forbidden`
 
-  > 1. 400 由于语法无效，HTTP**400 Bad Request** 响应状态码指示服务器无法理解请求。客户不应未经修改就重复此请求。
-  > 2. 状态 400 Bad Request 
+  > 服务器理解请求但拒绝授权。这种状态与此类似`401`，但在这种情况下，重新认证将不会产生任何影响。访问是永久禁止的并且与应用程序逻辑相关联（如不正确的密码）。
+  
+* `405 Method Not Allowed`
 
-* 401 Unauthorized
-
-  > 1. HTTP `401 Unauthorized`客户端错误状态响应代码指示该请求尚未应用，因为它缺少目标资源的有效认证凭证。此状态与包含有关如何正确授权信息的`WWW-Authenticate`标头一起发送。
-  > 2. 状态：401 Unauthorized
-
-* 403 Forbidden
-
-  > 1. HTTP `403 Forbidden`客户端错误状态响应代码指示服务器理解请求但拒绝授权。这种状态与此类似`401`，但在这种情况下，重新认证将不会产生任何影响。访问是永久禁止的并且与应用程序逻辑相关联（如不正确的密码）。
-  > 2. 状态：403 Forbidden
-
-* 405 Method Not Allowed
-
-  > 1. HTTP **405 Method Not Allowed**响应状态码指示服务器已知请求方法，但已被禁用且无法使用。这**两个强制性方法，`GET`和`HEAD`，绝不能被禁用，不应返回该错误代码。**
-  > 2. 状态：405 Method Not Allowed
-
+  > 服务器已知请求方法，**但已被禁用且无法使用**。这**两个强制性方法，`GET`和`HEAD`，绝不能被禁用，不应返回该错误代码。**
+  
 * ###### 409 ######
 
   > （Conflict）表示请求的资源与资源的当前状态发生冲突
@@ -287,11 +251,27 @@ Content-Length: 100
 
   > （Gone）表示服务器上的某个资源被永久性的删除
 
+* 414
+
+  > 服务器如果不能处理太长的URL，就得返回414状态码（Request-URI Too Long）。
+
 * 500 内部服务器错误
-> 服务器遇到一个错误，使其无法为请求提供服务
+
+  > 服务器遇到一个错误，使其无法为请求提供服务
+  
+* 502 Bad Gateway
 
 * 503 服务器正忙，服务器超时
-> 服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。
+
+  > 服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。
+
+* 504 Gateway Timeout
+
+  > 网关访问超时
+  
+* 505 Http Version Not Supported
+
+  > HTTP 版本不受支持
 
 ### 4.2 一些状态码的使用场景 ###
 
@@ -377,17 +357,13 @@ Content-Length: 100
 >
 > http 1.1中默认启用Keep-Alive，如果加入"Connection: close "，才关闭。
 >
-> 是否能完成一个完整的Keep-Alive连接就看服务器设置情况。
 
 **优点**
 
-> 可以报告错误而不必关闭TCP连接
->
-> errors can be reported without the penalty of closing the TCP connection
-
-1. HTTP请求和响应可以通过管道连接。流水线允许客户机在不等待每个响应的情况下发出多个请求，从而使单个TCP连接的使用效率更高，运行时间更低。
-2. 通过减少TCP打开造成的数据包数量，并允许TCP有足够的时间来确定网络的拥塞状态，可以减少网络拥塞。
-3. 由于TCP的连接打开握手没有花费时间，因此后续请求的延迟会减少。
+1. HTTP请求和响应可以**通过管道连接**。**流水线允许客户机在不等待每个响应的情况下发出多个请求**，从而使单个TCP连接的使用效率更高，运行时间更低。
+2. 通过**减少TCP打开造成的数据包数**量，并允许TCP有足够的时间来确定网络的拥塞状态，可以减少网络拥塞。
+3. 由于TCP的连接打开握手没有花费时间，因此**后续请求的延迟会减少**。
+4. 可以报告错误而不必关闭TCP连接
 
 ### 5.2  问题 ###
 
@@ -401,8 +377,10 @@ Content-Length: 100
 
 2. ***Transfer-Encoding***
 
+   > [HTTP 协议中的 Transfer-Encoding](https://imququ.com/post/transfer-encoding-header-in-http.html)
+   
    > **动态页面** 等
-   >
+>
    > 即如果要一边产生数据，一边发给客户端，服务器就需要使用"Transfer-Encoding: chunked"这样的方式来代替Content-Length。
 
    服务器是不可能预先知道内容大小，可以使用Transfer-Encoding：chunk模式来传输数据了。chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明**长度为0**的chunk标示结束。
@@ -416,13 +394,13 @@ Content-Length: 100
 **限制**
 
 - 如果客户端无法**确认连接是持久**的，就不应该使用管道
-- 必须**按照与请求相同的顺序回送HTTP响应**，因为HTTP报文中是没有序列号的，所以如果收到的响应失序了，就没办法将其与请求匹配起来
+- 必须**按照与请求相同的顺序回送HTTP响应**，因为**HTTP报文中是没有序列号的，所以如果收到的响应失序了，就没办法将其与请求匹配起来**
 - HTTP客户端必须做好连接会在**任意时刻关闭的准备**，还要**准备好重发所有未完成的管道化请求**
 - HTTP客户端**不应该用管道化的方式发送会产生副作用的请求**，比如`POST`请求。
 
 ### 6.1 Head of line blocking ###
 
-第一个请求耗费了服务器很多的处理时间，那么后面的请求都要等待第一个处理完，也就出现了线头阻塞。
+**第一个请求耗费了服务器很多的处理时间，那么后面的请求都要等待第一个处理完，也就出现了线头阻塞。**
 
 ## 7. request 和 response 报文头部字段 ##
 
@@ -438,51 +416,16 @@ Content-Length: 100
 
 2. HTTP 请求消息头部实例： 
 
-   ```http
-   Host：rss.sina.com.cn 
-   User-Agent：Mozilla/5、0 (Windows; U; Windows NT 5、1; zh-CN; rv:1、8、1、14) Gecko/20080404 Firefox/2、0、0、14 
-   Accept：text/xml,application/xml,application/xhtml+xml,text/html;q=0、9,text/plain;q=0、8,image/png,*/*;q=0、5 
-   Accept-Language：zh-cn,zh;q=0、5 
-   Accept-Encoding：gzip,deflate 
-   Accept-Charset：gb2312,utf-8;q=0、7,*;q=0、7 
-   Keep-Alive：300 
-   Connection：keep-alive 
-   Cookie：userId=C5bYpXrimdmsiQmsBPnE1Vn8ZQmdWSm3WRlEB3vRwTnRtW &lt;-- Cookie 
-   If-Modified-Since：Sun, 01 Jun 2008 12:05:30 GMT 
-   Cache-Control：max-age=0 
-   ```
-```
-
-   
-
-3. HTTP 响应消息头部实例： 
-
-   ```http
-   Status：OK - 200 &lt;-- 响应状态码，表示 web 服务器处理的结果。 
-   Date：Sun, 01 Jun 2008 12:35:47 GMT 
-   Server：Apache/2、0、61 (Unix) 
-   Last-Modified：Sun, 01 Jun 2008 12:35:30 GMT 
-   Accept-Ranges：bytes 
-   Content-Length：18616 
-   Cache-Control：max-age=120 
-   Expires：Sun, 01 Jun 2008 12:37:47 GMT 
-   Content-Type：application/xml 
-   Age：2 
-   X-Cache：HIT from 236-41、D07071951、sina、com、cn &lt;-- 反向代理服务器使用的 HTTP 头部 
-   Via：1.0 236-41.D07071951.sina.com.cn:80 (squid/2.6.STABLE13) 
-   Connection：close
-```
-
 
 ## 8. HTTP的基本优化 ##
 
-> 影响一个HTTP网络请求的因素主要有两个：**带宽和延迟。**
+**带宽**
 
-1. **带宽**
-2. **延迟**
-   1. **浏览器阻塞（HOL blocking）**：浏览器会因为一些原因阻塞请求。浏览器对于同一个域名，同时只能有 4 个连接（这个根据浏览器内核不同可能会有所差异），超过浏览器最大连接数限制，后续请求就会被阻塞。
-   2. **DNS 查询（DNS Lookup）**：浏览器需要知道目标服务器的 IP 才能建立连接。将域名解析为 IP 的这个系统就是 DNS。这个通常可以利用DNS缓存结果来达到减少这个时间的目的。
-   3. **建立连接（Initial connection）**：HTTP 是基于 TCP 协议的，浏览器最快也要在第三次握手时才能捎带 HTTP 请求报文，达到真正的建立连接，但是这些连接无法复用会导致每次请求都经历**三次握手和慢启动**。三次握手在高延迟的场景下影响较明显，慢启动则对文件类大请求影响较大。
+**延迟**
+
+1. **浏览器阻塞（HOL blocking）**：浏览器会因为一些原因阻塞请求。浏览器对于同一个域名，同时只能有 4 个连接（这个根据浏览器内核不同可能会有所差异），超过**浏览器最大连接数限制**，后续请求就会被阻塞。
+2. **DNS 查询（DNS Lookup）**：浏览器需要知道目标服务器的 IP 才能建立连接。将域名解析为 IP 的这个系统就是 DNS。这个通常可以利用DNS缓存结果来达到减少这个时间的目的。
+3. **建立连接（Initial connection）**：HTTP 是基于 TCP 协议的，浏览器最快也要在**第三次握手时才能捎带 HTTP 请求报文**，达到真正的建立连接，但是这些连接无法复用会导致每次请求都经历**三次握手和慢启动**。三次握手在高延迟的场景下影响较明显，慢启动则对文件类大请求影响较大。
 
 ## 9. HTTP,HTTP2.0,SPDY,HTTPS ##
 
@@ -490,11 +433,11 @@ Content-Length: 100
 
 ### 9.1 HTTP1.0和HTTP1.1的区别 ###
 
-HTTP1.0只是使用一些较为简单的网页上和网络请求上
+**HTTP1.0只是使用在一些较为简单的网页上和网络请求上**
 
 1. **缓存处理**
-   * HTTP1.0 使用 last-modified,Expires
-   * HTTP1.1 使用Entity tag，cache-control
+   * HTTP1.0 使用 `last-modified`，`Expires`
+   * HTTP1.1 使用`Entity tag`，`cache-control`
 2. **带宽优化及网络连接的使用**
    * HTTP1.0中，存在一些浪费带宽的现象，例如客户端**只是需要某个对象的一部分，**而服务器却将整个对象送过来了，并且不支持**断点续传功能** [断点续传功能——详情](#10. 断点续传原理)
 3. **错误通知的管理**，在HTTP1.1中新增了24个错误状态响应码，如
@@ -505,20 +448,11 @@ HTTP1.0只是使用一些较为简单的网页上和网络请求上
 
 5.  **长连接**，HTTP 1.1支持**长连接（Persistent Connection）**和**请求的流水线（Pipelining）处理**，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。
 
-### 9.2 HTTPS与HTTP的区别 ###
-
-* HTTPS协议需要到CA申请证书，一般免费证书很少，需要交费。
-* HTTP协议运行在TCP之上，所有传输的内容都是明文，HTTPS运行在SSL/TLS之上，SSL/TLS运行在TCP之上，所有传输的内容都经过加密的。
-* HTTP和HTTPS使用的是完全不同的连接方式，用的端口也不一样，前者是**80**，后者是**443**。
-* HTTPS可以有效的**防止运营商劫持**，解决了防劫持的一个大问题。
-
-![](../img/https-http1.webp)
-
-### 9.3 SPDY：HTTP1.x的优化 ###
+### 9.2 SPDY：HTTP1.x的优化 ###
 
 google提出了SPDY的方案，优化了HTTP1.X的**请求延迟**，解决了HTTP1.X的**安全性** ， SPDY位于HTTP之下，TCP和SSL之上，这样可以轻松兼容老版本的HTTP协议(将HTTP1.x的内容封装成一种新的frame格式)，同时可以使用已有的SSL功能。
 
-![img](C:/Users/nzq/Desktop/Learn/note/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/img/spdy.webp)
+![img](../img/spdy.webp)
 
 **具体优化如下：**
 
@@ -535,7 +469,7 @@ google提出了SPDY的方案，优化了HTTP1.X的**请求延迟**，解决了HT
 
    **把客户端所需要的资源伴随着index.html一起发送到客户端，省去了客户端重复请求的步骤。正因为没有发起请求，建立连接等操作，所以静态资源通过服务端推送的方式可以极大地提升速度。**
 
-### 9.4 **HTTP2.0和SPDY的区别** ###
+### 9.3 **HTTP2.0和SPDY的区别** ###
 
 HTTP2.0可以说是SPDY的升级版（其实原本也是基于SPDY设计的），但是，HTTP2.0 跟 SPDY 仍有不同的地方。
 **HTTP2.0和SPDY的区别：**
@@ -543,14 +477,14 @@ HTTP2.0可以说是SPDY的升级版（其实原本也是基于SPDY设计的）�
 1. HTTP2.0 支持**明文 HTTP 传输**，而 SPDY 强制使用 HTTPS
 2. HTTP2.0 消息**头的压缩算法**采用 [HPACK](https://links.jianshu.com/go?to=http%3A%2F%2Fhttp2.github.io%2Fhttp2-spec%2Fcompression.html)，而非 SPDY 采用的 [DEFLATE](https://links.jianshu.com/go?to=http%3A%2F%2Fzh.wikipedia.org%2Fwiki%2FDEFLATE)
 
-### 9.5 HTTP2.0和HTTP1.X 的区别 ###
+### 9.4 HTTP2.0和HTTP1.X 的区别 ###
 
 1. **新的二进制格式**（Binary Format），**HTTP1.x的解析是基于文本**。基于文本协议的格式解析存在天然缺陷，**文本的表现形式有多样性**，要做到健壮性考虑的场景必然很多，**二进制则不同，只认0和1的组合**。基于这种考虑HTTP2.0的协议解析决定采用二进制格式，实现方便且健壮。
 2. **多路复用**（MultiPlexing），即连接共享，即每一个request都是是用作连接共享机制的。一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的 id将request再归属到各自不同的服务端请求里面。
 3. **header压缩**，如上文中所言，对前面提到过HTTP1.x的header带有大量信息，而且每次都要重复发送，**HTTP2.0使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。**
 4. **服务端推送**（server push），同SPDY一样，HTTP2.0也具有server push功能。[参考](#服务端推送（server push）)
 
-### 9.6 HTTP2.0的多路复用和HTTP1.X中的长连接复用的区别 ###
+### 9.5 HTTP2.0的多路复用和HTTP1.X中的长连接复用的区别 ###
 
 * HTTP/1.* 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接；
 * HTTP/1.1 Pipeling解决方式为，**若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的[线头阻塞](#6.1 Head of line blocking)；**
@@ -591,51 +525,55 @@ HTTP2.0可以说是SPDY的升级版（其实原本也是基于SPDY设计的）�
 
 ### 11.1 什么是 HTTPS ###
 
-HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。
+HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer,安全套接字层上的超文本传输协议），是**以安全为目标的HTTP通道，简单讲是HTTP的安全版**。
 
 ![](../img/https-http1.webp)
 
 ### 11.2 HTTP 与 HTTPS 的区别 ###
 
-- HTTP 是明文传输，HTTPS 通过 SSL\TLS 进行了加密
-- HTTP 的端口号是 80，HTTPS 是 443
-- HTTPS 需要到 CA 申请证书，一般免费证书很少，需要交费
-- HTTP的连接很简单，是无状态的；HTTPS 协议是由 SSL+HTTP 协议构建的可进行加密传输、身份认证的网络协议，比 HTTP 协议安全。
+* HTTP和HTTPS使用的是完全**不同的连接方式**，用的端口也不一样，前者是**80**，后者是**443**。
+
+- HTTP的**连接很简单，是无状态的**；HTTPS 协议是由 SSL+HTTP 协议构建的可进行**加密传输、身份认证的网络协议**，比 HTTP 协议安全。
+- HTTP协议运行在TCP之上，所有传输的内容都是**明文**，HTTPS运行在SSL/TLS之上，SSL/TLS运行在TCP之上，所有传输的内容都经过**加密**的。
+- HTTPS可以有效的**防止运营商劫持**，解决了防劫持的一个大问题。
+- HTTPS协议需要到**CA申请证书**，一般免费证书很少，需要交费。
+
+![](../img/https-http1.webp)
 
 ### 11.3  HTTPS优缺点 ###
 
 #### 11.3.1 优点
 
-- 建立一个信息安全通道，来保证数据传输的安全
-- 加密隐私数据：防止您访客的隐私信息(账号、地址、手机号等)被劫持或窃取。
-- 安全身份认证：验证网站的真实性，防止钓鱼网站。
-- 防止网页篡改：防止数据在传输过程中被篡改，保护用户体验。
-- 地址栏安全锁：地址栏头部的“锁”型图标使您的访客放心浏览网页，提高用户信任度。
-- 提升网站流量：谷歌开始针对启用HTTPS网站给予更高的搜索引擎权重。
+- **加密隐私数据**：**防止您访客的隐私信息(账号、地址、手机号等)被劫持或窃取**。
+- **安全身份认证**:  **验证网站的真实性，防止钓鱼网站**。
+- **防止网页篡改**：防止数据在传输过程中被篡改，保护用户体验。
+- **地址栏安全锁**：地址栏头部的“锁”型图标使您的访客放心浏览网页，提高**用户信任度**。
+- **提升网站流量**：谷歌开始针对启用HTTPS网站给予更高的**搜索引擎权重**。
 
 #### 11.3.2　缺点
 
 [前端安全学习dns解析https dns劫持](<https://www.jianshu.com/p/9fd307782c7a?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation>)
-1. 安全
-  * HTTPS协议的加密范围有限，在黑客攻击、拒绝服务攻击、服务器劫持等方面几乎起不到什么作用
-  * SSL证书的信用链体系并不安全，特别是在某些国家可以控制CA根证书的情况下
-2. 加密解密过程。
-  * 用户体验，页面的加载时间延长近50%，HTTPS协议握手阶段比较费时
-  * 服务器端资源占用高
-  * 耗电10%~20%
-  * SEO方面
-3. 费用
-  * 需要支付证书授权的高额费用，小网站没必要
-
+1. **安全**
+   * **HTTPS协议的加密范围有限**，在黑客攻击、拒绝服务攻击、服务器劫持等方面几乎起不到什么作用
+   * SSL证书的信用链体系并不安全，特别是在某些国家可以控制CA根证书的情况下
+2. **加密解密过程**。
+   * 用户体验，页面的加载时间延长近50%，HTTPS协议握手阶段比较费时
+   * 服务器端资源占用高
+   * 耗电10%~20%
+   * SEO方面
+3. **费用**
+   * 需要支付证书授权的高额费用，小网站没必要
 ### 11.4 HTTPS 过程 ###
 
+[HTTPS加密过程和TLS证书验证](https://juejin.im/post/5a4f4884518825732b19a3ce)
+
 > ***`HTTPS` 采用混合的加密机制，使用非对称密钥加密用于传输对称密钥来保证传输过程的安全性，之后使用对称密钥加密进行通信来保证通信过程的效率。***
-一个HTTPS请求实际上包含了两次HTTP传输，可以细分为8步。
+一个HTTPS请求实际上包含了**两次HTTP传输**，可以细分为8步。
 
 1. 客户端向服务器发起HTTPS请求，连接到服务器的443端口
 2. 服务器端有一个密钥对，即公钥和私钥，是用来进行非对称加密使用的，服务器端保存着私钥，不能将其泄露，公钥可以发送给任何人。
 3. 服务器将**自己的公钥**发送给客户端。
-4. 客户端收到服务器端的公钥之后，会**对公钥进行检查，验证其合法性**，如果发现发现公钥有问题，那么HTTPS传输就无法继续。严格的说，这里应该是验证服务器发送的数字证书的合法性，关于客户端如何验证数字证书的合法性，下文会进行说明。如果公钥合格，那么客户端会生成一个随机值，**这个随机值就是用于进行对称加密的密钥**，我们将该密钥称之为client key，即客户端密钥，这样在概念上和服务器端的密钥容易进行区分。然后**用服务器的公钥对客户端密钥进行非对称加密**，这样客户端密钥就变成密文了，至此，HTTPS中的第一次HTTP请求结束。
+4. 客户端收到服务器端的公钥之后，会**对公钥进行检查，验证其合法性**，如果发现发现公钥有问题，那么HTTPS传输就无法继续。严格的说，这里应该是验证服务器发送的数字证书的合法性，关于客户端如何验证数字证书的合法性，下文会进行说明。如果公钥合格，**那么客户端会生成一个随机值，这个随机值就是用于进行对称加密的密钥**，我们将该密钥称之为client key，即客户端密钥，这样在概念上和服务器端的密钥容易进行区分。然后**用服务器的公钥对客户端密钥进行非对称加密**，这样客户端密钥就变成密文了，至此，HTTPS中的第一次HTTP请求结束。
 5. 客户端会发起HTTPS中的第二个HTTP请求，将加密之后的**客户端密钥**发送给服务器。
 6. 服务器接收到客户端发来的密文之后，会用自己的**私钥对其进行非对称解密，解密之后的明文就是客户端密钥**，然后用**客户端密钥对数据进行对称加密，**这样数据就变成了密文。
 7. 然后服务器将加密后的密文发送给客户端。
@@ -682,7 +620,7 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是�
 
 ##### 11.7.2.2 HTTPS降到HTTP
 
-假如客户端直接访问HTTPS的URL，攻击者是没办法直接进行降级，中间人攻击者在劫持了客户端与服务端的HTTP会话后，**将HTTP页面里面所有的 https:// 超链接都换成 http://** ，用户在点击相应的链接时，是使用HTTP协议来进行访问。
+中间人攻击者在劫持了客户端与服务端的HTTP会话后，**将HTTP页面里面所有的 https:// 超链接都换成 http://** ，用户在点击相应的链接时，是使用HTTP协议来进行访问。
 
 就算服务器对相应的URL只支持HTTPS链接，但中间人一样可以和服务建立HTTPS连接之后，将数据使用HTTP协议转发给客户端，实现**会话劫持**。
 
@@ -701,6 +639,12 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是�
 
 软件厂商
 
+### 11.8 扩展
+
+> [HTTP/2 下是否不需要再合并 CSS 文件了？](https://www.v2ex.com/amp/t/545199)
+
+HTTP2 支持链路复用那还需要合并吗（我这边头铁，直接回答的需要合并，事实上应该也是需要的，这个问题可以转化成 下载一个 100K 的文件快还是下载 10 个 10K 的文件快，在 TCP 有固定帧长度的情况下，其实合并的话，TCP的数据帧应该会少一点，但是 HTTP2 毕竟支持链路复用，应该也就是 1 秒和 1.2 秒的差距。不合并也有好处，比如更新某一个模块不需要重建整个打包文件的缓存，只需要更新对应模块的缓存就好了）
+
 ## 12 通信数据转发
 
 ### 12.1 代理
@@ -716,13 +660,15 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是�
 
 代理服务器分为正向代理和反向代理两种：
 
-- 用户察觉得到正向代理的存在。
+- 用户察觉得到**正向代理**的存在。
 
 <div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/a314bb79-5b18-4e63-a976-3448bffa6f1b.png" width=""/> </div><br>
-- 而反向代理一般位于内部网络中，用户察觉不到。
+- **反向代理**一般位于内部网络中，用户察觉不到。
 
 <div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/2d09a847-b854-439c-9198-b29c65810944.png" width=""/> </div><br>
-### 12.2 网关
+### 12.2 [网关]([https://baike.baidu.com/item/%E7%BD%91%E5%85%B3/98992?fr=aladdin](https://baike.baidu.com/item/网关/98992?fr=aladdin))
+
+> 网间连接器、[协议转换](https://baike.baidu.com/item/协议转换)器
 
 与代理服务器不同的是，网关服务器会将 HTTP 转化为其它协议进行通信，从而请求其它非 HTTP 服务器的服务。
 
@@ -730,3 +676,47 @@ HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是�
 
 使用 SSL 等加密手段，在客户端和服务器之间建立一条安全的通信线路。
 
+## 13 HTTP缓存
+
+### 13.1 强制缓存
+
+> 强制缓存(size: from disk cache)、对比缓存(status: 304)。
+>
+> 缓存规则信息包含在响应header
+
+（1）强制缓存优先级高于对比缓存，也就是说，当执行强制缓存的规则时，如果缓存生效，直接使用缓存，不再执行对比缓存规则。
+
+（2）对于强制缓存来说，响应header中会有两个字段来标明失效规则（Expires、Cache-Control）
+
+- ***Expires***的值为**服务端返回的到期时间**，即下一次请求时，请求时间小于服务端返回的到期时间，直接使用缓存数据。不过Expires 是HTTP 1.0的东西，现在默认浏览器均默认使用HTTP 1.1，所以它的作用基本忽略。另一个问题是，到期时间是由服务端生成的，但是客户端时间可能跟服务端时间有误差，这就会导致缓存命中的误差。所以HTTP 1.1 的版本，使用Cache-Control替代。
+
+- **Cache-Control** 是最重要的规则。常见的取值有private、public、no-cache、max-age，no-store，默认为private。
+
+  - private: 客户端可以缓存
+  - public: 客户端和代理服务器都可缓存（前端的同学，可以认为public和private是一样的）
+  - max-age=xxx: 缓存的内容将在 xxx 秒后失效
+  - no-cache: 需要使用对比缓存来验证缓存数据（后面介绍）
+  - no-store:  **所有内容都不会缓存，强制缓存，对比缓存都不会触发**（对于前端开发来说，缓存越多越好，so...基本上和它说886）
+
+- **Pragma**
+
+  http 1.0 ,规范定义的唯一形式
+
+  ```http
+  Pragme:no-cache
+  ```
+
+  只用于客户端发送的请求中。客户端会要求所有的中间服务器不返回缓存的资源。
+
+  如果所有的中间服务器都以实现http/1.1为标准，那么直接使用Cache-Control:no-cache即可，如果不是的话，就要包含两个字段
+
+  ```http
+  Cache-Control:no-cache
+  ```
+
+### 13.2 协商缓存
+
+（1）对比缓存，顾名思义，需要进行比较判断是否可以使用缓存。浏览器第一次请求数据时，服务器会将缓存标识与数据一起返回给客户端，客户端将二者备份至缓存数据库中。再次请求数据时，客户端将备份的缓存标识发送给服务器，服务器根据缓存标识进行判断，判断成功后，返回304状态码，通知客户端比较成功，可以使用缓存数据。缓存标识的传递是我们着重需要理解的，它在请求header和响应header间进行传递，一共分为两种标识传递，接下来，我们分开介绍。
+
+- Last-Modified(response header) / If-Modified-Since(request header用来发送last-modified)
+- Etag(服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）) / If-None-Match(发送Etag)。（优先级高于Last-Modified  /  If-Modified-Since）
