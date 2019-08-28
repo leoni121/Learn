@@ -1,6 +1,7 @@
 /**
  * @Author nzq
  * @Date 2019/5/27
+ * [丑数](https://www.nowcoder.com/practice/6aa9e04fc3794f68acf8778237ba065b?tpId=13&tqId=11186&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  * @Description: 把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。
  * @Param:
  * @Return:
@@ -33,7 +34,7 @@
 重点说说下面代码中p的作用：int p[] = new int[] { 0, 0, 0 }; p[0]表示最小用于
 乘2比较数在数组a中的【位置】。
 */
-*
+
 // p=2^x * 3^y * 5^z
 function GetUglyNumber_Solution(index)
 {
@@ -43,14 +44,14 @@ function GetUglyNumber_Solution(index)
     return index;
   }
 
-  //p2，p3，p5分别为三个队列的指针，newNum为从队列头选出来的最小数
+  //p2，p3，p5分别为arr中的三个指针，newNum为从队列头选出来的最小数
   let p2 = 0,
     p3 = 0,
     p5 = 0,
     newNum = 1,
     arr = [1];
 
-  while(arr.length < index) {
+  while(--index) { // 数组中默认有个 [1]
     //选出三个队列头最小的数
     newNum = Math.min(arr[p2] * 2, Math.min(arr[p3] * 3, arr[p5] * 5));
     //这三个if有可能进入一个或者多个，进入多个是三个队列头最小的数有多个的情况

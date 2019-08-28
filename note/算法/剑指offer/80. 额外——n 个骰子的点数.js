@@ -25,6 +25,7 @@ function __rate(s, n) {
   const pointNum = face * n;
   const dp = [];
 
+  // 初始化
   for (let i = 1; i <= face; i++) dp[i] = [];
   for (let i = 1; i <= face; i++) dp[1][i] = 1;
 

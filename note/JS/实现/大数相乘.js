@@ -1,12 +1,11 @@
-```js
 /**
  * @Author nzq
- * @Date 2019-08-05
+ * @Date 2019-08-28
  * @Description:
  * @Param:
  * @Return:
  */
-// 大数相乘
+
 function bigNumMulti(num1, num2) {
   let arr1 = [...num1.toString()],
     res = '',
@@ -17,6 +16,7 @@ function bigNumMulti(num1, num2) {
   return res;
 }
 
+// 实现 乘10*idx
 function fillZero (str, num) {
   for (let i = 0; i < num; i++) str += '0';
   return str;
@@ -51,5 +51,3 @@ function bigNumAdd(num1, num2) {
 }
 
 console.log(bigNumMulti(100, 1234));
-
-```

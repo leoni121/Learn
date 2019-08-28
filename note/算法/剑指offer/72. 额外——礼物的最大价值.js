@@ -18,7 +18,7 @@ function getMost (values) {
   for (let i = 0; i < n; i++) dp[i] = [];
 
   dp[0][0] = values[0][0];
-  // 初始左、上两个变上面的值
+  // 初始左、上两个边上面的值
   for (let i = 1; i < n; i++) {
     dp[0][i] = dp[0][i-1]+values[0][i];
     dp[i][0] =dp[i-1][0]+values[i][0];

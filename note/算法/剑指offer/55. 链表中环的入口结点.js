@@ -1,6 +1,7 @@
 /**
  * @Author nzq
  * @Date 19-6-15
+ * [链表中环的入口结点](https://www.nowcoder.com/practice/253d2c59ec3e4bc68da16833f79a38e4?tpId=13&tqId=11208&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  * @Description:
  给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。
  * @Param:
@@ -79,12 +80,15 @@ function EntryNodeOfLoop(pHead) {
   //循环出来的话就是有环，且此时fast==slow.
   fast = pHead;
   // fast pHead 出发， slow 重相遇点出发
-  while (fast != slow) {
+  while (fast !== slow) {
     fast = fast.next;
     slow = slow.next;
   }
   return slow;
 }
+
+
+
 console.log(EntryNodeOfLoop({
   val: 1,
   next: {

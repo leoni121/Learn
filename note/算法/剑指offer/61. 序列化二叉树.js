@@ -1,6 +1,7 @@
 /**
  * @Author nzq
  * @Date 19-6-18
+ * [序列化二叉树](https://www.nowcoder.com/practice/cf7e25aa97c04cc1a68c8f040e71fb84?tpId=13&tqId=11214&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  * @Description: 请实现两个函数，分别用来序列化和反序列化二叉树
  * @Param:
  * @Return:
@@ -14,10 +15,6 @@
 在递归时，递归函数的参数一定要是char ** ，这样才能保证每次递归后指向字符串的指针会
 随着递归的进行而移动！！！)
 */
-*
-*
-*
-/
 
 /* function TreeNode(x) {
     this.val = x;
@@ -37,7 +34,7 @@ function Serialize(pRoot) {
 	}
 }
 
-function Deserialize(s) {
+function Deserialize() {
 	// write code here
 	let tree = null;
 	if (!arr.length) return tree;

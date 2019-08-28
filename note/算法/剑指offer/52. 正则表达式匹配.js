@@ -1,6 +1,7 @@
 /**
  * @Author nzq
  * @Date 19-6-15
+ * [正则表达式匹配](https://www.nowcoder.com/practice/45327ae22b7b413ea21df13ee7d6429c?tpId=13&tqId=11205&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  * @Description: 请实现一个函数用来匹配包括'.'和'*'的正则表达式。模式中的字符'.'表示任意一个字符，而'*'表示它前面的字符可以出现任意次（包含0次）。 在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但是与"aa.a"和"ab*a"均不匹配
  * @Param:
  * @Return:
@@ -15,14 +16,13 @@ function match(s, pattern)
   if (s && !pattern) return false; // 不相等
 
   if (pattern[1] === '*') { // 第二个是 "*" 号的时候
-    if (pattern[0] === s[0] || (pattern[0]=='.' && s[0])) { // 第一个相等的时候
-      // 匹配 0个 或者 多个
+    if (pattern[0] === s[0] || (pattern[0] === '.' && s[0])) { // "字符*" 匹配 0个 或者 多个
       return match(s, pattern.slice(2)) || match(s.slice(1), pattern);
     } else { // "字符*" 匹配空
       return match(s, pattern.slice(2));
     }
-  } else {
-    if (pattern[0] === s[0] || (pattern[0]=='.' && s[0])) { // 第一个相等的时候
+  } else { // 第二个不是 "*" 号的时候
+    if (pattern[0] === s[0] || (pattern[0] === '.' && s[0])) { // 第一个相等的时候
       return match(s.slice(1), pattern.slice(1));
     } else {
       return false;

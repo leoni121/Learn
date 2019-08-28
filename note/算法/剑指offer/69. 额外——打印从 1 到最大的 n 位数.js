@@ -5,3 +5,66 @@
  * @Param:
  * @Return:
  */
+
+/**
+ * [输出1到最大n位数之间的所有数](https://www.cnblogs.com/kaituorensheng/p/3604195.html)
+ */
+
+// 模拟现实 逢9进1
+let end_index = 0;
+
+function prletNum(size) {
+  if(size < 0)
+    return false;
+  let a = new Array(size).fill('9');
+  while(1)
+  {
+    if(end_index === size - 1 && a[size - 1] === '0') { // 当前为0
+      break;
+    }
+
+    for(let i = 0; i < size; ++i)
+    {
+      if(end_index > i && a[i] === '0') {
+        continue;
+      }
+      console.log(a[i]);
+    }
+
+    if(!minuxOne(a, end_index, size)) {
+      break;
+    }
+  }
+  return true;
+}
+
+function minuxOne(a, end_index, size) {
+  if((end_index === size - 1 && a[size - 1] === '0') || end_index < 0 || end_index >= size)
+    return false;
+  let tmp = size - 2;
+  if(a[size - 1] !== '0')
+    --a[size -1];
+  else
+  {
+    a[size - 1] = '9';
+    while(1)
+    {
+      if(a[tmp] === '0')
+      {
+        a[tmp] = '9';
+        --tmp;
+      }
+      else
+      {
+        --a[tmp];
+        break;
+      }
+    }
+    if(a[end_index] === '0')
+      ++end_index;
+  }
+  return true;
+}
+
+let size = 5;
+prletNum(1);

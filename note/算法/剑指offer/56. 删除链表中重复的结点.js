@@ -2,6 +2,7 @@
  * @Author nzq
  * @Date 19-6-15
  * @Description:
+ * [删除链表中重复的结点](https://www.nowcoder.com/practice/fc533c45b73a41b0b44ccba763f866ef?tpId=13&tqId=11209&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1->2->3->3->4->4->5 处理后为 1->2->5
  * @Param:
  * @Return:
@@ -42,8 +43,9 @@ function _deleteDuplication(pHead) {
 	return pHead;
 }
 
+// 递归
 function deleteDuplication(pHead) {
-	if (!pHead || !pHead.nextß) return pHead;
+	if (!pHead || !pHead.next) return pHead;
 
 	let next = pHead.next;
 	if (pHead.val === next.val) {

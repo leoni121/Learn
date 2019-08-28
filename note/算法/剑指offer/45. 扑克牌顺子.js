@@ -9,21 +9,21 @@
 // 满足条件：
 // 1. max - min < 6
 // 2. 除 大小王 以外没有重复的牌
-// 3. 数组的长度为5
 function IsContinuous(numbers)
 {
   // write code here
+  // 14 种不同的牌型，记录numbers中牌型的数量
   let arr = new Array(14).fill(0),
     len = numbers.length,
-    max = -1,
-    min = 14;
+    max = 0, // 记录最大的牌
+    min = 13; // 记录最小的牌
 
   if (len !== 5) {
     return false;
   }
   for (let i = 0; i < len; i++) {
     arr[numbers[i]]++;
-    if (numbers[i] !== 0) { // 不是大小王的情况
+    if (numbers[i] !== 0) { // 不是大小王
       if (arr[numbers[i]] > 1) { // 成对
         return false;
       }

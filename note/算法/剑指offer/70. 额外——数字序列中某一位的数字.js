@@ -24,8 +24,8 @@ function getDigitIndex(index) {
 }
 
 /**
- * place 位数的数字组成的字符串长度
- * 10, 90, 900, ...
+ * place数字的位数对应的数字组成的字符串长度
+ * 1=>10, 2=>90, 3=>900, ...
  */
 function getAmountOfPlace(place) {
     if (place === 1)

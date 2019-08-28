@@ -1,6 +1,7 @@
 /**
  * @Author nzq
  * @Date 2019/6/4
+ * [孩子们的游戏(圆圈中最后剩下的数)](https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&tqId=11199&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  * @Description: 每年六一儿童节,牛客都会准备一些小礼物去看望孤儿院的小朋友,
  * 今年亦是如此。HF作为牛客的资深元老,自然也准备了一些小游戏。其中,有个游戏是这样的:
  * 首先,让小朋友们围成一个大圈。然后,他随机指定一个数m,让编号为0的小朋友开始报数。
@@ -11,33 +12,37 @@
  * @Param:
  * @Return:
  */
-]
 
-function LastRemaining_Solution(n, m) {
+function _LastRemaining_Solution(n, m) {
     // write code here
     if (m === 0 || n === 0) {
         return -1;
     }
     let idx = 0,
         arr = [];
-    for (let i = 0; i < n; i++) { // n 个小孩子
-        arr[i] = i; // 记录位置 0 开始
+
+    // n 个小孩子,用数组表示
+    for (let i = 0; i < n; i++) {
+        arr[i] = i;
     }
+
     while (arr.length > 1) {
-        // (idx + m - 1) 当前位置开始的第 m 个孩纸
+        // 当前位置开始的第 m 个孩纸
         idx = (idx + m - 1) % arr.length;
+        // 孩子出列
         arr.splice(idx, 1);
     }
     return arr[0];
 }
 
 // 思路二：递归
-// 约瑟夫环，圆圈长度为 n 的解可以看成长度为 n-1 
+/** [参考](https://www.nowcoder.com/questionTerminal/f78a359491e64a50bce2d89cff857eb6)*/
+// 约瑟夫环，圆圈长度为 n 的解可以看成长度为 n-1
 // 的解再加上报数的长度 m。因为是圆圈
 // ，所以最后需要对 n 取余。
 // f[1]=0;
 // f[i]=(f[i-1]+m)%i;  (i>1)
-// 
+//
 //  0  1
 //  3  2
 function LastRemaining_Solution(n, m) {
@@ -52,12 +57,3 @@ function LastRemaining_Solution(n, m) {
     }
 
 }
-
-
-// 单循环链表
-/*
- * {
- *  next,
- *  val,
- * }
- */

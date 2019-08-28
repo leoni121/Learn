@@ -1,6 +1,7 @@
 /**
  * @Author nzq
  * @Date 2019/5/29
+ * [平衡二叉树](https://www.nowcoder.com/practice/8b3b95850edb4115918ecebdf1b4d222?tpId=13&tqId=11192&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
  * @Description: 输入一棵二叉树，判断该二叉树是否是平衡二叉树。
  * @Param:
  * @Return:
@@ -15,16 +16,6 @@
 function IsBalanced_Solution(pRoot)
 {
   // write code here
-/*  let mark = false;
-  if (cenTravel(pRoot) !== -1) {
-    mark = true;
-    for (let i = 0, len = cenTraArr.length; i < len - 1; i++) {
-      if (cenTraArr[i] > cenTraArr[i + 1]) {
-        mark = false;
-      }
-    }
-  }
-  return  mark;*/
 
   return cenTravel(pRoot) !== -1;
 }
