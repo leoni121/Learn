@@ -1,0 +1,196 @@
+> 360　面试官人都很好，无赖我太菜。
+>
+> 一面：面试官是个大叔。大叔自我介绍，做的事情、技术栈等等flutter（我在二面说面试官是个大叔，要死）
+>
+> 二面：面试官是一个小哥哥，很严肃，不过人很好
+
+1. let、const、var；其他的声明方式，
+
+2. 数组随机打乱
+
+   ```js
+   function shuffle(arr) {
+       const len = arr.length,
+             num = len;
+       if(len <= 1) return arr;
+       for(let i = 0;i<len;i++) {
+           arr.splice(0, 1, arr[getPosByMaxNum(num--)]);
+       }
+   }
+   
+   function getPosByMaxNum(num) {
+       return Math.floor(Math.random() * num + 1);
+   }
+   ```
+
+3. dom 子元素的翻转
+
+   ```js
+   let lis = document.querySelectorAll("#ul li");
+   let temArr = [];
+   for(let i = 0;i<lis.length;i++) {
+       temArr.push({
+           text: lis[i].innerText,
+           node: lis[i],
+       });
+   }
+   let frage = document.createFragment();
+   temArr.sort((pre, cur) => {
+       return pre.text - cur.text;
+   })
+   for(let i = 0;i<temArr.length;i++) {
+       frage.append(temArr.node);
+   }
+   body.append(frage);
+   ```
+
+   
+
+4. 实现版本的比较,固定４位
+
+   ```js
+   // '2.13.23.3'
+   // '2.32.13.4'
+   // '2.43.23.6'
+   
+   function sort(verArr, len = 4) {
+       verArr.sort((pre, cur) => {
+           let preArr = pre.split("."), curArr = cur.split(".");
+           for(let i = 0; i<len;i++) {
+               if(preArr[i] !== curArr[i]) {
+                   return preArr[i] - curArr[i];
+               }
+           }
+       })
+       return verArr;
+   }
+   ```
+
+5. flex　三列布局
+
+   ```css
+   .parent {
+       display: flex;
+   }
+   
+   .logo {
+       width: 80px;
+       height: 80px;
+       flex-shirk: 0;
+       flex-growth: 0;
+   }
+   .detail {
+       break-word: wrap;
+       overflow: hidden;
+       // ..
+   }
+   a {
+       display: inline-block;
+       width: 100px;
+       flex-shirk: 0;
+   }
+   ```
+
+   
+
+6. son　实现居中，宽度是屏幕的一般，高度等于宽度
+
+   ```html
+   <style>
+   	body, html ｛
+       height: 100%;
+   ｝
+   #parent {
+       height: 100%;
+       position: relative;
+   }
+   .box {
+           position: absolute;
+       left；　５０％；
+       top: 50%;
+       transform: translate(-50%, -50%);
+       width: 50%;
+       background-color: yellow;
+   }
+   .box:before {
+       content: '',
+       display: inline-block;
+       height: 50%;
+       width: 0;
+   }
+   </style>
+   <div class="parent">
+     <div class="son"></div>
+   </div>
+   ```
+
+   
+
+7. sort　原理，不看源码的情况下怎么知道sort　内部使用的什么算法（大量的sort　运算，统计对应的时间复杂度），怎么知道使用的是插入排序而不是冒泡排序（冒泡排序最大或最小的数，不管运行几趟总是在最后面，而插入排序不是）
+
+8. 项目中的难点
+
+9. vue　相关的双向绑定原理，数组、对象实现界面更新的原理
+
+10. vue 3.0　相关proxy　api
+
+11. vue、或者其他的东西封装过组件没有
+
+12. 蘑菇街首页瀑布流实现
+
+13. 蘑菇街做得事情
+
+14. 你感觉一面面得怎么样
+
+15. 数组扁平化
+
+    ```js
+    function flat(arr) {
+        let res = "";
+        for(let i = 0;i<arr.length;i++) {
+            if(Object.prototype.toString.call(arr[i]) === "[Object array]") {
+                res += flat(arr[i]) + ","
+            }
+            res += arr[i] + ",";
+        }
+        return res.subString(0, res.length-1);
+    }
+    
+    ```
+
+16. 浏览器事件循环、题目
+
+    ```js
+    setTimeout(()=> {
+      console.log(1);
+    }, 200)
+    var pro = new Promise((resolve ,reject) => {
+      console.log(2);
+      setTimeout(() => {
+        resolve(3);
+      }, 200)
+    })
+    pro.then((v) => {
+      console.log('then', v);
+    })
+    console.log(4);
+    ```
+
+    
+
+17. 智能交通项目中的　“提升了项目的整体性能”　是怎么做得（答：webpack主要、像一些缓存等等）
+
+18. hash 配合服务端，浏览器缓存（强协商缓存没答全，没深入，很烦！！！）
+
+19. 自己相对其他人的优势
+
+20. 为什么现在不用jquery了，而是其他的vue/react　等等
+
+21. 对组件化的看法，怎么划分组件
+
+22. 有没有使用过vuex
+
+23. 有没有看过react　router　相关的（问项目整体架构相关的东西，像在问确认我有没有做过项目，答：蘑菇街的项目整体的脚手架，配置相关）
+
+24. 源码、自律难得
+
