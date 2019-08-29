@@ -28,136 +28,159 @@
  */
 
 const print = console.log;
+/*let n, stack = [], line;
 
-/*
-let line, n;
-/!*while ((n = readInt())) {
-  line = read_line();
-}*!/
-n = 7;
-// line = 'AaAAAA';
-line = 'aAAaaaa';
-
-let count = 0,
-  small = 'a'.charCodeAt(0),
-  big = 'Z'.charCodeAt(0),
-  preStatus = 'small'; // big
-
-// print(n+Math.min(count, n-count));
-let smallNum = 0;
-for (let i = 0; i < n; i++) {
-  if (line[i].charCodeAt(0)>=small) {
-    smallNum++;
-  }
+let A_ASCII = 'A'.charCodeAt(0);
+for (let i = 0; i < 13; i++) {
+  stack.push({
+    num: 0,
+    mine: false,
+  });
 }
-if (smallNum <= Math.floor(n / 2)) {
-  smallNum = 0;
-  for (let i = 0; i < n; i++) {
-    if (preStatus === 'small' && line[i].charCodeAt(0)<=big) {
-      preStatus = 'big';
-      if (smallNum >= 2) {
-        count+=2;
-      } else {
-        count ++;
+
+while ((n=readInt()) != null) {
+  line = read_line().split("");
+  for (let i = 0; i < line.length; i++) {
+    stack[line[i].charCodeAt(0)-A_ASCII].mine = true;
+  }
+  line = read_line().split(" ");
+  for (let i = 0; i < line.length; i++) {
+    stack[i].num = parseInt(line[i]);
+  }
+
+  let max  = -Infinity, maxIdx;
+  for (let i = 0; i < 13; i++) {
+    if (!stack[i].mine) {
+      if (stack[i].num > max) {
+        max = stack[i].num;
+        maxIdx = i;
       }
-      smallNum = 0;
-    } else if (preStatus === 'big' && line[i].charCodeAt(0)>=small) {
-      preStatus = 'small';
-      smallNum++;
     }
   }
-} else {
-  let bigNum = 0;
-  for (let i = 0; i < n; i++) {
-    if (preStatus === 'small' && line[i].charCodeAt(0)<=big) {
-      preStatus = 'big';
-      bigNum++;
-    } else if (preStatus === 'big' && line[i].charCodeAt(0)>=small) {
-      preStatus = 'small';
-      if (bigNum >= 2) {
-        count+=2;
-      } else {
-        count ++;
-      }
-      bigNum = 0;
+  const res = String.fromCharCode(A_ASCII+maxIdx);
+  print(res);
+}*/
+
+/**
+ *       1  2  3
+ *    $1 @     @
+ *    $2
+ *    $3 @  @
+ *
+ *    1. 统计不会语言的人数
+ *    2. 语言按人数多到少排序
+ *    3. 查找是否存在会前一个和后一个语言的
+ *    4. 标记连通性
+ * */
+
+/*let n,
+  m,
+  k,
+  man,
+  lanuage,
+  peopleArr, // n， 会几门语言
+  lanuageArr; // m， 被几个人会
+let res = 0; // 学习节个数
+while((n=readInt()) != null && (m=readInt()) != null && (k=readInt()) != null) {
+  peopleArr = new Array(n+1);
+  lanuageArr = new Array(m+1).fill(0);
+  while(k--) {
+    [man, lanuage] = read_line().split(" ");
+    if (!peopleArr[man]) peopleArr = [];
+    peopleArr[man].push(lanuage);
+
+    if(!lanuageArr[lanuage]){
+        lanuageArr[lanuage] = {num: 0};
+    }
+    lanuageArr[lanuage].lang = lanuage;
+    lanuageArr[lanuage].num++;
+  }
+
+  // 改
+  lanuageArr.sort((pre, cur) => cur.num - pre.num);
+  lanuageArr.pop();
+  lanuageArr.unshift({num: 0});
+
+  // 统计不会语言得人
+  let cantLan =  0;
+  for (let i = 1; i < peopleArr.length; i++) {
+    if (!peopleArr[i]) {
+      peopleArr[i] = [];
+      peopleArr[i].push(lanuageArr[1].lang);
+      cantLan++;
     }
   }
-}
+  res+=cantLan;
+  lanuageArr[1].num += cantLan;
 
-print(count + n)
-*/
-
-
-
-
-////////////////////////////////////////////////////////////////////////
-/*
-let line, arr = [], stack = {};
-
-/!*while((line = read_line())) {
-  arr.push(line.split(" "));
-}*!/
-arr = [
-  ['ZHANG','SAN'],
-  ['LI','SI'],
-  ['WANG', 'WU'],
-  ['WANG', 'LIU'],
-  ['WANG', 'QI'],
-  ['ZHANG', 'WU'],
-  ['LI', 'WU'],
-];
-
-for (let i = 0; i < arr.length; i++) {
-  if (stack[arr[i][0]]) {
-    stack[arr[i][0]]++;
-  } else {
-    stack[arr[i][0]] = 1;
+  // 找会 lanuageArr[1] 语言的人有没有人会 lanuageArr[2]; 类推
+  let curLang, nextLang, mark = false;
+  for (let i = 1; i < lanuageArr.length-1 && lanuageArr[i+1].num!==0; i++) {
+    curLang = lanuageArr[i].lang;
+    nextLang = lanuageArr[i+1].lang;
+    mark = false;
+    for (let j = 1; j < peopleArr.length; j++) {
+      if (peopleArr[j].indexOf(curLang)!==-1 && peopleArr[j].indexOf(nextLang)!==-1) {
+        mark = true;
+        break;
+      }
+    }
+    if (!mark) {
+      res++;
+    }
   }
-}
-arr.sort(function (pre, cur) {
-  if (pre[0] !== cur[0] && stack[pre[0]] !== stack[cur[0]]) return stack[cur[0]] - stack[pre[0]];
-})
-
-for (let i = 0; i < arr.length; i++) {
-  print(arr[i].join(" "))
+  print(res)
 }*/
 
+let n,
+  m,
+  k,
+  man,
+  lanuage,
+  peopleArr, // n， 会几门语言
+  lanuageArr; // m， 被几个人会
+let res = 0; // 学习节个数
 
+lanuageArr = [{num: 0}, {lang: 1, num: 1}, {num: 0}, {lang: 3, num: 1}];
+peopleArr = [0, 0, [3], [1]];
+  lanuageArr.sort((pre, cur) => cur.num - pre.num);
+  lanuageArr.pop();
+  lanuageArr.unshift({num: 0});
 
-////////////////////////////////////////////////////////////////////////
-let line, n,
-  small = 'a'.charCodeAt(0),
-  big = 'Z'.charCodeAt(0);
-
-
-/*while ((n = readInt())) {
-  line = read_line();
-}*/
-n = 8;
-line = 'AaaaaAaAA';
-let preStatus = 'small',
-  smallNum = 0,
-  bigNum = 0,
-  count = 0;
-
-smallNum = 0;
-bigNum = 0;
-for (let i = 0; i < n; i++) {
-  if (preStatus === 'small' && line[i].charCodeAt(0) <= big) { // 小=> 大
-    preStatus = 'big';
-    if (i === 0) count++;
-    if (smallNum >= 2) count++;
-    smallNum = 0;
-  } else if (preStatus === 'small' && line[i].charCodeAt(0) >= small) { // 小=>小
-    smallNum++;
-  } else if (preStatus === 'big' && line[i].charCodeAt(0) >= small) { // 大=>小
-    preStatus = 'small';
-    if (bigNum >= 2) count++;
-    bigNum = 0;
-  } else if (preStatus === 'big' && line[i].charCodeAt(0) <= big) { // 大 => 大
-    bigNum++;
+  // 统计不会语言得人
+  let cantLan =  0;
+  for (let i = 1; i < peopleArr.length; i++) {
+    if (!peopleArr[i]) {
+      peopleArr[i] = [];
+      peopleArr[i].push(lanuageArr[1].lang);
+      cantLan++;
+    }
   }
-}
-count++;
-print(count + n)
+  res+=cantLan;
+  lanuageArr[1].num += cantLan;
 
+  // 找会 lanuageArr[1] 语言的人有没有人会 lanuageArr[2]; 类推
+  let curLang, nextLang, mark = false, langMarkArr = [undefined, true];
+ lanuageArr[1].mark = true; // 标记连通性
+  for (let i = 1; i < lanuageArr.length-1 && lanuageArr[i+1].num!==0; i++) {
+    curLang = lanuageArr[i].lang;
+    nextLang = lanuageArr[i+1].lang;
+    mark = false;
+    if (!langMarkArr[i].mark) {
+      for (let j = 1; j < peopleArr.length; j++) { // 遍历对应的人数
+        if (peopleArr[j].length >= 2 && peopleArr[j].indexOf(curLang)!==-1) {
+          for (let )
+            if (peopleArr[j].indexOf(nextLang) !== -1) {
+              mark = true;
+            } else {
+              langMarkArr[j]
+            }
+        }
+      }
+
+      if (!mark) {
+        res++;
+      }
+    }
+  }
+  print(res)
