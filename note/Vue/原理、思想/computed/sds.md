@@ -24,13 +24,14 @@ defineComputed (
 }
 
 sharedPropertyDefinition = {
-	get: function computedGetter () {
-  const watcher = this._computedWatchers && this._computedWatchers[key]
-  if (watcher) {
-    watcher.depend()
-    return watcher.evaluate()
-  }
-},
+    get: function computedGetter () {
+      const watcher = this._computedWatchers && this._computedWatchers[key]
+      if (watcher) {
+        watcher.depend()
+        return watcher.evaluate()
+      }
+    },
+  ｝
 
 
 // 3 

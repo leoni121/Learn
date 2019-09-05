@@ -17,7 +17,7 @@ function get (arr) {
   if (len === 0) return 0;
 
   let max = arr[0],
-    temp = [arr[0]];
+    temp = [arr[0]]; //　对应位置结尾的最大的和
 
   for (let i = 1; i < len; i++) {
     temp[i] = Math.max(temp[i-1] + arr[i], arr[i]);
@@ -26,4 +26,4 @@ function get (arr) {
   return max;
 }
 
-console.log(get([-1,2,3,4,-5]))
+console.log(get([-1,2,3,-2,4,-5]))

@@ -25,13 +25,11 @@
 //   （2）继续 “2.” 中的步骤。
 //3.返回。
 
-let __count = 0;
+let count = 0;
 function numIslands(grid) {
     if(!grid.length || !grid[0].length) return 0; //测试用例中是否有空测试样例
-    let count = 0;
     for(let i=0; i < grid.length; i++){
         for(let j=0; j < grid[0].length; j++){
-            __count++;
             if(grid[i][j] == '1'){
                 count++;
                 dfs(grid, i, j);
@@ -43,7 +41,6 @@ function numIslands(grid) {
 function dfs(grid, i, j){
     if(i >= grid.length || i < 0 || j>= grid[0].length || grid[i][j] != '1') return;
 
-    console.log(__count++);
     // 属于同一个岛屿
     grid[i][j] = '0'; // 置1
     // 看周围是不是属于岛屿
@@ -57,6 +54,6 @@ numIslands([
   [1,1,1,1,0],
   [1,1,0,1,0],
   [1,1,0,0,0],
-  [0,0,0,0,0],
+  [0,0,0,1,0],
 ])
-console.log(__count);
+console.log(count);

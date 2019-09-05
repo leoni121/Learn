@@ -1,7 +1,7 @@
 /**
  * @Author nzq
  * @Date 2019-07-22
- * @Description: 在一个 m\*n 的棋盘的每一个格都放有一个礼物，每个礼物都有一定价值（大于 0）。从左上角开始拿礼物，每次向右或向下移动一格，直到右下角结束。给定一个棋盘，求拿到礼物的最大价值。例如，对于如下棋盘
+ * @Description: 在一个 m*n 的棋盘的每一个格都放有一个礼物，每个礼物都有一定价值（大于 0）。从左上角开始拿礼物，每次向右或向下移动一格，直到右下角结束。给定一个棋盘，求拿到礼物的最大价值。
  * @Param:
  * @Return:
  */
@@ -14,7 +14,7 @@
 function getMost (values) {
 // write code here
   let n = values.length;
-  let dp = [];
+  let dp = [];　//　记录当前i,j 位置到　0, 0 的最大的走法。
   for (let i = 0; i < n; i++) dp[i] = [];
 
   dp[0][0] = values[0][0];

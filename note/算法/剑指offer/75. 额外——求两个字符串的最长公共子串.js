@@ -1,18 +1,16 @@
-/*
-    str1-x  1 2 3 4 5 6 7
-str2-y
-1
-2
-3
-4
-5
-6
-7
-
-
-
+/** str1: acbcbcef; str2: abcbced
+      str1-x  1 2 3 4 5 6 7 8
+str2-y        a c b c b c e f
+    1 a       1 0 0 0 0 0 0 0
+    2 b       0 0 1 0 1 0 0 0
+    3 c       0 1 0 2 0 2 0 0
+    4 b       0 0 1 0 3 0 0 0
+    5 c       0 1 0 1 0 4 0 0
+    6 e       0 0 0 0 0 0 5 0
+    7 d       0 0 0 0 0 0 0 0
  */
 
+//　思路：连续子字符串就是　一条条从 左上到右下的线长
 function getLongstSubStr(str1, str2) {
   if(str1.length === 0 || str2.length === 0) return '';
   let x = str1.length,

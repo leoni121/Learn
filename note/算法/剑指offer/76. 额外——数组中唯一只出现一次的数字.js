@@ -8,6 +8,9 @@
  * @Return:
  */
 
+/**
+ * 不同于“一个数字超过一半，找出来”　这种
+ * */
 
 // 思路： 如果一个数字出现三次，那么它的二进制表示的每一位（ 0 或者 1 ）也出现三次。如果把所有出现三次的数字的二进制表示的每一位都分别加起来，那么每一位的和都能被 3 整除
 // 我们把数组中所有数字的二进制表示的每一位都加起来。如果某一位的和能被 3 整除，那么那个只出现一次的数字二进制表示中对应的那一位是 0 ；否则就是 1
@@ -31,8 +34,6 @@ function FindNumsAppearOnce(data){
     }
   }
 
-  console.log(bitSum)
-
   let result = 0;
   for(let i=0; i < 32; i++){
     console.log(bitSum[i]%3)
@@ -42,3 +43,4 @@ function FindNumsAppearOnce(data){
   return result;
 }
 
+FindNumsAppearOnce("3331113332220")

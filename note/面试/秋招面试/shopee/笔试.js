@@ -1,29 +1,29 @@
 const print = console.log;
 
-/*
+
 // 笛卡尔乘积
-/!*
+/*
 * arr = [
     ['a1', 'a2', 'a3'],
     ['b1', 'b2'],
   ]
-* *!/
+*/
 
-/!*
+/*
  arr = [
    ['a1'],
    ['b1', 'b2'],
    ['c1', 'c2'],
  ]
-* *!/
+*/
 function genCartesian () {
   // 本题为考试单行多行输入输出规范示例，无需提交，不计分。
   let arr = [],
     line,
     idx = 0;
-  /!*while(line=readline()) {
+  /*while(line=readline()) {
     arr[idx++] = line.split(' ');
-  }*!/
+  }*/
   arr = [
     ['a1'],
     ['b1', 'b2'],
@@ -49,7 +49,6 @@ function get(arr) {
 }
 
 genCartesian();
-*/
 
 
 /*排序*/
@@ -179,7 +178,7 @@ while(line=readline()) {
     [0, 1, 0, 0, 1],
     [0, 1, 0, 0, 0],
   ]*/
-let start = {x: 0, y: 0},
+/*let start = {x: 0, y: 0},
   end = {x: 4, y: 0},
   map = [
     [0, 1, 0, 0, 0],
@@ -242,4 +241,4 @@ function check (map, cur, end) {
   } else {
     return false
   }
-}
+}*/

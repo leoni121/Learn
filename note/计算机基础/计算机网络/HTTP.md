@@ -239,6 +239,8 @@ Content-Length: 100
 
   > 服务器理解请求但拒绝授权。这种状态与此类似`401`，但在这种情况下，重新认证将不会产生任何影响。访问是永久禁止的并且与应用程序逻辑相关联（如不正确的密码）。
   
+* `404`
+
 * `405 Method Not Allowed`
 
   > 服务器已知请求方法，**但已被禁用且无法使用**。这**两个强制性方法，`GET`和`HEAD`，绝不能被禁用，不应返回该错误代码。**
@@ -259,8 +261,6 @@ Content-Length: 100
 
   > 服务器遇到一个错误，使其无法为请求提供服务
   
-* 502 Bad Gateway
-
 * 503 服务器正忙，服务器超时
 
   > 服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。
@@ -404,17 +404,87 @@ Content-Length: 100
 
 ## 7. request 和 response 报文头部字段 ##
 
+> [header 头部字段汇总](<https://juejin.im/post/5ce0f3fdf265da1b86085782>)
+
+<img src="../img/http头部字段1.png" width="80%">
+
+**通用首部字段**
+
+| 首部字段名        | 说明                       | 示例　|
+| :---------------- | :------------------------- | |
+| Cache-Control     | 控制缓存行为               |      |
+| Connection        | 逐跳首部、连接的管理       |Connection : Keep-Alive<br />Connection : Keep-Alive|
+| Date              | 创建报文的日期时间         ||
+| Pragma            | 报文指令                   ||
+| Transfer-Encoding | 指定报文传输主体的编码方式 ||
+| Upgrade           | 升级为其他协议             |Upgrade: http/1.1<br />Upgrade: websocket|
+
+**请求首部字段**
+
+| 首部字段名        | 说明                       |示例|
+| ----------------- | -------------------------- | -------------------------- |
+| Accept            | 用户代理可以处理的媒体类型 |Accept: text/html,application/json;q=0.9, application/xml;q=0.8|
+| Accept-Charset    | 优先的字符集               ||
+| Accept-Encoding   | 优先的内容编码             ||
+| Authorization     | Web认证信息                ||
+| Host              | 请求资源所在的服务器       ||
+| if-Match          | 比较实体标记（ETag）       ||
+| if-Modified-Since | 比较资源的更新时间         ||
+| Range             | 实体的字节范围请求         ||
+| Referer           | Referer 当前页面 对html的请求来自上一个页面的 url, ajax请求是当前的url ||
+|Origin|只存在于POST请求，而Referer则存在于所有类型的请求。||
+| User-Agent        | HTTP客户端程序的信息       ||
+|Access-Control-Request-Method| 告知服务器，实际请求将使用 POST 方法|Access-Control-Request-Method: POST|
+|Access-Control-Request-Headers|告知服务器，实际请求将携带两个自定义请求首部字段|Access-Control-Request-Headers: X-PINGOTHER, Content-Type|
+
+**响应首部字段**
+
+| 首部字段名         | 说明                         |示例|
+| ------------------ | ---------------------------- ||
+| Accept-Ranges      | 是否接受字节范围请求         ||
+| Age                | 推算资源创建经过的时间       ||
+| ETag               | 资源的匹配信息               ||
+| Location           | 令客户端重定向至指定UPI      ||
+| Proxy-Authenticate | 代理服务器对客户端的认证信息 ||
+| WWW-Authenticate   | 服务器对客户端的认证信息     ||
+| Server             | HTTP服务器的安装信息         ||
+| Vary               | 代理服务器的管理信息         ||
+|Access-Control-Allow-Origin||Access-Control-Allow-Origin: <origin> | *|
+|Access-Control-Max-Age| 在有效时间内，浏览器无须为同一请求再次发起预检请求。|Access-Control-Max-Age: <delta-seconds>|
+|Access-Control-Allow-Credentials||Access-Control-Allow-Credentials: true|
+|Access-Control-Allow-Headers|服务器允许请求中携带字段 X-PINGOTHER 与 Content-Type。|Access-Control-Allow-Headers: X-PINGOTHER, Content-Type|
+|Access-Control-Allow-Methods||Access-Control-Allow-Methods: <method>[, <method>]*|
+
+**实体首部字段**
+
+| 首部字段名       | 说明                   |
+| ---------------- | ---------------------- |
+| Allow            | 资源可支持的HTTP方法   |
+| Content-Encoding | 实体主体适用的编码方式 |
+| Content-Language | 实体主体的自然语言     |
+| Content-Length   | 实体主体的大小         |
+| Content-Location | 替代对应资源的URI      |
+| Content-MD5      | 实体主体的报文摘要     |
+| Content-Range    | 实体主体的位置范围     |
+| Content-Type     | 实体主体的媒体类型     |
+| EXpires          | 实体主体过期的日期时间 |
+| Last-Modified    | 资源的最后修改日期时间 |
+
+> 作者：wjie
+>
+> 链接：https://juejin.im/post/5ce0f3fdf265da1b86085782
+>
+> 来源：掘金
+>
+> 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
 **request 头**
 
-![requestHeader](../img/requestHeader.png)
+<img src="../img/requestHeader.png" width="80%">
 
 **response 头**
 
-![responseHeader](../img/responseHeader.png)
-
-1. referer 当前页面 对html的请求来自上一个页面的 url, ajax请求是当前的url
-
-2. HTTP 请求消息头部实例： 
+<img src="../img/responseHeader.png" width="80%">
 
 
 ## 8. HTTP的基本优化 ##

@@ -1,32 +1,19 @@
-function get (str) {
-  let len = str.length;
-  if (len <= 1) print(str)
-  let stack = {},
-    maxLen = 0,
-    start = 0,
-    end = 0,
-    temp = 0,
-    key;
-
-  for (let i = 0;i<len;i++) {
-    key = str[i];
-    if (stack[key] !== undefined) {
-      if (i - temp > maxLen) {
-        maxLen = i - temp;
-        end = i;
-        temp = stack[key];
-        start = temp;
-      } else {
-        console.log('as', temp, i, key)
-        temp = stack[key];
-      }
+/*
+while ((N=readInt()) != null && (M=readInt()) != null) {
+  print (N + ' ' + M);
+  let arr = [];
+  for (let i=0; i<M; i++) {
+    for(let j = 0;j<3;j++) {
+      arr.push(readInt());
     }
-    stack[key] = i;
+    print(...arr);
+    arr = [];
   }
-  if (end !==len-1 && len-1 - start > maxLen) {
-    end = len;
-  }
-  console.log(start, end, str.slice(start, end));
 }
-
-get('abcabbjgj')
+while(line=readline()){
+  var lines = line.split(' ');
+  var a = parseInt(lines[0]);
+  var b = parseInt(lines[1]);
+  print(a+b);
+}
+*/
