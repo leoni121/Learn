@@ -49,7 +49,7 @@
     "bootstrap-select": "^1.13.3",
     "bootstrap-table": "^1.12.1",
     "daterangepicker": "^3.0.3",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "layer": "^0.1.0",
     "x-editable": "^1.5.1"
   },
