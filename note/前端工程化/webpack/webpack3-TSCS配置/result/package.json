@@ -47,7 +47,7 @@
     "bootstrap": "^3.4.0",
     "bootstrap-datepicker": "^1.8.0",
     "bootstrap-select": "^1.13.3",
-    "bootstrap-table": "^1.12.1",
+    "bootstrap-table": "^1.20.2",
     "daterangepicker": "^3.0.3",
     "jquery": "^3.3.1",
     "layer": "^0.1.0",
